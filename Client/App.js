@@ -1,14 +1,31 @@
 import React from "react";
-import { View, Text } from "react-native";
-import tw from "twrnc";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
+import store from "./src/Redux/Store";
+import Welcome from "./src/Components/Welcome/Welcome";
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <View style={tw`flex-1 items-center justify-center bg-red-500`}>
-      <Text style={tw`text-white text-6xl`}>
-        ¡Hola, Tailwind CSS en React Native!
-      </Text>
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            initialParams={{ fromChild: "Initial" }}
+            options={{ headerShown: false }}
+          />
+          {/* <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Home" component={Home} /> */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
