@@ -12,24 +12,29 @@ export default function Welcome() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} />
-      <Image source={welcomeImage} />
+      <Image source={welcomeImage} className="mt-8" />
 
-      <Image source={wuau} />
-      <View className="flex">
+      <Image source={wuau} className="mt-8" />
+      <View className="flex mt-16">
         <Button
           title="Iniciar sesión"
           onPress={testButton}
           colorButton="bg-naranja"
           colorText="text-white"
+          ancho="w-72"
+          alto="h-14"
         />
+        <View className="my-4" />
 
         <Button
           title="Registrarme"
           onPress={testButton}
           colorButton="bg-black"
           colorText="text-white"
+          ancho="w-72"
+          alto="h-14"
         />
       </View>
     </View>
