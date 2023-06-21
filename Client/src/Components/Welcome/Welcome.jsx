@@ -17,10 +17,21 @@ export default function Welcome() {
       <Image source={welcomeImage} />
 
       <Image source={wuau} />
+      <View className="flex">
+        <Button
+          title="Iniciar sesión"
+          onPress={testButton}
+          colorButton="bg-naranja"
+          colorText="text-white"
+        />
 
-      <Button title="Test" onPress={testButton} />
-
-      <Button title="Test" onPress={testButton} />
+        <Button
+          title="Registrarme"
+          onPress={testButton}
+          colorButton="bg-black"
+          colorText="text-white"
+        />
+      </View>
     </View>
   );
 }
