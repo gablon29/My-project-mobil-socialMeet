@@ -2,7 +2,8 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import logo from "../../../images/logo.png";
 import welcomeImage from "../../../images/welcomeImage.png";
-import Wuau from "../../icons/Wuau";
+import wuau from "../../../images/wuau.png";
+
 import Button from "../Buttons/Button";
 
 export default function Welcome() {
@@ -11,23 +12,31 @@ export default function Welcome() {
   };
 
   return (
-    <>
-      <View className="mt-24">
-        <View>
-          <Image source={logo} />
-          <Image source={welcomeImage} />
-        </View>
-        <View className="mt-5">
-          <Wuau />
-        </View>
+    <View className="flex-1 items-center justify-center bg-white">
+      <Image source={logo} />
+      <Image source={welcomeImage} className="mt-8" />
+
+      <Image source={wuau} className="mt-8" />
+      <View className="flex mt-16">
+        <Button
+          title="Iniciar sesión"
+          onPress={testButton}
+          colorButton="bg-naranja"
+          colorText="text-white"
+          ancho="w-72"
+          alto="h-14"
+        />
+        <View className="my-4" />
+
+        <Button
+          title="Registrarme"
+          onPress={testButton}
+          colorButton="bg-black"
+          colorText="text-white"
+          ancho="w-72"
+          alto="h-14"
+        />
       </View>
-      <View className="flex-1 items-center justify-center">
-        <View>
-          <Button title="Test" onPress={testButton} />
-          <View className="my-2" />
-          <Button title="Test" onPress={testButton} />
-        </View>
-      </View>
-    </>
+    </View>
   );
 }
