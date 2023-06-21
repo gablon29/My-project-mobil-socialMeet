@@ -1,13 +1,14 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { Provider } from "react-redux";
-import store from "./src/Redux/Store";
-import Welcome from "./src/Components/Welcome/Welcome";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import Welcome from './src/Components/Welcome/Welcome';
+import store from './src/Redux/Store';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
-const App = () => {
+export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -27,6 +28,13 @@ const App = () => {
       </NavigationContainer>
     </Provider>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
