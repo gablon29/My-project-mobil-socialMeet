@@ -3,14 +3,9 @@ import React from "react";
 import logo from "../../../images/logo.png";
 import welcomeImage from "../../../images/welcomeImage.png";
 import wuau from "../../../images/wuau.png";
-
 import Button from "../Buttons/Button";
 
-export default function Welcome() {
-  const testButton = () => {
-    console.log("test");
-  };
-
+export default function Welcome({ navigation }) {
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} />
@@ -20,21 +15,23 @@ export default function Welcome() {
       <View className="flex mt-16">
         <Button
           title="Iniciar sesión"
-          onPress={testButton}
+          onPress={() => navigation.navigate("Login")}
           colorButton="bg-naranja"
           colorText="text-white"
           ancho="w-72"
           alto="h-14"
+          textSize="text-lg"
         />
         <View className="my-4" />
 
         <Button
           title="Registrarme"
-          onPress={testButton}
+          onPress={() => navigation.navigate("Register")}
           colorButton="bg-black"
           colorText="text-white"
           ancho="w-72"
           alto="h-14"
+          textSize="text-lg"
         />
       </View>
     </View>
