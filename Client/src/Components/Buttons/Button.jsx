@@ -3,7 +3,7 @@ import React from "react";
 
 const Button = ({ title, onPress, colorButton, colorText, ancho, alto }) => {
   const buttonClasses = `flex justify-center items-center rounded-full ${colorButton} ${ancho} ${alto}`;
-  const textClasses = `text-lg font-bold font-Poppins ${colorText} `;
+  const textClasses = `text-lg font-bold font-Poppins  ${colorText} `;
 
   return (
     <TouchableOpacity className={buttonClasses} onPress={onPress}>
