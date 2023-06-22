@@ -20,6 +20,7 @@ export default function Welcome({ navigation }) {
           colorText="text-white"
           ancho="w-72"
           alto="h-14"
+          textSize="text-lg"
         />
         <View className="my-4" />
 
@@ -30,6 +31,7 @@ export default function Welcome({ navigation }) {
           colorText="text-white"
           ancho="w-72"
           alto="h-14"
+          textSize="text-lg"
         />
       </View>
     </View>

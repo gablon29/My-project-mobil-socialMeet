@@ -1,8 +1,12 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import logo from "../../../images/logo.png";
-import loginImage from "../../../images/loginImage.png";
+
 import Button from "../Buttons/Button";
+import { Picker } from "@react-native-picker/picker";
+
+const countryOptions = ["Argentina", "Chile", "España"];
+const provinceOptions = ["Opción A", "Opción B", "Opción C"];
 
 export default function Register({ navigation }) {
   const [name, setName] = useState("");
@@ -35,7 +39,7 @@ export default function Register({ navigation }) {
           placeholder=""
           value={name}
           onChangeText={(text) => setName(text)}
-          className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+          className="w-full rounded-full bg-gris h-8 px-4 mb-4"
         />
 
         <Text className="font-poppins">Apellidos</Text>
@@ -43,7 +47,7 @@ export default function Register({ navigation }) {
           placeholder=""
           value={lastName}
           onChangeText={(text) => setLastName(text)}
-          className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+          className="w-full rounded-full bg-gris h-8 px-4 mb-4"
         />
 
         <Text className="font-poppins">Email</Text>
@@ -51,7 +55,7 @@ export default function Register({ navigation }) {
           placeholder=""
           value={email}
           onChangeText={(text) => setEmail(text)}
-          className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+          className="w-full rounded-full bg-gris h-8 px-4 mb-4"
         />
 
         <Text className="font-poppins">Repetir Email</Text>
@@ -59,7 +63,7 @@ export default function Register({ navigation }) {
           placeholder=""
           value={confirmEmail}
           onChangeText={(text) => setConfirmEmail(text)}
-          className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+          className="w-full rounded-full bg-gris h-8 px-4 mb-4"
         />
 
         <Text className="font-poppins">Teléfono</Text>
@@ -67,25 +71,48 @@ export default function Register({ navigation }) {
           placeholder=""
           value={phone}
           onChangeText={(text) => setPhone(text)}
-          className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+          className="w-full rounded-full bg-gris h-8 px-4 mb-4"
         />
 
         <Text className="font-poppins">País</Text>
-        {/* Aquí puedes agregar el componente Select con opciones de países */}
+        <View className="relative rounded-full bg-gris h-8  px-4 mb-4">
+          <Picker
+            selectedValue={country}
+            onValueChange={(itemValue) => setCountry(itemValue)}
+            className="w-full"
+          >
+            {countryOptions.map((option, index) => (
+              <Picker.Item key={index} label={option} value={option} />
+            ))}
+          </Picker>
+        </View>
+        <View className="flex flex-row">
+          <View className="flex-1 mr-2">
+            <Text className="font-poppins">Provincia</Text>
+            <View className="relative rounded-full bg-gris h-8 px-4 mb-4">
+              <Picker
+                selectedValue={province}
+                onValueChange={(itemValue) => setProvince(itemValue)}
+                className="w-full"
+              >
+                {provinceOptions.map((option, index) => (
+                  <Picker.Item key={index} label={option} value={option} />
+                ))}
+              </Picker>
+            </View>
+          </View>
+          <View className="flex-1 ml-2">
+            <Text className="font-poppins">Código Postal</Text>
+            <TextInput
+              placeholder=""
+              value={postalCode}
+              onChangeText={(text) => setPostalCode(text)}
+              className="w-full rounded-full bg-gris h-8 px-4 mb-4"
+            />
+          </View>
+        </View>
 
-        <Text className="font-poppins">Provincia</Text>
-        {/* Aquí puedes agregar el componente Select con opciones de provincias */}
-
-        <Text className="font-poppins">Código Postal</Text>
-        <TextInput
-          placeholder=""
-          value={postalCode}
-          onChangeText={(text) => setPostalCode(text)}
-          className="w-full rounded-full bg-gris h-10 px-4 mb-4"
-        />
-
-        <View className="my-4" />
-        <View className="flex items-center">
+        <View className="flex items-center mt-2">
           <Button
             title="Registrarme"
             onPress={handleRegister}
@@ -93,11 +120,11 @@ export default function Register({ navigation }) {
             colorText="text-white"
             ancho="w-40"
             alto="h-11"
+            textSize="text-base"
           />
         </View>
       </View>
-
-      <View className="flex mt-16"></View>
+      <View className="my-4" />
       <View>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text className="font-poppins underline text-xs">

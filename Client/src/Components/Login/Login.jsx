@@ -49,6 +49,7 @@ export default function Login({ navigation }) {
             colorText="text-white"
             ancho="w-40"
             alto="h-11"
+            textSize="text-base"
           />
         </View>
       </View>
