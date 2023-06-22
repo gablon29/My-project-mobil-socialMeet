@@ -6,8 +6,8 @@ import logo from "../../../images/logo.png";
 
 export const RegisterStep2 = ({password, setPassword, setRegisterSteps, handleRegister,checkPassword, setCheckPassword,}) =>{
 
-const createAcount = () =>{
-    handleRegister().then((succes) => 
+const createAcount = async() =>{
+   await handleRegister().then((succes) => 
     setRegisterSteps(3)
     ).catch((error) => console.log("ocurrio un error", error))
 }

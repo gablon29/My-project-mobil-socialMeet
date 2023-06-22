@@ -14,6 +14,15 @@ export default function Login({ navigation }) {
     setPassword,
      handleLogin} = useAuth()
  
+const login = () => {
+  try{
+    handleLogin().then((succes) =>  navigation.navigate("Home"))
+  }
+  catch(err){
+    console.log("error al acceder", err)
+  }
+}
+
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} />
@@ -45,7 +54,7 @@ export default function Login({ navigation }) {
         <View className="flex items-center">
           <Button
             title="Entrar"
-            onPress={handleLogin}
+            onPress={() =>login()}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"

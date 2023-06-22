@@ -8,7 +8,7 @@ import { useFonts } from "expo-font";
 import Login from "./src/Components/Login/Login";
 import Register from "./src/Components/Register/Register";
 import ResetPassword from "./src/Components/ResetPassword/ResetPasword";
-
+import Home from "./src/Components/Home/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,8 +44,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="ResetPassword" component={ResetPassword} />
-          {/*   <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Home" component={Home} /> */}
+           <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

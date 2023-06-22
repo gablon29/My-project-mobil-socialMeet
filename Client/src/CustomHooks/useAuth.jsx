@@ -1,9 +1,12 @@
 import react, { useState } from "react";
 import axios from "axios"
-import { registro } from "../metodos";
+import { login, registro } from "../Components/metodos/authMetodos";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from "react-redux";
+import { authSetUser } from "../Redux/ReducerAuth";
 
 export const useAuth = () =>{
-
+const dispatch = useDispatch()
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
 const [checkPassword, setCheckPassword] = useState("")
@@ -20,10 +23,7 @@ const [confirmEmail, setConfirmEmail] = useState("")
 const [checkSms, setCheckSms] = useState("")
 
 
-
-
 const handleRegister = async () => {
-
   try{
    let response = await registro(email,
       password,
@@ -36,17 +36,29 @@ const handleRegister = async () => {
       zipcode,
       address)
       console.log(response)
-
-  }
+     await AsyncStorage.setItem('Token', response.token);
+     dispatch(authSetUser(response))
+     const value = await AsyncStorage.getItem('Token');
+      console.log(value)
+    }
   catch(error){
     console.log(error)
   }
   };
 
 
-  const handleLogin = () => {
-    console.log("Nombre de usuario:", email);
-    console.log("Contraseña:", password);
+  const handleLogin = async() => {
+    try{
+      let response = await login(email, password,)
+        await AsyncStorage.setItem('Token', response.token);
+        dispatch(authSetUser(response))
+        const value = await AsyncStorage.getItem('Token');
+        console.log("okey")
+
+       }
+     catch(error){
+       console.log(error)
+     }
   };
 
   function verifyNumber() {
@@ -92,11 +104,13 @@ return{
     zipcode,
     setZipcode,
     address,
+    handleLogin,
     setAddress,
     handleRegister, confirmEmail, setConfirmEmail,
     verifyNumber,
     checkSms, setCheckSms,
     checkPassword, setCheckPassword
+    
 }
 
 }
