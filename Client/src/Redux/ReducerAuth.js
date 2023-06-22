@@ -8,6 +8,7 @@ const initialState = {
   errorAuth: "",
   needVerificationAuth: false,
   successAuth: "",
+  profile: [],
 };
 
 //ACÁ SE CREA EL REDUCER JUNTO CON LAS ACTIONS
@@ -20,6 +21,7 @@ const ReducerAuth = createSlice({
         ...state,
         usuarioAuth: action.payload,
         authenticatedAuth: true,
+        profile: action.payload
       };
     },
   },

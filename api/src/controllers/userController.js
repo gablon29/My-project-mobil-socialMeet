@@ -19,7 +19,16 @@ const createNewUser = async (user) => {
   }
 };
 
-const registerUser = async (email, password, firstName, lastName, phone) => {
+const registerUser = async ( email,
+  password,
+  firstName,
+  lastName,
+  phone,
+  country,
+  province,
+  city,
+  zipcode,
+  address) => {
   try {
     // Verificar si el usuario ya existe en la base de datos
     const existingUser = await UserModel.findOne({ email }).maxTimeMS(15000); // Increase timeout to 15 seconds
@@ -37,11 +46,26 @@ const registerUser = async (email, password, firstName, lastName, phone) => {
       firstName,
       lastName,
       phone,
+      country,
+      province,
+      city,
+      zipcode,
+      address
     });
 
     await newUser.save();
 
-    return { message: 'User created successfully', user: newUser };
+    const jwtSecretKey = 'MySuperSecretKey123!@';
+    // Generar el token JWT
+    const token = jwt.sign({ userId: newUser._id }, jwtSecretKey, {
+      expiresIn: '1h',
+    });
+
+    // Guardar el token en el modelo de usuario
+    newUser.tokens.push({ token });
+    await newUser.save();
+
+    return { message: 'User created successfully', token, user: newUser };
   } catch (error) {
     throw error;
   }
