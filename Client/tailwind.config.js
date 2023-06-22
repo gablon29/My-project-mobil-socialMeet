@@ -13,6 +13,15 @@ module.exports = {
         naranja: "#FB6726",
         gris: "#DADADA",
       },
+      picker: {
+        textAlign: "center",
+        // Otros estilos personalizados para el Picker
+      },
+    },
+  },
+  variants: {
+    extend: {
+      picker: ["responsive"],
     },
   },
   plugins: [],
