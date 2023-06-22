@@ -9,6 +9,7 @@ import Login from "./src/Components/Login/Login";
 import Register from "./src/Components/Register/Register";
 import ResetPassword from "./src/Components/ResetPassword/ResetPasword";
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
 
   return (
     <Provider store={store}>
@@ -34,6 +36,8 @@ export default function App() {
             component={Login}
             options={{ headerShown: false }}
           />
+
+          {/* Registro engloba 3 componentes y les envia props para completar los 3 formularios */}
           <Stack.Screen
             name="Register"
             component={Register}

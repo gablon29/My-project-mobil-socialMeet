@@ -3,16 +3,17 @@ import React, { useState } from "react";
 import logo from "../../../images/logo.png";
 import loginImage from "../../../images/loginImage.png";
 import Button from "../Buttons/Button";
+import { useAuth } from "../../CustomHooks/useAuth";
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    console.log("Nombre de usuario:", email);
-    console.log("Contraseña:", password);
-  };
-
+  const {
+    email, 
+    setEmail, 
+    password, 
+    setPassword,
+     handleLogin} = useAuth()
+ 
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} />

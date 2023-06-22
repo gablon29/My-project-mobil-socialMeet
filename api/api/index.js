@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const routes = require('../src/routes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8080;
 const { checkJwt, checkAdmin } = require('../src/utils/jwtUtils');
 const { globalLimit } = require('../src/utils/rate-limiters');
 require('dotenv').config();

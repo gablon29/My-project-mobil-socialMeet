@@ -26,15 +26,36 @@ router.get('/user', checkJwt, async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const { email, password, firstName, lastName, phone } = req.body;
+  const {  email,
+    password,
+    firstName,
+    lastName,
+    phone,
+    country,
+    province,
+    city,
+    zipcode,
+    address} = req.body;
 
   try {
-    const result = await registerUser(email, password, firstName, lastName, phone);
+    const result = await registerUser( email,
+      password,
+      firstName,
+      lastName,
+      phone,
+      country,
+      province,
+      city,
+      zipcode,
+      address);
     res.status(200).json(result);
   } catch (error) {
+    console.log(error)
     res.status(400).json({ error: error.message });
   }
 });
+
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -58,20 +79,6 @@ router.post('/', checkJwt, async (req, res) => {
   }
 });
 
-// router.get('/profile', checkJwt, async (req, res) => {
-//   try {
-//     const email = req.user.email;
-//     const user = await findUser(email);
-//     if (user) {
-//       if (user['_doc'].profilePic.length === 0)
-//         user['_doc'].profilePic =
-//           'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Color_icon_warm.svg/600px-Color_icon_warm.svg.png?20100407180532';
-//       res.send(user);
-//     } else throw new Error('Usuario no se encontró en la base de datos');
-//   } catch (error) {
-//     res.status(501).send({ error: error.message });
-//   }
-// });
 
 router.get('/checkemail', limit5cada30minutos, async (req, res) => {
   try {
