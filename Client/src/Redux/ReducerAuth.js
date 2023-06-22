@@ -2,11 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //SE INICIA OBJETO DEL REDUCER
 const initialState = {
-  usuarioAuth: undefined,
   authenticatedAuth: false,
   loadingAuth: false,
   errorAuth: "",
-  needVerificationAuth: false,
+  token: "",
   successAuth: "",
   profile: [],
 };
@@ -19,9 +18,9 @@ const ReducerAuth = createSlice({
     authSetUser(state, action) {
       return {
         ...state,
-        usuarioAuth: action.payload,
         authenticatedAuth: true,
-        profile: action.payload
+        profile: action.payload.user,
+        token: action.payload.user,
       };
     },
   },
