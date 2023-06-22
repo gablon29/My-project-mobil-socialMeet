@@ -3,19 +3,13 @@ module.exports = {
   content: ["./App.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontWeight: {
-        600: "600",
-      },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+        poppins: ["Poppins"],
+        poppinsBold: ["Poppins-Bold"],
       },
       colors: {
         naranja: "#FB6726",
         gris: "#DADADA",
-      },
-      picker: {
-        textAlign: "center",
-        // Otros estilos personalizados para el Picker
       },
     },
   },

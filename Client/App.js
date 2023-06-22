@@ -15,12 +15,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins: require("./src/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("./src/fonts/Poppins-Bold.ttf"),
   });
 
   if (!fontsLoaded) {
     return null;
   }
-
 
   return (
     <Provider store={store}>
@@ -44,7 +44,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="ResetPassword" component={ResetPassword} />
-           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo.png";
 import Button from "../Buttons/Button";
-import { Picker } from "@react-native-picker/picker";
 import { SelectList } from "react-native-dropdown-select-list";
 import countrys from "../../../extras/countrys.json";
 
