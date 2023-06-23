@@ -36,7 +36,7 @@ export default function Register({ navigation }) {
     setCheckSms,
   } = useAuth();
 
-  const [registerSteps, setRegisterSteps] = useState(1);
+  const [registerSteps, setRegisterSteps] = useState(2);
 
   return (
     <>

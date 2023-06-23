@@ -1,28 +1,32 @@
+import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import logo from "../../../images/logo.png";
+import mensajeDeBienvenida from "../../../images/mensajeDeBienvenida.png";
+import Button from "../Buttons/Button";
 
-export const RegisterStep3 = () => {
-  //aca se setea la contraseña
-  const profile = useSelector((state) => state.ReducerAuth);
-
+export function RegisterStep3({ navigation }) {
   return (
-    <>
-      <View className="mt-36 ml-28">
-        <Text>HOLA</Text>
-        <Text>HOLA</Text>
-        <Text>HOLA</Text>
-        <Text>HOLA</Text>
-        <Text>HOLA</Text>
-      </View>
-      <ScrollView>
-        <View>
-          <Text>1</Text>
-
-          <Text>5</Text>
-          <Text>6</Text>
+    <View className="flex-1 items-center justify-center bg-white">
+      <Image source={logo} className="mb-32" />
+      <View className="flex items-center mb-20">
+        <Image source={mensajeDeBienvenida} />
+        <View className="my-10">
+          <Text className="font-poppinsBold text-center text-lg mt-5">
+            ¡Enhorabuena, tu cuenta ya ha sido creada!
+          </Text>
         </View>
-      </ScrollView>
-    </>
+        <View className="flex items-center mt-10">
+          <Button
+            title="Ir a inicio"
+            onPress={() => login()}
+            colorButton="bg-naranja"
+            colorText="text-white"
+            ancho="w-40"
+            alto="h-11"
+            textSize="text-base"
+          />
+        </View>
+      </View>
+    </View>
   );
-};
+}
