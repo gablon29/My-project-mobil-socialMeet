@@ -3,16 +3,23 @@ module.exports = {
   content: ["./App.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontWeight: {
-        600: "600",
-      },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+        poppins: ["Poppins"],
+        poppinsBold: ["Poppins-Bold"],
       },
       colors: {
         naranja: "#FB6726",
         gris: "#DADADA",
       },
+      fontSize: {
+        //no funca no sé pq
+        xxs: "0.625rem",
+      },
+    },
+  },
+  variants: {
+    extend: {
+      picker: ["responsive"],
     },
   },
   plugins: [],

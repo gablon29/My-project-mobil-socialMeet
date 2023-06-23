@@ -1,3 +1,4 @@
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
@@ -9,23 +10,40 @@ import Login from "./src/Components/Login/Login";
 import Register from "./src/Components/Register/Register";
 import ResetPassword from "./src/Components/ResetPassword/ResetPasword";
 import Home from "./src/Components/Home/Home";
+import Header from "./src/Components/Header/Header";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins: require("./src/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("./src/fonts/Poppins-Bold.ttf"),
   });
+
+  const showHeader = (route) => {
+    //función para mostrar Header, excluyendo los siguientes:
+    const screenNamesToHideHeader = [
+      "Welcome",
+      "Register",
+      "Login",
+      "ResetPassword",
+    ];
+    return !screenNamesToHideHeader.includes(route.name);
+  };
 
   if (!fontsLoaded) {
     return null;
   }
 
-
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            header: (props) => showHeader(props.route) && <Header />,
+            headerShown: true,
+          }}
+        >
           <Stack.Screen
             name="Welcome"
             component={Welcome}
@@ -36,15 +54,21 @@ export default function App() {
             component={Login}
             options={{ headerShown: false }}
           />
-
-          {/* Registro engloba 3 componentes y les envia props para completar los 3 formularios */}
           <Stack.Screen
             name="Register"
             component={Register}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="ResetPassword" component={ResetPassword} />
-           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen
+            name="ResetPassword"
+            component={ResetPassword}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: true }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

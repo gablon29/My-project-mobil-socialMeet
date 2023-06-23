@@ -11,7 +11,7 @@ const Button = ({
   textSize,
 }) => {
   const buttonClasses = `flex justify-center items-center rounded-full ${colorButton} ${ancho} ${alto}`;
-  const textClasses = `${textSize} font-bold font-Poppins  ${colorText} `;
+  const textClasses = `${textSize}  font-poppinsBold  ${colorText} `;
 
   return (
     <TouchableOpacity className={buttonClasses} onPress={onPress}>

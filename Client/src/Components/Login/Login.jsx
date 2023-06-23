@@ -6,22 +6,15 @@ import Button from "../Buttons/Button";
 import { useAuth } from "../../CustomHooks/useAuth";
 
 export default function Login({ navigation }) {
+  const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
-  const {
-    email, 
-    setEmail, 
-    password, 
-    setPassword,
-     handleLogin} = useAuth()
- 
-const login = () => {
-  try{
-    handleLogin().then((succes) =>  navigation.navigate("Home"))
-  }
-  catch(err){
-    console.log("error al acceder", err)
-  }
-}
+  const login = () => {
+    try {
+      handleLogin().then((succes) => navigation.navigate("Home"));
+    } catch (err) {
+      console.log("error al acceder", err);
+    }
+  };
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
@@ -54,7 +47,7 @@ const login = () => {
         <View className="flex items-center">
           <Button
             title="Entrar"
-            onPress={() =>login()}
+            onPress={() => login()}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"
@@ -69,6 +62,11 @@ const login = () => {
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text className="font-poppins underline text-xs">
             ¿Aún no tienes una cuenta? Regístrate Aquí
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Text className="font-poppins underline text-xs mt-10">
+            ACCESO TEMPORAL AL HOME
           </Text>
         </TouchableOpacity>
       </View>
