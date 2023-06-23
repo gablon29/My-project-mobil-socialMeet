@@ -14,7 +14,7 @@ export default function Welcome({ navigation }) {
       try {
         const value = await AsyncStorage.getItem('Token');
         if (value !== null) {
-          console.log('Valor recuperado:', value);
+          reloadUser(value).then((succes) => console.log(succes))
         } else {
           console.log('No se encontraron datos.');
         }
