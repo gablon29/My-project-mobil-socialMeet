@@ -11,6 +11,10 @@ module.exports = {
         naranja: "#FB6726",
         gris: "#DADADA",
       },
+      fontSize: {
+        //no funca no sé pq
+        xxs: "0.625rem",
+      },
     },
   },
   variants: {
