@@ -13,8 +13,6 @@ export const Reset2Step = ({ verification, setSteps }) => {
 
     if (value && index < code.length - 1) {
       codeInputs.current[index + 1].focus();
-    } else if (!value && index > 0) {
-      codeInputs.current[index - 1].focus();
     }
   };
 
