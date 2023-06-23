@@ -58,7 +58,7 @@ const registerUser = async ( email,
     const jwtSecretKey = 'MySuperSecretKey123!@';
     // Generar el token JWT
     const token = jwt.sign({ userId: newUser._id }, jwtSecretKey, {
-      expiresIn: '1h',
+      expiresIn: '300h',
     });
 
     // Guardar el token en el modelo de usuario
@@ -88,7 +88,7 @@ const loginUser = async (email, password) => {
     const jwtSecretKey = 'MySuperSecretKey123!@';
     // Generar el token JWT
     const token = jwt.sign({ userId: user._id }, jwtSecretKey, {
-      expiresIn: '1h',
+      expiresIn: '300h',
     });
 
     // Guardar el token en el modelo de usuario
@@ -98,6 +98,34 @@ const loginUser = async (email, password) => {
     return { token, user };
   } catch (error) {
     throw error;
+  }
+};
+const recoverPassword = async(email, password) => {
+
+  try {
+    // Verificar si el usuario existe en la base de datos
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Hashear la nueva contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Actualizar la contraseña del usuario en la base de datos
+    user.password = hashedPassword;
+    await user.save();
+
+    const jwtSecretKey = 'MySuperSecretKey123!@';
+    const token = jwt.sign({ userId: user._id }, jwtSecretKey, {
+      expiresIn: '1h',
+    });
+
+    return  'Password recovered successfully', token, user 
+  } catch (error) {
+    console.log(error);
+    return error, 'Something went wrong' 
   }
 };
 
@@ -125,4 +153,5 @@ module.exports = {
   loginUser,
   findUser,
   findUserName,
+  recoverPassword,
 };

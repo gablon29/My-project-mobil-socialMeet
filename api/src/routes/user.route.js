@@ -1,7 +1,8 @@
 const express = require('express');
 const {
   loginUser,
-  registerUser
+  registerUser,
+  recoverPassword
 } = require('../controllers/userController');
 const { checkJwt } = require('../utils/jwtUtils');
 const { limit5cada30minutos } = require('../utils/rate-limiters');
@@ -68,6 +69,16 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/recovery', async (req, res) => {
+  const  {email, password } = req.body;
+
+  try {
+    const result = await recoverPassword(email, password);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+});
 
 // router.put('/profile', checkJwt, async (req, res) => {
 //   try {
