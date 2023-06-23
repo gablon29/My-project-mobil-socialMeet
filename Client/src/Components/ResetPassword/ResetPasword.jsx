@@ -24,13 +24,14 @@ export default function ResetPasword({ navigation }) {
 
   return (
     <>
-      {steps === 0 ? (
-        <View className="flex-1 items-center justify-start pt-10 bg-white">
-          <HeaderLeftArrow
-            text="Iniciar sesión"
-            goBack={handleGoBack}
-            setSteps={setSteps}
-          />
+      <View className="flex-1 items-center justify-start pt-10 bg-white">
+        <HeaderLeftArrow
+          text={steps == 1 ? "Revisar email" : "Iniciar sesión"}
+          goBack={handleGoBack}
+          steps={steps}
+          setSteps={setSteps}
+        />
+        {steps === 0 ? (
           <Reset1Step
             email={email}
             setEmail={setEmail}
@@ -41,30 +42,16 @@ export default function ResetPasword({ navigation }) {
             emailPassword={emailPassword}
             verification={verification}
           />
-        </View>
-      ) : steps === 1 ? (
-        <View className="flex-1 items-center justify-start pt-10 bg-white">
-          <HeaderLeftArrow
-            text="Iniciar sesión"
-            goBack={handleGoBack}
-            setSteps={setSteps}
-          />
+        ) : steps === 1 ? (
           <Reset2Step
             verification={verification}
             steps={steps}
             setSteps={setSteps}
           />
-        </View>
-      ) : (
-        <View className="flex-1 items-center justify-start pt-10 bg-white">
-          <HeaderLeftArrow
-            text="Iniciar sesión"
-            goBack={handleGoBack}
-            setSteps={setSteps}
-          />
+        ) : (
           <Reset3Step password={password} setPassword={setPassword} />
-        </View>
-      )}
+        )}
+      </View>
     </>
   );
 }
