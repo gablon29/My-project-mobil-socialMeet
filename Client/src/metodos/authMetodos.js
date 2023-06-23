@@ -66,3 +66,23 @@ export const login = async (
     throw error;
   }
 };
+export const reloadUser = async (token) => {
+  try {
+    const response = await fetch("https://whopaws-production.up.railway.app/api/user/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
+      }
+    });
+    if (!response.ok) {
+      throw new Error("login failed");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

@@ -1,6 +1,6 @@
 import react, { useState } from "react";
 import axios from "axios"
-import { login, registro } from "../Components/metodos/authMetodos";
+import { login, registro } from "../metodos/authMetodos";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from "react-redux";
 import { authSetUser } from "../Redux/ReducerAuth";

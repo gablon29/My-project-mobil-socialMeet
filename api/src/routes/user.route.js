@@ -7,19 +7,24 @@ const {
 } = require('../controllers/userController');
 const { checkJwt } = require('../utils/jwtUtils');
 const { limit5cada30minutos } = require('../utils/rate-limiters');
+const UserModel = require('../models/user.model');
 
 const router = express.Router();
 
 
 router.get('/user', checkJwt, async (req, res) => {
   try {
-    
+    const { userId } = req.user; // El campo 'sub' del token contiene el identificador único del usuario
+console.log(req.user)
+    // Busca el usuario en la base de datos por el identificador
+    const user = await UserModel.findOne({ _id: userId });
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
     // Devuelve la información del usuario
-    res.json("funciona");
+    res.json(user);
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
