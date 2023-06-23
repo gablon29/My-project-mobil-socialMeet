@@ -21,7 +21,7 @@ const [zipcode, setZipcode] = useState("")
 const [address, setAddress] = useState("")
 const [confirmEmail, setConfirmEmail] = useState("")
 const [checkSms, setCheckSms] = useState("")
-
+const[verification, setVerification] = useState("")
 
 const handleRegister = async () => {
   try{
@@ -83,7 +83,56 @@ const handleRegister = async () => {
       });
   }
   
-
+  const emailPassword = () => {
+    const apiKey = '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';
+  
+    // Función para generar un código alfanumérico aleatorio
+    const generateCode = () => {
+      const length = 6; // Longitud del código
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        code += characters.charAt(randomIndex);
+      }
+      return code;
+    };
+  
+    const code = generateCode(); // Generar el código aleatorio
+  
+    // Guardar el código en el estado local
+    // Asegúrate de tener definido el estado 'code' utilizando useState
+    setVerification({ code });
+  
+    const sendSmtpEmail = {
+      to: [
+        {
+          email: email,
+          name: "fsafasf"
+        }
+      ],
+      templateId: 2,
+      params: {
+        code: code
+      },
+      headers: {
+        'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2'
+      }
+    };
+  
+    axios.post('https://api.sendinblue.com/v3/smtp/email', sendSmtpEmail, {
+      headers: {
+        'api-key': apiKey,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(function (response) {
+        console.log('API called successfully. Returned data:', response.data);
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+      });
+  };
 return{
     email, 
     setEmail, 
@@ -109,7 +158,7 @@ return{
     handleRegister, confirmEmail, setConfirmEmail,
     verifyNumber,
     checkSms, setCheckSms,
-    checkPassword, setCheckPassword
+    checkPassword, setCheckPassword, emailPassword, verification
     
 }
 

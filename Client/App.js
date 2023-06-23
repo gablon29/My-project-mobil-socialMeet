@@ -11,6 +11,7 @@ import Register from "./src/Components/Register/Register";
 import ResetPassword from "./src/Components/ResetPassword/ResetPasword";
 import Home from "./src/Components/Home/Home";
 import Header from "./src/Components/Header/Header";
+import Button from "./src/Components/Buttons/Button";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,15 +60,23 @@ export default function App() {
             component={Register}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="ResetPassword"
-            component={ResetPassword}
-            options={{ headerShown: false }}
-          />
+ <Stack.Screen
+    name="ResetPassword"
+    component={ResetPassword}
+    options={{
+      headerStyle: { backgroundColor: "#ACACAC" },
+      headerShown: true,
+      headerTintColor: "#AB4E68",
+      title: "Reseñas que te dieron",
+      headerBackTitle: true,
+      headerBackTitleVisible: true,
+    }}
+  />
           <Stack.Screen
             name="Home"
             component={Home}
             options={{ headerShown: true }}
+  
           />
         </Stack.Navigator>
       </NavigationContainer>

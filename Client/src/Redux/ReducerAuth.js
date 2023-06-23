@@ -23,9 +23,16 @@ const ReducerAuth = createSlice({
         token: action.payload.user,
       };
     },
+    userRefresh(state, action) {
+      return {
+        ...state,
+        authenticatedAuth: true,
+        profile: action.payload,
+      };
+    },
   },
 });
 
-export const { authSetUser } = ReducerAuth.actions;
+export const { authSetUser, userRefresh } = ReducerAuth.actions;
 
 export default ReducerAuth.reducer;
