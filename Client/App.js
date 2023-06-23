@@ -9,6 +9,7 @@ import Login from "./src/Components/Login/Login";
 import Register from "./src/Components/Register/Register";
 import ResetPassword from "./src/Components/ResetPassword/ResetPasword";
 import Home from "./src/Components/Home/Home";
+import Header from "./src/Components/Header/Header";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <Header />
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -42,7 +44,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
 
-          {/* Registro engloba 3 componentes y les envia props para completar los 3 formularios */}
+          {/* Registro engloba 3 componentes y les envía props para completar los 3 formularios */}
           <Stack.Screen
             name="Register"
             component={Register}
