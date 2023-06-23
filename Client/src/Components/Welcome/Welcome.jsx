@@ -4,25 +4,32 @@ import logo from "../../../images/logo.png";
 import welcomeImage from "../../../images/welcomeImage.png";
 import wuau from "../../../images/wuau.png";
 import Button from "../Buttons/Button";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { reloadUser } from "../../metodos/authMetodos";
+import { useDispatch } from "react-redux";
+import { userRefresh } from "../../Redux/ReducerAuth";
 export default function Welcome({ navigation }) {
-
-
+  const dispatch = useDispatch();
   useEffect(() => {
+
+    /**
+ * Función asincrónica para obtener el token de AsyncStorage y recargar los datos del usuario.
+ * Revisa si el usuario tiene token, si tiene token le envia el token a reloadUser es un meoto de authmetodo
+ * reload user envia al back el token y se devuelve la info del usuario, se envia a redux, se redirigue a home.
+ **/
     const getData = async () => {
       try {
-        const value = await AsyncStorage.getItem('Token');
-        if (value !== null) {
-          reloadUser(value).then((succes) => console.log(succes))
-        } else {
-          console.log('No se encontraron datos.');
-        }
+        const value = await AsyncStorage.getItem("Token");
+        if (value) {
+          // await reloadUser(value)
+          //   .then((succes) => dispatch(userRefresh(succes)),navigation.navigate("Home") )
+          //   .catch((err) => console.log("token expirado debe loguearse"));
+        } 
       } catch (error) {
-        console.log('Error al obtener datos:', error);
+        console.log("Error al obtener datos:", error);
       }
     };
-  
+
     getData();
   }, []);
   return (

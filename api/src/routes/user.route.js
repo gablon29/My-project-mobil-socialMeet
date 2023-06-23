@@ -1,7 +1,5 @@
 const express = require('express');
 const {
-  findUser,
-  createNewUser,
   loginUser,
   registerUser
 } = require('../controllers/userController');
@@ -11,12 +9,10 @@ const UserModel = require('../models/user.model');
 
 const router = express.Router();
 
-
+//Devuelve el usuario con token para reloguearlo si tiene login
 router.get('/user', checkJwt, async (req, res) => {
   try {
-    const { userId } = req.user; // El campo 'sub' del token contiene el identificador único del usuario
-console.log(req.user)
-    // Busca el usuario en la base de datos por el identificador
+    const { userId } = req.user; 
     const user = await UserModel.findOne({ _id: userId });
 
     if (!user) {
@@ -29,7 +25,7 @@ console.log(req.user)
     res.status(500).json({ error: 'Server error' });
   }
 });
-
+//registro de usuario
 router.post('/register', async (req, res) => {
   const {  email,
     password,
@@ -60,7 +56,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-
+//login de usuario
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -71,30 +67,7 @@ router.post('/login', async (req, res) => {
     res.status(401).json({ error: error.message });
   }
 });
-router.post('/', checkJwt, async (req, res) => {
-  try {
-    const newUser = Object.assign(req.body, {
-      email: req.user.email,
-      email_verified: req.user.email_verified,
-    });
-    const createdUser = await createNewUser(newUser);
-    res.status(200).send(createdUser);
-  } catch (error) {
-    res.status(501).send({ error: error.message });
-  }
-});
 
-
-router.get('/checkemail', limit5cada30minutos, async (req, res) => {
-  try {
-    const { email } = req.query;
-    const user = await findUser(email);
-    if (user) res.send({ message: 'checked', payload: true });
-    else res.send({ message: 'checked', payload: false });
-  } catch (error) {
-    res.status(501).send({ error: error.message });
-  }
-});
 
 // router.put('/profile', checkJwt, async (req, res) => {
 //   try {
