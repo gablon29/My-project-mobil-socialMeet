@@ -1,46 +1,53 @@
 import React from "react";
-import { View, Image, TextInput, Text } from "react-native";
+import { View, Image, TextInput, Text, TouchableOpacity } from "react-native";
 import Button from "../Buttons/Button";
 
-export const Reset1Step = ( { email, 
-    setEmail, 
-    password, 
-    setPassword, steps, setSteps, emailPassword, verification}) =>{
+export const Reset1Step = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  steps,
+  setSteps,
+  emailPassword,
+  verification,
+}) => {
+  const Code = async () => {
+    try {
+      await emailPassword();
+      setSteps(1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-const Code = () =>{
-    emailPassword().then(() =>  setSteps(1)).cath((err) => console.log(err))
-   
-}
+  return (
+    <View className="flex-1 items-center justify-start pt-10 bg-white">
+      <Text className="text-center mb-12 px-8 font-poppins">
+        Escribe el email asociado a tu cuenta y te enviaremos un código para
+        recuperar tu cuenta
+      </Text>
 
-    return(
-        <>
-         <View className="flex-1 items-center justify-center bg-white">
-          <Text className="font-poppins text-center py-12">
-          Escribe el email asociado a tu cuenta y te enviaremos un código para recuperar tu cuenta
-          </Text>
-
-        <View className="w-4/5 ">
-          <TextInput
-            placeholder=""
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            className="w-full rounded-full bg-naranja  px-4 mb-4 h-14"
-          />
-          </View>
-                <View className="flex mt-16">
-
-
+      <View className="w-80 h-12 mb-5">
+        <TextInput
+          placeholder="   Email"
+          placeholderTextColor="white"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          className="w-full rounded-full bg-naranja px-4 h-14 font-poppinsBold text-white"
+        />
+      </View>
+      <View className="flex mt-12">
         <Button
           title="Recuperar"
-          onPress={() => emailPassword()}
+          onPress={() => Code()}
           colorButton="bg-black"
           colorText="text-white"
-          ancho="w-72"
-          alto="h-14"
-          textSize="text-lg"
+          ancho="w-40"
+          alto="h-11"
+          textSize="text-base"
         />
       </View>
     </View>
-        </>
-    )
-}
+  );
+};
