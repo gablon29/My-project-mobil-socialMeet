@@ -27,6 +27,11 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Welcome"
             component={Welcome}
             options={{ headerShown: false }}
@@ -44,7 +49,6 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="ResetPassword" component={ResetPassword} />
-          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
