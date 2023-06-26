@@ -20,7 +20,7 @@ const ReducerAuth = createSlice({
         ...state,
         authenticatedAuth: true,
         profile: action.payload.user,
-        token: action.payload.user,
+        token: action.payload.token,
       };
     },
     userRefresh(state, action) {

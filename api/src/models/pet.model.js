@@ -17,20 +17,46 @@ const petSchema = mongoose.Schema(
       enum: ['Perro', 'Gato', 'Otro'],
       default: 'Perro',
     },
-    birthday: {
-      type: Date,
+    age: {
+      years: { type: String },
+      months: { type: String }
     },
-    description: {
+    weight: {
+      type: String
+    },
+    breed: {
+      type: String
+    },
+    sex: {
+type: String
+    },
+    health: {
+      castrado:{ type: Boolean, default: false},
+      microchip:{ type: Boolean, default: false},
+      okWithDogs:{ type: Boolean, default: false},
+      okWithCags:{ type: Boolean, default: false},
+      okWithChildren:{ type: Boolean, default: false},
+    },
+    routineOfNeeds: {
       type: String,
       maxlength: 400,
       default: 'Sin descripcion.',
     },
-    size: {
+    routineOfDiet: {
       type: String,
-      enum: ['small', 'medium', 'large'],
-      default: 'medium',
+      maxlength: 400,
+      default: 'Sin descripcion.',
+    },
+    information: {
+      type: String,
+      maxlength: 400,
+      default: 'Sin descripcion.',
     },
     profilePic: {
+      type: String,
+      default: 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
+    },
+    coverImage: {
       type: String,
       default: 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
@@ -40,10 +66,12 @@ const petSchema = mongoose.Schema(
         default: [],
       },
     ],
-    //dueño = owener
-    owner: { //ower
+    owner: {
       type: String,
     },
+    ownerAdress: {
+      type: String,
+    }
   },
   {
     timestamps: {

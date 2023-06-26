@@ -11,7 +11,7 @@ const router = express.Router();
 router.post('/', checkJwt, async (req, res) => {
   try {
     const PetData = req.body;
-    const newPet = await createPet(PetData, req.user.email);
+    const newPet = await createPet(PetData, req.user.id);
     res.status(200).send({ message: 'Mascota creada', payload: newPet });
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -24,7 +24,7 @@ router.put('/profile', checkJwt, async (req, res) => {
   try {
     //prohibir modificar el owner y la history
     const newData = req.body;
-    const updatedPet = await updatePet(newData, req.body.id, req.user.email);
+    const updatedPet = await updatePet(newData, req.body.id, req.user.id);
     res.send({ message: 'Mascota modificada', payload: updatedPet });
   } catch (err) {
     res.status(501).send(err.message);
