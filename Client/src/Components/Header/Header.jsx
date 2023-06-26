@@ -71,15 +71,7 @@ export default function Header() {
             <Text className="text-xs font-poppinsBold">{element.nombre}</Text>
           </View>
         ))}
-      </View>
-    );
-  };
-
-  const BoxWithLogo = ({ logo }) => {
-    return (
-      <View className="items-center my-4">
-        <Image source={logo} className="w-16 h-16" resizeMode="contain" />
-      </View>
+      </>
     );
   };
 

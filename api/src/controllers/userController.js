@@ -129,7 +129,7 @@ const recoverPassword = async(email, password) => {
   }
 };
 
-const findUser = async (email) => {
+const findUser = async (email) => { //no se usa creo
   try {
     const userInDB = await UserModel.findOne({ email: email });
     return userInDB;
@@ -138,7 +138,7 @@ const findUser = async (email) => {
   }
 };
 
-const findUserName = async (email) => {
+const findUserName = async (email) => {  //no se usa creo
   try {
     const userInDB = await UserModel.findOne({ email: email });
     return userInDB.firstName + ' ' + userInDB.lastName;
