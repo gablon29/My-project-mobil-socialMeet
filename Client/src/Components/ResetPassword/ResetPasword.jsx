@@ -15,8 +15,7 @@ export default function ResetPasword({ navigation }) {
     emailPassword,
     verification,
   } = useAuth();
-  const [steps, setSteps] = useState(0);
-  console.log(verification);
+  const [steps, setSteps] = useState(1); //MODIFICAR PARA REVISAR LOS DEMÁS COMPONENTES DE PASOS DE RESETEO DE PASSWORD
 
   const handleGoBack = () => {
     navigation.goBack();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import adopcion from "../../../images/dropDownMenu/adopcion.png";
 import afiliacion from "../../../images/dropDownMenu/afiliacion.png";
@@ -19,21 +19,21 @@ import veterinarios from "../../../images/dropDownMenu/veterinarios.png";
 
 export default function Header() {
   const logoOpciones = [
-    inicio,
-    socialPaws,
-    veterinarios,
-    cuidadores,
-    paseadores,
-    peluqueros,
-    educadores,
-    adopcion,
-    chipWhopaws,
-    blog,
-    areaProfesional,
-    marketPlace,
-    misMascotas,
-    miPerfil,
-    afiliacion,
+    { logo: inicio, nombre: "Inicio" },
+    { logo: socialPaws, nombre: "Socialpaws" },
+    { logo: veterinarios, nombre: "Veterinarios" },
+    { logo: cuidadores, nombre: "Cuidadores" },
+    { logo: paseadores, nombre: "Paseadores" },
+    { logo: peluqueros, nombre: "Peluqueros" },
+    { logo: educadores, nombre: "Educadores" },
+    { logo: adopcion, nombre: "Adopción" },
+    { logo: chipWhopaws, nombre: "Chip Whopaws" },
+    { logo: blog, nombre: "Blog" },
+    { logo: areaProfesional, nombre: "Área profesional" },
+    { logo: marketPlace, nombre: "Marketplace" },
+    { logo: misMascotas, nombre: "Mis mascotas" },
+    { logo: miPerfil, nombre: "Mi perfil" },
+    { logo: afiliacion, nombre: "Afiliación" },
   ];
 
   const [showMenu, setShowMenu] = useState(false);
@@ -45,30 +45,36 @@ export default function Header() {
   const renderMenuItems = () => {
     if (showMenu) {
       return (
-        <View className="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-80 flex flex-row justify-around items-center">
-          <TouchableOpacity onPress={toggleMenu} className="self-end mr-4">
-            <Icon name="close" size={28} color="white" />
-          </TouchableOpacity>
-          <View className="flex flex-row justify-around">
-            <ColumnWithBoxes />
-            <ColumnWithBoxes />
-            <ColumnWithBoxes />
-          </View>
+        <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-16">
+          <Boxes />
         </View>
       );
     }
     return null;
   };
 
-  const ColumnWithBoxes = () => {
+  const Boxes = () => {
     return (
-      <View className="flex flex-col w-screen h-screen items-center">
-        {logoOpciones.map((logo, index) => (
-          <BoxWithLogo key={index} logo={logo} />
+      <>
+        {logoOpciones.map((element, index) => (
+          <View className="items-center my-3  ">
+            <View
+              key={index}
+              className="mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja"
+            >
+              <Image
+                source={element.logo}
+                className="w-14 h-14"
+                resizeMode="contain"
+              />
+            </View>
+            <Text className="text-xs font-poppinsBold">{element.nombre}</Text>
+          </View>
         ))}
       </View>
     );
   };
+
   const BoxWithLogo = ({ logo }) => {
     return (
       <View className="items-center my-4">
@@ -78,26 +84,27 @@ export default function Header() {
   };
 
   return (
-    <View className="flex flex-row justify-between items-center p-2 h-16 bg-black">
-      <TouchableOpacity onPress={toggleMenu} className="ml-2">
-        {showMenu ? (
-          <Icon name="close" size={28} color="white" />
-        ) : (
-          <Icon name="menu" size={28} color="white" />
-        )}
-      </TouchableOpacity>
+    <>
+      <View className="flex flex-row justify-between items-center p-2 h-16 bg-black">
+        <TouchableOpacity onPress={toggleMenu} className="ml-2">
+          {showMenu ? (
+            <Icon name="close" size={28} color="white" />
+          ) : (
+            <Icon name="menu" size={28} color="white" />
+          )}
+        </TouchableOpacity>
 
-      <Image
-        source={require("../../../images/logo.png")}
-        className="w-32 h-10"
-        resizeMode="contain"
-      />
+        <Image
+          source={require("../../../images/logo.png")}
+          className="w-32 h-10"
+          resizeMode="contain"
+        />
 
-      <TouchableOpacity onPress={() => {}} className="mr-2">
-        <Icon name="bell" size={28} color="white" />
-      </TouchableOpacity>
-
+        <TouchableOpacity onPress={() => {}} className="mr-2">
+          <Icon name="bell" size={28} color="white" />
+        </TouchableOpacity>
+      </View>
       {renderMenuItems()}
-    </View>
+    </>
   );
 }
