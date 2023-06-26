@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, TextInput, Text, TouchableOpacity } from "react-native";
+import { View, TextInput, Text } from "react-native";
 import Button from "../Buttons/Button";
 
 export const Reset1Step = ({
