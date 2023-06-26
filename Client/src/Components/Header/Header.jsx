@@ -62,14 +62,13 @@ export default function Header() {
 
   const ColumnWithBoxes = () => {
     return (
-      <View className="flex flex-col justify-center items-center">
+      <View className="flex flex-col w-screen h-screen items-center">
         {logoOpciones.map((logo, index) => (
           <BoxWithLogo key={index} logo={logo} />
         ))}
       </View>
     );
   };
-
   const BoxWithLogo = ({ logo }) => {
     return (
       <View className="items-center my-4">
