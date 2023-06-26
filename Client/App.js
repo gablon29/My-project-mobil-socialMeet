@@ -60,23 +60,22 @@ export default function App() {
             component={Register}
             options={{ headerShown: false }}
           />
- <Stack.Screen
-    name="ResetPassword"
-    component={ResetPassword}
-    options={{
-      headerStyle: { backgroundColor: "#ACACAC" },
-      headerShown: true,
-      headerTintColor: "#AB4E68",
-      title: "Reseñas que te dieron",
-      headerBackTitle: true,
-      headerBackTitleVisible: true,
-    }}
-  />
+          <Stack.Screen
+            name="ResetPassword"
+            component={ResetPassword}
+            options={{
+              headerStyle: { backgroundColor: "#ACACAC" },
+              headerShown: true,
+              headerTintColor: "#AB4E68",
+              title: "Reseñas que te dieron",
+              headerBackTitle: true,
+              headerBackTitleVisible: true,
+            }}
+          />
           <Stack.Screen
             name="Home"
             component={Home}
             options={{ headerShown: true }}
-  
           />
         </Stack.Navigator>
       </NavigationContainer>
