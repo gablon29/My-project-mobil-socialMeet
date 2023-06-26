@@ -27,14 +27,12 @@ export const Reset2Step = ({ verification, setSteps }) => {
   return (
     <>
       <View className="flex-1 items-center justify-center bg-white">
-        <Text className="font-poppins text-center py-12">
+        <Text className="text-base font-poppins text-center mb-10">
           Introduce el código que te hemos enviado por correo
         </Text>
 
-        <View className="w-4/5">
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
+        <View className="w-3/5">
+          <View style={{ flexDirection: "row" }}>
             {code.map((value, index) => (
               <TextInput
                 key={index}
@@ -42,9 +40,9 @@ export const Reset2Step = ({ verification, setSteps }) => {
                 placeholder=""
                 value={value}
                 onChangeText={(value) => handleChangeCode(index, value)}
-                className="w-1/6 rounded-full bg-naranja px-4 mb-4 h-14"
+                className="w-1/6 rounded bg-gray-300 mx-1 h-14"
                 maxLength={1}
-                keyboardType="numeric"
+                keyboardType="default"
               />
             ))}
           </View>
