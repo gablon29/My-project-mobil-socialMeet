@@ -18,7 +18,7 @@ export function RegisterStep3({ navigation }) {
         <View className="flex items-center mt-10">
           <Button
             title="Ir a inicio"
-            onPress={() => login()}
+            onPress={() => navigation.navigate("Home")}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"

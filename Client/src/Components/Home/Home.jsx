@@ -44,7 +44,7 @@ export default function Home() {
           <View className="mt-2">
             <Button
               title="Más información"
-              onPress={() => console.log("botón activado")}
+              onPress={() => alert("botón activado")}
               colorButton="bg-black"
               colorText="text-white"
               ancho="w-36"
