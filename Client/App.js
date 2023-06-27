@@ -14,6 +14,9 @@ import Header from "./src/Components/Header/Header";
 import Profile from "./src/Components/Profile/Profile";
 import MyPets from "./src/Components/MyPets/MyPets";
 import CreatePet from "./src/Components/CreatePet/CreatePet";
+import { initStripe } from '@stripe/stripe-react-native';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +25,14 @@ export default function App() {
     Poppins: require("./src/fonts/Poppins-Regular.ttf"),
     "Poppins-Bold": require("./src/fonts/Poppins-Bold.ttf"),
   });
-
+    //Carga stripe cuando la App se termine de iniciar
+    React.useEffect(() => {
+      initStripe({
+        publishableKey: "publishableKey",
+        merchantIdentifier: 'merchant.identifier.IPHONE_PIDE_DINERO',
+        urlScheme: "id-unica-para-rederigir-a-la-app",
+      });
+    }, []);
   const showHeader = (route) => {
     //función para mostrar Header, excluyendo los siguientes:
     const screenNamesToHideHeader = [
@@ -37,6 +47,9 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
+
+
 
   return (
     <Provider store={store}>
