@@ -12,7 +12,7 @@ export const Reset1Step = ({
   emailPassword,
   verification,
 }) => {
-  const Code = async () => {
+  const sendEmail = async () => {
     try {
       await emailPassword();
       setSteps(1);
@@ -40,7 +40,7 @@ export const Reset1Step = ({
       <View className="flex mt-12">
         <Button
           title="Recuperar"
-          onPress={() => Code()}
+          onPress={() => sendEmail()}
           colorButton="bg-black"
           colorText="text-white"
           ancho="w-40"

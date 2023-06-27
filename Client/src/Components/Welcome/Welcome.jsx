@@ -13,8 +13,8 @@ export default function Welcome({ navigation }) {
   useEffect(() => {
     /**
      * Función asincrónica para obtener el token de AsyncStorage y recargar los datos del usuario.
-     * Revisa si el usuario tiene token, si tiene token le envia el token a reloadUser es un meoto de authmetodo
-     * reload user envia al back el token y se devuelve la info del usuario, se envia a redux, se redirigue a home.
+     * Revisa si el usuario tiene token, si tiene token le envia el token a reloadUser es un método de authmetodo
+     * reload user envia al back el token y se devuelve la info del usuario, se envia a redux, se redirige a home.
      **/
     const getData = async () => {
       try {
@@ -25,7 +25,7 @@ export default function Welcome({ navigation }) {
               (succes) => dispatch(userRefresh(succes)),
               navigation.navigate(
                 "Profile"
-              ) /*  DESCOMENTAR PARA PROBAR LOGIN */
+              ) /*  DESCOMENTAR PARA PROBAR LOGIN O COMENTAR PARA PASAR DIRECTO */
             )
             .catch((err) => console.log("token expirado debe loguearse"));
         }

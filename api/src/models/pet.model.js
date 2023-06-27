@@ -40,17 +40,17 @@ const petSchema = mongoose.Schema(
     routineOfNeeds: {
       type: String,
       maxlength: 400,
-      default: 'Sin descripcion.',
+      default: 'Sin descripción.',
     },
     routineOfDiet: {
       type: String,
       maxlength: 400,
-      default: 'Sin descripcion.',
+      default: 'Sin descripción.',
     },
     information: {
       type: String,
       maxlength: 400,
-      default: 'Sin descripcion.',
+      default: 'Sin descripción.',
     },
     profilePic: {
       type: String,

@@ -58,8 +58,8 @@ export const CreatePet2 = ({ steps, setSteps }) => {
       </View>
       <View className="flex flex-row justify-between mx-6 mt-48">
         <Button
-          title="Saltar"
-          onPress
+          title="Atrás"
+          onPress={() => setSteps(0)}
           colorButton="bg-black"
           colorText="text-white"
           ancho="w-40"

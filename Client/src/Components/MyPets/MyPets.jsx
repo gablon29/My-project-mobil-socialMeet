@@ -18,6 +18,10 @@ export default function MyPets({ navigation }) {
     (state) => state.ReducerAuth.authenticatedAuth
   );
   const userPets = useSelector((state) => state.ReducerAuth.userPets);
+
+  console.log("authenticatedAuth", authenticatedAuth);
+  console.log("userPets", userPets);
+
   return (
     <View className="flex w-full h-full">
       <ButtonWithImage
@@ -33,7 +37,7 @@ export default function MyPets({ navigation }) {
         onPress={() => navigation.navigate("CreatePet")}
       />
 
-     {/* Aca se va a mapear userPets */}
+      {/* Aca se va a mapear userPets */}
       {/* <View className="flex flex-row flex-wrap mx-5 mt-14">
         {myPets.map((element, index) => (
           <View key={index} className="m-1">
@@ -41,12 +45,12 @@ export default function MyPets({ navigation }) {
             <View className="bg-naranja rounded-full">
               <Text className="font-poppinsBold text-white text-sm text-center">
                 {/* meter dentro de la imagen */}
-                {/* {element.name} */}
-              {/* </Text>
+      {/* {element.name} */}
+      {/* </Text>
             </View>
           </View> */}
-        {/* ))} */}
-      {/* </View> */} 
+      {/* ))} */}
+      {/* </View> */}
     </View>
   );
 }

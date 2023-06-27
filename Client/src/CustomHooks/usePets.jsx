@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addNewPets } from "../Redux/ReducerAuth";
 
 export const usePets = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [coverImage, setCoverImage] = useState("");
@@ -23,9 +23,8 @@ export const usePets = () => {
   const [routineOfDiet, setRoutineOfDiet] = useState("");
   const [information, setInformation] = useState("");
 
-
-
-  const addPet = async(token) =>{ //debe recibir el token al invocarla desde el argumento
+  const addPet = async (token) => {
+    //debe recibir el token al invocarla desde el argumento
     let info = {
       name: name,
       breed: breed,
@@ -35,18 +34,18 @@ export const usePets = () => {
         microchip: microchip,
         okWithDogs: okWithDogs,
         okWithCats: okWithCats,
-        okWithChildren: okWithChildren
+        okWithChildren: okWithChildren,
       },
       routineOfNeeds: routineOfNeeds,
       routineOfDiet: routineOfDiet,
       information: information,
       profilePic: profilePic,
-      coverImage: coverImage,      
-    }
+      coverImage: coverImage,
+    };
 
-   let response = await CreatePet(token, info)
-   dispatch(addNewPets(response.data))
-  }
+    let response = await CreatePet(token, info);
+    dispatch(addNewPets(response.data));
+  };
   return {
     name,
     setName,
@@ -64,6 +63,6 @@ export const usePets = () => {
     setSex,
     health,
     setHealth,
-    addPet
+    addPet,
   };
 };
