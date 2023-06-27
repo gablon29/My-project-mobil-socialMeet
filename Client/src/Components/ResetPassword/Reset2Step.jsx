@@ -5,7 +5,7 @@ import Button from "../Buttons/Button";
 export const Reset2Step = ({ verification, setSteps }) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const codeInputs = useRef([]);
-
+console.log(verification)
   const handleChangeCode = (index, value) => {
     const newCode = [...code];
     newCode[index] = value;
