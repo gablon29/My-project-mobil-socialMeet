@@ -19,23 +19,23 @@ const petSchema = mongoose.Schema(
     },
     age: {
       years: { type: String },
-      months: { type: String }
+      months: { type: String },
     },
     weight: {
-      type: String
+      type: String,
     },
     breed: {
-      type: String
+      type: String,
     },
     sex: {
-type: String
+      type: String,
     },
     health: {
-      castrado:{ type: Boolean, default: false},
-      microchip:{ type: Boolean, default: false},
-      okWithDogs:{ type: Boolean, default: false},
-      okWithCags:{ type: Boolean, default: false},
-      okWithChildren:{ type: Boolean, default: false},
+      castrado: { type: Boolean, default: false },
+      microchip: { type: Boolean, default: false },
+      okWithDogs: { type: Boolean, default: false },
+      okWithCags: { type: Boolean, default: false },
+      okWithChildren: { type: Boolean, default: false },
     },
     routineOfNeeds: {
       type: String,
@@ -54,11 +54,13 @@ type: String
     },
     profilePic: {
       type: String,
-      default: 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
+      default:
+        'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
     coverImage: {
       type: String,
-      default: 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
+      default:
+        'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
     gallery: [
       {
@@ -71,7 +73,7 @@ type: String
     },
     ownerAdress: {
       type: String,
-    }
+    },
   },
   {
     timestamps: {

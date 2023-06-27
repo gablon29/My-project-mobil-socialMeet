@@ -75,7 +75,11 @@ export default function Register({ navigation }) {
           handleRegister={handleRegister}
         />
       ) : (
-        <RegisterStep3 password={password} setPassword={setPassword} />
+        <RegisterStep3
+          password={password}
+          setPassword={setPassword}
+          navigation={navigation}
+        />
       )}
       {/* Aca se puede hacer el de la contraseña o registerstep3 pasarle por props password setpassword y handlesubmit para la ultima parte del registro */}
     </>

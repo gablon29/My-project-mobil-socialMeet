@@ -45,7 +45,8 @@ export default function Header() {
   const renderMenuItems = () => {
     if (showMenu) {
       return (
-        <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-16">
+        <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-24">
+          {/* top- debe ser igual al tamaño del header */}
           <Boxes />
         </View>
       );
@@ -77,23 +78,35 @@ export default function Header() {
 
   return (
     <>
-      <View className="flex flex-row justify-between items-center p-2 h-16 bg-black">
-        <TouchableOpacity onPress={toggleMenu} className="ml-2">
+      <View className="flex flex-row justify-between items-center p-2 h-24 bg-black">
+        {/* h- debe ser igual a top- del renderMenuItems */}
+        <TouchableOpacity onPress={toggleMenu} className="ml-2 mt-5">
           {showMenu ? (
             <Icon name="close" size={28} color="white" />
           ) : (
             <Icon name="menu" size={28} color="white" />
           )}
         </TouchableOpacity>
-
         <Image
           source={require("../../../images/logo.png")}
           className="w-32 h-10"
           resizeMode="contain"
         />
-
-        <TouchableOpacity onPress={() => {}} className="mr-2">
-          <Icon name="bell" size={28} color="white" />
+        <TouchableOpacity onPress={() => {}} className="mr-2 mt-5">
+          <View
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 25,
+              backgroundColor: "black",
+              justifyContent: "center",
+              alignItems: "center",
+              borderWidth: 2,
+              borderColor: "white",
+            }}
+          >
+            <Icon name="bell" size={24} color="white" />
+          </View>
         </TouchableOpacity>
       </View>
       {renderMenuItems()}

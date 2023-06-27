@@ -20,12 +20,14 @@ export default function Welcome({ navigation }) {
       try {
         const value = await AsyncStorage.getItem("Token");
         if (value) {
-               await reloadUser(value)
+          await reloadUser(value)
             .then(
               (succes) => dispatch(userRefresh(succes)),
-              navigation.navigate("Home")                                          
+              navigation.navigate(
+                "Profile"
+              ) /*  DESCOMENTAR PARA PROBAR LOGIN */
             )
-            .catch((err) =>navigation.navigate("Login") ); 
+            .catch((err) => console.log("token expirado debe loguearse"));
         }
       } catch (error) {
         console.log("Error al obtener datos:", error);
