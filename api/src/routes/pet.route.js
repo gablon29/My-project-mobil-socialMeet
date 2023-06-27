@@ -2,7 +2,7 @@ const express = require('express');
 const {
   updatePet,
   filterByOwner,
-  createPet
+  createPet,
 } = require('../controllers/petController');
 const { checkJwt } = require('../utils/jwtUtils');
 const router = express.Router();
@@ -12,12 +12,11 @@ router.post('/', checkJwt, async (req, res) => {
   try {
     const PetData = req.body;
     const newPet = await createPet(PetData, req.user.id);
-    res.status(200).send({ message: 'Mascota creada', payload: newPet });
+    res.status(200).send(newPet);
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
 });
-
 
 //logged, user, modifica el PET con lo q le pase por body
 router.put('/profile', checkJwt, async (req, res) => {
@@ -32,9 +31,10 @@ router.put('/profile', checkJwt, async (req, res) => {
 });
 
 router.get('/byowner', checkJwt, async (req, res) => {
+  //FUNCA: Trae las mascotas del owner
   try {
-    if (req.query.email) {
-      const pets = await filterByOwner(req.query.email);
+    if (req.user.id) {
+      const pets = await filterByOwner(req.user.id);
       res.status(200).send(pets);
     } else {
       const email = req.user.email;
