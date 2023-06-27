@@ -34,6 +34,7 @@ export default function MyPets({ navigation }) {
             <Image source={element.profilePic} />
             <View className="bg-naranja rounded-full">
               <Text className="font-poppinsBold text-white text-sm text-center">
+                {/* meter dentro de la imagen */}
                 {element.name}
               </Text>
             </View>
