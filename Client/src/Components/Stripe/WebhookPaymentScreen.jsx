@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View, Switch } from 'react-native';
 import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
 import Button from './Button';
-import PaymentScreen from './PaymentScreen';
+import PaymentScreen from './PaymentsUICustomScreen';
 
 export const API_URL = "https://expo-stripe-server-example.glitch.me"
 

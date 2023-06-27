@@ -10,7 +10,7 @@ export async function fetchPublishableKey(paymentMethod) {
 
         const { publishableKey } = await response.json();
 
-        return publishableKey; //es una promise
+        return "pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS"; //es una promise
     } catch (e) {
         console.warn('Unable to fetch publishable key. Is your server running?');
         Alert.alert(

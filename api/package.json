@@ -37,7 +37,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "express": "^4.18.2",
     "express-jwt": "^8.3.0",
     "express-openid-connect": "^2.11.0",
@@ -47,6 +47,7 @@
     "mongodb": "^3.6.2",
     "mongoose": "^6.8.3",
     "serve-static": "^1.14.1",
+    "stripe": "^12.10.0",
     "validator": "^13.7.0"
   },
   "prettier": {
