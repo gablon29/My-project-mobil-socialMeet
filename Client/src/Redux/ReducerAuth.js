@@ -8,6 +8,7 @@ const initialState = {
   token: "",
   successAuth: "",
   profile: [],
+  userPets: [],
 };
 
 //ACÁ SE CREA EL REDUCER JUNTO CON LAS ACTIONS
@@ -29,6 +30,14 @@ const ReducerAuth = createSlice({
         authenticatedAuth: true,
         profile: action.payload,
       };
+    
+    },
+    addNewPets(state, action) {
+      return {
+        ...state,
+        userPets: [...userPets, action.payload]
+      };
+    
     },
   },
 });

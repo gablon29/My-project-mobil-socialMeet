@@ -8,9 +8,12 @@ import { useAuth } from "../../CustomHooks/useAuth";
 export default function Login({ navigation }) {
   const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
-  const login = () => {
+  const login = async () => {
     try {
-      handleLogin().then((succes) => navigation.navigate("Home"));
+      if(email && password){
+     await handleLogin() 
+     navigation.navigate("Home")
+    }else console.log("faltan campos")
     } catch (err) {
       console.log("error al acceder", err);
     }
