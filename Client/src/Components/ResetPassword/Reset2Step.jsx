@@ -3,22 +3,29 @@ import { TextInput, View, Text } from "react-native";
 import Button from "../Buttons/Button";
 
 export const Reset2Step = ({ verification, setSteps }) => {
-  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [verificationCode, setVerificationCode] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
   const codeInputs = useRef([]);
-console.log(verification)
+  console.log(verification);
   const handleChangeCode = (index, value) => {
-    const newCode = [...code];
+    const newCode = [...verificationCode];
     newCode[index] = value;
-    setCode(newCode);
+    setVerificationCode(newCode);
 
-    if (value && index < code.length - 1) {
+    if (value && index < verificationCode.length - 1) {
       codeInputs.current[index + 1].focus();
     }
   };
 
   const changePassword = () => {
-    const enteredCode = code.join("");
-    if (enteredCode === verification.code) {
+    const enteredCode = verificationCode.join("");
+    if (enteredCode === verification.verificationCode) {
       console.log("pasa");
       setSteps(2);
     }
@@ -33,7 +40,7 @@ console.log(verification)
 
         <View className="w-3/5">
           <View style={{ flexDirection: "row" }}>
-            {code.map((value, index) => (
+            {verificationCode.map((value, index) => (
               <TextInput
                 key={index}
                 ref={(input) => (codeInputs.current[index] = input)}
