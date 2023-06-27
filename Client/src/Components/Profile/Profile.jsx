@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
 import { Feather } from "@expo/vector-icons";
 
-const ProfileComponent = () => {
+const ProfileComponent = ({ navigation }) => {
   const authenticatedAuth = useSelector(
     (state) => state.ReducerAuth.authenticatedAuth
   );
@@ -24,6 +24,11 @@ const ProfileComponent = () => {
         {profile.firstName} {profile.lastName}
       </Text>
       <Text className="text-gray-500 text-sm">{profile.province}</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A MYPETS
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

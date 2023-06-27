@@ -12,6 +12,8 @@ import ResetPassword from "./src/Components/ResetPassword/ResetPasword";
 import Home from "./src/Components/Home/Home";
 import Header from "./src/Components/Header/Header";
 import Profile from "./src/Components/Profile/Profile";
+import MyPets from "./src/Components/MyPets/MyPets";
+import CreatePet from "./src/Components/CreatePet/CreatePet";
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +82,16 @@ export default function App() {
           <Stack.Screen
             name="Profile"
             component={Profile}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="MyPets"
+            component={MyPets}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="CreatePet"
+            component={CreatePet}
             options={{ headerShown: true }}
           />
         </Stack.Navigator>
