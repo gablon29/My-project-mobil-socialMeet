@@ -21,6 +21,18 @@ export default function ResetPasword({ navigation }) {
     navigation.goBack();
   };
 
+  const Code = async() =>{
+    try{
+   await recovery(password, email)
+   navigation.navigate("Login");
+
+  }
+  catch(err){
+    console.log(err)
+  }
+  }
+  
+
   return (
     <>
       <View className="flex-1 items-center justify-start pt-10 bg-white">
@@ -48,7 +60,7 @@ export default function ResetPasword({ navigation }) {
             setSteps={setSteps}
           />
         ) : (
-          <Reset3Step password={password} setPassword={setPassword} />
+          <Reset3Step password={password} setPassword={setPassword} Code={Code} />
         )}
       </View>
     </>
