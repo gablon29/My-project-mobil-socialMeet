@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { CreatePet } from "../metodos/petsMetodos";
+import { useDispatch } from "react-redux";
+import { addNewPets } from "../Redux/ReducerAuth";
 
 export const usePets = () => {
+  const dispatch = useDispatch()
   const [name, setName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [coverImage, setCoverImage] = useState("");
@@ -15,10 +19,34 @@ export const usePets = () => {
     okWithCats: false,
     okWithChildren: false,
   });
+  const [routineOfNeeds, setRoutineOfNeeds] = useState("");
+  const [routineOfDiet, setRoutineOfDiet] = useState("");
+  const [information, setInformation] = useState("");
 
-  const handleSavePet = () => {
-    // Lógica para guardar los datos de la mascota
-  };
+
+
+  const addPet = async(token) =>{ //debe recibir el token al invocarla desde el argumento
+    let info = {
+      name: name,
+      breed: breed,
+      age: age,
+      health: {
+        castrado: castrado,
+        microchip: microchip,
+        okWithDogs: okWithDogs,
+        okWithCats: okWithCats,
+        okWithChildren: okWithChildren
+      },
+      routineOfNeeds: routineOfNeeds,
+      routineOfDiet: routineOfDiet,
+      information: information,
+      profilePic: profilePic,
+      coverImage: coverImage,      
+    }
+
+   let response = await CreatePet(token, info)
+   dispatch(addNewPets(response.data))
+  }
   return {
     name,
     setName,
@@ -36,6 +64,6 @@ export const usePets = () => {
     setSex,
     health,
     setHealth,
-    handleSavePet,
+    addPet
   };
 };

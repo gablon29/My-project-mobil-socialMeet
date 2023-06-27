@@ -25,7 +25,7 @@ export default function CreatePet() {
     setSex,
     health,
     setHealth,
-    handleSavePet,
+    addPet, //funcion para agregar pets se debe enviar el token por argumento al enviarla
   } = usePets();
   return (
     <View>

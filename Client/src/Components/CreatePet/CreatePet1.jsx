@@ -2,14 +2,20 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Button from "../Buttons/Button";
 import cruz from "../../../images/iconos/cruz.png";
+import { useImage } from "../../CustomHooks/useImage";
 
 export const CreatePet1 = ({ profilePic, setProfilePic, steps, setSteps }) => {
+
+const {url, uploadImage} = useImage() 
   return (
     <View>
       <View className="mx-32 mt-20">
-        <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-36 h-36">
-          <Image source={cruz} />
-        </TouchableOpacity>
+      <TouchableOpacity
+  className="flex justify-center items-center rounded-full bg-naranja w-36 h-36"
+  onPress={uploadImage}
+>
+  <Image source={cruz} />
+</TouchableOpacity>
         <Text className="font-poppinsBold mt-5">Imagen de perfil</Text>
       </View>
       <View className="flex my-10 mx-7">
