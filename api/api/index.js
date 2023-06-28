@@ -39,8 +39,8 @@ app.get('/api/check-db', async (req, res) => {
 app.use(cors());
 app.use(globalLimit);
 // en /api aplicamos solamente el express.json, porque a stripe no le gusta.
-app.use("/api",express.json({ limit: '50mb' }));
-app.use("/api",bodyParser.urlencoded({ extended: true }));
+app.use("/api", express.json({ limit: '50mb' }));
+app.use("/api", bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(routes);
 

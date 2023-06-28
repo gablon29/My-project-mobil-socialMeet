@@ -10,12 +10,12 @@ const { processPurchase, stripeCallback } = require('../controllers/stripeContro
 const router = express.Router();
 
 
-router.post('/donate', async (req, res) => {
+router.post('/start-pay-process', async (req, res) => {
 	console.table(req.headers,req.body);
 	return await processPurchase(req, res)
 })
 
-router.use("/callback", express.raw({ type: "*/*" }));
+router.use("/callback", express.raw({type: 'application/json'}));
 router.post("/callback", async (req, res) => {
 	return await stripeCallback(req, res)
 })

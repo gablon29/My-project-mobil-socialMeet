@@ -43,7 +43,12 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StripeProvider publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS">
+      <StripeProvider 
+      publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS"
+      merchantIdentifier= 'merchant.com.stripe.react.native'
+      urlScheme= 'go-back-to-whopaws'
+      setUrlSchemeOnAndroid={true}
+      >
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -80,6 +85,11 @@ export default function App() {
             />
             <Stack.Screen
               name="Home"
+              component={Home}
+              options={{ headerShown: true }}
+            />
+             <Stack.Screen
+              name="Checkout"
               component={Checkout}
               options={{ headerShown: true }}
             />
