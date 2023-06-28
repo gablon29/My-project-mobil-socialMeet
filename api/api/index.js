@@ -7,11 +7,10 @@ const port = process.env.PORT || 8080;
 const { checkJwt, checkAdmin } = require('../src/utils/jwtUtils');
 const { globalLimit } = require('../src/utils/rate-limiters');
 require('dotenv').config();
-const Stripe = require("stripe");
 
 
 mongoose.set('strictQuery', true);
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
 
 const mongodbURI = "mongodb://mongo:ziLcr8g4N9GXtnONXh04@containers-us-west-150.railway.app:5696";
 
