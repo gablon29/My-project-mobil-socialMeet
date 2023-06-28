@@ -7,6 +7,7 @@ export const usePets = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [specie, setSpecie] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [age, setAge] = useState({ years: "", months: "" });
   const [weight, setWeight] = useState("");
@@ -27,6 +28,7 @@ export const usePets = () => {
     //debe recibir el token al invocarla desde el argumento
     let info = {
       name: name,
+      specie: specie,
       breed: breed,
       age: age,
       health: {
@@ -50,6 +52,8 @@ export const usePets = () => {
     name,
     setName,
     profilePic,
+    specie,
+    setSpecie,
     setProfilePic,
     coverImage,
     setCoverImage,

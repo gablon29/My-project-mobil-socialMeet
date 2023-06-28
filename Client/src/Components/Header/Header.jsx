@@ -37,10 +37,16 @@ export default function Header() {
   ];
 
   const [showMenu, setShowMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
+
+  //Menú hamburgesa:
 
   const renderMenuItems = () => {
     if (showMenu) {
@@ -58,11 +64,8 @@ export default function Header() {
     return (
       <>
         {logoOpciones.map((element, index) => (
-          <View className="items-center my-3  ">
-            <View
-              key={index}
-              className="mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja"
-            >
+          <View className="items-center my-3" key={index}>
+            <View className="mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja">
               <Image
                 source={element.logo}
                 className="w-14 h-14"
@@ -74,6 +77,24 @@ export default function Header() {
         ))}
       </>
     );
+  };
+  //Notificaciones:
+
+  const renderNotifications = () => {
+    if (showNotifications) {
+      return (
+        <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-24">
+          {/* top- debe ser igual al tamaño del header */}
+          <Text className="text-black font-poppinsBold text-2xl">
+            NOTIFICACIÓN
+          </Text>
+          <Text className="text-black font-poppinsBold text-2xl">
+            NOTIFICACIÓN
+          </Text>
+        </View>
+      );
+    }
+    return null;
   };
 
   return (
@@ -92,24 +113,17 @@ export default function Header() {
           className="w-32 h-10"
           resizeMode="contain"
         />
-        <TouchableOpacity onPress={() => {}} className="mr-2 mt-5">
-          <View
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 25,
-              backgroundColor: "black",
-              justifyContent: "center",
-              alignItems: "center",
-              borderWidth: 2,
-              borderColor: "white",
-            }}
-          >
+
+        <TouchableOpacity onPress={toggleNotifications} className="ml-2 mt-5">
+          {showNotifications ? (
+            <Icon name="close" size={28} color="white" />
+          ) : (
             <Icon name="bell" size={24} color="white" />
-          </View>
+          )}
         </TouchableOpacity>
       </View>
       {renderMenuItems()}
+      {renderNotifications()}
     </>
   );
 }

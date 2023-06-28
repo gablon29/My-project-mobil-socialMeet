@@ -30,18 +30,23 @@ const ReducerAuth = createSlice({
         authenticatedAuth: true,
         profile: action.payload,
       };
-    
     },
     addNewPets(state, action) {
       return {
         ...state,
-        userPets: [...userPets, action.payload]
+        userPets: [...userPets, action.payload],
       };
-    
+    },
+    getAllPets(state, action) {
+      return {
+        ...state,
+        userPets: action.payload,
+      };
     },
   },
 });
 
-export const { authSetUser, userRefresh } = ReducerAuth.actions;
+export const { authSetUser, userRefresh, addNewPets, getAllPets } =
+  ReducerAuth.actions;
 
 export default ReducerAuth.reducer;
