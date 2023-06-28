@@ -17,7 +17,6 @@ import CreatePet from "./src/Components/CreatePet/CreatePet";
 
 //Stripe imports:
 import { StripeProvider } from "@stripe/stripe-react-native";
-import Checkout from "./src/Components/Stripe/Checkout";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
