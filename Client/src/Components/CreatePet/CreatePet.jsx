@@ -15,6 +15,8 @@ export default function CreatePet({ navigation }) {
     name,
     setName,
     profilePic,
+    specie,
+    setSpecie,
     setProfilePic,
     coverImage,
     setCoverImage,
@@ -41,8 +43,8 @@ export default function CreatePet({ navigation }) {
         />
       ) : steps === 1 ? (
         <CreatePet2
-          profilePic={profilePic}
-          setProfilePic={setProfilePic}
+          specie={specie}
+          setSpecie={setSpecie}
           steps={steps}
           setSteps={setSteps}
         />

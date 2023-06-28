@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const CreatePet = async (token, info) => {
   try {
     const response = await fetch(
@@ -27,28 +29,20 @@ export const CreatePet = async (token, info) => {
   }
 };
 
-export const GetPets = async (token, info) => {
+export const getPets = async (token) => {
   try {
-    const response = await fetch(
-      "https://whopaws-production.up.railway.app/api/pet/",
+    const response = await axios.get(
+      "https://whopaws-production.up.railway.app/api/pet/byowner",
       {
-        //||Obtener las mascota
-        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          info,
-        }),
       }
     );
 
-    if (!response.ok) {
-      throw new Error("login failed");
-    }
-
-    const data = await response.json();
+    const data = response.data;
+    /*  console.log(data); */
     return data;
   } catch (error) {
     console.error(error);

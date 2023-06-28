@@ -1,26 +1,32 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import cruz from "../../../images/iconos/cruz.png";
 import ButtonWithImage from "../Buttons/ButtonWithImage";
-import { useSelector } from "react-redux";
-// import image1 from "../../../images/temporales/image1.png";
-// import image2 from "../../../images/temporales/image2.png";
-// import image3 from "../../../images/temporales/image3.png";
-// import image4 from "../../../images/temporales/image4.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { getPets } from "../../metodos/petsMetodos";
+import { getAllPets } from "../../Redux/ReducerAuth"; //para despachar se trae la fx de redux/reducer
+
 export default function MyPets({ navigation }) {
-  // const myPets = [
-  //   { name: "Telmo", profilePic: image1 },
-  //   { name: "Cachupín", profilePic: image2 },
-  //   { name: "Michi", profilePic: image3 },
-  //   { name: "Gatete", profilePic: image4 },
-  // ];
   const authenticatedAuth = useSelector(
     (state) => state.ReducerAuth.authenticatedAuth
   );
   const userPets = useSelector((state) => state.ReducerAuth.userPets);
+  const dispatch = useDispatch();
 
-  console.log("authenticatedAuth", authenticatedAuth);
-  console.log("userPets", userPets);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await AsyncStorage.getItem("Token");
+        const getAllUserPets = await getPets(token);
+        dispatch(getAllPets(getAllUserPets));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <View className="flex w-full h-full">
@@ -37,20 +43,23 @@ export default function MyPets({ navigation }) {
         onPress={() => navigation.navigate("CreatePet")}
       />
 
-      {/* Aca se va a mapear userPets */}
-      {/* <View className="flex flex-row flex-wrap mx-5 mt-14">
-        {myPets.map((element, index) => (
+      {/* Aca se va a mapear userPets  */}
+      <View className="flex flex-row flex-wrap mx-5 mt-14">
+        {userPets.map((element, index) => (
           <View key={index} className="m-1">
-            <Image source={element.profilePic} />
+            <Image
+              source={{ uri: element.profilePic }}
+              style={{ width: 100, height: 100 }}
+            />
+
             <View className="bg-naranja rounded-full">
               <Text className="font-poppinsBold text-white text-sm text-center">
-                {/* meter dentro de la imagen */}
-      {/* {element.name} */}
-      {/* </Text>
+                {element.name}
+              </Text>
             </View>
-          </View> */}
-      {/* ))} */}
-      {/* </View> */}
+          </View>
+        ))}
+      </View>
     </View>
   );
 }

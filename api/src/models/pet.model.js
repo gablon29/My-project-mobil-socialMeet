@@ -13,8 +13,7 @@ const petSchema = mongoose.Schema(
     },
     specie: {
       type: String,
-      // required: true,
-      enum: ['Perro', 'Gato', 'Otro'],
+      required: true,
       default: 'Perro',
     },
     age: {
