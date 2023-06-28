@@ -32,6 +32,10 @@ export default function CreatePet({ navigation }) {
     setHealth,
     addPet, //funcion para agregar pets se debe enviar el token por argumento al enviarla
   } = usePets();
+
+  const handleHealthProperty = (property, value) => {
+    setHealth({ ...health, [property]: value });
+  };
   return (
     <View>
       {steps === 0 ? (
@@ -49,11 +53,36 @@ export default function CreatePet({ navigation }) {
           setSteps={setSteps}
         />
       ) : steps === 2 ? (
-        <CreatePet3 steps={steps} setSteps={setSteps} />
+        <CreatePet3
+          name={name}
+          setName={setName}
+          weight={weight}
+          setWeight={setWeight}
+          age={age}
+          setAge={setAge}
+          breed={breed}
+          setBreed={setBreed}
+          sex={sex}
+          setSex={setSex}
+          steps={steps}
+          setSteps={setSteps}
+        />
       ) : steps === 3 ? (
-        <CreatePet4 steps={steps} setSteps={setSteps} />
+        <CreatePet4
+          handleHealthProperty={handleHealthProperty}
+          health={health}
+          setHealth={setHealth}
+          steps={steps}
+          setSteps={setSteps}
+        />
       ) : steps === 4 ? (
-        <CreatePet5 steps={steps} setSteps={setSteps} />
+        <CreatePet5
+          handleHealthProperty={handleHealthProperty}
+          health={health}
+          setHealth={setHealth}
+          steps={steps}
+          setSteps={setSteps}
+        />
       ) : (
         <CreatePet6 navigation={navigation} />
       )}
