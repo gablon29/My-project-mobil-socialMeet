@@ -88,11 +88,7 @@ export default function App() {
               component={Home}
               options={{ headerShown: true }}
             />
-             <Stack.Screen
-              name="Checkout"
-              component={Checkout}
-              options={{ headerShown: true }}
-            />
+             
             <Stack.Screen
               name="Profile"
               component={Profile}
