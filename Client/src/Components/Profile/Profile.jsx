@@ -24,9 +24,14 @@ const ProfileComponent = ({ navigation }) => {
         {profile.firstName} {profile.lastName}
       </Text>
       <Text className="text-gray-500 text-sm">{profile.province}</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+      <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
         <Text className="font-poppins underline text-xs mt-10">
           ACCESO TEMPORAL A MYPETS
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A HOME
         </Text>
       </TouchableOpacity>
     </View>
