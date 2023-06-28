@@ -2,7 +2,9 @@ import { Alert, Button, TextInput, View } from 'react-native';
 import { useState } from 'react';
 import { useStripe } from '@stripe/stripe-react-native';
 
-const API_URL = "http://192.168.0.12:8080"
+// example 
+let API_URL = "http://192.168.0.12:8080"
+API_URL = "https://whopaws-production.up.railway.app"
 const API_WEBHOOK_ROUTE = "/stripe/start-pay-process"
 
 export default function Checkout() {
