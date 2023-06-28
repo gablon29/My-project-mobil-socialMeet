@@ -4,7 +4,6 @@ import { ActivityIndicator, ScrollView, StyleSheet, Text } from 'react-native';
 import { colors } from './Colors';
 import { fetchPublishableKey } from '../../metodos/stripeMetodos';
 
-import React, { useState, useEffect } from "react";
 
 
 const PaymentScreen = ({ paymentMethod, children }) => {

@@ -6,6 +6,8 @@ import PaymentScreen from './PaymentsUICustomScreen';
 
 export const API_URL = "https://expo-stripe-server-example.glitch.me"
 
+
+
 import { colors } from './Colors';
 
 export default function WebhookPaymentScreen() {

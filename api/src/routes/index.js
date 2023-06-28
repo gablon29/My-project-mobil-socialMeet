@@ -11,6 +11,6 @@ const router = express.Router();
 router.use('/api/user', userRoute);
 router.use('/api/pet', petRoute);
 router.use('/api/send', pushNotify);
-router.use('/api/stripe', stripeRoute);
+router.use('/stripe', stripeRoute);
 
 module.exports = router;

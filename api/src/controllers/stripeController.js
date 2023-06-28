@@ -1,19 +1,28 @@
 const UserModel = require('../models/user.model'); //por si hay que hacer que cambie algun estado del usuario que compró algo
 
 const Stripe = require("stripe");
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-STRIPE_WEBHOOK_SECRET = "ASDASD" // se obtiene de: https://stripe.com/docs/stripe-cli
+//require('dotenv').config();
+
+//se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
+const stripe_secret_key=process.env.STRIPE_SECRET_KEY
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET
+
+// se obtiene de: https://stripe.com/docs/stripe-cli
+const StripeUSABLE = Stripe(stripe_secret_key);
+
+
 
 async function processPurchase(req,res) {
 try {
 	// Getting data from client
-	let { amount, name } = req.body;
+	let { amount, name } = req.headers
+    console.log( req.body);
 	// Simple validation
 	if (!amount || !name)
 	  return res.status(400).json({ message: "All fields are required" });
 	amount = parseInt(amount);
 	// Initiate payment
-	const paymentIntent = await stripe.paymentIntents.create({
+	const paymentIntent = await StripeUSABLE.paymentIntents.create({
 	  amount: Math.round(amount * 100),
 	  currency: "EUR",
 	  payment_method_types: ["card"],
@@ -32,14 +41,15 @@ try {
 
 async function stripeCallback(req,res) {
     const sig = req.headers["stripe-signature"];
+    
     let event;
     try {
         // Check if the event is sent from Stripe or a third party
         // And parse the event
-        event = await stripe.webhooks.constructEvent(
+        event = await StripeUSABLE.webhooks.constructEvent(
             req.body,
             sig,
-            process.env.STRIPE_WEBHOOK_SECRET
+            STRIPE_WEBHOOK_SECRET
         );
     } catch (err) {
         // Handle what happens if the event is not from Stripe
@@ -48,11 +58,11 @@ async function stripeCallback(req,res) {
     }
     // Event when a payment is initiated
     if (event.type === "payment_intent.created") {
-        console.log(`${event.data.object.metadata.name} initated payment!`);
+        console.log(`${JSON.stringify(event.data.object.metadata)} initated payment!`);
     }
     // Event when a payment is succeeded
     if (event.type === "payment_intent.succeeded") {
-        console.log(`${event.data.object.metadata.name} succeeded payment!`);
+        console.log(`${JSON.stringify(event.data.object)} succeeded payment!`);
         // fulfilment
     }
     res.json({ ok: true });

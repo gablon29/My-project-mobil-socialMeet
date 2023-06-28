@@ -11,11 +11,12 @@ const router = express.Router();
 
 
 router.post('/donate', async (req, res) => {
+	console.table(req.headers,req.body);
 	return await processPurchase(req, res)
 })
 
-app.use("/callback", express.raw({ type: "*/*" }));
-app.post("/callback", async (req, res) => {
+router.use("/callback", express.raw({ type: "*/*" }));
+router.post("/callback", async (req, res) => {
 	return await stripeCallback(req, res)
 })
 
