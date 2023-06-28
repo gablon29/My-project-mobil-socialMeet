@@ -75,7 +75,7 @@ export default function Checkout() {
                 keyboardType="numeric"
                 style={{ padding: 10, borderColor: "black", borderWidth: 1 }}
                 value={product_id}
-                onChangeText={(e) => setProductID(e)}
+                onChangeText={(e) => setProduct_id(e)}
             />
             <TextInput
                 placeholder="Amount"
