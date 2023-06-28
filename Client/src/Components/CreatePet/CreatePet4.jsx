@@ -2,7 +2,13 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import Button from "../Buttons/Button";
 
-export const CreatePet4 = ({ steps, setSteps }) => {
+export const CreatePet4 = ({
+  steps,
+  setSteps,
+  health,
+  setHealth,
+  handleHealthProperty,
+}) => {
   return (
     <View className="w-screen h-screen">
       <View className="flex mt-10">
@@ -11,14 +17,20 @@ export const CreatePet4 = ({ steps, setSteps }) => {
         </Text>
         <View className="flex flex-row">
           <View className="flex-1 mx-3">
-            <TouchableOpacity className="bg-naranja rounded-full">
+            <TouchableOpacity
+              className="bg-naranja rounded-full"
+              onPress={() => handleHealthProperty("castrado", true)}
+            >
               <Text className="font-poppinsBold text-center text-white">
                 Si
               </Text>
             </TouchableOpacity>
           </View>
           <View className="flex-1 mx-3">
-            <TouchableOpacity className="bg-naranja rounded-full">
+            <TouchableOpacity
+              className="bg-naranja rounded-full"
+              onPress={() => handleHealthProperty("castrado", false)}
+            >
               <Text className="font-poppinsBold text-center text-white">
                 No
               </Text>
@@ -30,14 +42,20 @@ export const CreatePet4 = ({ steps, setSteps }) => {
         <Text className="font-poppinsBold text-center"> ¿Tiene microchip?</Text>
         <View className="flex flex-row">
           <View className="flex-1 mx-3">
-            <TouchableOpacity className="bg-naranja rounded-full">
+            <TouchableOpacity
+              className="bg-naranja rounded-full"
+              onPress={() => handleHealthProperty("microchip", true)}
+            >
               <Text className="font-poppinsBold text-center text-white">
                 Si
               </Text>
             </TouchableOpacity>
           </View>
           <View className="flex-1 mx-3">
-            <TouchableOpacity className="bg-naranja rounded-full">
+            <TouchableOpacity
+              className="bg-naranja rounded-full"
+              onPress={() => handleHealthProperty("microchip", false)}
+            >
               <Text className="font-poppinsBold text-center text-white">
                 No
               </Text>
@@ -57,7 +75,10 @@ export const CreatePet4 = ({ steps, setSteps }) => {
         />
         <Button
           title="Continuar"
-          onPress={() => setSteps(4)}
+          onPress={() => {
+            setSteps(4);
+            console.log("castrado y microchip", health);
+          }}
           colorButton="bg-naranja"
           colorText="text-white"
           ancho="w-40"

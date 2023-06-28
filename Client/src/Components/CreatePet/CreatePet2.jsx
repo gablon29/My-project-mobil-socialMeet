@@ -43,7 +43,7 @@ export const CreatePet2 = ({ steps, setSteps, specie, setSpecie }) => {
       setOtherType(value);
     }
   };
-  /* console.log(specie); */
+
   return (
     <View>
       <View className="items-center justify-center">
@@ -112,7 +112,10 @@ export const CreatePet2 = ({ steps, setSteps, specie, setSpecie }) => {
         />
         <Button
           title="Continuar"
-          onPress={() => setSteps(2)}
+          onPress={() => {
+            setSteps(2);
+            console.log(specie);
+          }}
           colorButton="bg-naranja"
           colorText="text-white"
           ancho="w-40"

@@ -1,15 +1,35 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import Button from "../Buttons/Button";
 
-export const CreatePet3 = ({ steps, setSteps }) => {
-  const options = ["ShiTzu, Salchicha, Poodle"];
-  const [breedType, setBreedType] = useState("");
-  const [name, setName] = useState("");
-  const [weight, setWeight] = useState("");
+export const CreatePet3 = ({
+  steps,
+  setSteps,
+  name,
+  setName,
+  weight,
+  setWeight,
+  age,
+  setAge,
+  breed,
+  setBreed,
+  sex,
+  setSex,
+}) => {
+  const options = ["ShiTzu", "Salchicha", "Poodle"];
+
   const [years, setYears] = useState("");
   const [months, setMonths] = useState("");
+
+  const handleAge = () => {
+    const petAge = {
+      years: years,
+      months: months,
+    };
+    setAge(petAge);
+  };
+
   return (
     <View className="w-screen h-screen">
       <Text className="font-poppinsBold text-center mt-16">
@@ -17,38 +37,34 @@ export const CreatePet3 = ({ steps, setSteps }) => {
       </Text>
       <TextInput
         placeholder=""
-        secureTextEntry={true}
         value={name}
         onChangeText={(text) => setName(text)}
-        className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+        className="w-full rounded-full bg-gris h-10 px-4 mb-4"
       />
       <Text className="font-poppinsBold text-center">Peso en KG</Text>
       <TextInput
         placeholder=""
-        secureTextEntry={true}
         value={weight}
         onChangeText={(text) => setWeight(text)}
-        className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+        className="w-full rounded-full bg-gris h-10 px-4 mb-4"
       />
       <View className="flex flex-row">
         <View className="flex-1">
           <Text className="font-poppinsBold text-center">Edad (Años)</Text>
           <TextInput
             placeholder=""
-            secureTextEntry={true}
             value={years}
             onChangeText={(text) => setYears(text)}
-            className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+            className="w-full rounded-full bg-gris h-10 px-4 mb-4"
           />
         </View>
         <View className="flex-1">
           <Text className="font-poppinsBold text-center">Edad en (Meses)</Text>
           <TextInput
             placeholder=""
-            secureTextEntry={true}
             value={months}
             onChangeText={(text) => setMonths(text)}
-            className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+            className="w-full rounded-full bg-gris h-10 px-4 mb-4"
           />
         </View>
       </View>
@@ -56,7 +72,7 @@ export const CreatePet3 = ({ steps, setSteps }) => {
       <Text className="font-poppinsBold text-center">Raza de la mascota</Text>
       <SelectList
         data={options}
-        setSelected={setBreedType}
+        setSelected={setBreed}
         placeholder="Seleccionar"
         search={false}
         fontFamily="Poppins"
@@ -71,12 +87,18 @@ export const CreatePet3 = ({ steps, setSteps }) => {
         <Text className="font-poppinsBold text-center">Sexo</Text>
         <View className="flex flex-row">
           <View className="flex-1 mx-3">
-            <TouchableOpacity className="bg-gris rounded-full">
+            <TouchableOpacity
+              onPress={() => setSex("Macho")}
+              className="bg-gris rounded-full"
+            >
               <Text className="font-poppinsBold text-center">Macho</Text>
             </TouchableOpacity>
           </View>
           <View className="flex-1 mx-3">
-            <TouchableOpacity className="bg-gris rounded-full">
+            <TouchableOpacity
+              onPress={() => setSex("Hembra")}
+              className="bg-gris rounded-full"
+            >
               <Text className="font-poppinsBold text-center">Hembra</Text>
             </TouchableOpacity>
           </View>
@@ -94,7 +116,15 @@ export const CreatePet3 = ({ steps, setSteps }) => {
         />
         <Button
           title="Continuar"
-          onPress={() => setSteps(3)}
+          onPress={() => {
+            handleAge();
+            console.log("edad", age);
+            console.log("nombre", name);
+            console.log("peso", weight);
+            console.log("raza", breed);
+            console.log("sexo", sex);
+            setSteps(3);
+          }}
           colorButton="bg-naranja"
           colorText="text-white"
           ancho="w-40"
