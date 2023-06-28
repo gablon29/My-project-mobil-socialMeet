@@ -92,7 +92,7 @@ export default function Checkout() {
                     })
 
                     .catch((err) => {
-                        const extra_message = ""
+                        let extra_message = ""
                         if (err.message.includes("Unexpected token: <")) {
                             extra_message += ("\r\nLa direccion de stripe webhooks no está configurada correctamente");
                         }
