@@ -8,7 +8,9 @@ const { checkJwt, checkAdmin } = require('../src/utils/jwtUtils');
 const { globalLimit } = require('../src/utils/rate-limiters');
 require('dotenv').config();
 
+
 mongoose.set('strictQuery', true);
+
 
 const mongodbURI = "mongodb://mongo:ziLcr8g4N9GXtnONXh04@containers-us-west-150.railway.app:5696";
 
@@ -36,8 +38,9 @@ app.get('/api/check-db', async (req, res) => {
 
 app.use(cors());
 app.use(globalLimit);
-app.use(express.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ extended: true }));
+// en /api aplicamos solamente el express.json, porque a stripe no le gusta.
+app.use("/api", express.json({ limit: '50mb' }));
+app.use("/api", bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(routes);
 

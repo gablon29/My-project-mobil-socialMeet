@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import Button from "../Buttons/Button";
 import chip from "../../../images/chip.png";
 import juguetePerro from "../../../images/juguetePerro.jpg";
+import Checkout from "../Stripe/Checkout";
 export default function Home() {
   const productosDestacados = [
     {
@@ -83,6 +84,7 @@ export default function Home() {
             </View>
           ))}
         </View>
+        <Checkout/>
       </View>
     </View>
   );

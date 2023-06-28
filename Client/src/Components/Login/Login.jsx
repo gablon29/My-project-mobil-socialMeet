@@ -67,6 +67,11 @@ export default function Login({ navigation }) {
             ¿Aún no tienes una cuenta? Regístrate Aquí
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A MYPETS
+        </Text>
+      </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
           <Text className="font-poppins underline text-xs mt-10">
             ACCESO TEMPORAL AL HOME

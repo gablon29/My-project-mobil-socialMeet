@@ -15,6 +15,8 @@ import Profile from "./src/Components/Profile/Profile";
 import MyPets from "./src/Components/MyPets/MyPets";
 import CreatePet from "./src/Components/CreatePet/CreatePet";
 
+//Stripe imports:
+import { StripeProvider } from "@stripe/stripe-react-native";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -40,62 +42,70 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            header: (props) => showHeader(props.route) && <Header />,
-            headerShown: true,
-          }}
-        >
-          <Stack.Screen
-            name="Welcome"
-            component={Welcome}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ResetPassword"
-            component={ResetPassword}
-            options={{
-              headerStyle: { backgroundColor: "#ACACAC" },
+      <StripeProvider 
+      publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS"
+      merchantIdentifier= 'merchant.com.stripe.react.native'
+      urlScheme= 'go-back-to-whopaws'
+      setUrlSchemeOnAndroid={true}
+      >
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              header: (props) => showHeader(props.route) && <Header />,
               headerShown: true,
-              headerTintColor: "#AB4E68",
-              title: "Reseñas que te dieron",
-              headerBackTitle: true,
-              headerBackTitleVisible: true,
             }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="MyPets"
-            component={MyPets}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="CreatePet"
-            component={CreatePet}
-            options={{ headerShown: true }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPassword}
+              options={{
+                headerStyle: { backgroundColor: "#ACACAC" },
+                headerShown: true,
+                headerTintColor: "#AB4E68",
+                title: "Reseñas que te dieron",
+                headerBackTitle: true,
+                headerBackTitleVisible: true,
+              }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: true }}
+            />
+             
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="MyPets"
+              component={MyPets}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="CreatePet"
+              component={CreatePet}
+              options={{ headerShown: true }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </StripeProvider>
     </Provider>
   );
 }

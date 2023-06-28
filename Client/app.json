@@ -17,6 +17,15 @@
     "ios": {
       "supportsTablet": true
     },
+    "plugins": [
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "null",
+          "enableGooglePay": false
+        }
+      ]
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

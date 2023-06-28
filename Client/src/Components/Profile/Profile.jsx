@@ -29,6 +29,11 @@ const ProfileComponent = ({ navigation }) => {
           ACCESO TEMPORAL A MYPETS
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A HOME
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
