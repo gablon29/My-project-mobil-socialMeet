@@ -6,7 +6,7 @@ const Stripe = require("stripe");
 //se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
 const stripe_secret_key=process.env.STRIPE_SECRET_KEY || "sk_test_51NNLCpD6q36zl0Ib9bzWPLvXai9SE15p34hbHwXkiqCYVfQCDd4SOXK0dsoPA7xGXSPKFljW1gm3a1TFbfF66Taj00KsEMdevs"
 // se obtiene de: https://stripe.com/docs/stripe-cli
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "we_1NO5TwD6q36zl0IbnfZ5T62I"
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "whsec_TmZeDc0LlCNQyv6bQtLeN33k41feZRcb"
 
 const StripeUSABLE = Stripe(stripe_secret_key);
 
