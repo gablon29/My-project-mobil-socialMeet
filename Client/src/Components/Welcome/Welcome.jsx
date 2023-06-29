@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import React, { useEffect } from "react";
 import logo from "../../../images/logo.png";
 import welcomeImage from "../../../images/welcomeImage.png";

@@ -51,12 +51,12 @@ app.use(routes);
 
 app.get('/api/check', checkJwt, async (req, res) => {
   try {
-    res.send({
+    res.status(200).send({
       message: 'Token decoded successfully!',
       user: req.user,
     });
   } catch (err) {
-    res.send({ message: 'The server encountered an error: ' + err.message });
+    res.status(500).send({error: err.message, message: 'The server encountered an error: '  });
   }
 });
 
@@ -84,7 +84,7 @@ app.get('/api/report/:number', checkJwt, checkAdmin, async (req, res) => {
     await report.save();
     res.status(201).send(report);
   } catch (err) {
-    res.status(500).send('Error: ' + err.message);
+    res.status(500).send({error: err.message});
   }
 });
 

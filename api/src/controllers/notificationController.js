@@ -13,6 +13,17 @@ const sendNotification = async (token, title, body) => {
   try {
     const response = await admin.messaging().send(message);
     console.log('Notificación enviada:', response);
+    const user = await User.findOne({ deviceTokens: token });
+
+    if (user) {
+      user.Notifications.push({
+        title,
+        body,
+        createdAt: new Date(),
+      });
+
+      await user.save();
+    }
   } catch (error) {
     console.log('Error al enviar la notificación:', error);
   }
