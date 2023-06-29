@@ -5,6 +5,7 @@ const petRoute = require('./pet.route');
 const pushNotify = require('./pushNotify.route');
 const stripeRoute = require('./stripe.route');
 const { route } = require('./user.route');
+const notificationController = require('../controllers/notificationController');
 
 const router = express.Router();
 //agregar middleware de rutas aca:
@@ -12,5 +13,6 @@ router.use('/api/user', userRoute);
 router.use('/api/pet', petRoute);
 router.use('/api/send', pushNotify);
 router.use('/stripe', stripeRoute);
+router.post('/save-device-token', notificationController.saveDeviceToken);
 
 module.exports = router;
