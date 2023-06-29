@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Alert } from "react-native";
 import React, { useEffect } from "react";
 import logo from "../../../images/logo.png";
 import welcomeImage from "../../../images/welcomeImage.png";
@@ -21,13 +21,11 @@ export default function Welcome({ navigation }) {
         const value = await AsyncStorage.getItem("Token");
         if (value) {
           await reloadUser(value)
-            .then(
-              (succes) => dispatch(userRefresh(succes)),
-              navigation.navigate(
-                "Home"
-              ) /*  DESCOMENTAR PARA PROBAR LOGIN O COMENTAR PARA PASAR DIRECTO */
-            )
-            .catch((err) => console.log("token expirado debe loguearse"));
+            .then((succes) => {
+              dispatch(userRefresh(succes));
+              navigation.navigate("Home");
+            })
+            .catch((err) => Alert.alert(err.message));
         }
       } catch (error) {
         console.log("Error al obtener datos:", error);

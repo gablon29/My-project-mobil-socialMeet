@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
-import Button from '../Buttons/Button';
-import chip from '../../../images/chip.png';
-import juguetePerro from '../../../images/juguetePerro.jpg';
-import Checkout from '../Stripe/Checkout';
-import * as Notifications from 'expo-notifications';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import { View, Text, Image } from "react-native";
+import Button from "../Buttons/Button";
+import chip from "../../../images/chip.png";
+import juguetePerro from "../../../images/juguetePerro.jpg";
+import Checkout from "../Stripe/Checkout";
+import * as Notifications from "expo-notifications";
+import axios from "axios";
 
 export default function Home() {
-
   useEffect(() => {
     const sendNotification = async (token, title, body) => {
       const notification = {
@@ -18,27 +17,34 @@ export default function Home() {
       };
 
       try {
-        await axios.post('https://whopaws-production.up.railway.app/api/send/send-notification', notification);
-        console.log('Notificación enviada');
+        await axios.post(
+          "https://whopaws-production.up.railway.app/api/send/send-notification",
+          notification
+        );
+        console.log("Notificación enviada");
       } catch (error) {
         console.error('Error al enviar la notificación:dc', error);
+
       }
     };
 
     const registerForPushNotifications = async () => {
       const { status } = await Notifications.requestPermissionsAsync();
 
-      if (status === 'granted') {
+      if (status === "granted") {
         const { data: token } = await Notifications.getExpoPushTokenAsync();
-        console.log('Token del dispositivo:', token);
+        console.log("Token del dispositivo:", token);
 
-        sendNotification(token, '¡Bienvenido a MyPets!', 'Disfruta de tus mascotas');
+        sendNotification(
+          token,
+          "¡Bienvenido a MyPets!",
+          "Disfruta de tus mascotas"
+        );
       }
     };
 
     registerForPushNotifications();
   }, []);
-  
 
   const productosDestacados = [
     {
@@ -119,7 +125,7 @@ export default function Home() {
             </View>
           ))}
         </View>
-        <Checkout/>
+        <Checkout />
       </View>
     </View>
   );
