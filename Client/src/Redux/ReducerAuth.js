@@ -32,6 +32,7 @@ const ReducerAuth = createSlice({
       };
     },
     addNewPets(state, action) {
+      console.log("ACTION PAYOLADASDASJDA", action.payload);
       return {
         ...state,
         userPets: [...userPets, action.payload],

@@ -24,9 +24,10 @@ export const usePets = () => {
   const [routineOfDiet, setRoutineOfDiet] = useState("");
   const [information, setInformation] = useState("");
 
-  const addPet = async (token) => {
+  const addPet = async (token, owner) => {
     //debe recibir el token al invocarla desde el argumento
     let info = {
+      owner: owner,
       name: name,
       specie: specie,
       breed: breed,
@@ -50,8 +51,6 @@ export const usePets = () => {
 
     try {
       let response = await CreatePet(token, info);
-      console.log("RESPONSE DE PET", response);
-      dispatch(addNewPets(response.data));
       return response;
     } catch (error) {
       console.log(error);
