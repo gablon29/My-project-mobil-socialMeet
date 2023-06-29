@@ -89,7 +89,7 @@ router.post('/recovery', async (req, res) => {
 //     res.status(501).send({ error: err.message });
 //   }
 // });
-const getNotifications = async (req, res) => {
+router.get('/notifications', async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -106,9 +106,9 @@ const getNotifications = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las notificaciones' });
   }
-};
+});
 
-module.exports = {
-  getNotifications,
-};
+
+
+  
 module.exports = router;

@@ -8,7 +8,7 @@ const Notifications = () => {
     // Aquí puedes realizar la lógica para obtener las notificaciones desde tu servidor o base de datos
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get('https://whopaws-production.up.railway.app/notifications');
+        const response = await axios.get('https://whopaws-production.up.railway.app/api/user/notifications');
         setNotifications(response.data.notifications);
       } catch (error) {
         console.error('Error al obtener las notificaciones:', error);
