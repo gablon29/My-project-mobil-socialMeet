@@ -24,7 +24,7 @@ export const useAuth = () => {
   const [verification, setVerification] = useState("");
 
   const handleRegister = async () => {
-    try {
+   
       let response = await registro(
         email,
         password,
@@ -40,23 +40,15 @@ export const useAuth = () => {
       console.log(response);
       await AsyncStorage.setItem("Token", response.token);
       dispatch(authSetUser(response));
-      const value = await AsyncStorage.getItem("Token");
-      console.log(value);
-    } catch (error) {
-      console.log(error);
-    }
+      const eltoken = await AsyncStorage.getItem("Token");
+      console.log("Token luego de registrarse es: ", eltoken);
+
   };
 
   const handleLogin = async () => {
-    try {
       let response = await login(email, password);
       await AsyncStorage.setItem("Token", response.token);
       dispatch(authSetUser(response));
-      const value = await AsyncStorage.getItem("Token");
-      console.log("okey");
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   function verifyNumber() {

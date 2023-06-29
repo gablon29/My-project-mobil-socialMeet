@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, Alert } from "react-native";
 import Button from "../Buttons/Button";
 import logo from "../../../images/logo.png";
 
@@ -14,7 +14,7 @@ export const RegisterStep2 = ({
   const createAcount = async () => {
     await handleRegister()
       .then((succes) => setRegisterSteps(3))
-      .catch((error) => console.log("ocurrio un error", error));
+      .catch((error) => Alert.alert("Ocurrio un error: ", error.message));
   };
 
   return (
