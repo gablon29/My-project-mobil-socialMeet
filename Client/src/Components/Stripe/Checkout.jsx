@@ -75,7 +75,7 @@ export default function Checkout() {
                 keyboardType="numeric"
                 style={{ padding: 10, borderColor: "black", borderWidth: 1 }}
                 value={product_id}
-                onChangeText={(e) => setProductID(e)}
+                onChangeText={(e) => setProduct_id(e)}
             />
             <TextInput
                 placeholder="Amount"
@@ -92,7 +92,7 @@ export default function Checkout() {
                     })
 
                     .catch((err) => {
-                        const extra_message = ""
+                        let extra_message = ""
                         if (err.message.includes("Unexpected token: <")) {
                             extra_message += ("\r\nLa direccion de stripe webhooks no está configurada correctamente");
                         }
