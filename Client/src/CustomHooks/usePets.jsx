@@ -31,13 +31,13 @@ export const usePets = () => {
       specie: specie,
       breed: breed,
       age: age,
-      health: {
+      health: health /* {
         castrado: castrado,
         microchip: microchip,
         okWithDogs: okWithDogs,
         okWithCats: okWithCats,
         okWithChildren: okWithChildren,
-      },
+      }, */,
       routineOfNeeds: routineOfNeeds,
       routineOfDiet: routineOfDiet,
       information: information,
@@ -45,8 +45,13 @@ export const usePets = () => {
       coverImage: coverImage,
     };
 
-    let response = await CreatePet(token, info);
-    dispatch(addNewPets(response.data));
+    try {
+      let response = await CreatePet(token, info);
+      dispatch(addNewPets(response.data));
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   };
   return {
     name,

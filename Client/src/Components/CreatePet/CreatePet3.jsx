@@ -19,15 +19,8 @@ export const CreatePet3 = ({
 }) => {
   const options = ["ShiTzu", "Salchicha", "Poodle"];
 
-  const [years, setYears] = useState("");
-  const [months, setMonths] = useState("");
-
-  const handleAge = () => {
-    const petAge = {
-      years: years,
-      months: months,
-    };
-    setAge(petAge);
+  const handleAgeProperty = (property, value) => {
+    setAge({ ...age, [property]: value });
   };
 
   return (
@@ -53,8 +46,8 @@ export const CreatePet3 = ({
           <Text className="font-poppinsBold text-center">Edad (Años)</Text>
           <TextInput
             placeholder=""
-            value={years}
-            onChangeText={(text) => setYears(text)}
+            value={age.years}
+            onChangeText={(text) => handleAgeProperty("years", text)}
             className="w-full rounded-full bg-gris h-10 px-4 mb-4"
           />
         </View>
@@ -62,8 +55,8 @@ export const CreatePet3 = ({
           <Text className="font-poppinsBold text-center">Edad en (Meses)</Text>
           <TextInput
             placeholder=""
-            value={months}
-            onChangeText={(text) => setMonths(text)}
+            value={age.months}
+            onChangeText={(text) => handleAgeProperty("months", text)}
             className="w-full rounded-full bg-gris h-10 px-4 mb-4"
           />
         </View>
@@ -117,7 +110,6 @@ export const CreatePet3 = ({
         <Button
           title="Continuar"
           onPress={() => {
-            handleAge();
             console.log("edad", age);
             console.log("nombre", name);
             console.log("peso", weight);
