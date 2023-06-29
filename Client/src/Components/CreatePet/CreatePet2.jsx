@@ -113,8 +113,8 @@ export const CreatePet2 = ({ steps, setSteps, specie, setSpecie }) => {
         <Button
           title="Continuar"
           onPress={() => {
+            console.log("Especie", specie);
             setSteps(2);
-            console.log(specie);
           }}
           colorButton="bg-naranja"
           colorText="text-white"

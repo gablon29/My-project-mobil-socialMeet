@@ -3,7 +3,20 @@ import React from "react";
 import mensajeDeBienvenida from "../../../images/mensajeDeBienvenida.png";
 import Button from "../Buttons/Button";
 
-export const CreatePet6 = ({ navigation }) => {
+export const CreatePet6 = ({ navigation, addPet, token }) => {
+  const handleAddPet = async () => {
+    try {
+      const agregarPet = await addPet(token);
+      console.log("TOKEN", token);
+      console.log("agregandopet", agregarPet);
+      /*       agregarPet; */
+
+      navigation.navigate("MyPets");
+    } catch (error) {
+      console.log("No se creó la mascota", error);
+    }
+  };
+
   return (
     <View className="flex-1 items-center justify-center mt-40">
       <View className="flex items-center mb-20">
@@ -16,7 +29,7 @@ export const CreatePet6 = ({ navigation }) => {
         <View className="flex items-center mt-10">
           <Button
             title="Ver mi mascota"
-            onPress={() => navigation.navigate("MyPets")} //Tiene que llevar a ver la mascota en particular o todas?
+            onPress={handleAddPet}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"
