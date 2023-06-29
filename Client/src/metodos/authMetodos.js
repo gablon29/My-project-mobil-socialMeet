@@ -55,11 +55,13 @@ export const login = async (
       }),
     });
 
-    if (!response.ok) {
+ 
+    const data = await response.json();
+
+    if (!data.ok) {
       throw new Error("login failed");
     }
 
-    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
