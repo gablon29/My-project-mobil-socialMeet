@@ -89,5 +89,26 @@ router.post('/recovery', async (req, res) => {
 //     res.status(501).send({ error: err.message });
 //   }
 // });
+const getNotifications = async (req, res) => {
+  const { email } = req.body;
 
+  try {
+    // Buscar al usuario por su correo electrónico
+    const user = await UserModel.findOne({ email });
+
+    if (user) {
+      // Obtener el array de notificaciones del usuario
+      const notifications = user.notifications;
+      res.status(200).json({ notifications });
+    } else {
+      res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las notificaciones' });
+  }
+};
+
+module.exports = {
+  getNotifications,
+};
 module.exports = router;
