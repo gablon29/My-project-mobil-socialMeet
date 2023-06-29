@@ -6,12 +6,17 @@ const cors = require('cors');
 const port = process.env.PORT || 8080;
 const { checkJwt, checkAdmin } = require('../src/utils/jwtUtils');
 const { globalLimit } = require('../src/utils/rate-limiters');
+const admin = require('firebase-admin');
+const serviceAccount = require('./happy-clean-8e79e-firebase-adminsdk-d9ktq-6d4baeab21'); // Ruta al archivo JSON de las credenciales de servicio
+
 require('dotenv').config();
 
 
 mongoose.set('strictQuery', true);
 
-
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 const mongodbURI = "mongodb://mongo:ziLcr8g4N9GXtnONXh04@containers-us-west-150.railway.app:5696";
 
 async function main() {

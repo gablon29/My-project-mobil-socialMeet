@@ -24,7 +24,7 @@ export default function Welcome({ navigation }) {
             .then(
               (succes) => dispatch(userRefresh(succes)),
               navigation.navigate(
-                "Profile"
+                "Home"
               ) /*  DESCOMENTAR PARA PROBAR LOGIN O COMENTAR PARA PASAR DIRECTO */
             )
             .catch((err) => console.log("token expirado debe loguearse"));

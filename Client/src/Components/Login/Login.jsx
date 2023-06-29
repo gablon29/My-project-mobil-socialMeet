@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import logo from "../../../images/logo.png";
 import loginImage from "../../../images/loginImage.png";
@@ -20,6 +20,8 @@ export default function Login({ navigation }) {
   };
 
   return (
+    <ScrollView>
+
     <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} />
       <Image source={loginImage} className="mt-8" />
@@ -67,17 +69,10 @@ export default function Login({ navigation }) {
             ¿Aún no tienes una cuenta? Regístrate Aquí
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
-        <Text className="font-poppins underline text-xs mt-10">
-          ACCESO TEMPORAL A MYPETS
-        </Text>
-      </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Text className="font-poppins underline text-xs mt-10">
-            ACCESO TEMPORAL AL HOME
-          </Text>
-        </TouchableOpacity>
+
       </View>
     </View>
+    </ScrollView>
+
   );
 }

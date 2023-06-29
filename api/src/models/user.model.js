@@ -66,6 +66,9 @@ const userSchema = mongoose.Schema(
       type: Array, // Array de notificaciones que llegan al usuario
       default: []
     },
+    deviceTokens: [{
+      type: String,
+    }],
     tokens: [
       {
         token: {

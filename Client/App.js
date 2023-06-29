@@ -14,6 +14,7 @@ import Header from "./src/Components/Header/Header";
 import Profile from "./src/Components/Profile/Profile";
 import MyPets from "./src/Components/MyPets/MyPets";
 import CreatePet from "./src/Components/CreatePet/CreatePet";
+import { BackHandler } from 'react-native';
 
 //Stripe imports:
 import { StripeProvider } from "@stripe/stripe-react-native";
@@ -82,12 +83,14 @@ export default function App() {
                 headerBackTitleVisible: true,
               }}
             />
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: true }}
-            />
-             
+<Stack.Screen
+  name="Home"
+  component={Home}
+  options={{
+    headerShown: true,
+    headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
+  }}
+/>
             <Stack.Screen
               name="Profile"
               component={Profile}
