@@ -89,8 +89,9 @@ router.post('/recovery', async (req, res) => {
 //     res.status(501).send({ error: err.message });
 //   }
 // });
+
 router.get('/notifications', async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.query; // Usar req.query en lugar de req.body
 
   try {
     // Buscar al usuario por su correo electrónico
@@ -107,7 +108,6 @@ router.get('/notifications', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener las notificaciones' });
   }
 });
-
 
 
   
