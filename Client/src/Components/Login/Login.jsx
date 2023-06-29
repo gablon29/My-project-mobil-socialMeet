@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
 import logo from "../../../images/logo.png";
 import loginImage from "../../../images/loginImage.png";
@@ -9,14 +9,14 @@ export default function Login({ navigation }) {
   const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
   const login = async () => {
-    try {
       if(email && password){
-     await handleLogin() 
-     navigation.navigate("Home")
-    }else console.log("faltan campos")
-    } catch (err) {
-      console.log("error al acceder", err);
+          await handleLogin()
+          .then(res=>{navigation.navigate("Home")}) //Si el login es exitoso
+          .catch(err=>{Alert.alert("error al acceder", err.message);}) //Si el login falla
+    } else {
+          console.log("faltan campos")
     }
+    
   };
 
   return (

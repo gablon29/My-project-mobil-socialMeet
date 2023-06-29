@@ -8,8 +8,7 @@ export const registro = async (
   province,
   zipcode
 ) => {
-  try {
-    const response = await fetch("https://whopaws-production.up.railway.app/api/user/register", {
+  const response = await fetch("https://whopaws-production.up.railway.app/api/user/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,18 +23,12 @@ export const registro = async (
         province: province,
         zipcode: zipcode,
       }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Registration failed");
-    }
-
+    });   
     const data = await response.json();
+    if (data.error) throw new Error(data.error);
+    console.log("b",data)
     return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+
 };
 
 
@@ -43,7 +36,7 @@ export const login = async (
   email,
   password,
 ) => {
-  try {
+  
     const response = await fetch("https://whopaws-production.up.railway.app/api/user/login", {
       method: "POST",
       headers: {
@@ -55,18 +48,11 @@ export const login = async (
       }),
     });
 
- 
     const data = await response.json();
 
-    if (!data.ok) {
-      throw new Error("login failed");
-    }
+    if (data.error) throw new Error(data.error);
 
     return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
 };
 export const reloadUser = async (token) => {
   try {
@@ -77,11 +63,14 @@ export const reloadUser = async (token) => {
         "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
       }
     });
-    if (!response.ok) {
-      throw new Error("login failed");
-    }
+
 
     const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
     return data;
   } catch (error) {
     console.error(error);
@@ -105,11 +94,12 @@ export const recovery = async (
       }),
     });
 
-    if (!response.ok) {
-      throw new Error("login failed");
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
     }
 
-    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
