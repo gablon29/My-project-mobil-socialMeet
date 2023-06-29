@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import mensajeDeBienvenida from "../../../images/mensajeDeBienvenida.png";
 import Button from "../Buttons/Button";
 

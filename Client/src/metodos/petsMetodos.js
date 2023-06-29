@@ -2,26 +2,36 @@ import axios from "axios";
 
 export const CreatePet = async (token, info) => {
   try {
-    const response = await fetch(
-      "https://whopaws-production.up.railway.app/api/pet/",
+    console.log("INFO EN ", info);
+    /* const response = await axios.post(
+      "https://whopaws-production.up.railway.app/api/pet",
       {
-        //crea una mascota
+        info,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+ */ const response = await fetch(
+      "https://whopaws-production.up.railway.app/api/pet",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          info,
-        }),
+        body: JSON.stringify(info),
       }
     );
-
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error("login failed");
     }
 
-    const data = await response.json();
+    const data = response.data;
+    console.log("DATA", data);
     return data;
   } catch (error) {
     console.error(error);
@@ -42,7 +52,7 @@ export const getPets = async (token) => {
     );
 
     const data = response.data;
-    /*  console.log(data); */
+    /* console.log(data); */
     return data;
   } catch (error) {
     console.error(error);

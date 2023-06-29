@@ -30,14 +30,17 @@ export const usePets = () => {
       name: name,
       specie: specie,
       breed: breed,
-      age: age,
-      health: health /* {
-        castrado: castrado,
-        microchip: microchip,
-        okWithDogs: okWithDogs,
-        okWithCats: okWithCats,
-        okWithChildren: okWithChildren,
-      }, */,
+      age: {
+        years: age.years,
+        months: age.months,
+      },
+      health: {
+        castrado: health.castrado,
+        microchip: health.microchip,
+        okWithDogs: health.okWithDogs,
+        okWithCats: health.okWithCats,
+        okWithChildren: health.okWithChildren,
+      },
       routineOfNeeds: routineOfNeeds,
       routineOfDiet: routineOfDiet,
       information: information,
@@ -47,6 +50,7 @@ export const usePets = () => {
 
     try {
       let response = await CreatePet(token, info);
+      console.log("RESPONSE DE PET", response);
       dispatch(addNewPets(response.data));
       return response;
     } catch (error) {
