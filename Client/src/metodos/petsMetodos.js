@@ -30,8 +30,8 @@ export const CreatePet = async (token, info) => {
       throw new Error("login failed");
     }
 
-    const data = response.data;
-    console.log("DATA", data);
+    const data = response.json();
+    console.log("DATA CON JSON()", data);
     return data;
   } catch (error) {
     console.error(error);
