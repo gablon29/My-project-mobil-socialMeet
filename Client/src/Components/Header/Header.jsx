@@ -16,6 +16,7 @@ import paseadores from "../../../images/dropDownMenu/paseadores.png";
 import peluqueros from "../../../images/dropDownMenu/peluqueros.png";
 import socialPaws from "../../../images/dropDownMenu/socialPaws.png";
 import veterinarios from "../../../images/dropDownMenu/veterinarios.png";
+import Notifications from "../Notifications/Notifications";
 
 export default function Header() {
   const logoOpciones = [
@@ -84,13 +85,7 @@ export default function Header() {
     if (showNotifications) {
       return (
         <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-24">
-          {/* top- debe ser igual al tamaño del header */}
-          <Text className="text-black font-poppinsBold text-2xl">
-            NOTIFICACIÓN
-          </Text>
-          <Text className="text-black font-poppinsBold text-2xl">
-            NOTIFICACIÓN
-          </Text>
+     <Notifications/>
         </View>
       );
     }

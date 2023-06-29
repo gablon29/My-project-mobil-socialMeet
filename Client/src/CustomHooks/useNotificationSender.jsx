@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 
-const useNotificationSender = () => {
-  useEffect(() => {
+export const useNotificationSender = () => {
     const sendNotification = async (token, title, body) => {
       const notification = {
         to: token,
@@ -18,16 +17,10 @@ const useNotificationSender = () => {
       }
     };
 
-    // Otros métodos o lógica relacionada con el envío de notificaciones
-
-    // Devolvemos los métodos o valores que deseemos utilizar desde el componente
+    // Devolvemos el método sendNotification para poder utilizarlo desde el componente
     return {
       sendNotification,
-      // Otros métodos o valores
     };
-  }, []);
 
-  // Si no necesitamos devolver ningún valor, podemos simplemente omitir el return
 };
 
-export default useNotificationSender;

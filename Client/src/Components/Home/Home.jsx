@@ -1,10 +1,47 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
-import Button from "../Buttons/Button";
-import chip from "../../../images/chip.png";
-import juguetePerro from "../../../images/juguetePerro.jpg";
-import Checkout from "../Stripe/Checkout";
-export default function Home() {
+import React, { useEffect } from 'react';
+import { View, Text, Image } from 'react-native';
+import Button from '../Buttons/Button';
+import chip from '../../../images/chip.png';
+import juguetePerro from '../../../images/juguetePerro.jpg';
+import Checkout from '../Stripe/Checkout';
+import * as Permissions from 'expo-permissions';
+
+// import useNotificationSender from '../../CustomHooks/useNotificationSender';
+
+  // const { sendNotification } = useNotificationSender();
+
+  export default function Home() {
+    useEffect(() => {
+      const sendNotification = async (token, title, body) => {
+        const notification = {
+          to: token,
+          title: title,
+          body: body,
+        };
+  
+        try {
+          await axios.post('https://whopaws-production.up.railway.app/send-notification', notification);
+          console.log('Notificación enviada');
+        } catch (error) {
+          console.error('Error al enviar la notificación:', error);
+        }
+      };
+  
+      const registerForPushNotifications = async () => {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  
+        if (status === 'granted') {
+          const token = await Notifications.getExpoPushTokenAsync();
+          console.log('Token del dispositivo:', token);
+  
+          sendNotification(token, '¡Bienvenido a MyPets!', 'Disfruta de tus mascotas');
+        }
+      };
+  
+      registerForPushNotifications();
+    }, []);
+  
+
   const productosDestacados = [
     {
       id: 1,
