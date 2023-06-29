@@ -11,13 +11,13 @@ const serviceAccount = require('./happy-clean-8e79e-firebase-adminsdk-d9ktq-6d4b
 
 require('dotenv').config();
 
-
 mongoose.set('strictQuery', true);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-const mongodbURI = "mongodb://mongo:ziLcr8g4N9GXtnONXh04@containers-us-west-150.railway.app:5696";
+const mongodbURI =
+  'mongodb://mongo:ziLcr8g4N9GXtnONXh04@containers-us-west-150.railway.app:5696';
 
 async function main() {
   await mongoose.connect(mongodbURI);
@@ -41,11 +41,11 @@ app.get('/api/check-db', async (req, res) => {
   }
 });
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(globalLimit);
 // en /api aplicamos solamente el express.json, porque a stripe no le gusta.
-app.use("/api", express.json({ limit: '50mb' }));
-app.use("/api", bodyParser.urlencoded({ extended: true }));
+app.use('/api', express.json({ limit: '50mb' }));
+app.use('/api', bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(routes);
 

@@ -100,7 +100,7 @@ export const CreatePet2 = ({ steps, setSteps, specie, setSpecie }) => {
           </>
         )}
       </View>
-      <View className="flex flex-row justify-between mx-6 mt-48">
+      <View className="flex flex-row justify-between mx-6 mt-80">
         <Button
           title="Atrás"
           onPress={() => setSteps(0)}
