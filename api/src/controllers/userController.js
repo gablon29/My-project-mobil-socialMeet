@@ -95,7 +95,7 @@ const loginUser = async (email, password) => {
     user.tokens.push({ token });
     await user.save();
 
-    return { token, user };
+    return { ok:true, token, user };
   } catch (error) {
     throw error;
   }
