@@ -26,7 +26,6 @@ export const registro = async (
     });   
     const data = await response.json();
     if (data.error) throw new Error(data.error);
-    console.log("b",data)
     return data;
 
 };
@@ -55,7 +54,6 @@ export const login = async (
     return data;
 };
 export const reloadUser = async (token) => {
-  try {
     const response = await fetch("https://whopaws-production.up.railway.app/api/user/user", {
       method: "GET",
       headers: {
@@ -63,19 +61,9 @@ export const reloadUser = async (token) => {
         "Authorization": `Bearer ${token}` // Agrega el token al encabezado de autorización
       }
     });
-
-
     const data = await response.json();
-
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
+    if (data.error) throw new Error(data.error);
     return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
 };
 
 export const recovery = async (
