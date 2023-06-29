@@ -23,7 +23,8 @@ export default function Home() {
         );
         console.log("Notificación enviada");
       } catch (error) {
-        console.error("Error al enviar la notificación:", error);
+        console.error('Error al enviar la notificación:dc', error);
+
       }
     };
 

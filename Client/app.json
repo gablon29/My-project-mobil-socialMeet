@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Client",
-    "slug": "Client",
+    "slug": "whopaws",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -38,7 +38,8 @@
         "googleMaps": {
           "apiKey": "tu-clave-de-API-de-Google-Maps"
         }
-      }
+      },
+      "package": "com.tuempresa.client"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -55,6 +56,12 @@
           "enableGooglePay": false
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f26e932a-9a6a-4da8-9541-72c6153c7e81"
+      }
+    },
+    "owner": "santy1422"
   }
 }
