@@ -15,7 +15,37 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tuempresa.client",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Describe por qué necesitas acceso a la cámara",
+        "NSPhotoLibraryUsageDescription": "Describe por qué necesitas acceso a la biblioteca de fotos",
+        "NSMicrophoneUsageDescription": "Describe por qué necesitas acceso al micrófono"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "RECORD_AUDIO"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "tu-clave-de-API-de-Google-Maps"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "notification": {
+      "icon": "./assets/notification-icon.png",
+      "color": "#ffffff"
     },
     "plugins": [
       [
@@ -25,15 +55,6 @@
           "enableGooglePay": false
         }
       ]
-    ],
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    ]
   }
 }

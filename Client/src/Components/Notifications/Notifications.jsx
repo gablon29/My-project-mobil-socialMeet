@@ -11,21 +11,20 @@ const Notifications = () => {
   const profile = useSelector((state) => state.ReducerAuth.profile);
   console.log(profile.email)
 
-  useEffect(() => {
+ 
+useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(
-          'https://whopaws-production.up.railway.app/api/user/notifications',
-          {
-              email: profile.email
-          }
+          `https://whopaws-production.up.railway.app/api/user/notifications?email=${profile.email}`
         );
+        console.log(response.data)
         setNotifications(response.data.notifications);
       } catch (error) {
         console.error('Error al obtener las notificaciones:', error);
       }
     };
-
+  
     fetchNotifications();
   }, []);
 
