@@ -10,12 +10,12 @@ const router = express.Router();
 //CREAR PET
 router.post('/add', checkJwt, async (req, res) => {
   try {
-    const PetData = req.body;
-    // const newPet = await createPet(PetData, req.user.id);
+    const { body, user } = req;
+    const newPet = await createPet(body, user.userId);
     
-    res.status(200).send(/* newPet */ PetData);
+    res.status(200).json(/* newPet */ newPet);
   } catch (error) {
-    res.status(400).send({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
