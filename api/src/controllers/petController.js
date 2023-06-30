@@ -1,30 +1,26 @@
 const PetModel = require('../models/pet.model');
 const UserModel = require('../models/user.model');
-const { findUserName } = require('../controllers/userController');
+const { ClientError } = require('../utils/errors');
 
-//TODO: validaciones
-///esta actualizada a la nueva aplicacion
+
 const createPet = async (PetData, id) => {
   const dueño = await UserModel.findOne({ id: id });
-  if (!dueño) throw new Error('Tu usuario no existe en la database');
-  //le agrega 3 propiedades al objeto:
+  if (!dueño) throw new ClientError("Este usuario no existe en la base de datos", 400);
   const newPet = await PetModel.create(PetData); //lo crea
   await dueño.pets.push(newPet._id); //crea la realacion
   await dueño.save(); //actualiza al usuario en la DB
   return newPet;
 };
 
-// aun no revisada pero es solo cambiar email por id que llega del token
+
 const updatePet = async (PetData, petID, ownerEmail) => {
   const queryCondition = { _id: petID, owner: ownerEmail };
   const updatedPet = await PetModel.updateOne(queryCondition, PetData);
   return updatedPet;
 };
-// aun no revisada pero es solo cambiar email por id que llega del token
+
 
 const filterByOwner = async (id) => {
-  // const filter = { owner: id };
-  // const owner = await UserModel.findOne({ id: id });
   const ownerPets = await PetModel.find({ owner: id });
   return ownerPets;
 };

@@ -49,12 +49,10 @@ export const usePets = () => {
       coverImage: coverImage,
     };
 
-    try {
+    
       let response = await CreatePet(token, info);
       return response;
-    } catch (error) {
-      console.log(error);
-    }
+ 
   };
   return {
     name,

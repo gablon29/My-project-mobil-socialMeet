@@ -1,46 +1,23 @@
-const express = require('express');
 const {
   loginUser,
   registerUser,
-  recoverPassword
+  recoverPassword,
 } = require('../controllers/userController');
-const { checkJwt } = require('../utils/jwtUtils');
-const { limit5cada30minutos } = require('../utils/rate-limiters');
 const UserModel = require('../models/user.model');
+const { response } = require('../utils');
+const { ClientError } = require('../utils/errors');
 
-const router = express.Router();
-
-//Devuelve el usuario con token para reloguearlo si tiene login
-router.get('/user', checkJwt, async (req, res) => {
-  try {
-    const { userId } = req.user; 
+module.exports = {
+  get_my_data: async (req, res) => {
+    const { userId } = req.user;
     const user = await UserModel.findOne({ _id: userId });
+    if (!user) throw new ClientError('Usuario no encontrado', 500);
+    response(res, 200, user);
+  },
 
-    if (!user) {
-      return res.status(404).json({ error: "🐾"+'User not found' });
-    }
-
-    // Devuelve la información del usuario
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: "🐾"+'Server error' });
-  }
-});
-//registro de usuario
-router.post('/register', async (req, res) => {
-  const {  email,
-    password,
-    firstName,
-    lastName,
-    phone,
-    country,
-    province,
-    city,
-    zipcode,
-    address} = req.body;
-
-  try {
-    const result = await registerUser( email,
+  register_new: async (req, res, next) => {
+    const {
+      email,
       password,
       firstName,
       lastName,
@@ -49,66 +26,56 @@ router.post('/register', async (req, res) => {
       province,
       city,
       zipcode,
-      address);
-    res.status(200).json(result);
-  } catch (error) {
-    console.log(error)
-    res.status(400).json({ error: "🐾"+error.message });
-  }
-});
+      address,
+    } = req.body;
+    if (!firstName ) throw new ClientError('firstName is missing', 500);
+    if (!lastName ) throw new ClientError('lastName is missing', 500);
+    if (!email ) throw new ClientError('email is missing', 500);
+    if (!password ) throw new ClientError('password is missing', 500);
+    if (!phone ) throw new ClientError('phone is missing', 500);
+    if (!country ) throw new ClientError('country is missing', 500);
+    if (!province ) throw new ClientError('province is missing', 500);
+    if (!zipcode ) throw new ClientError('zipcode is missing', 500);
+    //if (!city ) throw new ClientError('city is missing', 500);
+    //if (!address ) throw new ClientError('address is missing', 500);
 
-//login de usuario
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
 
-  try {
+    const result = await registerUser(
+      email,
+      password,
+      firstName,
+      lastName,
+      phone,
+      country,
+      province,
+      city,
+      zipcode,
+      address
+    );
+
+    response(res, 200, result);
+  },
+
+  login: async (req, res, next) => {
+    const { email, password } = req.body;
     const result = await loginUser(email, password);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(401).json({ error: "🐾"+error.message });
-  }
-});
+    if (!user)
+      throw new ClientError('Usuario ' + email + ' no encontrado', 400);
+    response(res, 200, result);
+  },
 
-router.post('/recovery', async (req, res) => {
-  const  {email, password } = req.body;
-
-  try {
+  recover_my_password: async (req, res) => {
+    const { email, password } = req.body;
     const result = await recoverPassword(email, password);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(401).json({ error: error.message });
-  }
-});
+    response(res, 200, result);
+  },
 
-// router.put('/profile', checkJwt, async (req, res) => {
-//   try {
-//     const newUserData = req.body;
-//     const updatedUser = await updateUser(newUserData, req.user.email);
-//     res.status(200).send({ message: 'usuario editado', payload: updatedUser });
-//   } catch (err) {
-//     res.status(501).send({ error: err.message });
-//   }
-// });
-
-router.get('/notifications', async (req, res) => {
-  const { email } = req.query; // Usar req.query en lugar de req.body
-
-  try {
-    // Buscar al usuario por su correo electrónico
+  retrieve_notifications: async (req, res) => {
+    const { email } = req.query; // Usar req.query en lugar de req.body
     const user = await UserModel.findOne({ email });
-
-    if (user) {
-      // Obtener el array de notificaciones del usuario
-      const notifications = user.notifications;
-      res.status(200).json({ notifications });
-    } else {
-      res.status(404).json({ error: "🐾"+'Usuario no encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: "🐾"+'Error al obtener las notificaciones' });
-  }
-});
-
-
-  
-module.exports = router;
+    if (!user) throw new ClientError('Usuario no encontrado', 500);
+    // Obtener el array de notificaciones del usuario
+    const notifications = user.notifications;
+    response(res, 200, notifications);
+  },
+};

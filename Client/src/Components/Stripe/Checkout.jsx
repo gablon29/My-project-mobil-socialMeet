@@ -35,11 +35,10 @@ export default function Checkout() {
         const response = await fetch(API_URL + API_WEBHOOK_ROUTE, stuff);
 
         const data = await response.json();
-        if (!response.ok) {
-            return Alert.alert(data.message);
-        }
+        if (data.error) return Alert.alert(data.message);
+
         const initSheet = await stripe.initPaymentSheet({
-            paymentIntentClientSecret: data.clientSecret,
+            paymentIntentClientSecret: data.payload.clientSecret,
             merchantDisplayName: 'Whopaws',
         });
         if (initSheet.error) {
@@ -47,7 +46,7 @@ export default function Checkout() {
             return Alert.alert(initSheet.error.message);
         }
         const presentSheet = await stripe.presentPaymentSheet({
-            clientSecret: data.clientSecret,
+            clientSecret: data.payload.clientSecret,
         });
         if (presentSheet.error) {
 

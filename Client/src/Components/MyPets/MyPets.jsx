@@ -17,10 +17,11 @@ export default function MyPets({ navigation }) {
          try {
             const token = await AsyncStorage.getItem('Token');
             const { pets } = await getPets(token);
+            console.log(pets);
             dispatch(getAllPets(pets));
          } catch (error) {
             console.log(error);
-         }
+         } 
       };
 
       fetchData();

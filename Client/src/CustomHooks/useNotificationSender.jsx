@@ -10,7 +10,8 @@ export const useNotificationSender = () => {
       };
 
       try {
-        await axios.post('https://whopaws-production.up.railway.app/api/send/send-notification', notification);
+        const data = await axios.post('https://whopaws-production.up.railway.app/api/send/send-notification', notification);
+        if(data.error) throw new Error (data.message)
         console.log('Notificación enviada');
       } catch (error) {
         console.error('Error al enviar la notificación:', error);

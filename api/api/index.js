@@ -50,24 +50,19 @@ app.use(express.static('public'));
 app.use(routes);
 
 app.get('/api/check', checkJwt, async (req, res) => {
-  try {
     res.status(200).send({
       message: 'Token decoded successfully!',
       user: req.user,
     });
-  } catch (err) {
-    res.status(500).send({error: err.message, message: 'The server encountered an error: '  });
-  }
 });
 
 app.get('/api/auth', async (req, res) => {
   const userToken = req.header('Auth');
   const cargaToken = process.env.CARGA_TOKEN;
-
   if (userToken && userToken === cargaToken) {
     res.sendStatus(200);
   } else {
-    res.sendStatus(401);
+    res.sendStatus(500);
   }
 });
 
@@ -79,14 +74,23 @@ const Report = mongoose.model('Report', ReportSchema);
 
 app.get('/api/report/:number', checkJwt, checkAdmin, async (req, res) => {
   const { number } = req.params;
-  try {
     const report = new Report({ number: parseInt(number) });
     await report.save();
     res.status(201).send(report);
-  } catch (err) {
-    res.status(500).send({error: err.message});
-  }
+
 });
+
+app.use("*", (req, res) => {
+  res.status(404).send(req.baseUrl)
+})
+
+app.use((err, req, res, next) => {
+  const message_to_send = err.statusCode ? "🐾"+err.message : "🐾 Unhandled error"
+  res.status(err.statusCode||500).send({
+      error: true,
+      message: message_to_send,
+  })
+})
 
 app.listen(port, () => {
   console.log(`Server has started on port ${port}!`);
