@@ -6,6 +6,8 @@ import juguetePerro from "../../../images/juguetePerro.jpg";
 import Checkout from "../Stripe/Checkout";
 import * as Notifications from "expo-notifications";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Home({ navigation }) {
   useEffect(() => {
@@ -23,7 +25,8 @@ export default function Home({ navigation }) {
         );
         console.log("Notificación enviada");
       } catch (error) {
-        console.error("Error al enviar la notificación:dc", error);
+        console.error('Error al enviar la notificación:dc', error);
+
       }
     };
 
@@ -125,15 +128,15 @@ export default function Home({ navigation }) {
           ))}
         </View>
         <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
-          <Text className="font-poppins underline text-xs mt-10">
-            ACCESO TEMPORAL A MYPETS
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-          <Text className="font-poppins underline text-xs mt-10">
-            ACCESO TEMPORAL A PROFILE
-          </Text>
-        </TouchableOpacity>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A MYPETS
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A PROFILE
+        </Text>
+      </TouchableOpacity>
         <Checkout />
       </View>
     </View>
