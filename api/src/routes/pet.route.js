@@ -5,8 +5,8 @@ const {
 } = require('../controllers/petController');
 const {response} = require("../utils") 
 
-//CREAR PET
-router.post('/add', checkJwt, async (req, res) => {
+module.exports={
+create_pet: async (req, res) => {
   try {
     const { body, user } = req;
     const newPet = await createPet(body, user.userId);
@@ -15,7 +15,7 @@ router.post('/add', checkJwt, async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-});
+},
 
 //logged, user, modifica el PET con lo q le pase por body
 edit_pet: async (req, res) => {
