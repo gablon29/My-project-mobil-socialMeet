@@ -24,7 +24,7 @@ export const useAuth = () => {
   const [verification, setVerification] = useState("");
 
   const handleRegister = async () => {
-   
+    console.log("datos a enviar para registarse: ",email,password,firstName,lastName,phone,country,province,city,zipcode, " y muchos mas" );
       let response = await registro(
         email,
         password,
