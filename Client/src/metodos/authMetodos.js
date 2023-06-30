@@ -25,8 +25,8 @@ export const registro = async (
       }),
     });   
     const data = await response.json();
-    if (data.error) throw new Error(data.error);
-    return data;
+    if (data.error) throw new Error(data.message);
+    return data.payload;
 
 };
 
@@ -49,9 +49,9 @@ export const login = async (
 
     const data = await response.json();
 
-    if (data.error) throw new Error(data.error);
+    if (data.error) throw new Error(data.message);
 
-    return data;
+    return data.payload;
 };
 export const reloadUser = async (token) => {
     const response = await fetch("https://whopaws-production.up.railway.app/api/user/user", {
@@ -62,8 +62,8 @@ export const reloadUser = async (token) => {
       }
     });
     const data = await response.json();
-    if (data.error) throw new Error(data.error);
-    return data;
+    if (data.error) throw new Error(data.message);
+    return data.payload;
 };
 
 export const recovery = async (
@@ -85,10 +85,10 @@ export const recovery = async (
     const data = await response.json();
 
     if (data.error) {
-      throw new Error(data.error);
+      throw new Error(data.message);
     }
 
-    return data;
+    return data.payload;
   } catch (error) {
     console.error(error);
     throw error;

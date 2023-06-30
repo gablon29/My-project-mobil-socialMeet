@@ -11,7 +11,6 @@ const router = express.Router();
 
 
 router.post('/start-pay-process', async (req, res) => {
-	console.table(req.headers,req.body);
 	return await processPurchase(req, res)
 })
 

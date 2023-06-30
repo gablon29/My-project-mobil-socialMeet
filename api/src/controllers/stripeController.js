@@ -1,6 +1,8 @@
 const UserModel = require('../models/user.model'); //por si hay que hacer que cambie algun estado del usuario que compró algo
+const {response} = require("../utils") 
 
 const Stripe = require("stripe");
+const { ClientError } = require('../utils/errors');
 //require('dotenv').config();
 
 //se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
@@ -13,18 +15,18 @@ const StripeUSABLE = Stripe(stripe_secret_key);
 
 
 async function processPurchase(req,res) {
-try {
-	// Getting data from client
-	let { amount, name , product_id, address,customer_id} = req.headers
-    console.log("el body viene vacio no se porque: ", req.body);
-    console.log("por eso usamos los headers para enviar datos: ", req.headers);
+	let { amount, name , product_id, address,customer_id} = req.headers; 	// No se porque no me deja obtener datos del body, el body se borra antes de llegar!!!
+  console.log("el body viene vacio no se porque: ", req.body);
+  console.log("por eso usamos los headers para enviar datos: ", req.headers);
 	// Simple validation
 	if (!amount || !name || !address || !product_id || !customer_id )
-	  return res.status(400).json({ message: "All fields are required" });
-	amount = parseInt(amount);
+    throw new ClientError("Datos insuficientes", 400);
 
-  //Aqui buscar en la database si el productID y el precio con lo que lo paga, coinciden
+	amount = parseInt(amount);
+  // TODO: Aqui buscar en la database si el productID y el precio con lo que lo paga, coinciden
   //buscar en mongodb...
+ 
+  // ...
 
 	// Initiate payment, la siguiente linea manda informacion a stripe,
   // con esta informacion, stripe empieza a mandar EVENTOS a la ruta
@@ -35,16 +37,9 @@ try {
 	  payment_method_types: ["card"],
 	  metadata: { amount: Math.round(amount * 100),name,customer_id,customer_id,address},
 	});
-
-	// Extracting the client secret 
+  
 	const clientSecret = paymentIntent.client_secret;
-	// Sending the client secret as response
-	res.json({ message: "Payment initiated", clientSecret });
-  } catch (err) {
-	// Catch any error and send error 500 to client
-	console.error(err);
-	res.status(500).json({ message: "Internal Server Error" });
-  }
+  response(res,200,clientSecret);
 }
 
 
@@ -55,9 +50,7 @@ try {
 // y lo manejamos dentro de un switch case.
 async function stripeCallback(req,res) {
     const sig = req.headers["stripe-signature"];
-  console.log("Body que envia stripe: ",req.body,);
     let event;
-    try {
         // Check if the event is sent from Stripe or a third party
         // And parse the event
         event = await StripeUSABLE.webhooks.constructEvent(
@@ -65,15 +58,13 @@ async function stripeCallback(req,res) {
             sig,
             STRIPE_WEBHOOK_SECRET
         );
-    } catch (err) {
-        // Handle what happens if the event is not from Stripe
-        console.log(err);
-        return res.status(400).json({ message: err.message });
-    }
+
     // Event when a payment is initiated
     if (event.type === "payment_intent.created") {
         console.log(`${JSON.stringify(event.data.object.metadata)} initated payment!`);
         // Si el valor de lo que quiere pagar no coincide con su precio real, no aceptar el pago!!!
+        // event.data.object.metadata
+        
     }
     // Event when a payment is succeeded
     if (event.type === "payment_intent.succeeded") {
@@ -128,7 +119,7 @@ async function stripeCallback(req,res) {
   }
 
 
-    res.json({ ok: true });
+    res.json({ ok: true }); //?NO TOCAR NUNCA??, Creo que stripe depende de esta respuesta.
 
 }
 

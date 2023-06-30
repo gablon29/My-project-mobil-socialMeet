@@ -10,16 +10,18 @@ export const addPet = async ({ pet, loading, error, success }) => {
       const token = await AsyncStorage.getItem('Token');
       console.log('TOKEN --------- ', token);
       await fetch('https://whopaws-production.up.railway.app/api/pet/add', {
+
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
          },
+
          body: JSON.stringify(pet),
       })
          .then((res) => res.json())
          .then((data) => {
-            success(data);
+            success(data.payload);
          })
          .catch((err) => {
             error('ERROR DEL FETCH: ' + err.message);
@@ -30,6 +32,7 @@ export const addPet = async ({ pet, loading, error, success }) => {
       error(error.message);
       loading(false);
    }
+
 };
 
 export const getPets = async ({ loading, error, success }) => {
@@ -42,15 +45,17 @@ export const getPets = async ({ loading, error, success }) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
          },
+
       })
          .then((res) => res.json())
          .then((data) => {
-            success(data);
+            success(data.payload);
          })
          .catch((err) => {
             error(err.message);
          });
       loading(false);
+
    } catch (error) {
       console.error(error);
       error(error.message);
