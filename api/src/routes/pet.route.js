@@ -8,10 +8,11 @@ const { checkJwt } = require('../utils/jwtUtils');
 const router = express.Router();
 
 //CREAR PET
-router.post('/', checkJwt, async (req, res) => {
+router.post('/add', checkJwt, async (req, res) => {
   try {
     const PetData = req.body;
-    const newPet = await createPet(PetData, req.user.id);
+    // const newPet = await createPet(PetData, req.user.id);
+    
     res.status(200).send(/* newPet */ PetData);
   } catch (error) {
     res.status(400).send({ message: error.message });
