@@ -1,40 +1,34 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const CreatePet = async (token, info) => {
+export const CreatePet = async ({ pet, loading, error, success }) => {
+
+   //https://whopaws-production.up.railway.app/api/pet/add
+   //http://192.168.100.60:8080/api/pet/add
    try {
-      console.log('INFO EN ', info); //bien
-      /* const response = await axios.post(
-      "https://whopaws-production.up.railway.app/api/pet",
-      {
-        info,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
- */
-      const response = await fetch('https://whopaws-production.up.railway.app/api/pet/add', {
+      loading(true);
+      const token = await AsyncStorage.getItem('Token');
+      console.log('TOKEN --------- ', token);
+      await fetch('https://whopaws-production.up.railway.app/api/pet/add', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
          },
-         body: JSON.stringify(info),
-      });
-      /*  if (response.status !== 200) {
-      throw new Error("login failed");
-    } */
-
-      const data = response.json();
-      // console.log('DATA CON JSON()', data);
-      return data;
+         body: JSON.stringify(pet),
+      })
+         .then((res) => res.json())
+         .then((data) => {
+            success(data);
+         })
+         .catch((err) => {
+            error('ERROR DEL FETCH: ' + err.message);
+         });
+      loading(false);
    } catch (error) {
-      console.error(error.message);
-      throw error;
+      console.error(error);
+      error(error.message);
+      loading(false);
    }
 };
 

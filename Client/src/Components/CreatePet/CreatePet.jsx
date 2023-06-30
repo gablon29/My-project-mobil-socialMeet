@@ -10,14 +10,10 @@ import { CreatePet5 } from './CreatePet5';
 import { CreatePet6 } from './CreatePet6';
 
 export default function CreatePet({ navigation }) {
-   const { name, setName, profilePic, specie, setSpecie, setProfilePic, coverImage, setCoverImage, age, setAge, weight, setWeight, breed, setBreed, sex, setSex, health, setHealth, addPet } = usePets();
+   const { addPet, pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress } = usePets();
 
    const [steps, setSteps] = useState(0);
    const [token, setToken] = useState(null);
-
-   const handleHealthProperty = (property, value) => {
-      setHealth({ ...health, [property]: value });
-   };
 
    useEffect(() => {
       const getToken = async () => {
@@ -34,17 +30,17 @@ export default function CreatePet({ navigation }) {
 
    return (
       <View>
-        {console.log('CREATE PET')}
+         {console.log('CREATE PET')}
          {steps === 0 ? (
-            <CreatePet1 profilePic={profilePic} setProfilePic={setProfilePic} steps={steps} setSteps={setSteps} />
+            <CreatePet1 profilePic={pet.profilePic} setProfilePic={setProfilePic} steps={steps} setSteps={setSteps} />
          ) : steps === 1 ? (
-            <CreatePet2 specie={specie} setSpecie={setSpecie} steps={steps} setSteps={setSteps} />
+            <CreatePet2 specie={pet.specie} setSpecie={setSpecie} steps={steps} setSteps={setSteps} />
          ) : steps === 2 ? (
-            <CreatePet3 name={name} setName={setName} weight={weight} setWeight={setWeight} age={age} setAge={setAge} breed={breed} setBreed={setBreed} sex={sex} setSex={setSex} steps={steps} setSteps={setSteps} />
+            <CreatePet3 name={pet.name} setName={setName} weight={pet.weight} setWeight={setWeight} age={pet.age} setAge={{ setAgeYears, setAgeMonths }} breed={pet.breed} setBreed={setBreed} sex={pet.sex} setSex={setSex} steps={steps} setSteps={setSteps} />
          ) : steps === 3 ? (
-            <CreatePet4 handleHealthProperty={handleHealthProperty} health={health} setHealth={setHealth} steps={steps} setSteps={setSteps} />
+            <CreatePet4 health={pet.health} setHealth={{ setHealthCastrado, setHealthMicrochip }} steps={steps} setSteps={setSteps} />
          ) : steps === 4 ? (
-            <CreatePet5 handleHealthProperty={handleHealthProperty} health={health} setHealth={setHealth} steps={steps} setSteps={setSteps} />
+            <CreatePet5 health={pet.health} setHealth={{ setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren }} steps={steps} setSteps={setSteps} />
          ) : (
             <CreatePet6 navigation={navigation} addPet={addPet} token={token} />
          )}

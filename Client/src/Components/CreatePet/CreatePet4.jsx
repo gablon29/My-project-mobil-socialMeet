@@ -2,21 +2,21 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Button from '../Buttons/Button';
 
-export const CreatePet4 = ({ steps, setSteps, health, setHealth, handleHealthProperty }) => {
+export const CreatePet4 = ({ steps, setSteps, health, setHealth }) => {
    return (
       <View className='w-screen h-screen'>
-        {console.log('CREATE PET 4')}
+         {console.log('CREATE PET 4')}
          <View className='flex mt-10'>
             <Text className='font-poppinsBold text-center'>¿Está castrado o esterilizado?</Text>
             <View className='flex flex-row'>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('castrado', true)}>
-                     <Text className='font-poppinsBold text-center text-white'>Si</Text>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthCastrado(true)}>
+                     <Text className='font-poppinsBold text-center text-white'>{health.castrado ? '* Si' : 'Si'}</Text>
                   </TouchableOpacity>
                </View>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('castrado', false)}>
-                     <Text className='font-poppinsBold text-center text-white'>No</Text>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthCastrado(false)}>
+                     <Text className='font-poppinsBold text-center text-white'>{!health.castrado ? '* No' : 'No'}</Text>
                   </TouchableOpacity>
                </View>
             </View>
@@ -25,12 +25,12 @@ export const CreatePet4 = ({ steps, setSteps, health, setHealth, handleHealthPro
             <Text className='font-poppinsBold text-center'> ¿Tiene microchip?</Text>
             <View className='flex flex-row'>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('microchip', true)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthMicrochip(true)}>
                      <Text className='font-poppinsBold text-center text-white'>Si</Text>
                   </TouchableOpacity>
                </View>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('microchip', false)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthMicrochip(false)}>
                      <Text className='font-poppinsBold text-center text-white'>No</Text>
                   </TouchableOpacity>
                </View>

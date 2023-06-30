@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Button from '../Buttons/Button';
 
-export const CreatePet5 = ({ steps, setSteps, health, setHealth, handleHealthProperty }) => {
+export const CreatePet5 = ({ steps, setSteps, health, setHealth }) => {
    return (
       <View className='w-screen h-screen'>
         {console.log('CREATE PET 5')}
@@ -10,12 +10,12 @@ export const CreatePet5 = ({ steps, setSteps, health, setHealth, handleHealthPro
             <Text className='font-poppinsBold text-center'>¿Se lleva bien con perros?</Text>
             <View className='flex flex-row'>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('okWithDogs', true)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthOkWithDogs(true)}>
                      <Text className='font-poppinsBold text-center text-white'>Si</Text>
                   </TouchableOpacity>
                </View>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('okWithDogs', false)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthOkWithDogs(false)}>
                      <Text className='font-poppinsBold text-center text-white'>No</Text>
                   </TouchableOpacity>
                </View>
@@ -25,12 +25,12 @@ export const CreatePet5 = ({ steps, setSteps, health, setHealth, handleHealthPro
             <Text className='font-poppinsBold text-center'>¿Se lleva bien con gatos?</Text>
             <View className='flex flex-row'>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('okWithCats', true)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthOkWithCats(true)}>
                      <Text className='font-poppinsBold text-center text-white'>Si</Text>
                   </TouchableOpacity>
                </View>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('okWithCats', false)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthOkWithCats(false)}>
                      <Text className='font-poppinsBold text-center text-white'>No</Text>
                   </TouchableOpacity>
                </View>
@@ -40,12 +40,12 @@ export const CreatePet5 = ({ steps, setSteps, health, setHealth, handleHealthPro
             <Text className='font-poppinsBold text-center'>¿Se lleva bien con niños?</Text>
             <View className='flex flex-row'>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('okWithChildren', true)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthOkWithChildren(true)}>
                      <Text className='font-poppinsBold text-center text-white'>Si</Text>
                   </TouchableOpacity>
                </View>
                <View className='flex-1 mx-3'>
-                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => handleHealthProperty('okWithChildren', false)}>
+                  <TouchableOpacity className='bg-naranja rounded-full' onPress={() => setHealth.setHealthOkWithChildren(false)}>
                      <Text className='font-poppinsBold text-center text-white'>No</Text>
                   </TouchableOpacity>
                </View>

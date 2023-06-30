@@ -6,9 +6,9 @@ import Button from '../Buttons/Button';
 export const CreatePet3 = ({ steps, setSteps, name, setName, weight, setWeight, age, setAge, breed, setBreed, sex, setSex }) => {
    const options = ['ShiTzu', 'Salchicha', 'Poodle'];
 
-   const handleAgeProperty = (property, value) => {
-      setAge({ ...age, [property]: value });
-   };
+  //  const handleAgeProperty = (property, value) => {
+  //     setAge({ ...age, [property]: value });
+  //  };
 
    return (
       <View className='w-screen h-screen'>
@@ -20,11 +20,11 @@ export const CreatePet3 = ({ steps, setSteps, name, setName, weight, setWeight, 
          <View className='flex flex-row'>
             <View className='flex-1'>
                <Text className='font-poppinsBold text-center'>Edad (Años)</Text>
-               <TextInput placeholder='' value={age.years} onChangeText={(text) => handleAgeProperty('years', text)} className='w-full rounded-full bg-gris h-10 px-4 mb-4' />
+               <TextInput placeholder='' value={age.years} onChangeText={(text) => setAge.setAgeYears(text)} className='w-full rounded-full bg-gris h-10 px-4 mb-4' />
             </View>
             <View className='flex-1'>
                <Text className='font-poppinsBold text-center'>Edad en (Meses)</Text>
-               <TextInput placeholder='' value={age.months} onChangeText={(text) => handleAgeProperty('months', text)} className='w-full rounded-full bg-gris h-10 px-4 mb-4' />
+               <TextInput placeholder='' value={age.months} onChangeText={(text) => setAge.setAgeMonths(text)} className='w-full rounded-full bg-gris h-10 px-4 mb-4' />
             </View>
          </View>
 

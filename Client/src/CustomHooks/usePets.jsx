@@ -30,9 +30,14 @@ const petInit = {
 export const usePets = () => {
    const [pet, setPet] = useState(petInit);
 
-   const addPet = async (token) => {
+   const addPet = async () => {
       try {
-         let response = await CreatePet(token, pet);
+         let response = await CreatePet({
+          pet,
+          loading: (v) => console.log(v),
+          error: (msg) => console.log(msg),
+          success: (res) => console.log(res)
+         });
          return response;
       } catch (error) {
          console.log(error);
