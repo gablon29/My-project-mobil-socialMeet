@@ -8,6 +8,7 @@ const { checkJwt, checkAdmin } = require('../src/utils/jwtUtils');
 const { globalLimit } = require('../src/utils/rate-limiters');
 const admin = require('firebase-admin');
 const serviceAccount = require('./happy-clean-8e79e-firebase-adminsdk-d9ktq-6d4baeab21'); // Ruta al archivo JSON de las credenciales de servicio
+const { response } = require('../src/utils');
 
 require('dotenv').config();
 
@@ -49,23 +50,6 @@ app.use('/api', bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(routes);
 
-app.get('/api/check', checkJwt, async (req, res) => {
-    res.status(200).send({
-      message: 'Token decoded successfully!',
-      user: req.user,
-    });
-});
-
-app.get('/api/auth', async (req, res) => {
-  const userToken = req.header('Auth');
-  const cargaToken = process.env.CARGA_TOKEN;
-  if (userToken && userToken === cargaToken) {
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(500);
-  }
-});
-
 const ReportSchema = new mongoose.Schema({
   number: Number,
 });
@@ -85,7 +69,7 @@ app.use("*", (req, res) => {
 })
 
 app.use((err, req, res, next) => {
-  const message_to_send = err.statusCode ? "🐾"+err.message : "🐾 Unhandled error"
+  const message_to_send = "🐾"+err.message
   res.status(err.statusCode||500).send({
       error: true,
       message: message_to_send,
