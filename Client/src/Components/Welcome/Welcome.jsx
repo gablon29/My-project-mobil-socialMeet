@@ -29,7 +29,7 @@ export default function Welcome({ navigation }) {
             )
             .catch(
               (err) => console.log("token expirado debe loguearse"),
-              AsyncStorage.removeItem("Token")
+              //AsyncStorage.removeItem("Token")
             );
         }
       } catch (error) {
