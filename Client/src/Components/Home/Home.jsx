@@ -125,6 +125,16 @@ export default function Home() {
             </View>
           ))}
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A MYPETS
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <Text className="font-poppins underline text-xs mt-10">
+          ACCESO TEMPORAL A PROFILE
+        </Text>
+      </TouchableOpacity>
         <Checkout />
       </View>
     </View>
