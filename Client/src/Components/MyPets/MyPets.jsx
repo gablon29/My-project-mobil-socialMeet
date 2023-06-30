@@ -16,8 +16,8 @@ export default function MyPets({ navigation }) {
       const fetchData = async () => {
          try {
             const token = await AsyncStorage.getItem('Token');
-            const getAllUserPets = await getPets(token);
-            dispatch(getAllPets(getAllUserPets));
+            const { pets } = await getPets(token);
+            dispatch(getAllPets(pets));
          } catch (error) {
             console.log(error);
          }

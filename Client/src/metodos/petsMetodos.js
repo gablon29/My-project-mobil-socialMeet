@@ -47,9 +47,9 @@ export const getPets = async (token) => {
          },
       });
 
-      // console.log('DATA CON JSON()', response.json());
-      // const data = response.json();
-      return response;
+      const data = response.json();
+      console.log('DATA CON JSON()', data);
+      return data;
    } catch (error) {
       console.error(error);
       throw error;
