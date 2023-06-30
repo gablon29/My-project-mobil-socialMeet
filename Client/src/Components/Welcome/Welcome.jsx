@@ -27,7 +27,10 @@ export default function Welcome({ navigation }) {
                 "Profile"
               ) /*  DESCOMENTAR PARA PROBAR LOGIN O COMENTAR PARA PASAR DIRECTO */
             )
-            .catch((err) => console.log("token expirado debe loguearse"));
+            .catch(
+              (err) => console.log("token expirado debe loguearse"),
+              AsyncStorage.removeItem("Token")
+            );
         }
       } catch (error) {
         console.log("Error al obtener datos:", error);
