@@ -2,14 +2,50 @@ const PetModel = require('../models/pet.model');
 const UserModel = require('../models/user.model');
 const { ClientError } = require('../utils/errors');
 
-
-const createPet = async (PetData, id) => {
-  const dueño = await UserModel.findOne({ id: id });
-  if (!dueño) throw new ClientError("Este usuario no existe en la base de datos", 400);
-  const newPet = await PetModel.create(PetData); //lo crea
-  await dueño.pets.push(newPet._id); //crea la realacion
-  await dueño.save(); //actualiza al usuario en la DB
-  return newPet;
+//TODO: validaciones
+///esta actualizada a la nueva aplicacion
+const createPet = async (
+  {
+    name,
+    specie,
+    breed,
+    weight,
+    sex,
+    age,
+    health,
+    routineOfNeeds,
+    routineOfDiet,
+    information,
+    profilePic,
+    coverImage,
+    gallery,
+    ownerAdress,
+  },
+  id
+) => {
+  try {
+    const newPet = new PetModel({
+      name,
+      specie,
+      breed,
+      weight,
+      sex,
+      age,
+      health,
+      routineOfNeeds,
+      routineOfDiet,
+      information,
+      profilePic,
+      coverImage,
+      gallery,
+      ownerAdress,
+    }); //lo crea
+  
+    await newPet.save();
+    return newPet;
+  } catch (err) {
+    throw new Error(err.message)
+  }
 };
 
 
@@ -29,4 +65,30 @@ module.exports = {
   createPet,
   updatePet,
   filterByOwner,
+};
+
+const test = {
+  name: '',
+  specie: '',
+  breed: '',
+  weight: '',
+  sex: '',
+  age: {
+    years: '',
+    months: '',
+  },
+  health: {
+    castrado: false,
+    microchip: false,
+    okWithDogs: false,
+    okWithCats: false,
+    okWithChildren: false,
+  },
+  routineOfNeeds: '',
+  routineOfDiet: '',
+  information: '',
+  profilePic: '',
+  coverImage: '',
+  gallery: [],
+  ownerAdress: '',
 };

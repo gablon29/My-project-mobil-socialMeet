@@ -1,8 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-export const CreatePet = async ({ pet, loading, error, success }) => {
+export const addPet = async ({ pet, loading, error, success }) => {
 
    //https://whopaws-production.up.railway.app/api/pet/add
    //http://192.168.100.60:8080/api/pet/add

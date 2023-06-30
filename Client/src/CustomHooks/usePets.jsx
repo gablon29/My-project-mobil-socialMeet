@@ -30,20 +30,6 @@ const petInit = {
 export const usePets = () => {
    const [pet, setPet] = useState(petInit);
 
-   const addPet = async () => {
-      try {
-         let response = await CreatePet({
-          pet,
-          loading: (v) => console.log(v),
-          error: (msg) => console.log(msg),
-          success: (res) => console.log(res)
-         });
-         return response;
-      } catch (error) {
-         console.log(error);
-      }
-   };
-
    const setName = (name) => setPet({ ...pet, name });
    const setSpecie = (specie) => setPet({ ...pet, specie });
    const setBreed = (breed) => setPet({ ...pet, breed });
@@ -66,6 +52,5 @@ export const usePets = () => {
    const setGallery = (gallery) => setPet({ ...pet, gallery });
    const setOwnerAdress = (ownerAdress) => setPet({ ...pet, ownerAdress });
 
-   return { addPet, pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress };
-
+   return { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress };
 };

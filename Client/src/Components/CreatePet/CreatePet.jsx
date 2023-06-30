@@ -8,25 +8,21 @@ import { CreatePet3 } from './CreatePet3';
 import { CreatePet4 } from './CreatePet4';
 import { CreatePet5 } from './CreatePet5';
 import { CreatePet6 } from './CreatePet6';
+import { addPet } from '../../metodos/petsMetodos';
 
 export default function CreatePet({ navigation }) {
-   const { addPet, pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress } = usePets();
+   const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress } = usePets();
 
    const [steps, setSteps] = useState(0);
-   const [token, setToken] = useState(null);
 
-   useEffect(() => {
-      const getToken = async () => {
-         try {
-            const value = await AsyncStorage.getItem('Token');
-            setToken(value);
-         } catch (error) {
-            console.log('Error al obtener el token:', error);
-         }
-      };
-
-      getToken();
-   }, []);
+   const funPet = () => {
+    addPet({
+         pet,
+         loading: (v) => console.log(v),
+         error: (msg) => console.log(msg),
+         success: (res) => console.log(res),
+      });
+   };
 
    return (
       <View>
@@ -42,7 +38,7 @@ export default function CreatePet({ navigation }) {
          ) : steps === 4 ? (
             <CreatePet5 health={pet.health} setHealth={{ setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren }} steps={steps} setSteps={setSteps} />
          ) : (
-            <CreatePet6 navigation={navigation} addPet={addPet} token={token} />
+            <CreatePet6 navigation={navigation} addPet={funPet} />
          )}
       </View>
    );
