@@ -17,13 +17,13 @@ router.get('/user', checkJwt, async (req, res) => {
     const user = await UserModel.findOne({ _id: userId });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "🐾"+'User not found' });
     }
 
     // Devuelve la información del usuario
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "🐾"+'Server error' });
   }
 });
 //registro de usuario
@@ -53,7 +53,7 @@ router.post('/register', async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.log(error)
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: "🐾"+error.message });
   }
 });
 
@@ -102,10 +102,10 @@ router.get('/notifications', async (req, res) => {
       const notifications = user.notifications;
       res.status(200).json({ notifications });
     } else {
-      res.status(404).json({ error: 'Usuario no encontrado' });
+      res.status(404).json({ error: "🐾"+'Usuario no encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las notificaciones' });
+    res.status(500).json({ error: "🐾"+'Error al obtener las notificaciones' });
   }
 });
 
