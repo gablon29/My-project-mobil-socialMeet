@@ -20,7 +20,7 @@ useEffect(() => {
         );
         if(response.error) throw new Error(data.message);
         console.log(response.data)
-        setNotifications(response.data.notifications);
+        setNotifications(response.data.payload.notifications);
       } catch (error) {
         console.error('Error al obtener las notificaciones:', error);
       }
