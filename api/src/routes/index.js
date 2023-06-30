@@ -24,9 +24,10 @@ router.post('/send/save-device-token', catchedAsync(notify.guardar_token));
 
 //user GET?   Tiene q estar logeado?==checkJwt    siempre abrazarlo con catchedAsync
 router.get('/api/user/user',isLoggedIn, catchedAsync(user.get_my_data));
-router.post('/api/user/login',isLoggedIn, catchedAsync(user.login));
-router.post('/api/user/register', catchedAsync(user.register_new));
 router.get('/api/user/notifications',isLoggedIn, catchedAsync(user.retrieve_notifications));
+//login not required in those:
+router.post('/api/user/login', catchedAsync(user.login));
+router.post('/api/user/register', catchedAsync(user.register_new));
 router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
 
 //pet handling
