@@ -28,6 +28,6 @@ const ReducerPets = createSlice({
    },
 });
 
-export const { addNewPets, getAllPets } = ReducerAuth.actions;
+export const { addNewPets, getAllPets } = ReducerPets.actions;
 
 export default ReducerPets.reducer;
