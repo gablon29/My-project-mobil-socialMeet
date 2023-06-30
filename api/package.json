@@ -9,8 +9,8 @@
   },
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "start:dev": "npm run lint && npm run start",
-    "start": "nodemon node api/index.js",
+    "dev": "set NODEENV=dev&& nodemon node api/index.js",
+    "start": "set NODEENV=start&& nodemon node api/index.js",
     "lint": "eslint src/**/*.js --fix"
   },
   "keywords": [],

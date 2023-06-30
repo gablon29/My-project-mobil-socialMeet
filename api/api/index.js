@@ -17,8 +17,13 @@ mongoose.set('strictQuery', true);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
+
 const mongodbURI =
-  'mongodb://mongo:ziLcr8g4N9GXtnONXh04@containers-us-west-150.railway.app:5696';
+  JSON.stringify(process.env.NODEENV) === JSON.stringify('start')
+    ? process.env.DB_PRO
+    : process.env.DB_DEV;
+
+console.log(JSON.stringify(process.env.NODEENV), mongodbURI);
 
 async function main() {
   await mongoose.connect(mongodbURI);
@@ -58,23 +63,22 @@ const Report = mongoose.model('Report', ReportSchema);
 
 app.get('/api/report/:number', checkJwt, checkAdmin, async (req, res) => {
   const { number } = req.params;
-    const report = new Report({ number: parseInt(number) });
-    await report.save();
-    res.status(201).send(report);
-
+  const report = new Report({ number: parseInt(number) });
+  await report.save();
+  res.status(201).send(report);
 });
 
-app.use("*", (req, res) => {
-  res.status(404).send(req.baseUrl)
-})
+app.use('*', (req, res) => {
+  res.status(404).send(req.baseUrl);
+});
 
 app.use((err, req, res, next) => {
-  const message_to_send = "🐾"+err.message
-  res.status(err.statusCode||500).send({
-      error: true,
-      message: message_to_send,
-  })
-})
+  const message_to_send = '🐾' + err.message;
+  res.status(err.statusCode || 500).send({
+    error: true,
+    message: message_to_send,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server has started on port ${port}!`);
