@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import Button from "../Buttons/Button";
 import chip from "../../../images/chip.png";
 import juguetePerro from "../../../images/juguetePerro.jpg";
@@ -7,7 +7,7 @@ import Checkout from "../Stripe/Checkout";
 import * as Notifications from "expo-notifications";
 import axios from "axios";
 
-export default function Home() {
+export default function Home({ navigation }) {
   useEffect(() => {
     const sendNotification = async (token, title, body) => {
       const notification = {
