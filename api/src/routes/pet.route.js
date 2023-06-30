@@ -44,7 +44,7 @@ router.get('/byowner', checkJwt, async (req, res) => {
     //   res.send(allPets);
     // }
   } catch (error) {
-    res.status(501).send(error.message);
+    res.status(501).send("🐾"+error.message);
   }
 });
 
