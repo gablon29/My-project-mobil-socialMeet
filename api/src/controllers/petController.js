@@ -23,9 +23,9 @@ const updatePet = async (PetData, petID, ownerEmail) => {
 // aun no revisada pero es solo cambiar email por id que llega del token
 
 const filterByOwner = async (id) => {
-  const filter = { owner: id };
-  const owner = await UserModel.findOne({ id: id });
-  const ownerPets = await PetModel.find({ owner: owner.email });
+  // const filter = { owner: id };
+  // const owner = await UserModel.findOne({ id: id });
+  const ownerPets = await PetModel.find({ owner: id });
   return ownerPets;
 };
 
