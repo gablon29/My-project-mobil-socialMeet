@@ -34,7 +34,7 @@ router.get('/byowner', checkJwt, async (req, res) => {
   //FUNCA: Trae las mascotas del owner
   try {
     const pets = await filterByOwner(req.user.id);
-    res.status(200).json(pets);
+    res.status(200).json({ pets });
     // if (req.user.id) {
     // } else {
     //   const email = req.user.email;
