@@ -8,9 +8,6 @@ const createPet = async (PetData, id) => {
   const dueño = await UserModel.findOne({ id: id });
   if (!dueño) throw new Error('Tu usuario no existe en la database');
   //le agrega 3 propiedades al objeto:
-  PetData.owner = dueño.email; // dueño creador
-  PetData.ownerAdress = dueño.address;
-  //
   const newPet = await PetModel.create(PetData); //lo crea
   await dueño.pets.push(newPet._id); //crea la realacion
   await dueño.save(); //actualiza al usuario en la DB
