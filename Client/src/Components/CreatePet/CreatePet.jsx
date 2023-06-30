@@ -18,9 +18,9 @@ export default function CreatePet({ navigation }) {
    const funPet = () => {
     addPet({
          pet,
-         loading: (v) => console.log(v),
-         error: (msg) => console.log(msg),
-         success: (res) => console.log(res),
+         loading: (v) => console.log("loading: ",v),
+         error: (msg) => console.log("error: ",msg),
+         success: (res) => console.log("sucess:",res),
       });
    };
 
