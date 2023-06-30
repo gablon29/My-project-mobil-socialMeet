@@ -33,16 +33,16 @@ router.put('/profile', checkJwt, async (req, res) => {
 router.get('/byowner', checkJwt, async (req, res) => {
   //FUNCA: Trae las mascotas del owner
   try {
-    if (req.user.id) {
-      const pets = await filterByOwner(req.user.id);
-      res.status(200).send(pets);
-    } else {
-      const email = req.user.email;
+    const pets = await filterByOwner(req.user.id);
+    res.status(200).json(pets);
+    // if (req.user.id) {
+    // } else {
+    //   const email = req.user.email;
 
-      const allPets = await filterByOwner(email);
+    //   const allPets = await filterByOwner(email);
 
-      res.send(allPets);
-    }
+    //   res.send(allPets);
+    // }
   } catch (error) {
     res.status(501).send(error.message);
   }

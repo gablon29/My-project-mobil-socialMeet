@@ -26,7 +26,7 @@ async function main() {
 const app = express();
 
 app.get('/api', async (req, res) => {
-  console.log(process.env);
+  // console.log(process.env);
   res.send({
     message: 'Server working',
   });
