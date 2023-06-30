@@ -7,14 +7,11 @@ const {response} = require("../utils")
 
 module.exports={
 create_pet: async (req, res) => {
-  try {
     const { body, user } = req;
     const newPet = await createPet(body, user.userId);
-    
+    response(res,200,newPet);
     res.status(200).json(/* newPet */ newPet);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+
 },
 
 //logged, user, modifica el PET con lo q le pase por body
