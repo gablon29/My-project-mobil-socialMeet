@@ -8,8 +8,8 @@ import * as Notifications from "expo-notifications";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Home({navigation}) {
-  AsyncStorage.getItem("Token").then(a=>console.log(a))
+
+export default function Home({ navigation }) {
   useEffect(() => {
     const sendNotification = async (token, title, body) => {
       const notification = {

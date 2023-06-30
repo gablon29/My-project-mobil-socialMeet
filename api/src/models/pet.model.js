@@ -4,6 +4,7 @@ const { toJSON /* , paginate */ } = require('./plugins');
 
 const petSchema = mongoose.Schema(
   {
+    //LISTO
     name: {
       type: String,
       required: true,
@@ -11,29 +12,35 @@ const petSchema = mongoose.Schema(
       minlength: 1,
       maxlength: 30,
     },
+    //LISSTO
     specie: {
       type: String,
       required: true,
       default: 'Perro',
     },
+    //LISTO
     age: {
       years: { type: String },
       months: { type: String },
     },
+    //LISTO
     weight: {
       type: String,
     },
+    //LISTO
     breed: {
       type: String,
     },
+    //LISTO
     sex: {
       type: String,
     },
+    //LISTO
     health: {
       castrado: { type: Boolean, default: false },
       microchip: { type: Boolean, default: false },
       okWithDogs: { type: Boolean, default: false },
-      okWithCags: { type: Boolean, default: false },
+      okWithCats: { type: Boolean, default: false },
       okWithChildren: { type: Boolean, default: false },
     },
     routineOfNeeds: {
@@ -51,11 +58,13 @@ const petSchema = mongoose.Schema(
       maxlength: 400,
       default: 'Sin descripción.',
     },
+    //LISTO
     profilePic: {
       type: String,
       default:
         'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
+    //LISTO
     coverImage: {
       type: String,
       default:

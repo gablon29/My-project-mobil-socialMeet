@@ -30,6 +30,24 @@ const ReducerAuth = createSlice({
             profile: action.payload,
          };
       },
+      setLoadingAuth(state, action) {
+         return {
+            ...state,
+            loadingAuth: action.payload
+         };
+      },
+      setErrorAuth(state, action) {
+         return {
+            ...state,
+            errorAuth: action.payload
+         };
+      },
+      setSuccessAuth(state, action) {
+         return {
+            ...state,
+            successAuth: action.payload
+         };
+      },
    },
 });
 

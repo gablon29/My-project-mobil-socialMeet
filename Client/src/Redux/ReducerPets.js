@@ -19,15 +19,33 @@ const ReducerPets = createSlice({
             userPets: [...userPets, action.payload],
          };
       },
-      getAllPets(state, action) {
+      setAllPets(state, action) {
          return {
             ...state,
             userPets: action.payload,
          };
       },
+      setLoadingPets(state, action) {
+         return {
+            ...state,
+            loadingPets: action.payload,
+         };
+      },
+      setErrorPets(state, action) {
+         return {
+            ...state,
+            errorPets: action.payload,
+         };
+      },
+      setSuccessPets(state, action) {
+         return {
+            ...state,
+            successPets: action.payload,
+         };
+      },
    },
 });
 
-export const { addNewPets, getAllPets } = ReducerPets.actions;
+export const { addNewPets, setAllPets, setLoadingPets, setErrorPets, setSuccessPets } = ReducerPets.actions;
 
 export default ReducerPets.reducer;
