@@ -1,52 +1,32 @@
-const express = require('express');
 const {
   updatePet,
   filterByOwner,
   createPet,
 } = require('../controllers/petController');
-const { checkJwt } = require('../utils/jwtUtils');
-const router = express.Router();
+const {response} = require("../utils") 
 
-//CREAR PET
-router.post('/add', checkJwt, async (req, res) => {
-  try {
+
+module.exports = {
+
+create_pet: async (req, res) => {
     const PetData = req.body;
-    // const newPet = await createPet(PetData, req.user.id);
-    
-    res.status(200).send(/* newPet */ PetData);
-  } catch (error) {
-    res.status(400).send({ message: error.message });
-  }
-});
+    const newPet = await createPet(PetData, req.user.id);
+    response(res,200,/* newPet */PetData);
+},
+
 
 //logged, user, modifica el PET con lo q le pase por body
-router.put('/profile', checkJwt, async (req, res) => {
-  try {
-    //prohibir modificar el owner y la history
+edit_pet: async (req, res) => {
     const newData = req.body;
     const updatedPet = await updatePet(newData, req.body.id, req.user.id);
-    res.send({ message: 'Mascota modificada', payload: updatedPet });
-  } catch (err) {
-    res.status(501).send(err.message);
-  }
-});
+    response(res,200,updatedPet);
+},
 
-router.get('/byowner', checkJwt, async (req, res) => {
-  //FUNCA: Trae las mascotas del owner
-  try {
+all_my_pets: async (req, res) => {
     const pets = await filterByOwner(req.user.id);
-    res.status(200).json({ pets });
-    // if (req.user.id) {
-    // } else {
-    //   const email = req.user.email;
+    response(res,200,pets);
+},
 
-    //   const allPets = await filterByOwner(email);
+}
 
-    //   res.send(allPets);
-    // }
-  } catch (error) {
-    res.status(501).send("🐾"+error.message);
-  }
-});
 
-module.exports = router;

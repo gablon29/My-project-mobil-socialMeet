@@ -6,6 +6,8 @@ import juguetePerro from "../../../images/juguetePerro.jpg";
 import Checkout from "../Stripe/Checkout";
 import * as Notifications from "expo-notifications";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Home({ navigation }) {
   useEffect(() => {

@@ -18,8 +18,9 @@ useEffect(() => {
         const response = await axios.get(
           `https://whopaws-production.up.railway.app/api/user/notifications?email=${profile.email}`
         );
+        if(response.error) throw new Error(data.message);
         console.log(response.data)
-        setNotifications(response.data.notifications);
+        setNotifications(response.data.payload.notifications);
       } catch (error) {
         console.error('Error al obtener las notificaciones:', error);
       }

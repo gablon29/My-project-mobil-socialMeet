@@ -67,4 +67,5 @@ export const usePets = () => {
    const setOwnerAdress = (ownerAdress) => setPet({ ...pet, ownerAdress });
 
    return { addPet, pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress };
+
 };

@@ -12,12 +12,14 @@ export default function MyPets({ navigation }) {
    const dispatch = useDispatch();
 
    useEffect(() => {
+
       const fetchData = () => {
          getPets({
             loading: (v) => dispatch(setLoadingPets(v)),
             error: (msg) => dispatch(setErrorPets(msg)),
             success: (res) => dispatch(setAllPets(res.pets)),
          });
+
       };
 
       fetchData();

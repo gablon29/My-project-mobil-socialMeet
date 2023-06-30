@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator')
 const { toJSON/* , paginate */ } = require('./plugins');
+const { ClientError } = require('../utils/errors');
 const userSchema = mongoose.Schema(
   {
     userType: {
@@ -30,7 +31,7 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       validate(value) {
         if (!validator.isEmail(value)) {
-          throw new Error('Invalid email');
+          throw new ClientError('Email no valido.', 400);
         }
       },
     },
@@ -50,7 +51,8 @@ const userSchema = mongoose.Schema(
       default: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png",
       validate(value) {
         if (!value.match(/^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/)) {
-          throw new Error('image must be correct and complete url direction');
+          throw new ClientError('La url es incorrecta.', 400);
+
         }
       },
     },
