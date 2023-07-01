@@ -21,17 +21,14 @@ export default function ResetPasword({ navigation }) {
     navigation.goBack();
   };
 
-  const Code = async() =>{
-    try{
-   await recovery(password, email)
-   navigation.navigate("Login");
-
-  }
-  catch(err){
-    console.log(err)
-  }
-  }
-  
+  const Code = async () => {
+    try {
+      await recovery(password, email);
+      navigation.navigate("Login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -60,7 +57,11 @@ export default function ResetPasword({ navigation }) {
             setSteps={setSteps}
           />
         ) : (
-          <Reset3Step password={password} setPassword={setPassword} Code={Code} />
+          <Reset3Step
+            password={password}
+            setPassword={setPassword}
+            Code={Code}
+          />
         )}
       </View>
     </>
