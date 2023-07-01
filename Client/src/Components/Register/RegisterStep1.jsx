@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+/* import { Picker } from "@react-native-picker/picker"; */ // más adelante cambiar el SelectList por este para ver si los estilos quedan mejor
 import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo.png";
 import Button from "../Buttons/Button";
@@ -35,6 +36,7 @@ export default function RegisterStep1(props, { navigation }) {
 
   const [countryOptions, setCountryOptions] = useState([]);
   const [provinceOptions, setProvinceOptions] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   useEffect(() => {
     const countries = countrys.map((country) => country.name);

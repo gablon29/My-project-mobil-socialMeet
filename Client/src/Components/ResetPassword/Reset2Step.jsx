@@ -12,7 +12,7 @@ export const Reset2Step = ({ verification, setSteps }) => {
     "",
   ]);
   const codeInputs = useRef([]);
-  console.log(verification);
+  /*   console.log(verification); */
   const handleChangeCode = (index, value) => {
     const newCode = [...verificationCode];
     newCode[index] = value;

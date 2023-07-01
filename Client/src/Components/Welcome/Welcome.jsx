@@ -28,8 +28,8 @@ export default function Welcome({ navigation }) {
               ) /*  DESCOMENTAR PARA PROBAR LOGIN O COMENTAR PARA PASAR DIRECTO */
             )
             .catch(
-              (err) => console.log("token expirado debe loguearse"),
-              AsyncStorage.removeItem("Token")
+              (err) => console.log("token expirado debe loguearse")
+              /*  AsyncStorage.removeItem("Token") */
             );
         }
       } catch (error) {

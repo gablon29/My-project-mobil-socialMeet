@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { View, Text } from "react-native";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Notifications = () => {
   const [notifications, setNotifications] = React.useState([]);
@@ -9,23 +9,22 @@ const Notifications = () => {
     (state) => state.ReducerAuth.authenticatedAuth
   );
   const profile = useSelector((state) => state.ReducerAuth.profile);
-  console.log(profile.email)
+  /*  console.log(profile.email) */
 
- 
-useEffect(() => {
+  useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(
           `https://whopaws-production.up.railway.app/api/user/notifications?email=${profile.email}`
         );
-        if(response.error) throw new Error(data.message);
-        console.log(response.data)
+        if (response.error) throw new Error(data.message);
+        console.log(response.data);
         setNotifications(response.data.payload.notifications);
       } catch (error) {
-        console.error('Error al obtener las notificaciones:', error);
+        console.error("Error al obtener las notificaciones:", error);
       }
     };
-  
+
     fetchNotifications();
   }, []);
 
