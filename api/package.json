@@ -52,7 +52,7 @@
     "validator": "^13.7.0"
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 900,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
