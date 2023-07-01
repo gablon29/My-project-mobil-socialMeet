@@ -23,28 +23,8 @@ export const registro = async (email, password, firstName, lastName, phone, coun
 
       return response.data;
    } catch (err) {
-      console.log('FUERA', err);
+      console.log('registro: ', err);
    }
-
-  //  const response = await fetch('http://192.168.18.6:8080/api/user/register', {
-  //     method: 'POST',
-  //     headers: {
-  //        'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //        firstName: firstName,
-  //        lastName: lastName,
-  //        email: email,
-  //        password: password,
-  //        phone: phone,
-  //        country: country,
-  //        province: province,
-  //        zipcode: zipcode,
-  //     }),
-  //  });
-  //  const data = await response.json();
-  //  if (data.error) throw new Error(data.message);
-  //  return data.payload;
 };
 
 export const login = async (email, password) => {

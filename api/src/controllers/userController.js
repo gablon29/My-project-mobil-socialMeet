@@ -16,15 +16,13 @@ const createNewUser = async (user) => {
 
 const registerUser = async (
   email,
-  password,
-  firstName,
-  lastName,
-  phone,
-  country,
-  province,
-  city,
-  zipcode,
-  address
+      password,
+      firstName,
+      lastName,
+      phone,
+      country,
+      province,
+      zipcode,
 ) => {
   const existingUser = await UserModel.findOne({ email }).maxTimeMS(15000); // Increase timeout to 15 seconds
   if (existingUser) throw new ClientError('Este usuario ya existe', 500);
@@ -37,9 +35,7 @@ const registerUser = async (
     phone,
     country,
     province,
-    city,
     zipcode,
-    address,
   });
   await newUser.save();
   const jwtSecretKey = 'MySuperSecretKey123!@';
@@ -59,10 +55,7 @@ const registerUser = async (
 const loginUser = async (email, password) => {
   const user = await UserModel.findOne({ email });
   if (!user)
-    throw new ClientError(
-      'El usuario no se encuentra registrado',
-      500
-    );
+    throw new ClientError('El usuario no se encuentra registrado', 500);
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) throw new ClientError('Contraseña incorrecta', 500);
   const jwtSecretKey = 'MySuperSecretKey123!@';

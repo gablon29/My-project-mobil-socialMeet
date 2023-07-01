@@ -20,20 +20,13 @@ export default function Register({ navigation }) {
     setCountry,
     province,
     setProvince,
-    city,
-    setCity,
     zipcode,
     setZipcode,
-    address,
-    setAddress,
     handleRegister,
     confirmEmail,
     setConfirmEmail,
-    verifyNumber,
     checkPassword,
-    setCheckPassword,
-    checkSms,
-    setCheckSms,
+    setCheckPassword
   } = useAuth();
 
   const [registerSteps, setRegisterSteps] = useState(0);
@@ -56,12 +49,8 @@ export default function Register({ navigation }) {
           setCountry={setCountry}
           province={province}
           setProvince={setProvince}
-          setCity={setCity}
-          city={city}
           zipcode={zipcode}
           setZipcode={setZipcode}
-          address={address}
-          setAddress={setAddress}
           registerSteps={registerSteps}
           setRegisterSteps={setRegisterSteps}
         />

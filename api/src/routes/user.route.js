@@ -24,9 +24,7 @@ module.exports = {
       phone,
       country,
       province,
-      city,
       zipcode,
-      address,
     } = req.body;
     if (!firstName ) throw new ClientError('firstName is missing', 500);
     if (!lastName ) throw new ClientError('lastName is missing', 500);
@@ -35,7 +33,7 @@ module.exports = {
     if (!phone ) throw new ClientError('phone is missing', 500);
     if (!country ) throw new ClientError('country is missing', 500);
     if (!province ) throw new ClientError('province is missing', 500);
-    //if (!zipcode ) throw new ClientError('zipcode is missing', 500);
+    if (!zipcode ) throw new ClientError('zipcode is missing', 500);
     //if (!city ) throw new ClientError('city is missing', 500);
     //if (!address ) throw new ClientError('address is missing', 500);
 
@@ -48,9 +46,7 @@ module.exports = {
       phone,
       country,
       province,
-      city,
       zipcode,
-      address
     );
 
     response(res, 200, result);

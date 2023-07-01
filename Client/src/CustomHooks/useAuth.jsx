@@ -24,9 +24,10 @@ export const useAuth = () => {
    const [verification, setVerification] = useState('');
 
    const handleRegister = async () => {
-      let response = await registro(email, password, firstName, lastName, phone, country, province, city, zipcode, address);
+      let response = await registro(email, password, firstName, lastName, phone, country, province, zipcode);
       if (!response.error) {
          await AsyncStorage.setItem('Token', response.payload.token);
+         console.log(response.payload);
          dispatch(authSetUser(response.payload));
          const eltoken = await AsyncStorage.getItem('Token');
          console.log('Token luego de registrarse es: ', eltoken);
@@ -39,7 +40,7 @@ export const useAuth = () => {
       dispatch(authSetUser(response));
    };
 
-   function verifyNumber() {
+   async function verifyNumber() {
       const url = 'https://api.nexmo.com/verify/json';
 
       const params = {
@@ -49,17 +50,15 @@ export const useAuth = () => {
          brand: 'Whopaws',
       };
 
-      return axios
-         .get(url, { params })
-         .then((response) => {
-            // Manejar la respuesta de la API
-            console.log(response);
-            setCheckSms(response.data);
-         })
-         .catch((error) => {
-            // Manejar errores de la solicitud
-            console.log(error);
-         });
+      try {
+         const response = await axios.get(url, { params });
+         // Manejar la respuesta de la API
+         console.log(response);
+         setCheckSms(response.data);
+      } catch (error) {
+         // Manejar errores de la solicitud
+         console.log(error);
+      }
    }
 
    const emailPassword = () => {
@@ -146,4 +145,31 @@ export const useAuth = () => {
       emailPassword,
       verification,
    };
+};
+
+const uno = {
+   message: 'User created successfully',
+   ok: true,
+   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDlmOWJlNGViOTI3YWRiZWNhYWUzOGIiLCJpYXQiOjE2ODgxODE3MzIsImV4cCI6MTY5ODk4MTczMn0.YPEOomzSlSZfCVIyOd4GjzjD5TPCNubjIcLFzMzAu5M',
+   user: {
+      Notifications: [],
+      addresses: [],
+      country: 'México',
+      created_at: '2023-07-01T03:22:12.589Z',
+      deviceTokens: [],
+      email: 'luis.llancamil.a@gmail.com',
+      firstName: 'Luis',
+      id: '649f9be4eb927adbecaae38b',
+      lastName: 'Llancamil',
+      password: '$2b$10$0qU5JHYANjd4YRn5YFs4/OyIqARm5DJm8ItAhxiMrK/acXOfCuOMG',
+      pets: [],
+      phone: '1232456789',
+      profilePic: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
+      province: 'Baja California',
+      pushToken: [],
+      tokens: [[Object]],
+      updated_at: '2023-07-01T03:22:12.594Z',
+      userType: 'user',
+      zipcode: '123456',
+   },
 };
