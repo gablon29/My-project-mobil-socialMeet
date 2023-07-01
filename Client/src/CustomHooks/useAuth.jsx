@@ -43,11 +43,11 @@ export const useAuth = () => {
     }
   };
 
-  const handleLogin = async () => {
-    let response = await login(email, password);
-    await AsyncStorage.setItem("Token", response.token);
-    dispatch(authSetUser(response));
-  };
+  // const handleLogin = async () => {
+  //   let response = await login(email, password);
+  //   await AsyncStorage.setItem("Token", response.token);
+  //   dispatch(authSetUser(response));
+  // };
 
   async function verifyNumber() {
     const url = "https://api.nexmo.com/verify/json";
@@ -142,7 +142,6 @@ export const useAuth = () => {
     zipcode,
     setZipcode,
     address,
-    handleLogin,
     setAddress,
     handleRegister,
     confirmEmail,
