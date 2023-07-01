@@ -10,7 +10,7 @@ import { CreatePet5 } from './CreatePet5';
 import { CreatePet6 } from './CreatePet6';
 
 export default function CreatePet({ navigation }) {
-   const { addPet, pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress } = usePets();
+   const { addPet, pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets();
 
    const [steps, setSteps] = useState(0);
    const [token, setToken] = useState(null);

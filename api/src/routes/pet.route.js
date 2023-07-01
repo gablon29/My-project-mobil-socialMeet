@@ -1,32 +1,24 @@
-const {
-  updatePet,
-  filterByOwner,
-  createPet,
-} = require('../controllers/petController');
-const {response} = require("../utils") 
-
+const { updatePet, filterByOwner, createPet } = require('../controllers/petController');
+const { response } = require('../utils');
 
 module.exports = {
-
-create_pet: async (req, res) => {
+  create_pet: async (req, res) => {
     const PetData = req.body;
+    console.log(PetData);
     const newPet = await createPet(PetData, req.user.id);
-    response(res,200,/* newPet */PetData);
-},
+    response(res, 200, newPet);
+  },
 
-
-//logged, user, modifica el PET con lo q le pase por body
-edit_pet: async (req, res) => {
+  //logged, user, modifica el PET con lo q le pase por body
+  edit_pet: async (req, res) => {
     const newData = req.body;
     const updatedPet = await updatePet(newData, req.body.id, req.user.id);
-    response(res,200,updatedPet);
-},
+    response(res, 200, updatedPet);
+  },
 
-all_my_pets: async (req, res) => {
-    const pets = await filterByOwner(req.user.id);
-    response(res,200,pets);
-},
-
-}
-
-
+  all_my_pets: async (req, res) => {
+    console.log('ID',req.user.userId)
+    const pets = await filterByOwner(req.user.userId);
+    response(res, 200, pets);
+  },
+};
