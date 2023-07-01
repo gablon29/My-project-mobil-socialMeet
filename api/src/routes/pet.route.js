@@ -17,7 +17,8 @@ module.exports = {
   },
 
   all_my_pets: async (req, res) => {
-    const pets = await filterByOwner(req.user.id);
+    console.log('ID',req.user.userId)
+    const pets = await filterByOwner(req.user.userId);
     response(res, 200, pets);
   },
 };

@@ -32,13 +32,12 @@ export const usePets = () => {
 
    const addPet = async () => {
       try {
-         let response = await CreatePet({
+         await CreatePet({
           pet,
           loading: (v) => console.log(v),
           error: (msg) => console.log(msg),
           success: (res) => console.log(res)
          });
-         return response;
       } catch (error) {
          console.log(error);
       }

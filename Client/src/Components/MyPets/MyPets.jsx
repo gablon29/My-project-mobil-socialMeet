@@ -17,7 +17,7 @@ export default function MyPets({ navigation }) {
          getPets({
             loading: (v) => dispatch(setLoadingPets(v)),
             error: (msg) => dispatch(setErrorPets(msg)),
-            success: (res) => dispatch(setAllPets(res.pets)),
+            success: (res) => dispatch(setAllPets(res.payload)),
          });
 
       };
@@ -33,7 +33,7 @@ export default function MyPets({ navigation }) {
             {userPets.length ? (
                userPets.map((element, index) => (
                   <View key={index} className='m-1'>
-                     <Image source={{ uri: element.profilePic }} style={{ width: 100, height: 100 }} />
+                     <Image /*source={{ uri: element.profilePic }}*/ style={{ width: 100, height: 100 }} />
 
                      <View className='bg-naranja rounded-full'>
                         <Text className='font-poppinsBold text-white text-sm text-center'>{element.name}</Text>
