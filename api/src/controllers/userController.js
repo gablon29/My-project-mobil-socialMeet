@@ -16,13 +16,13 @@ const createNewUser = async (user) => {
 
 const registerUser = async (
   email,
-      password,
-      firstName,
-      lastName,
-      phone,
-      country,
-      province,
-      zipcode,
+  password,
+  firstName,
+  lastName,
+  phone,
+  country,
+  province,
+  zipcode
 ) => {
   const existingUser = await UserModel.findOne({ email }).maxTimeMS(15000); // Increase timeout to 15 seconds
   if (existingUser) throw new ClientError('Este usuario ya existe', 500);
@@ -48,12 +48,20 @@ const registerUser = async (
     ok: true,
     message: 'User created successfully',
     token,
-    user: newUser,
+    user: {
+      userType: newUser.userType,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      profilePic: newUser.profilePic,
+      pets: newUser.pets,
+      id: newUser.id,
+    },
   };
 };
 
-const loginUser = async (email, password) => {
-  const user = await UserModel.findOne({ email });
+const loginUser = async (emailParam, password) => {
+  const user = await UserModel.findOne({ email: emailParam });
   if (!user)
     throw new ClientError('El usuario no se encuentra registrado', 500);
   const passwordMatch = await bcrypt.compare(password, user.password);
@@ -64,7 +72,11 @@ const loginUser = async (email, password) => {
   });
   user.tokens.push({ token });
   await user.save();
-  return { token, user };
+  const { userType, firstName, lastName, email, profilePic, pets, id } = user;
+  return {
+    token,
+    user: { userType, firstName, lastName, email, profilePic, pets, id },
+  };
 };
 
 const recoverPassword = async (email, password) => {
@@ -98,3 +110,5 @@ module.exports = {
   findUserName,
   recoverPassword,
 };
+
+// const uno = { userType, firstName, lastName, email, profilePic, pets, id };
