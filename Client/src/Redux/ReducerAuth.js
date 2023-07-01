@@ -51,6 +51,6 @@ const ReducerAuth = createSlice({
    },
 });
 
-export const { authSetUser, userRefresh } = ReducerAuth.actions;
+export const { authSetUser, userRefresh, setLoadingAuth, setErrorAuth, setSuccessAuth } = ReducerAuth.actions;
 
 export default ReducerAuth.reducer;
