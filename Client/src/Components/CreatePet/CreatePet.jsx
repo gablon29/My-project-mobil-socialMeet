@@ -104,7 +104,8 @@ export default function CreatePet({ navigation }) {
           setSteps={setSteps}
         />
       ) : (
-        <CreatePet6 navigation={navigation} />
+        // <CreatePet6 navigation={navigation} />
+        null
       )}
     </View>
   );
