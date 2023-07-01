@@ -22,7 +22,7 @@ export const CreatePet6 = ({ navigation }) => {
         <View className="flex items-center mt-10">
           <Button
             title="Ver mi mascota"
-            onPress={navigation.navigate("MyPets")}
+            onPress={() => navigation.navigate("MyPets")}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"

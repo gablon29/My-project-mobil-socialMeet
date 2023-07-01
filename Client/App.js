@@ -19,12 +19,14 @@ import axios from "axios";
 
 //Stripe imports:
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { CreatePet6 } from "./src/Components/CreatePet/CreatePet6";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   // DESARROLLO
-  /* axios.defaults.baseURL = 'http://192.168.100.60:8080'; */
-  axios.defaults.baseURL = "http://192.168.1.84:8080"; //IP IGNA
+  /* axios.defaults.baseURL = 'http://192.168.100.60:8080'; */ //LUIS CASA
+  axios.defaults.baseURL = 'http://192.168.18.6:8080'; //LUIS local
+  // axios.defaults.baseURL = "http://192.168.1.84:8080"; //IP IGNA
 
   // PRODUCCION
   // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
@@ -112,6 +114,11 @@ export default function App() {
             <Stack.Screen
               name="CreatePet"
               component={CreatePet}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="CreatePet6"
+              component={CreatePet6}
               options={{ headerShown: true }}
             />
           </Stack.Navigator>
