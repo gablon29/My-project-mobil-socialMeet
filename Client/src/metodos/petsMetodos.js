@@ -21,7 +21,7 @@ export const CreatePetMethod = async ({ pet, loading, error, success }) => {
   }
 };
 
-export const getPets = async ({ loading, error, success }) => {
+export const GetPetsMethod = async ({ loading, error, success }) => {
   try {
     loading(true);
     const token = await AsyncStorage.getItem("Token");

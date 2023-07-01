@@ -14,19 +14,20 @@ import Header from "./src/Components/Header/Header";
 import Profile from "./src/Components/Profile/Profile";
 import MyPets from "./src/Components/MyPets/MyPets";
 import CreatePet from "./src/Components/CreatePet/CreatePet";
+import { CreatePet6 } from "./src/Components/CreatePet/CreatePet6";
 import { BackHandler } from "react-native";
 import axios from "axios";
 
 //Stripe imports:
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { CreatePet6 } from "./src/Components/CreatePet/CreatePet6";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   // DESARROLLO
   /* axios.defaults.baseURL = 'http://192.168.100.60:8080'; */ //LUIS CASA
-  axios.defaults.baseURL = 'http://192.168.18.6:8080'; //LUIS local
-  // axios.defaults.baseURL = "http://192.168.1.84:8080"; //IP IGNA
+  // axios.defaults.baseURL = "http://192.168.18.6:8080"; //LUIS LOCAL
+  axios.defaults.baseURL = "http://192.168.1.84:8080"; //IP IGNA
 
   // PRODUCCION
   // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
