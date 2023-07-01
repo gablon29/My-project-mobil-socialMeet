@@ -3,12 +3,28 @@ import React, { useEffect } from "react";
 import mensajeDeBienvenida from "../../../images/mensajeDeBienvenida.png";
 import Button from "../Buttons/Button";
 import { useDispatch, useSelector } from "react-redux";
+import { GetPetsMethod } from "../../metodos/petsMetodos";
+import {
+  setAllPets,
+  setErrorPets,
+  setLoadingPets,
+} from "../../Redux/ReducerPets";
 
 export const CreatePet6 = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const profile = useSelector((state) => state.ReducerAuth.profile);
   let owner = profile.email;
+  const getPets = () => {
+    GetPetsMethod({
+      loading: (v) => dispatch(setLoadingPets(v)),
+      error: (msg) => dispatch(setErrorPets(msg)),
+      success: (res) => {
+        dispatch(setAllPets(res.payload));
+        navigation.navigate("MyPets");
+      },
+    });
+  };
 
   return (
     <View className="flex-1 items-center justify-center mt-40">
@@ -22,7 +38,7 @@ export const CreatePet6 = ({ navigation }) => {
         <View className="flex items-center mt-10">
           <Button
             title="Ver mi mascota"
-            onPress={() => navigation.navigate("MyPets")}
+            onPress={getPets}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"

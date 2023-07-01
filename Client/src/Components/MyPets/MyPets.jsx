@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import cruz from "../../../images/iconos/cruz.png";
 import ButtonWithImage from "../Buttons/ButtonWithImage";
 import { useDispatch, useSelector } from "react-redux";
-import { getPets } from "../../metodos/petsMetodos";
+import { GetPetsMethod } from "../../metodos/petsMetodos";
 import {
   setAllPets,
   setLoadingPets,
@@ -22,7 +22,7 @@ export default function MyPets({ navigation }) {
 
   useEffect(() => {
     const fetchData = () => {
-      getPets({
+      GetPetsMethod({
         loading: (v) => dispatch(setLoadingPets(v)),
         error: (msg) => dispatch(setErrorPets(msg)),
         success: (res) => dispatch(setAllPets(res.payload)),
