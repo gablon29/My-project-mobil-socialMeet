@@ -4,7 +4,6 @@ const { response } = require('../utils');
 module.exports = {
   create_pet: async (req, res) => {
     const PetData = req.body;
-    console.log(PetData);
     const newPet = await createPet(PetData, req.user.id);
     response(res, 200, newPet);
   },
@@ -17,7 +16,6 @@ module.exports = {
   },
 
   all_my_pets: async (req, res) => {
-    console.log('ID',req.user.userId)
     const pets = await filterByOwner(req.user.userId);
     response(res, 200, pets);
   },
