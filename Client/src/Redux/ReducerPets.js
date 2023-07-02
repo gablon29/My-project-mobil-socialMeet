@@ -20,7 +20,6 @@ const ReducerPets = createSlice({
          };
       },
       setAllPets(state, action) {
-         console.log('DENTRO REDUCER', action.payload)
          return {
             ...state,
             userPets: action.payload,

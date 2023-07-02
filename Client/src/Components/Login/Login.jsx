@@ -15,6 +15,7 @@ export default function Login({ navigation }) {
   const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
   const login = () => {
+    // if()
     LoginAuthMethod({
       email,
       password,
@@ -30,7 +31,6 @@ export default function Login({ navigation }) {
 
   return (
     <ScrollView>
-      {/* {console.log(profile, token)} */}
       <View className="flex-1 items-center justify-center bg-white">
         <Image source={logo} />
         <Image source={loginImage} className="mt-8" />

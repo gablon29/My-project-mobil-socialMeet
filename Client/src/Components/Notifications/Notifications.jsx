@@ -9,7 +9,6 @@ const Notifications = () => {
     (state) => state.ReducerAuth.authenticatedAuth
   );
   const profile = useSelector((state) => state.ReducerAuth.profile);
-  /*  console.log(profile.email) */
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -18,7 +17,6 @@ const Notifications = () => {
           `https://whopaws-production.up.railway.app/api/user/notifications?email=${profile.email}`
         );
         if (response.error) throw new Error(data.message);
-        console.log(response.data);
         setNotifications(response.data.payload.notifications);
       } catch (error) {
         console.error("Error al obtener las notificaciones:", error);

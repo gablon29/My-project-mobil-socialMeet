@@ -12,7 +12,8 @@ module.exports = {
     const { userId } = req.user;
     const user = await UserModel.findOne({ _id: userId });
     if (!user) throw new ClientError('Usuario no encontrado', 500);
-    response(res, 200, user);
+    const { userType, firstName, lastName, email, profilePic, pets, id } = user;
+    response(res, 200, { userType, firstName, lastName, email, profilePic, pets, id });
   },
 
   register_new: async (req, res, next) => {

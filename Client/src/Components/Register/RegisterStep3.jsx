@@ -3,6 +3,7 @@ import React from "react";
 import logo from "../../../images/logo.png";
 import mensajeDeBienvenida from "../../../images/mensajeDeBienvenida.png";
 import Button from "../Buttons/Button";
+import Toast from "react-native-root-toast";
 
 export function RegisterStep3({ navigation }) {
   return (
@@ -18,7 +19,17 @@ export function RegisterStep3({ navigation }) {
         <View className="flex items-center mt-10">
           <Button
             title="Ir a inicio"
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => {
+              Toast.show('Muchas Gracias por Registrarte, Bienvenido', {
+                duration: 10000,
+                position: Toast.positions.CENTER,
+                shadow: true,
+                animation: true,
+                hideOnPress: false,
+                delay: 0
+              });
+              navigation.navigate("Home")
+            }}
             colorButton="bg-naranja"
             colorText="text-white"
             ancho="w-40"

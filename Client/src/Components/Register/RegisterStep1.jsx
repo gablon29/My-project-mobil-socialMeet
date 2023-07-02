@@ -1,42 +1,17 @@
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 /* import { Picker } from "@react-native-picker/picker"; */ // más adelante cambiar el SelectList por este para ver si los estilos quedan mejor
-import React, { useEffect, useState } from "react";
-import logo from "../../../images/logo.png";
-import Button from "../Buttons/Button";
-import { SelectList } from "react-native-dropdown-select-list";
-import countrys from "../../../extras/countrys.json";
+import React, { useEffect, useState } from 'react';
+import logo from '../../../images/logo.png';
+import Button from '../Buttons/Button';
+import { SelectList } from 'react-native-dropdown-select-list';
+import countrys from '../../../extras/countrys.json';
 
-export default function RegisterStep1(props, { navigation }) {
-  const {
-    email,
-    setEmail,
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
-    phone,
-    setPhone,
-    country,
-    setCountry,
-    province,
-    setProvince,
-    zipcode,
-    setZipcode,
-    confirmEmail,
-    setConfirmEmail,
-    setRegisterSteps,
-  } = props;
+export default function RegisterStep1(props) {
+  const { email, setEmail, firstName, setFirstName, lastName, setLastName, phone, setPhone, country, setCountry, province, setProvince, zipcode, setZipcode, confirmEmail, setConfirmEmail, setRegisterSteps, navigation } = props;
 
   const [countryOptions, setCountryOptions] = useState([]);
   const [provinceOptions, setProvinceOptions] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState('');
 
   useEffect(() => {
     const countries = countrys.map((country) => country.name);
@@ -58,6 +33,18 @@ export default function RegisterStep1(props, { navigation }) {
     }
   }, [country]);
 
+  const nextRegistro = () => {
+    if(!email || !firstName || !lastName || !phone || !country || !province || !zipcode || !confirmEmail){
+      alert('Hay campos vacios');
+      return;
+    }
+    if (email !== confirmEmail) {
+      alert('Correos no coinciden');
+      return;
+    }
+    setRegisterSteps(1);
+  };
+
   return (
     <ScrollView className="bg-white">
       <View className="flex-1 items-center justify-center mt-12 bg-white">
@@ -65,44 +52,19 @@ export default function RegisterStep1(props, { navigation }) {
 
         <View className="w-4/5 mt-5">
           <Text className="font-poppins">Nombre</Text>
-          <TextInput
-            placeholder=""
-            value={firstName}
-            onChangeText={(text) => setFirstName(text)}
-            className="w-full rounded-full bg-gris h-8 px-4 mb-4"
-          />
+          <TextInput placeholder="" value={firstName} onChangeText={(text) => setFirstName(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Apellidos</Text>
-          <TextInput
-            placeholder=""
-            value={lastName}
-            onChangeText={(text) => setLastName(text)}
-            className="w-full rounded-full bg-gris h-8 px-4 mb-4"
-          />
+          <TextInput placeholder="" value={lastName} onChangeText={(text) => setLastName(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Email</Text>
-          <TextInput
-            placeholder=""
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            className="w-full rounded-full bg-gris h-8 px-4 mb-4"
-          />
+          <TextInput placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Repetir Email</Text>
-          <TextInput
-            placeholder=""
-            value={confirmEmail}
-            onChangeText={(text) => setConfirmEmail(text)}
-            className="w-full rounded-full bg-gris h-8 px-4 mb-4"
-          />
+          <TextInput placeholder="" value={confirmEmail} onChangeText={(text) => setConfirmEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Teléfono</Text>
-          <TextInput
-            placeholder=""
-            value={phone}
-            onChangeText={(text) => setPhone(text)}
-            className="w-full rounded-full bg-gris h-8 px-4 mb-4"
-          />
+          <TextInput placeholder="" value={phone} onChangeText={(text) => setPhone(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
           <Text className="font-poppins">País</Text>
           <SelectList
             data={countryOptions}
@@ -111,14 +73,14 @@ export default function RegisterStep1(props, { navigation }) {
             search={false}
             fontFamily="Poppins"
             boxStyles={{
-              backgroundColor: "#DADADA",
+              backgroundColor: '#DADADA',
               borderRadius: 999,
-              borderColor: "#DADADA",
+              borderColor: '#DADADA',
               height: 40,
               padding: 10,
             }}
             dropdownStyles={{
-              backgroundColor: "#DADADA",
+              backgroundColor: '#DADADA',
             }}
           />
 
@@ -130,44 +92,29 @@ export default function RegisterStep1(props, { navigation }) {
                 setSelected={setProvince}
                 placeholder="Seleccionar"
                 search={false}
-                fontFamily={"Poppins"}
+                fontFamily={'Poppins'}
                 boxStyles={{
-                  backgroundColor: "#DADADA",
+                  backgroundColor: '#DADADA',
                   borderRadius: 999,
-                  borderColor: "#DADADA",
+                  borderColor: '#DADADA',
                 }}
-                dropdownStyles={{ backgroundColor: "#DADADA" }}
+                dropdownStyles={{ backgroundColor: '#DADADA' }}
               />
             </View>
             <View className="flex-1 ml-2">
               <Text className="font-poppins">Código Postal</Text>
-              <TextInput
-                placeholder=""
-                value={zipcode}
-                onChangeText={(text) => setZipcode(text)}
-                className="w-full rounded-full bg-gris h-8 px-4 mb-4"
-              />
+              <TextInput placeholder="" value={zipcode} onChangeText={(text) => setZipcode(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
             </View>
           </View>
 
           <View className="flex items-center mt-2">
-            <Button
-              title="Siguiente"
-              onPress={() => setRegisterSteps(1)}
-              colorButton="bg-naranja"
-              colorText="text-white"
-              ancho="w-40"
-              alto="h-11"
-              textSize="text-base"
-            />
+            <Button title="Siguiente" onPress={nextRegistro} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
           </View>
         </View>
         <View className="my-4" />
         <View>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text className="font-poppins underline text-xs">
-              ¿Ya tienes una cuenta? Inicia sesión
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text className="font-poppins underline text-xs">¿Ya tienes una cuenta? Inicia sesión</Text>
           </TouchableOpacity>
         </View>
       </View>
