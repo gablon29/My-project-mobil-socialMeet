@@ -12,21 +12,21 @@ export const CreatePet4 = ({ steps, setSteps, health, setHealth }) => {
         <View className="flex flex-row">
           <View className="flex-1 mx-3">
             <TouchableOpacity
-              className="bg-naranja rounded-full"
+              className={!health.castrado ? "bg-naranja rounded-full" : "bg-naranja rounded-full border border-black-300"}
               onPress={() => setHealth.setHealthCastrado(true)}
             >
               <Text className="font-poppinsBold text-center text-white">
-                {health.castrado ? "* Si" : "Si"}
+                Sí
               </Text>
             </TouchableOpacity>
           </View>
           <View className="flex-1 mx-3">
             <TouchableOpacity
-              className="bg-naranja rounded-full"
+              className={health.castrado ? "bg-naranja rounded-full" : "bg-naranja rounded-full border border-black-300"}
               onPress={() => setHealth.setHealthCastrado(false)}
             >
               <Text className="font-poppinsBold text-center text-white">
-                {!health.castrado ? "* No" : "No"}
+                No
               </Text>
             </TouchableOpacity>
           </View>
