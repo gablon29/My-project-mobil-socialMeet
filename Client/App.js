@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
@@ -23,17 +23,23 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 import PetProfile from './src/Components/PetProfile/PetProfile';
 import { RegisterStep3 } from './src/Components/Register/RegisterStep3';
 
+//devmode
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Apiurlselector from './src/Components/Apiurlselector/Apiurlselector';
+
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   // DESARROLLO
-  axios.defaults.baseURL = 'http://192.168.100.60:8080'; //LUIS CASA
+  axios.defaults.baseURL = 'http://192.168.0.12:8080'; //LUIS CASA
   // axios.defaults.baseURL = "http://192.168.18.6:8080"; //LUIS LOCAL
   // axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
 
   // PRODUCCION
   // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
+
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),
@@ -54,8 +60,9 @@ export default function App() {
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
     <Provider store={store}>
       <StripeProvider publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
-        <NavigationContainer>
+         <NavigationContainer>
           <Stack.Navigator screenOptions={{ header: (props) => showHeader(props.route) && <Header />, headerShown: true }}>
+            <Stack.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
             <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
@@ -69,6 +76,7 @@ export default function App() {
             <Stack.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
           </Stack.Navigator>
         </NavigationContainer>
+        
       </StripeProvider>
     </Provider>
   );
