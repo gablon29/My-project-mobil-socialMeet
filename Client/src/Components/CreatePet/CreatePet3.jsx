@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import Button from "../Buttons/Button";
 
@@ -18,10 +18,20 @@ export const CreatePet3 = ({
   setSex,
 }) => {
   const options = ["ShiTzu", "Salchicha", "Poodle"];
+  // para que al apretar enter se pase al sigiente cosito
+  const ref_n = useRef();
+  const ref_w = useRef();
+  const ref_ay = useRef();
+  const ref_am = useRef();
+  
+  const datos_llenados =  name && weight&&  age &&breed &&sex 
+  
 
-  //  const handleAgeProperty = (property, value) => {
-  //     setAge({ ...age, [property]: value });
-  //  };
+  useEffect(() => {
+    if (ref_n.current) {
+      ref_n.current.focus();
+    }
+  }, []);
 
   return (
     <View className="w-screen h-screen">
@@ -32,6 +42,10 @@ export const CreatePet3 = ({
         placeholder=""
         value={name}
         onChangeText={(text) => setName(text)}
+        autoFocus={true}
+        ref={ref_n}
+        returnKeyType="next"
+        onSubmitEditing={() => ref_w.current.focus()}
         className="w-full rounded-full bg-gris h-10 px-4 mb-4"
       />
       <Text className="font-poppinsBold text-center">Peso en KG</Text>
@@ -39,7 +53,12 @@ export const CreatePet3 = ({
         placeholder=""
         value={weight}
         onChangeText={(text) => setWeight(text)}
+        ref={ref_w}
+        returnKeyType="next"
+        onSubmitEditing={() => ref_ay.current.focus()}
         className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+        keyboardType="numeric"
+      
       />
       <View className="flex flex-row">
         <View className="flex-1">
@@ -47,8 +66,12 @@ export const CreatePet3 = ({
           <TextInput
             placeholder=""
             value={age.years}
+            returnKeyType="next"
+            ref={ref_ay}
+            onSubmitEditing={() => ref_am.current.focus()}
             onChangeText={(text) => setAge.setAgeYears(text)}
             className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+            keyboardType="numeric"
           />
         </View>
         <View className="flex-1">
@@ -56,8 +79,10 @@ export const CreatePet3 = ({
           <TextInput
             placeholder=""
             value={age.months}
+            ref={ref_am}
             onChangeText={(text) => setAge.setAgeMonths(text)}
             className="w-full rounded-full bg-gris h-10 px-4 mb-4"
+            keyboardType="numeric"
           />
         </View>
       </View>
@@ -82,7 +107,7 @@ export const CreatePet3 = ({
           <View className="flex-1 mx-3">
             <TouchableOpacity
               onPress={() => setSex("Macho")}
-              className="bg-gris rounded-full"
+              className={sex=="Macho"? "bg-orange-500 rounded-full" : "bg-gris rounded-full"}
             >
               <Text className="font-poppinsBold text-center">Macho</Text>
             </TouchableOpacity>
@@ -90,7 +115,7 @@ export const CreatePet3 = ({
           <View className="flex-1 mx-3">
             <TouchableOpacity
               onPress={() => setSex("Hembra")}
-              className="bg-gris rounded-full"
+              className={sex=="Hembra"? "bg-orange-500 rounded-full" : "bg-gris rounded-full"}
             >
               <Text className="font-poppinsBold text-center">Hembra</Text>
             </TouchableOpacity>
@@ -110,9 +135,10 @@ export const CreatePet3 = ({
         <Button
           title="Continuar"
           onPress={() => {
-            setSteps(3);
+            datos_llenados ? setSteps(3): Alert.alert("Falta completara campos.")
           }}
-          colorButton="bg-naranja"
+          
+          colorButton={datos_llenados ? "bg-naranja" : "bg-gris"}
           colorText="text-white"
           ancho="w-40"
           alto="h-11"
