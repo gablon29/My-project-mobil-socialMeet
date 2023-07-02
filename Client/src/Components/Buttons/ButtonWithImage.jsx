@@ -1,19 +1,8 @@
-import { View, TouchableOpacity, Text, Image } from "react-native";
-import React from "react";
+import { View, TouchableOpacity, Text, Image } from 'react-native';
+import React from 'react';
 
-const ButtonWithImage = ({
-  title,
-  onPress,
-  colorButton,
-  colorText,
-  ancho,
-  alto,
-  textSize,
-  margins,
-  image,
-  imageClasses,
-}) => {
-  const buttonClasses = `flex justify-center items-center rounded-full  ${margins} ${colorButton} ${ancho} ${alto}`;
+const ButtonWithImage = ({ title, onPress, colorButton, colorText, ancho, alto, textSize, margins, image, imageClasses }) => {
+  const buttonClasses = `flex justify-center items-center rounded-full  ${margins} ${colorButton} ${ancho} ${alto} shadow`;
   const textClasses = `${textSize}  font-poppinsBold  ${colorText} `;
 
   return (

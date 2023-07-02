@@ -20,12 +20,17 @@ import axios from 'axios';
 
 //Stripe imports:
 import { StripeProvider } from '@stripe/stripe-react-native';
+import PetProfile from './src/Components/PetProfile/PetProfile';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   // DESARROLLO
   /* axios.defaults.baseURL = 'http://192.168.100.60:8080'; */ //LUIS CASA
+
+  // axios.defaults.baseURL = "http://192.168.18.6:8080"; //LUIS LOCAL
+  axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
+
 
   /*   axios.defaults.baseURL = "http://192.168.18.6:8080";  */ //LUIS LOCAL
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
@@ -87,6 +92,7 @@ export default function App() {
             <Stack.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
             <Stack.Screen name="CreatePet" component={CreatePet} options={{ headerShown: true }} />
             <Stack.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
+            <Stack.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
           </Stack.Navigator>
         </NavigationContainer>
       </StripeProvider>
