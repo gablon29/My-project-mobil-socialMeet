@@ -9,7 +9,8 @@ const { globalLimit } = require('../src/utils/rate-limiters');
 const admin = require('firebase-admin');
 const serviceAccount = require('./happy-clean-8e79e-firebase-adminsdk-d9ktq-6d4baeab21'); // Ruta al archivo JSON de las credenciales de servicio
 const { response } = require('../src/utils');
-
+const morgan = require('morgan');
+const { log } = require('async');
 require('dotenv').config();
 
 mongoose.set('strictQuery', true);
@@ -30,7 +31,7 @@ async function main() {
 }
 
 const app = express();
-
+app.use(morgan("dev"))
 app.get('/api', async (req, res) => {
   // console.log(process.env);
   res.send({
@@ -74,6 +75,8 @@ app.use('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   const message_to_send = '🐾' + err.message;
+  console.log("este es el body que llegó: ")
+  console.table(req.body)
   res.status(err.statusCode || 500).send({
     error: true,
     message: message_to_send,
