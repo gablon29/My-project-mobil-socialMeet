@@ -145,9 +145,18 @@ export default function Home({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A PERFIL</Text>
         </TouchableOpacity></>:<></>}
-        {dev_menu ===2 ? <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
-          <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A Welcome</Text>
-        </TouchableOpacity> :<></>}
+        {dev_menu ===2 ? <>
+          
+          <Button title="Ir al Welcome" onPress={() => navigation.navigate('Welcome')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <View className="my-2" />
+          <Button title="CAMBIAR IP DE API_URL" onPress={() => {
+            axios.defaults.baseURL = null
+            navigation.navigate('Selecturl')
+          }
+            } colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+
+        
+        </>:<></>}
         
        {dev_menu ===3 ? <Checkout /> : <></>}
       </View>

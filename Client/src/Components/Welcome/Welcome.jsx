@@ -1,5 +1,5 @@
 import { View, Text, Image, Alert } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import logo from '../../../images/logo.png';
 import welcomeImage from '../../../images/welcomeImage.png';
 import wuau from '../../../images/wuau.png';
@@ -8,10 +8,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ReloadAuthMethod } from '../../metodos/authMetodos';
 import { useDispatch } from 'react-redux';
 import { userRefresh, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Welcome({ navigation }) {
   const dispatch = useDispatch();
-  useEffect(() => {
     /**
      * Función asincrónica para obtener el token de AsyncStorage y recargar los datos del usuario.
      * Revisa si el usuario tiene token, si tiene token le envia el token a reloadUser es un método de authmetodo
@@ -30,9 +30,13 @@ export default function Welcome({ navigation }) {
         });
       }
     };
+  useFocusEffect(
+    useCallback(()=>{
+
 
     getData();
-  }, []);
+  },[]))
+
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
@@ -46,6 +50,12 @@ export default function Welcome({ navigation }) {
 
         <Button title="Registrarme" onPress={() => navigation.navigate('Register')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
       </View>
+      {/* BORRAR ESTE BOTON EN PRODUCCIÓN ------ */}
+      <Button title="CAMBIAR IP DE API_URL" onPress={() => {
+            navigation.navigate('Selecturl')
+          }
+            } colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+      {/* BORRAR ESTE BOTON EN PRODUCCIÓN ^^^^^ */}
     </View>
   );
 }
