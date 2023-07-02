@@ -7,6 +7,7 @@ import editIcon from '../../../images/iconos/editIcon.png';
 
 export default function PetProfile({ route }) {
   const { pet } = route.params;
+  /*   console.log(pet); */
   return (
     <>
       <View className="flex ">
@@ -32,20 +33,53 @@ export default function PetProfile({ route }) {
               className="absolute top-3/4 left-[34%] rounded-full"
             />
           </View>
-          <View className="h-80">
+          <View className="h-fit">
             <Text className="mt-20 ml-20 font-poppinsBold">¡Hola! Me llamo {pet.name}</Text>
             <Text className="ml-16 font-poppins">Especie | Raza | Edad | Peso Kg</Text>
             <Button title="Perfil de Socialpaws" colorButton="bg-naranja" colorText="text-white" ancho="w-48" alto="h-8" textFont="font-poppins" otrosButton="mx-20 mt-4" />
             <Text className="mx-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed posuere quam. Morbi molestie bibendum orci, ut dignissim odio auctor sed. Quisque condimentum magna ut sapien elementum iaculis. Maecenas eleifend velit ut convallis blandit.</Text>
-            <View className="flex">
+            <View className="flex mt-10">
               {/*  Sección de esta castrado etc, 5 partes cada uno con la pregunta en negro y respuesta en naranja */}
-              <View className="flex flex-row mx-10">
-                <View className="bg-black rounded-full">
-                  <Text className="text-white">Está castrado o esterilizado</Text>
+              <View className="flex flex-row mx-3">
+                <View className="w-64 h-11 bg-black rounded-xl">
+                  <Text className="text-white text-base font-poppinsBold text-center mt-2">¿Está castrado o esterilizado?</Text>
                 </View>
-                <Text className="ml-10 text-white bg-naranja rounded-full">SI / NO</Text>
+                <View className="ml-4 w-16 h-11 bg-naranja rounded-full">
+                  <Text className=" text-white text-base font-poppinsBold text-center mt-2">{pet.health.castrado ? 'Si' : 'No'}</Text>
+                </View>
               </View>
-              {/* Está castrado? Si No */}
+              <View className="flex flex-row mx-3">
+                <View className="w-64 h-11 bg-black rounded-xl">
+                  <Text className="text-white text-base font-poppinsBold text-center mt-2">¿Está castrado o esterilizado?</Text>
+                </View>
+                <View className="ml-4 w-16 h-11 bg-naranja rounded-full">
+                  <Text className=" text-white text-base font-poppinsBold text-center mt-2">{pet.health.castrado ? 'Si' : 'No'}</Text>
+                </View>
+              </View>
+              <View className="flex flex-row mx-3">
+                <View className="w-64 h-11 bg-black rounded-xl">
+                  <Text className="text-white text-base font-poppinsBold text-center mt-2">¿Está castrado o esterilizado?</Text>
+                </View>
+                <View className="ml-4 w-16 h-11 bg-naranja rounded-full">
+                  <Text className=" text-white text-base font-poppinsBold text-center mt-2">{pet.health.castrado ? 'Si' : 'No'}</Text>
+                </View>
+              </View>
+              <View className="flex flex-row mx-3">
+                <View className="w-64 h-11 bg-black rounded-xl">
+                  <Text className="text-white text-base font-poppinsBold text-center mt-2">¿Está castrado o esterilizado?</Text>
+                </View>
+                <View className="ml-4 w-16 h-11 bg-naranja rounded-full">
+                  <Text className=" text-white text-base font-poppinsBold text-center mt-2">{pet.health.castrado ? 'Si' : 'No'}</Text>
+                </View>
+              </View>
+              <View className="flex flex-row mx-3">
+                <View className="w-64 h-11 bg-black rounded-xl">
+                  <Text className="text-white text-base font-poppinsBold text-center mt-2">¿Está castrado o esterilizado?</Text>
+                </View>
+                <View className="ml-4 w-16 h-11 bg-naranja rounded-full">
+                  <Text className=" text-white text-base font-poppinsBold text-center mt-2">{pet.health.castrado ? 'Si' : 'No'}</Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>
