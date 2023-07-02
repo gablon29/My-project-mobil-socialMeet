@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { launchImageLibrary } from 'expo-image-picker';
+import { launchImageLibraryAsync } from 'expo-image-picker';
 
 export const useImage = () => {
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState('');
 
   const uploadImage = async () => {
     try {
-      const { uri } = await launchImageLibrary({ mediaTypes: 'Images' });
+      console.log('launchImageLibrary');
+      const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+
+      const { uri } = resp.assets[0];
+
       const formData = new FormData();
       formData.append('file', {
         uri,
@@ -15,12 +18,18 @@ export const useImage = () => {
         name: 'image.jpg', // Reemplaza por el nombre correcto de la imagen si es necesario
       });
       formData.append('upload_preset', 'ztq7o1jj');
+      console.log('requesting upload to cloudinary');
+      const response = await fetch('https://api.cloudinary.com/v1_1/dvhstnw3u/image/upload?api_key=376411672781128', {
+        method: 'POST',
+        body: formData,
+      });
+      const responseData = await response.json();
+      console.log('ASDASDASDAS', responseData);
+      setUrl(responseData.url);
 
-      const response = await axios.post('https://api.cloudinary.com/v1_1/dvhstnw3u/image/upload', formData);
-      setUrl(response.data.url);
       // Aquí puedes realizar acciones adicionales, como guardar la URL de la imagen en tu base de datos.
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error uploading image:', error.message);
     }
   };
 
