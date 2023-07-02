@@ -5,11 +5,12 @@ import loginImage from '../../../images/loginImage.png';
 import Button from '../Buttons/Button';
 import { useAuth } from '../../CustomHooks/useAuth';
 import { LoginAuthMethod } from '../../metodos/authMetodos';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authSetUser, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
+  const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
   const dispatch = useDispatch();
   const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
@@ -29,7 +30,7 @@ export default function Login({ navigation }) {
 
   return (
     <ScrollView>
-      {console.log()}
+      {/* {console.log(profile, token)} */}
       <View className="flex-1 items-center justify-center bg-white">
         <Image source={logo} />
         <Image source={loginImage} className="mt-8" />
