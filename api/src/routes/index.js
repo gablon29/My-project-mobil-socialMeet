@@ -3,10 +3,10 @@ const express = require('express');
 const user = require('./user.route');
 const pet = require('./pet.route');
 const admin = require('./admin.route')
-
 const notify = require('./pushNotify.route');
-const stripeRoute = require('./stripe.route');
+const stripe = require('./stripe.route');
 
+const { limit5cada30minutos } = require('../utils/rate-limiters');
 const notificationController = require('../controllers/notificationController');
 
 const { catchedAsync } = require('../utils');
@@ -48,6 +48,8 @@ router.put('/api/admin/desAmin', isLoggedIn, catchedAsync(admin.remove_admin_pow
 
 
 //stripe
-router.use('/stripe', stripeRoute);
+router.use('/stripe/start-pay-process', catchedAsync(stripe.iniciar_proceso_de_compra));
+router.use('/stripe/callback', express.raw({ type: 'application/json' }),
+  catchedAsync(stripe.ruta_donde_recibiremos_eventos));
 
 module.exports = router;
