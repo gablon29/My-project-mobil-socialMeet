@@ -61,7 +61,10 @@ const registerUser = async (
 };
 
 const loginUser = async (emailParam, password) => {
+  console.log(emailParam, password)
+  if (!emailParam || !password) throw new ClientError("No ha llegado el email o el password", 400);
   const user = await UserModel.findOne({ email: emailParam });
+  console.log("this is the user: ", user)
   if (!user)
     throw new ClientError('El usuario no se encuentra registrado', 500);
   const passwordMatch = await bcrypt.compare(password, user.password);
