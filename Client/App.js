@@ -40,30 +40,6 @@ export default function App() {
   // PRODUCCION
   // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
 
-//#region BLOQUE DE MANEJO DE API_URLS PARA NO ESTAR PISANDONOS:
-// EN PRODUCCION BORRAR TODO EL BLOQUE Y DEJR SOLO 
-// axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
-  const [API_URL, set_API_URL] = useState(null);
-
-  useEffect(()=>{
-      iniciarElCheckeo()
-  },[])
-
-  function handleChangeAPU_URL() {
-    AsyncStorage.setItem('API_URL', 'https://whopaws-production.up.railway.app');
-  }
-
-  async function iniciarElCheckeo(){
-    const url_actual = await AsyncStorage.getItem('API_URL')
-    if(!url_actual){
-      console.log("hay url");
-    }else{
-      set_API_URL(url_actual);
-    }
-    
-  }
-
-//#endregion FIN DEL MANEJO DE URLS
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),

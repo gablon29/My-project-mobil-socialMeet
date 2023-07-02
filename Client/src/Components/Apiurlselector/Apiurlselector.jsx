@@ -36,7 +36,7 @@ export default function Apiurlselector({ navigation }) {
     console.log(ip,axios.defaults.baseURL);
     setTextosValiosos({ ...textosValiosos, current_url: ip });
     AsyncStorage.setItem('API_URL', textosValiosos.current_url).then((_) => {
-
+      
     console.log(ip,axios.defaults.baseURL);
       setReady(true);
     });
@@ -71,8 +71,11 @@ export default function Apiurlselector({ navigation }) {
         />
         <Text>baseURL= {textosValiosos.current_url}</Text>
         <Text
+        onPress={(e)=>{
+          AsyncStorage.removeItem("Token")
+        }}
         className={ 'max-w-[200px]' }
-        >{`TOKEN: ${textosValiosos.current_token}`}</Text>
+        >{`CLICK PARA BORRAR TOKEN: ${textosValiosos.current_token}`}</Text>
 
       </View>
     </View>
