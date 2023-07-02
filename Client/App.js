@@ -26,8 +26,8 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   // DESARROLLO
   /* axios.defaults.baseURL = 'http://192.168.100.60:8080'; */ //LUIS CASA
-  /*   axios.defaults.baseURL = "http://192.168.18.6:8080";  */ //LUIS LOCAL
-  axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
+  axios.defaults.baseURL = "http://192.168.18.6:8080"; //LUIS LOCAL
+  // axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
 
   // PRODUCCION
   // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
