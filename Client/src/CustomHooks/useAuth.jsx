@@ -1,62 +1,36 @@
-import react, { useState } from "react";
-import axios from "axios";
-import { login, registro } from "../metodos/authMetodos";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
-import { authSetUser } from "../Redux/ReducerAuth";
+import { useState } from 'react';
+import axios from 'axios';
+import { registro } from '../metodos/authMetodos';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { authSetUser } from '../Redux/ReducerAuth';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [checkPassword, setCheckPassword] = useState('');
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
-  const [province, setProvince] = useState("");
-  const [city, setCity] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [address, setAddress] = useState("");
-  const [confirmEmail, setConfirmEmail] = useState("");
-  const [checkSms, setCheckSms] = useState("");
-  const [verification, setVerification] = useState("");
-
-  const handleRegister = async () => {
-    let response = await registro(
-      email,
-      password,
-      firstName,
-      lastName,
-      phone,
-      country,
-      province,
-      zipcode
-    );
-    if (!response.error) {
-      await AsyncStorage.setItem("Token", response.payload.token);
-
-      dispatch(authSetUser(response.payload));
-      const eltoken = await AsyncStorage.getItem("Token");
-      console.log("Token luego de registrarse es: ", eltoken);
-    }
-  };
-
-  // const handleLogin = async () => {
-  //   let response = await login(email, password);
-  //   await AsyncStorage.setItem("Token", response.token);
-  //   dispatch(authSetUser(response));
-  // };
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('');
+  const [province, setProvince] = useState('');
+  const [city, setCity] = useState('');
+  const [zipcode, setZipcode] = useState('');
+  const [address, setAddress] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [checkSms, setCheckSms] = useState('');
+  const [verification, setVerification] = useState('');
 
   async function verifyNumber() {
-    const url = "https://api.nexmo.com/verify/json";
+    const url = 'https://api.nexmo.com/verify/json';
 
     const params = {
-      api_key: "e928e3ae",
-      api_secret: "qHZCaWoEnu1QGh98",
+      api_key: 'e928e3ae',
+      api_secret: 'qHZCaWoEnu1QGh98',
       number: phone,
-      brand: "Whopaws",
+      brand: 'Whopaws',
     };
 
     try {
@@ -70,14 +44,13 @@ export const useAuth = () => {
   }
 
   const emailPassword = () => {
-    const apiKey =
-      "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";
+    const apiKey = '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';
 
     // Función para generar un código alfanumérico aleatorio
     const generateCode = () => {
       const length = 6; // Longitud del código
-      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      let code = "";
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
       for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         code += characters.charAt(randomIndex);
@@ -95,7 +68,7 @@ export const useAuth = () => {
       to: [
         {
           email: email,
-          name: "fsafasf",
+          name: 'fsafasf',
         },
       ],
       templateId: 2,
@@ -103,23 +76,22 @@ export const useAuth = () => {
         code: code,
       },
       headers: {
-        "X-Mailin-custom":
-          "custom_header_1:custom_value_1|custom_header_2:custom_value_2",
+        'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2',
       },
     };
 
     axios
-      .post("https://api.sendinblue.com/v3/smtp/email", sendSmtpEmail, {
+      .post('https://api.sendinblue.com/v3/smtp/email', sendSmtpEmail, {
         headers: {
-          "api-key": apiKey,
-          "Content-Type": "application/json",
+          'api-key': apiKey,
+          'Content-Type': 'application/json',
         },
       })
       .then(function (response) {
-        console.log("API called successfully. Returned data:", response.data);
+        console.log('API called successfully. Returned data:', response.data);
       })
       .catch(function (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
   };
   return {
@@ -143,7 +115,6 @@ export const useAuth = () => {
     setZipcode,
     address,
     setAddress,
-    handleRegister,
     confirmEmail,
     setConfirmEmail,
     verifyNumber,

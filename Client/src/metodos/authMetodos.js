@@ -1,12 +1,17 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-export const registro = async (email, password, firstName, lastName, phone, country, province, zipcode) => {
+export const RegisterAuthMethod = async ({ reg, loading, error, success }) => {
   try {
-    const response = await axios.post('/api/user/register', { firstName, lastName, email, password, phone, country, province, zipcode }, { headers: { 'Content-Type': 'application/json' } });
+    loading(true);
+    const response = await axios.post('/api/user/register', reg, { headers: { 'Content-Type': 'application/json' } });
 
-    return response.data;
+    success(response.data);
+    loading(false);
   } catch (err) {
-    console.log('registro: ', err);
+    console.log(err);
+    error(err.message);
+    loading(false);
   }
 };
 
@@ -31,39 +36,37 @@ export const LoginAuthMethod = async ({ email, password, loading, error, success
     error(err.message);
     loading(false);
   }
-
-  // try {
-  //   const response = await axios.post(
-  //     '/api/user/login',
-  //     { email: email, password: password },
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     }
-  //   );
-
-  //   const data = await response.data;
-
-  //   if (data.error) throw new Error(data.message);
-
-  //   return data.payload;
-  // } catch (err) {
-  //   console.log('FUERA', err);
-  // }
 };
 
-export const reloadUser = async (token) => {
-  const response = await fetch('https://whopaws-production.up.railway.app/api/user/user', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Agrega el token al encabezado de autorización
-    },
-  });
-  const data = await response.json();
-  if (data.error) throw new Error(data.message);
-  return data.payload;
+export const ReloadAuthMethod = async ({ loading, error, success }) => {
+  try {
+    loading(true);
+    const token = await AsyncStorage.getItem('Token');
+    const response = await axios.get('/api/user/user', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    success(response.data);
+    loading(false);
+  } catch (err) {
+    console.log(err);
+    error(err.message);
+    loading(false);
+  }
+
+  // const response = await fetch('https://whopaws-production.up.railway.app/api/user/user', {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${token}`, // Agrega el token al encabezado de autorización
+  //   },
+  // });
+  // const data = await response.json();
+  // if (data.error) throw new Error(data.message);
+  // return data.payload;
 };
 
 export const recovery = async (email, password) => {

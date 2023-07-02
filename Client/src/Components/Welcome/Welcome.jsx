@@ -1,13 +1,14 @@
-import { View, Text, Image, Alert } from "react-native";
-import React, { useEffect } from "react";
-import logo from "../../../images/logo.png";
-import welcomeImage from "../../../images/welcomeImage.png";
-import wuau from "../../../images/wuau.png";
-import Button from "../Buttons/Button";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { reloadUser } from "../../metodos/authMetodos";
-import { useDispatch } from "react-redux";
-import { userRefresh } from "../../Redux/ReducerAuth";
+import { View, Text, Image, Alert } from 'react-native';
+import React, { useEffect } from 'react';
+import logo from '../../../images/logo.png';
+import welcomeImage from '../../../images/welcomeImage.png';
+import wuau from '../../../images/wuau.png';
+import Button from '../Buttons/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ReloadAuthMethod } from '../../metodos/authMetodos';
+import { useDispatch } from 'react-redux';
+import { userRefresh, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
+
 export default function Welcome({ navigation }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,28 +18,22 @@ export default function Welcome({ navigation }) {
      * reload user envia al back el token y se devuelve la info del usuario, se envia a redux, se redirige a home.
      **/
     const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem("Token");
-        if (value) {
-          await reloadUser(value)
-            .then(
-              (succes) => dispatch(userRefresh(succes)),
-              navigation.navigate(
-                "Profile"
-              ) /*  DESCOMENTAR PARA PROBAR LOGIN O COMENTAR PARA PASAR DIRECTO */
-            )
-            .catch(
-              (err) => console.log("token expirado debe loguearse")
-              /*  AsyncStorage.removeItem("Token") */
-            );
-        }
-      } catch (error) {
-        console.log("Error al obtener datos:", error);
+      const value = await AsyncStorage.getItem('Token');
+      if (value) {
+        ReloadAuthMethod({
+          loading: (v) => dispatch(setLoadingAuth(v)),
+          error: (msg) => dispatch(setErrorAuth(msg)),
+          success: (res) => {
+            dispatch(userRefresh(res.payload));
+            navigation.navigate('Home');
+          },
+        });
       }
     };
 
     getData();
   }, []);
+
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} />
@@ -46,26 +41,10 @@ export default function Welcome({ navigation }) {
 
       <Image source={wuau} className="mt-8" />
       <View className="flex mt-16">
-        <Button
-          title="Iniciar sesión"
-          onPress={() => navigation.navigate("Login")}
-          colorButton="bg-naranja"
-          colorText="text-white"
-          ancho="w-72"
-          alto="h-14"
-          textSize="text-lg"
-        />
+        <Button title="Iniciar sesión" onPress={() => navigation.navigate('Login')} colorButton="bg-naranja" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         <View className="my-4" />
 
-        <Button
-          title="Registrarme"
-          onPress={() => navigation.navigate("Register")}
-          colorButton="bg-black"
-          colorText="text-white"
-          ancho="w-72"
-          alto="h-14"
-          textSize="text-lg"
-        />
+        <Button title="Registrarme" onPress={() => navigation.navigate('Register')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
       </View>
     </View>
   );

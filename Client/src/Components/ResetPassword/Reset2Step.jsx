@@ -5,7 +5,6 @@ import Button from '../Buttons/Button';
 export const Reset2Step = ({ verification, setSteps }) => {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
   const codeInputs = useRef([]);
-  /*   console.log(verification); */
   const handleChangeCode = (index, value) => {
     const newCode = [...verificationCode];
     newCode[index] = value;
@@ -19,7 +18,6 @@ export const Reset2Step = ({ verification, setSteps }) => {
   const changePassword = () => {
     const enteredCode = verificationCode.join('');
     if (enteredCode === verification.verificationCode) {
-      console.log('pasa');
       setSteps(2);
     }
   };
