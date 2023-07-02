@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Button from '../Buttons/Button';
 import chip from '../../../images/chip.png';
@@ -10,34 +10,37 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
 
 export default function Home({ navigation }) {
+  // ESTADOS LOCALES y GLOBALES:
+  const [dev_menu, set_dev_menu]=useState(1)
+
+  const sendNotification = async (token, title, body) => {
+    const notification = {
+      to: token,
+      title: title,
+      body: body,
+    };  
+      await axios.post('api/send/send-notification', notification);
+  
+  };
+
+  const registerForPushNotifications = async () => {
+    const { status } = await Notifications.requestPermissionsAsync();
+
+    if (status === 'granted') {
+      const { data: token } = await Notifications.getExpoPushTokenAsync();
+      console.log('Token de notificaciones del dispositivo:', token);
+      await sendNotification(token, '¡Bienvenido a MyPets!', 'Disfruta de tus mascotas');
+    }
+  };
   useEffect(() => {
-    const sendNotification = async (token, title, body) => {
-      const notification = {
-        to: token,
-        title: title,
-        body: body,
-      };
 
-      try {
-        await axios.post('https://whopaws-production.up.railway.app/api/send/send-notification', notification);
-        console.log('Notificación enviada');
-      } catch (error) {
-        console.error('Error al enviar la notificación:dc', error);
-      }
-    };
-
-    const registerForPushNotifications = async () => {
-      const { status } = await Notifications.requestPermissionsAsync();
-
-      if (status === 'granted') {
-        const { data: token } = await Notifications.getExpoPushTokenAsync();
-        console.log('Token del dispositivo:', token);
-
-        sendNotification(token, '¡Bienvenido a MyPets!', 'Disfruta de tus mascotas');
-      }
-    };
-
-    registerForPushNotifications();
+    registerForPushNotifications()
+    .then((resp)=>{
+      console.log("Notificacion enviada!")
+    })
+    .catch((err)=>{
+      console.error("Notif: ", err.message)
+    })
   }, []);
 
   const productosDestacados = [
@@ -129,13 +132,24 @@ export default function Home({ navigation }) {
             </View>
           ))}
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('MyPets')}>
+        <TouchableOpacity onPress={() => {
+          set_dev_menu(dev_menu+1)
+          if(dev_menu>2) set_dev_menu(0)
+        }}>
+          <Text className="font-poppins underline text-xs mt-10">Cambiar opciones de abajo ciclica</Text>
+        </TouchableOpacity>
+        {dev_menu ===0 ? <Text>"si dev_menu==0, no aparece nada seriaa lo ideal"</Text>: <></>}
+        {dev_menu ===1 ? <><TouchableOpacity onPress={() => navigation.navigate('MyPets')}>
           <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A MYPETS</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A PROFILE</Text>
-        </TouchableOpacity>
-        <Checkout />
+          <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A PERFIL</Text>
+        </TouchableOpacity></>:<></>}
+        {dev_menu ===2 ? <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
+          <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A Welcome</Text>
+        </TouchableOpacity> :<></>}
+        
+       {dev_menu ===3 ? <Checkout /> : <></>}
       </View>
     </View>
   );
