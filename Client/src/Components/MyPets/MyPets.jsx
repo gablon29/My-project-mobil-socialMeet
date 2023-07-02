@@ -11,6 +11,7 @@ export default function MyPets({ navigation }) {
   const authenticatedAuth = useSelector((state) => state.ReducerAuth.authenticatedAuth);
   const { userPets, loadingPets, errorPets, successPets } = useSelector((state) => state.ReducerPets);
   const dispatch = useDispatch();
+  const imagenDefault = 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg';
 
   useEffect(() => {
     const fetchData = () => {
@@ -34,7 +35,7 @@ export default function MyPets({ navigation }) {
             {userPets.map((element, index) => (
               <View key={index} className="m-1">
                 <Image
-                  source={{ uri: element.profilePic }}
+                  source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
                   style={{
                     width: 100,
                     height: 100,
