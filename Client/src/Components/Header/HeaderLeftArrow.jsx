@@ -10,7 +10,6 @@ export default function HeaderLeftArrow({ text, goBack, steps, setSteps, textSiz
       <TouchableOpacity onPress={() => (steps === 0 ? goBack() : steps === 1 ? setSteps(0) : setSteps(1))}>
         <Image source={leftIcon} className={imagenStyles} />
       </TouchableOpacity>
-
       <View className="flex-1 justify-center">
         <Text className={textClasses}>{text}</Text>
       </View>

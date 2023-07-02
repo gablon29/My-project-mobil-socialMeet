@@ -21,7 +21,6 @@ export default function Apiurlselector({ navigation }) {
         setTextosValiosos({ ...textosValiosos, current_token: resp ? resp : 'SIN TOKEN' });
         setReady(true);
       });
-
     }, []),
   );
   // PRODUCCION
@@ -33,11 +32,10 @@ export default function Apiurlselector({ navigation }) {
   function handleChangeAPU_URL(ip) {
     setReady(false);
     axios.defaults.baseURL = textosValiosos.current_url;
-    console.log(ip,axios.defaults.baseURL);
+    console.log(ip, axios.defaults.baseURL);
     setTextosValiosos({ ...textosValiosos, current_url: ip });
     AsyncStorage.setItem('API_URL', textosValiosos.current_url).then((_) => {
-      
-    console.log(ip,axios.defaults.baseURL);
+      console.log(ip, axios.defaults.baseURL);
       setReady(true);
     });
   }
@@ -50,7 +48,7 @@ export default function Apiurlselector({ navigation }) {
         {/*         <View className="my-4" /> */}
         <Button title="LUIS LOCAL" onPress={() => handleChangeAPU_URL('http://192.168.18.6:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         <Button title="  LUIS CASA" onPress={() => handleChangeAPU_URL('http://192.168.100.60:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button title="IGNABRANCH" onPress={() => handleChangeAPU_URL('http://192.168.1.84:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+        <Button title="IGNA" onPress={() => handleChangeAPU_URL('http://192.168.1.84:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         <Button title="Santi" onPress={() => handleChangeAPU_URL('no recuerdo')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         <Button title="RODRI" onPress={() => handleChangeAPU_URL('http://192.168.0.12:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         <Button title="NULL" onPress={() => handleChangeAPU_URL('')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
@@ -71,12 +69,11 @@ export default function Apiurlselector({ navigation }) {
         />
         <Text>baseURL= {textosValiosos.current_url}</Text>
         <Text
-        onPress={(e)=>{
-          AsyncStorage.removeItem("Token")
-        }}
-        className={ 'max-w-[200px]' }
+          onPress={(e) => {
+            AsyncStorage.removeItem('Token');
+          }}
+          className={'max-w-[200px]'}
         >{`CLICK PARA BORRAR TOKEN: ${textosValiosos.current_token}`}</Text>
-
       </View>
     </View>
   );
