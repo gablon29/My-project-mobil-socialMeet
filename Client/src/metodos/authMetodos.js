@@ -18,7 +18,9 @@ export const RegisterAuthMethod = async ({ reg, loading, error, success }) => {
 export const LoginAuthMethod = async ({ email, password, loading, error, success }) => {
   try {
     loading(true);
-    if (!email && !password) throw new Error('Faltan Campos');
+    if (!email && !password) throw new Error('Falta Correo y Contraseña');
+    else if(!email) throw new Error('Ingrese un Correo')
+    else if(!password) throw new Error('Ingrese una Contraseña')
     const response = await axios.post(
       '/api/user/login',
       { email, password },
