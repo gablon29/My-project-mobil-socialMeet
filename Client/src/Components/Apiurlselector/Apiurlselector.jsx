@@ -1,4 +1,4 @@
-import { View, Text, Image, Alert } from 'react-native';
+import { View, Text, Image, Alert, ScrollView } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import wuau from '../../../images/wuau.png';
 import Button from '../Buttons/Button';
@@ -40,41 +40,43 @@ export default function Apiurlselector({ navigation }) {
     });
   }
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text>{ready ? `ip: ${textosValiosos.current_url}` : 'Espere...'}</Text>
+    <ScrollView>
+      <View className="flex-1 items-center justify-center bg-white">
+        <Text className='mt-8'>{ready ? `ip: ${textosValiosos.current_url}` : 'Espere...'}</Text>
 
-      <View className="flex mt-16">
-        <Button title="IP PRODUCCIÓN" onPress={() => handleChangeAPU_URL('https://whopaws-production.up.railway.app')} colorButton="bg-naranja" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        {/*         <View className="my-4" /> */}
-        <Button title="LUIS LOCAL" onPress={() => handleChangeAPU_URL('http://192.168.18.6:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button title="  LUIS CASA" onPress={() => handleChangeAPU_URL('http://192.168.100.60:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button title="IGNA" onPress={() => handleChangeAPU_URL('http://192.168.1.84:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button title="Santi" onPress={() => handleChangeAPU_URL('no recuerdo')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button title="RODRI" onPress={() => handleChangeAPU_URL('http://192.168.0.12:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button title="NULL" onPress={() => handleChangeAPU_URL('')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-        <Button
-          title="Confirmar"
-          onPress={() => {
-            if (textosValiosos.current_url) {
-              axios.defaults.baseURL = textosValiosos.current_url;
-              navigation.navigate('Welcome');
-            } else {
-            }
-          }}
-          colorText="text-white"
-          ancho="w-72"
-          alto="h-20"
-          textSize="text-lg"
-          colorButton={textosValiosos.current_url ? 'bg-naranja' : 'bg-white'}
-        />
-        <Text>baseURL= {textosValiosos.current_url}</Text>
-        <Text
-          onPress={(e) => {
-            AsyncStorage.removeItem('Token');
-          }}
-          className={'max-w-[200px]'}
-        >{`CLICK PARA BORRAR TOKEN: ${textosValiosos.current_token}`}</Text>
+        <View className="flex mt-16">
+          <Button title="IP PRODUCCIÓN" onPress={() => handleChangeAPU_URL('https://whopaws-production.up.railway.app')} colorButton="bg-naranja" colorText="text-white" ancho="w-" alto="h-14" textSize="text-lg" />
+          {/*         <View className="my-4" /> */}
+          <Button title="LUIS LOCAL" onPress={() => handleChangeAPU_URL('http://192.168.18.6:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="  LUIS CASA" onPress={() => handleChangeAPU_URL('http://192.168.100.60:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="IGNA" onPress={() => handleChangeAPU_URL('http://192.168.1.84:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="Santi" onPress={() => handleChangeAPU_URL('no recuerdo')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="RODRI" onPress={() => handleChangeAPU_URL('http://192.168.0.12:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="NULL" onPress={() => handleChangeAPU_URL('')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button
+            title="Confirmar"
+            onPress={() => {
+              if (textosValiosos.current_url) {
+                axios.defaults.baseURL = textosValiosos.current_url;
+                navigation.navigate('Welcome');
+              } else {
+              }
+            }}
+            colorText="text-white"
+            ancho="w-72"
+            alto="h-20"
+            textSize="text-lg"
+            colorButton={textosValiosos.current_url ? 'bg-naranja' : 'bg-white'}
+          />
+          <Text>baseURL= {textosValiosos.current_url}</Text>
+          <Text
+            onPress={(e) => {
+              AsyncStorage.removeItem('Token');
+            }}
+            className={'max-w-[200px]'}
+          >{`CLICK PARA BORRAR TOKEN: ${textosValiosos.current_token}`}</Text>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
