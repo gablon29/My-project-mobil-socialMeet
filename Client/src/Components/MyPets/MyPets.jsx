@@ -33,7 +33,7 @@ export default function MyPets({ navigation }) {
           <View className="flex flex-row flex-wrap ml-8 mt-14">
             {userPets.map((element, index) => (
               <View key={index} className="m-2">
-                <TouchableOpacity onPress={() => navigation.navigate('PetProfile', { pet: element })}>
+                <TouchableOpacity onPress={() => navigation.navigate('PetProfile', { /* pet: */ element })}>
                   <Image
                     source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
                     style={{
