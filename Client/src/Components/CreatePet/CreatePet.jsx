@@ -20,7 +20,7 @@ export default function CreatePet({ navigation }) {
     CreatePetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
-        error: (msg) => dispatch(setErrorPets(msg)),
+      error: (msg) => dispatch(setErrorPets(msg)),
       success: (res) => navigation.navigate('CreatePet6'),
     });
   };
@@ -45,7 +45,7 @@ export default function CreatePet({ navigation }) {
       ) : steps === 1 ? (
         <CreatePet2 specie={pet.specie} setSpecie={setSpecie} steps={steps} setSteps={setSteps} />
       ) : steps === 2 ? (
-        <CreatePet3 name={pet.name} setName={setName} weight={pet.weight} setWeight={setWeight} age={pet.age} setAge={{ setAgeYears, setAgeMonths }} breed={pet.breed} setBreed={setBreed} sex={pet.sex} setSex={setSex} steps={steps} setSteps={setSteps} />
+        <CreatePet3 specie={pet.specie} name={pet.name} setName={setName} weight={pet.weight} setWeight={setWeight} age={pet.age} setAge={{ setAgeYears, setAgeMonths }} breed={pet.breed} setBreed={setBreed} sex={pet.sex} setSex={setSex} steps={steps} setSteps={setSteps} />
       ) : steps === 3 ? (
         <CreatePet4 health={pet.health} setHealth={{ setHealthCastrado, setHealthMicrochip }} steps={steps} setSteps={setSteps} />
       ) : steps === 4 ? (

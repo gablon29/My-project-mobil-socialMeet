@@ -18,7 +18,7 @@ export default function PetProfile({ route, navigation }) {
           <View className="flex-1 justify-center ml-3">
             <Text className=" font-poppinsSemiBold text-xs">volver a mascotas</Text>
           </View>
-          <ButtonWithImage title="Editar" textFont="font-poppinsSemiBold" image={editIcon} imageClasses="w-3 h-3 ml-1 mt-0.5" onPress={() => navigation.navigate('EditPetProfile')} colorButton="bg-naranja" colorText="text-white" ancho="w-16" alto="h-5" textSize="text-xs" margins="mr-3" />
+          <ButtonWithImage title="Editar" textFont="font-poppinsSemiBold" image={editIcon} imageClasses="w-3 h-3 ml-1 mt-0.5" onPress={() => navigation.navigate('EditPetProfile', { pet: pet })} colorButton="bg-naranja" colorText="text-white" ancho="w-16" alto="h-5" textSize="text-xs" margins="mr-3" />
         </View>
       </View>
       <ScrollView className="w-full h-full">
