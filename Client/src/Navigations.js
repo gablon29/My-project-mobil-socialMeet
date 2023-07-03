@@ -25,15 +25,22 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
-      <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center'  }} />
+      <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
       {/* <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Revisar email', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center'  }} /> */}
+      <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthFalse.Navigator>
   );
 }
 
 const NavigatorAuthTrue = () => {
+  const showHeader = (route) => {
+    //función para mostrar Header, excluyendo los siguientes:
+    const screenNamesToHideHeader = [];
+    return !screenNamesToHideHeader.includes(route.name);
+  };
+
   return (
-    <StackAuthTrue.Navigator screenOptions={{ header: <Header />, headerShown: true }}>
+    <StackAuthTrue.Navigator screenOptions={{ header: (props) => showHeader(props.route) && <Header />, headerShown: true }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
@@ -45,26 +52,23 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthTrue.Navigator>
   );
-}
+};
 
 const Navigations = () => {
-  //   const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
+  const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
 
   return (
-    <NavigationContainer>
-      <NavigatorAuthFalse />
-    </NavigationContainer>
-    // <>
-    //   {authenticatedAuth ? (
-    //     <NavigationContainer>
-    //       <NavigatorAuthTrue />
-    //     </NavigationContainer>
-    //   ) : (
-    //     <NavigationContainer>
-    //       <NavigatorAuthFalse />
-    //     </NavigationContainer>
-    //   )}
-    // </>
+    <>
+      {authenticatedAuth ? (
+        <NavigationContainer>
+          <NavigatorAuthTrue />
+        </NavigationContainer>
+      ) : (
+        <NavigationContainer>
+          <NavigatorAuthFalse />
+        </NavigationContainer>
+      )}
+    </>
   );
 };
 

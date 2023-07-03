@@ -7,7 +7,7 @@ const initialState = {
    errorAuth: '',
    token: '',
    successAuth: '',
-   profile: [],
+   profile: undefined,
 };
 
 //ACÁ SE CREA EL REDUCER JUNTO CON LAS ACTIONS
@@ -21,6 +21,14 @@ const ReducerAuth = createSlice({
             authenticatedAuth: true,
             profile: action.payload.user,
             token: action.payload.token,
+         };
+      },
+      signOffAuth(state, action) {
+         return {
+            ...state,
+            profile: undefined,
+            authenticatedAuth: false,
+            token: '',
          };
       },
       userRefresh(state, action) {
@@ -51,6 +59,6 @@ const ReducerAuth = createSlice({
    },
 });
 
-export const { authSetUser, userRefresh, setLoadingAuth, setErrorAuth, setSuccessAuth } = ReducerAuth.actions;
+export const { authSetUser, signOffAuth, userRefresh, setLoadingAuth, setErrorAuth, setSuccessAuth } = ReducerAuth.actions;
 
 export default ReducerAuth.reducer;

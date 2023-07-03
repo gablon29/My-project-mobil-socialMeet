@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Button from '../Buttons/Button';
 import chip from '../../../images/chip.png';
 import juguetePerro from '../../../images/juguetePerro.jpg';
@@ -8,19 +8,24 @@ import * as Notifications from 'expo-notifications';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
+import { useNavigation } from '@react-navigation/native';
+import { SignOffMethod } from '../../metodos/authMetodos';
+import { setErrorAuth, setLoadingAuth, signOffAuth } from '../../Redux/ReducerAuth';
+import { useDispatch } from 'react-redux';
 
-export default function Home({ navigation }) {
+export default function Home() {
   // ESTADOS LOCALES y GLOBALES:
-  const [dev_menu, set_dev_menu]=useState(1)
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [dev_menu, set_dev_menu] = useState(1);
 
   const sendNotification = async (token, title, body) => {
     const notification = {
       to: token,
       title: title,
       body: body,
-    };  
-      await axios.post('api/send/send-notification', notification);
-  
+    };
+    await axios.post('api/send/send-notification', notification);
   };
 
   const registerForPushNotifications = async () => {
@@ -33,14 +38,13 @@ export default function Home({ navigation }) {
     }
   };
   useEffect(() => {
-
     registerForPushNotifications()
-    .then((resp)=>{
-      console.log("Notificacion enviada!")
-    })
-    .catch((err)=>{
-      console.error("Notif: ", err.message)
-    })
+      .then((resp) => {
+        console.log('Notificacion enviada!');
+      })
+      .catch((err) => {
+        console.error('Notif: ', err.message);
+      });
   }, []);
 
   const productosDestacados = [
@@ -68,7 +72,28 @@ export default function Home({ navigation }) {
   ];
 
   return (
+    <ScrollView>
     <View className="flex w-full h-full">
+      <Button
+        title="cerrar sesion"
+        colorButton="bg-black"
+        colorText="text-white"
+        ancho="w-36"
+        alto="h-7"
+        textSize="text-xs"
+        onPress={() => {
+          SignOffMethod({
+            loading: (v) => {
+              dispatch(setLoadingAuth(v));
+            },
+            error: (msg) => dispatch(setErrorAuth(msg)),
+            success: (res) => {
+              dispatch(signOffAuth());
+              // navigation.navigate('Login');
+            },
+          });
+        }}
+      />
       <View className="flex h-32 w-fit mt-14 mx-10 rounded-md bg-naranja">
         <View className="flex w-8/12 ml-4 mt-3">
           <Text className="text-base font-poppinsBold  text-white">Tu mascota siempre segura con Whopaws</Text>
@@ -132,34 +157,51 @@ export default function Home({ navigation }) {
             </View>
           ))}
         </View>
-        <TouchableOpacity onPress={() => {
-          set_dev_menu(dev_menu+1)
-          if(dev_menu>2) set_dev_menu(0)
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            set_dev_menu(dev_menu + 1);
+            if (dev_menu > 2) set_dev_menu(0);
+          }}
+        >
           <Text className="font-poppins underline text-xs mt-10">Cambiar opciones de abajo ciclica</Text>
         </TouchableOpacity>
-        {dev_menu ===0 ? <Text>"si dev_menu==0, no aparece nada seriaa lo ideal"</Text>: <></>}
-        {dev_menu ===1 ? <><TouchableOpacity onPress={() => navigation.navigate('MyPets')}>
-          <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A MYPETS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A PERFIL</Text>
-        </TouchableOpacity></>:<></>}
-        {dev_menu ===2 ? <>
-          
-          <Button title="Ir al Welcome" onPress={() => navigation.navigate('Welcome')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-          <View className="my-2" />
-          <Button title="CAMBIAR IP DE API_URL" onPress={() => {
-            axios.defaults.baseURL = null
-            navigation.navigate('Selecturl')
-          }
-            } colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+        {dev_menu === 0 ? <Text>"si dev_menu==0, no aparece nada seriaa lo ideal"</Text> : <></>}
+        {dev_menu === 1 ? (
+          <>
+            <TouchableOpacity onPress={() => navigation.navigate('MyPets')}>
+              <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A MYPETS</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+              <Text className="font-poppins underline text-xs mt-10">ACCESO TEMPORAL A PERFIL</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <></>
+        )}
+        {dev_menu === 2 ? (
+          <>
+            <Button title="Ir al Welcome" onPress={() => navigation.navigate('Welcome')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+            <View className="my-2" />
+            <Button
+              title="CAMBIAR IP DE API_URL"
+              onPress={() => {
+                axios.defaults.baseURL = null;
+                navigation.navigate('Selecturl');
+              }}
+              colorButton="bg-black"
+              colorText="text-white"
+              ancho="w-72"
+              alto="h-14"
+              textSize="text-lg"
+            />
+          </>
+        ) : (
+          <></>
+        )}
 
-        
-        </>:<></>}
-        
-       {dev_menu ===3 ? <Checkout /> : <></>}
+        {dev_menu === 3 ? <Checkout /> : <></>}
       </View>
     </View>
+    </ScrollView>
   );
 }

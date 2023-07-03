@@ -62,8 +62,8 @@ export default function App() {
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
     <Provider store={store}>
       <StripeProvider publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
-        {/* <Navigations /> //ESTO SE ESTA TESTEANDO PARA LA NAVEGACION PRIVADA Y PUBLICA */} 
-        <NavigationContainer>
+        <Navigations />
+        {/* <NavigationContainer>
           <Stack.Navigator screenOptions={{ header: (props) => showHeader(props.route) && <Header />, headerShown: true }}>
             <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
@@ -79,7 +79,7 @@ export default function App() {
             <Stack.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
             <Stack.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
           </Stack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer> */}
       </StripeProvider>
     </Provider>
   );

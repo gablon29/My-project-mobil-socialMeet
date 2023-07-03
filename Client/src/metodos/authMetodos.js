@@ -58,18 +58,20 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
     error(err.message);
     loading(false);
   }
-
-  // const response = await fetch('https://whopaws-production.up.railway.app/api/user/user', {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${token}`, // Agrega el token al encabezado de autorización
-  //   },
-  // });
-  // const data = await response.json();
-  // if (data.error) throw new Error(data.message);
-  // return data.payload;
 };
+
+export const SignOffMethod = async ({ loading, error, success }) =>{
+  try{
+    loading(true);
+    await AsyncStorage.removeItem('Token');
+    success('ok');
+    loading(false);
+  }catch(err){
+    console.log(err);
+    error(err.message);
+    loading(false);
+  }
+}
 
 export const recovery = async (email, password) => {
   try {
