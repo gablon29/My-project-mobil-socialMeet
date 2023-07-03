@@ -6,13 +6,18 @@ import ButtonWithImage from '../Buttons/ButtonWithImage';
 import leftIcon from '../../../images/leftIcon.png';
 import editIcon from '../../../images/iconos/editIcon.png';
 import cruz from '../../../images/iconos/cruz.png';
+import { usePets } from '../../CustomHooks/usePets';
 import { SelectList } from 'react-native-dropdown-select-list';
 import dog from '../../../images/iconos/dog.png';
 import cat from '../../../images/iconos/cat.png';
 import other from '../../../images/iconos/other.png';
 
 export default function EditPet({ route, navigation }) {
-  const { pet } = route.params;
+  console.log('ROUTE EN EDITPROFILE', route);
+  const { element } = route.params;
+
+  const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets(element);
+
   const { url, uploadImage } = useImage(null);
 
   const sexStyles = `ml-4 w-40 h-8 rounded-full`;
@@ -27,6 +32,8 @@ export default function EditPet({ route, navigation }) {
 
   const [selectedBreed, setSelectedBreed] = useState('');
   const [selectedSpecie, setSelectedSpecie] = useState(''); //otherType
+
+  const options = ['Hamster', 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
 
   const [otro, setOtro] = useState(false); //OTRO TIPO DE ANIMAL
   const handleOtro = () => {
@@ -76,8 +83,9 @@ export default function EditPet({ route, navigation }) {
         </View>
         <View className="mt-44 items-center">
           {/* AQUI VA LO DE CREATE PET 2  */}
-          {/* <View className="items-center justify-center">
+          <View className="items-center justify-center">
             <Text className="text-base text-center font-poppinsBold mt-32">¿Qué mascota es?</Text>
+            <Text>{pet.specie}</Text>
             <View className="flex-row mt-4">
               <TouchableOpacity onPress={() => handleSelect('Perro')}>
                 <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
@@ -104,7 +112,7 @@ export default function EditPet({ route, navigation }) {
                 <View className="w-60 bg-gray-300 rounded-full">
                   <SelectList
                     data={options}
-                    selected={otherType}
+                    selected={selectedSpecie}
                     setSelected={handleSelect}
                     placeholder="Seleccionar"
                     search={false}
@@ -119,7 +127,7 @@ export default function EditPet({ route, navigation }) {
                 </View>
               </>
             )}
-          </View> */}
+          </View>
 
           {/* AQUI TERMINA LO DE CREATE PET 2 */}
 

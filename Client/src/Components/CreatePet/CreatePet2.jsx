@@ -9,9 +9,9 @@ import Button from '../Buttons/Button';
 const options = ['Hamster', 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
 
 export const CreatePet2 = ({ steps, setSteps, specie, setSpecie }) => {
-  const [otro, setOtro] = useState(false);
   const [otherType, setOtherType] = useState('');
 
+  const [otro, setOtro] = useState(false);
   const handleOtro = () => {
     setOtro(true);
   };
