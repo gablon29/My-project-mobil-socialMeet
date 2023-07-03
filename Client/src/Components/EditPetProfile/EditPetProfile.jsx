@@ -54,6 +54,7 @@ export default function EditPet({ route, navigation }) {
   /* console.log(pet); */
   return (
     <>
+      {console.log('ESTE ES EL PET', pet)}
       <View className="flex">
         <View className="flex flex-row items-center my-5 ml-4">
           <TouchableOpacity>
@@ -175,12 +176,16 @@ export default function EditPet({ route, navigation }) {
                 </View>
                 {
                   <View className="flex flex-row mx-6">
-                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-red-500 ' : 'bg-gris'}`}>
-                      <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
-                    </View>
-                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-red-500 ' : 'bg-gris'}`}>
-                      <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
-                    </View>
+                    <TouchableOpacity onPress={() => setHealthCastrado(true)}>
+                      <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-red-500 ' : 'bg-gris'}`}>
+                        <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setHealthCastrado(false)}>
+                      <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-red-500 ' : 'bg-gris'}`}>
+                        <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
+                      </View>
+                    </TouchableOpacity>
                   </View>
                 }
               </View>
