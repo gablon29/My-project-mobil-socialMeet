@@ -45,7 +45,7 @@ export default function Login() {
   return (
     // <Loading loading={loadingAuth} navigation={navigation} auth={authenticatedAuth}>
       <ScrollView className="bg-white">
-        <View className="flex-1 items-center justify-center bg-white mt-12">
+        <View className="flex-1 items-center justify-center bg-white my-12">
           <Image source={logo} />
           <Image source={loginImage} className="mt-8" />
 
