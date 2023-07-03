@@ -16,11 +16,13 @@ import MyPets from './src/Components/MyPets/MyPets';
 import CreatePet from './src/Components/CreatePet/CreatePet';
 import { CreatePet6 } from './src/Components/CreatePet/CreatePet6';
 import { BackHandler } from 'react-native';
+import PetProfile from './src/Components/PetProfile/PetProfile';
+import EditPetProfile from './src/Components/EditPetProfile/EditPetProfile';
 import axios from 'axios';
 
 //Stripe imports:
 import { StripeProvider } from '@stripe/stripe-react-native';
-import PetProfile from './src/Components/PetProfile/PetProfile';
+
 import { RegisterStep3 } from './src/Components/Register/RegisterStep3';
 
 //devmode
@@ -73,6 +75,7 @@ export default function App() {
             <Stack.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
             <Stack.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
             <Stack.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
+            <Stack.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
           </Stack.Navigator>
         </NavigationContainer>
       </StripeProvider>
