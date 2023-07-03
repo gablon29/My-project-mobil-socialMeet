@@ -5,9 +5,11 @@ import Button from '../Buttons/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPetsMethod } from '../../metodos/petsMetodos';
 import { setAllPets, setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
+import { useNavigation } from '@react-navigation/native';
 
-export const CreatePet6 = ({ navigation }) => {
+const CreatePet6 = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation()
 
   const profile = useSelector((state) => state.ReducerAuth.profile);
   let owner = profile.email;
@@ -36,3 +38,5 @@ export const CreatePet6 = ({ navigation }) => {
     </View>
   );
 };
+
+export default CreatePet6;

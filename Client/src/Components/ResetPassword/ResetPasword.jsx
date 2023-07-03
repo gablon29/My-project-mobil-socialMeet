@@ -5,8 +5,10 @@ import { Reset1Step } from "./Reset1Step";
 import { Reset2Step } from "./Reset2Step";
 import { Reset3Step } from "./Reset3Step";
 import HeaderLeftArrow from "../Header/HeaderLeftArrow";
+import { useNavigation } from "@react-navigation/native";
 
-export default function ResetPasword({ navigation }) {
+export default function ResetPasword() {
+  const navigation = useNavigation();
   const {
     email,
     setEmail,
