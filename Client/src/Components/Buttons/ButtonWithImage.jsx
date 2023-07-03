@@ -1,9 +1,9 @@
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import React from 'react';
 
-const ButtonWithImage = ({ title, onPress, colorButton, colorText, ancho, alto, textSize, margins, image, imageClasses }) => {
+const ButtonWithImage = ({ title, onPress, colorButton, colorText, ancho, alto, textSize, textFont, margins, image, imageClasses }) => {
   const buttonClasses = `flex justify-center items-center rounded-full  ${margins} ${colorButton} ${ancho} ${alto} shadow`;
-  const textClasses = `${textSize}  font-poppinsBold  ${colorText} `;
+  const textClasses = `${textSize}  ${textFont ? textFont : 'font-poppinsBold '}  ${colorText} `;
 
   return (
     <TouchableOpacity className={buttonClasses} onPress={onPress}>

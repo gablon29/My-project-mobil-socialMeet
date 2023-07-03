@@ -16,17 +16,18 @@ import MyPets from './src/Components/MyPets/MyPets';
 import CreatePet from './src/Components/CreatePet/CreatePet';
 import { CreatePet6 } from './src/Components/CreatePet/CreatePet6';
 import { BackHandler } from 'react-native';
+import PetProfile from './src/Components/PetProfile/PetProfile';
+import EditPetProfile from './src/Components/EditPetProfile/EditPetProfile';
 import axios from 'axios';
 
 //Stripe imports:
 import { StripeProvider } from '@stripe/stripe-react-native';
-import PetProfile from './src/Components/PetProfile/PetProfile';
+
 import { RegisterStep3 } from './src/Components/Register/RegisterStep3';
 
 //devmode
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Apiurlselector from './src/Components/Apiurlselector/Apiurlselector';
-
 
 const Stack = createNativeStackNavigator();
 
@@ -40,10 +41,10 @@ export default function App() {
   // PRODUCCION
   // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
 
-
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),
     'Poppins-Bold': require('./src/fonts/Poppins-Bold.ttf'),
+    'Poppins-SemiBold': require('./src/fonts/Poppins-SemiBold.ttf'),
   });
 
   const showHeader = (route) => {
@@ -60,7 +61,7 @@ export default function App() {
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
     <Provider store={store}>
       <StripeProvider publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
-         <NavigationContainer>
+        <NavigationContainer>
           <Stack.Navigator screenOptions={{ header: (props) => showHeader(props.route) && <Header />, headerShown: true }}>
             <Stack.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
             <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
@@ -74,9 +75,9 @@ export default function App() {
             <Stack.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
             <Stack.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
             <Stack.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
+            <Stack.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
           </Stack.Navigator>
         </NavigationContainer>
-        
       </StripeProvider>
     </Provider>
   );
