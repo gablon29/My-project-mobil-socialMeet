@@ -39,7 +39,7 @@ export default function Welcome() {
 
   return (
     <ScrollView className='bg-white'>
-      <View className="flex-1 items-center justify-center bg-white mt-12">
+      <View className="flex-1 items-center justify-center bg-white my-12">
         <Image source={logo} />
         <Image source={welcomeImage} className="mt-8" />
 
