@@ -4,8 +4,12 @@ import logo from "../../../images/logo.png";
 import mensajeDeBienvenida from "../../../images/mensajeDeBienvenida.png";
 import Button from "../Buttons/Button";
 import Toast from "react-native-root-toast";
+import { useNavigation } from "@react-navigation/native";
 
-export function RegisterStep3({ navigation }) {
+export default function RegisterStep3() {
+
+  const navigation = useNavigation();
+
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <Image source={logo} className="mb-32" />

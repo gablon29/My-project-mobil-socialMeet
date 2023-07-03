@@ -8,9 +8,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ReloadAuthMethod } from '../../metodos/authMetodos';
 import { useDispatch } from 'react-redux';
 import { userRefresh, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-export default function Welcome({ navigation }) {
+export default function Welcome() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   /**
    * Función asincrónica para obtener el token de AsyncStorage y recargar los datos del usuario.

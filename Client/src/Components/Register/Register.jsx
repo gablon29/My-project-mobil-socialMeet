@@ -6,8 +6,10 @@ import { RegisterAuthMethod } from '../../metodos/authMetodos';
 import { useDispatch } from 'react-redux';
 import { authSetUser, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Register({ navigation }) {
+export default function Register() {
+  const navigation = useNavigation();
   const dispatch = useDispatch()
   const { email, setEmail, password, setPassword, firstName, setFirstName, lastName, setLastName, phone, setPhone, country, setCountry, province, setProvince, zipcode, setZipcode, confirmEmail, setConfirmEmail, checkPassword, setCheckPassword } = useAuth();
 

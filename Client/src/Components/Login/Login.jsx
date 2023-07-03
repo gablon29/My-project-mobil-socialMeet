@@ -9,9 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authSetUser, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../Loading/Loading';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Login({ navigation }) {
+export default function Login() {
   const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
@@ -19,7 +21,10 @@ export default function Login({ navigation }) {
     LoginAuthMethod({
       email,
       password,
-      loading: (v) => dispatch(setLoadingAuth(v)),
+      loading: (v) => {
+        console.log('Loadin Login', v);
+        dispatch(setLoadingAuth(v));
+      },
       error: (msg) => dispatch(setErrorAuth(msg)),
       success: async (res) => {
         dispatch(authSetUser(res.payload));
@@ -38,7 +43,7 @@ export default function Login({ navigation }) {
   }, []);
 
   return (
-    <Loading>
+    // <Loading loading={loadingAuth} navigation={navigation} auth={authenticatedAuth}>
       <ScrollView className="bg-white">
         <View className="flex-1 items-center justify-center bg-white mt-12">
           <Image source={logo} />
@@ -81,6 +86,6 @@ export default function Login({ navigation }) {
           </View>
         </View>
       </ScrollView>
-    </Loading>
+    // </Loading>
   );
 }
