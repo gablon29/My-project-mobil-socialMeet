@@ -14,11 +14,9 @@ const StripeUSABLE = Stripe(stripe_secret_key);
 
 async function processPurchase(req, res) {
   let { amount, name, product_id, address, customer_id } = req.headers; // No se porque no me deja obtener datos del body, el body se borra antes de llegar!!!
-  console.log('el body viene vacio no se porque: ', req.body);
-  console.log('por eso usamos los headers para enviar datos: ', req.headers);
+
   // Simple validation
-  if (!amount || !name || !address || !product_id || !customer_id)
-    throw new ClientError('Datos insuficientes', 400);
+  if (!amount || !name || !address || !product_id || !customer_id) throw new ClientError('Datos insuficientes', 400);
 
   amount = parseInt(amount);
   // TODO: Aqui buscar en la database si el productID y el precio con lo que lo paga, coinciden
@@ -56,17 +54,11 @@ async function stripeCallback(req, res) {
   let event;
   // Check if the event is sent from Stripe or a third party
   // And parse the event
-  event = await StripeUSABLE.webhooks.constructEvent(
-    req.body,
-    sig,
-    STRIPE_WEBHOOK_SECRET
-  );
+  event = await StripeUSABLE.webhooks.constructEvent(req.body, sig, STRIPE_WEBHOOK_SECRET);
 
   // Event when a payment is initiated
   if (event.type === 'payment_intent.created') {
-    console.log(
-      `${JSON.stringify(event.data.object.metadata)} initated payment!`
-    );
+    console.log(`${JSON.stringify(event.data.object.metadata)} initated payment!`);
     // Si el valor de lo que quiere pagar no coincide con su precio real, no aceptar el pago!!!
     // event.data.object.metadata
   }
@@ -94,9 +86,7 @@ async function stripeCallback(req, res) {
       break;
     case 'payment_intent.created':
       const paymentIntentCreated = event.data.object;
-      console.log(
-        `${JSON.stringify(event.data.object.metadata)} initated payment!`
-      );
+      console.log(`${JSON.stringify(event.data.object.metadata)} initated payment!`);
       //Ocurre cuando un usuario oprime el boton "BUY"
 
       break;

@@ -22,7 +22,6 @@ export default function Login() {
       email,
       password,
       loading: (v) => {
-        console.log('Loadin Login', v);
         dispatch(setLoadingAuth(v));
       },
       error: (msg) => dispatch(setErrorAuth(msg)),
@@ -44,48 +43,48 @@ export default function Login() {
 
   return (
     // <Loading loading={loadingAuth} navigation={navigation} auth={authenticatedAuth}>
-      <ScrollView className="bg-white">
-        <View className="flex-1 items-center justify-center bg-white my-12">
-          <Image source={logo} />
-          <Image source={loginImage} className="mt-8" />
+    <ScrollView className="bg-white">
+      <View className="flex-1 items-center justify-center bg-white my-12">
+        <Image source={logo} />
+        <Image source={loginImage} className="mt-8" />
 
-          <View className="w-4/5 max-w-xs">
-            <Text className="font-poppins w-11">Email</Text>
-            {/* Comentario General: font-bold le quita Poppins a la font, entonces no sé por ahora como oscurecerlas para que queden bien, intenté agregando una nueva clase en tailwind.config pero no me resultó... Ver después */}
-            <TextInput
-              placeholder=""
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
-            />
-            <Text className="font-poppins">Contraseña</Text>
-            <TextInput
-              placeholder=""
-              secureTextEntry={true}
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
-            />
-            <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-              <Text className="font-poppins underline text-xs">¿Has olvidado tu contraseña? Recupérala aquí</Text>
-            </TouchableOpacity>
-            <View className="my-4" />
-            <View className="flex items-center">
-              <Button title="Entrar" onPress={login} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
-            </View>
-          </View>
-
-          <View className="flex min-h-[64px] justify-center">
-            <Text className="font-poppins text text-xs text-red-500">{errorAuth}</Text>
-          </View>
-          <View className="flex flex-row">
-            <Text className="font-poppins text-xs">¿Aún no tienes una cuenta? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <Text className="font-poppins underline text-xs text-naranja">Regístrate Aquí</Text>
-            </TouchableOpacity>
+        <View className="w-4/5 max-w-xs">
+          <Text className="font-poppins w-11">Email</Text>
+          {/* Comentario General: font-bold le quita Poppins a la font, entonces no sé por ahora como oscurecerlas para que queden bien, intenté agregando una nueva clase en tailwind.config pero no me resultó... Ver después */}
+          <TextInput
+            placeholder=""
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+          />
+          <Text className="font-poppins">Contraseña</Text>
+          <TextInput
+            placeholder=""
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+          />
+          <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
+            <Text className="font-poppins underline text-xs">¿Has olvidado tu contraseña? Recupérala aquí</Text>
+          </TouchableOpacity>
+          <View className="my-4" />
+          <View className="flex items-center">
+            <Button title="Entrar" onPress={login} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
           </View>
         </View>
-      </ScrollView>
+
+        <View className="flex min-h-[64px] justify-center">
+          <Text className="font-poppins text text-xs text-red-500">{errorAuth}</Text>
+        </View>
+        <View className="flex flex-row">
+          <Text className="font-poppins text-xs">¿Aún no tienes una cuenta? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <Text className="font-poppins underline text-xs text-naranja">Regístrate Aquí</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
     // </Loading>
   );
 }
