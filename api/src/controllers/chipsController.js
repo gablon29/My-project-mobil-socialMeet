@@ -12,7 +12,7 @@ const chips = {
     const { chipId } = req.params;
     if (!chipId) throw new ClientError('Faltó enviar el id por params /:chipId', 400);
     const pet = await PetModel.findOne({ chip: chipId });
-    if (!pet) throw new ClientError('No se ha encontrado una mascota con esa chip id.', 500);
+    if (!pet) return response(res, 200, { pet: false, owner: false });
     let ownerInfo = {};
     if (pet.owner) ownerInfo = await UserModel.findOne({ _id: pet.owner });
     response(res, 200, { pet, owner: ownerInfo });
