@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, Text, Alert } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Alert, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import adopcion from '../../../images/dropDownMenu/adopcion.png';
 import afiliacion from '../../../images/dropDownMenu/afiliacion.png';
@@ -20,23 +20,23 @@ import Notifications from '../Notifications/Notifications';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Header() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const logoOpciones = [
-    {working: true , logo: inicio, nombre: 'Inicio', url: "Home" },
-    {working: false, logo: socialPaws, nombre: 'Socialpaws' },
-    {working: false, logo: veterinarios, nombre: 'Veterinarios' },
-    {working: false, logo: cuidadores, nombre: 'Cuidadores' },
-    {working: false, logo: paseadores, nombre: 'Paseadores' },
-    {working: false, logo: peluqueros, nombre: 'Peluqueros' },
-    {working: false, logo: educadores, nombre: 'Educadores' },
-    {working: false, logo: adopcion, nombre: 'Adopción' },
-    {working: false, logo: chipWhopaws, nombre: 'Chip Whopaws' },
-    {working: false, logo: blog, nombre: 'Blog' },
-    {working: false, logo: areaProfesional, nombre: 'Área profesional' },
-    {working: false, logo: marketPlace, nombre: 'Marketplace' },
-    {working: true, logo: misMascotas, nombre: 'Mis mascotas', url: "MyPets" },
-    {working: true, logo: miPerfil, nombre: 'Mi perfil', url: "Profile" },
-    {working: false, logo: afiliacion, nombre: 'Afiliación' },
+    { working: true, logo: inicio, nombre: 'Inicio', url: 'Home' },
+    { working: false, logo: socialPaws, nombre: 'Socialpaws' },
+    { working: false, logo: veterinarios, nombre: 'Veterinarios' },
+    { working: false, logo: cuidadores, nombre: 'Cuidadores' },
+    { working: false, logo: paseadores, nombre: 'Paseadores' },
+    { working: false, logo: peluqueros, nombre: 'Peluqueros' },
+    { working: false, logo: educadores, nombre: 'Educadores' },
+    { working: false, logo: adopcion, nombre: 'Adopción' },
+    { working: false, logo: chipWhopaws, nombre: 'Chip Whopaws' },
+    { working: false, logo: blog, nombre: 'Blog' },
+    { working: false, logo: areaProfesional, nombre: 'Área profesional' },
+    { working: false, logo: marketPlace, nombre: 'Marketplace' },
+    { working: true, logo: misMascotas, nombre: 'Mis mascotas', url: 'MyPets' },
+    { working: true, logo: miPerfil, nombre: 'Mi perfil', url: 'Profile' },
+    { working: false, logo: afiliacion, nombre: 'Afiliación' },
   ];
 
   const [showMenu, setShowMenu] = useState(false);
@@ -68,10 +68,19 @@ export default function Header() {
       <>
         {logoOpciones.map((element, index) => (
           <View className="items-center my-3" key={index}>
-            <TouchableOpacity onPress={() => {element.working ? navigation.navigate(element.url) : Alert.alert("Aun no implementdao")}}>
-            <View className={element.working ? "mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja" : "mx-5 mt-3 mb-1 p-3 rounded-lg bg-gris"}>
-              <Image source={element.logo} className="w-14 h-14" resizeMode="contain" />
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                if (element.working) {
+                  setShowMenu(!showMenu);
+                  navigation.navigate(element.url);
+                } else {
+                  Alert.alert('Aun no implementdao');
+                }
+              }}
+            >
+              <View className={element.working ? 'mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja' : 'mx-5 mt-3 mb-1 p-3 rounded-lg bg-gris'}>
+                <Image source={element.logo} className="w-14 h-14" resizeMode="contain" />
+              </View>
             </TouchableOpacity>
             <Text className="text-xs font-poppinsBold">{element.nombre}</Text>
           </View>
