@@ -4,7 +4,7 @@ import Button from "../Buttons/Button";
 
 export const Reset3Step = ({ password, setPassword, Code }) => {
 
-
+console.log(Code)
   return (
     <View className="flex-1 items-center justify-start pt-10 bg-white">
       <Text className="text-center mb-12 px-8 font-poppins">

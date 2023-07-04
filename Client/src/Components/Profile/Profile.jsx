@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useSelector } from "react-redux";
 import { Feather } from "@expo/vector-icons";
+import Button from "../Buttons/Button";
 
 const ProfileComponent = ({ navigation }) => {
   const authenticatedAuth = useSelector(
@@ -24,16 +25,20 @@ const ProfileComponent = ({ navigation }) => {
         {profile.firstName} {profile.lastName}
       </Text>
       <Text className="text-gray-500 text-sm">{profile.province}</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("MyPets")}>
-        <Text className="font-poppins underline text-xs mt-10">
-          ACCESO TEMPORAL A MYPETS
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-        <Text className="font-poppins underline text-xs mt-10">
-          ACCESO TEMPORAL A HOME
-        </Text>
-      </TouchableOpacity>
+
+      <View className="flex items-center mt-8">
+  <Button
+        title="Mis mascotas"
+        colorButton="bg-black"
+        colorText="text-white"
+        ancho="w-56"
+        alto="h-10"
+        textSize="text-xs"
+        onPress={() => navigation.navigate("MyPets")}
+ />
+
+ </View>
+ 
     </View>
   );
 };

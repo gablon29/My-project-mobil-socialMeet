@@ -82,6 +82,9 @@ const petSchema = mongoose.Schema(
     ownerAdress: {
       type: String,
     },
+    chip: {
+      type: String,
+    }
   },
   {
     timestamps: {

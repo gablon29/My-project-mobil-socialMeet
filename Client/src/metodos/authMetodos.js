@@ -75,7 +75,7 @@ export const SignOffMethod = async ({ loading, error, success }) =>{
 
 export const recovery = async (email, password) => {
   try {
-    const response = await fetch('https://whopaws-production.up.railway.app/api/user/recovery', {
+    const response = await fetch('/api/user/recovery', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -17,10 +17,12 @@ import peluqueros from '../../../images/dropDownMenu/peluqueros.png';
 import socialPaws from '../../../images/dropDownMenu/socialPaws.png';
 import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import Notifications from '../Notifications/Notifications';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Header() {
+  const navigation = useNavigation()
   const logoOpciones = [
-    { logo: inicio, nombre: 'Inicio' },
+    { logo: inicio, nombre: 'Inicio', url: "Home" },
     { logo: socialPaws, nombre: 'Socialpaws' },
     { logo: veterinarios, nombre: 'Veterinarios' },
     { logo: cuidadores, nombre: 'Cuidadores' },
@@ -32,8 +34,8 @@ export default function Header() {
     { logo: blog, nombre: 'Blog' },
     { logo: areaProfesional, nombre: 'Área profesional' },
     { logo: marketPlace, nombre: 'Marketplace' },
-    { logo: misMascotas, nombre: 'Mis mascotas' },
-    { logo: miPerfil, nombre: 'Mi perfil' },
+    { logo: misMascotas, nombre: 'Mis mascotas', url: "MyPets" },
+    { logo: miPerfil, nombre: 'Mi perfil', url: "Profile" },
     { logo: afiliacion, nombre: 'Afiliación' },
   ];
 
@@ -66,9 +68,11 @@ export default function Header() {
       <>
         {logoOpciones.map((element, index) => (
           <View className="items-center my-3" key={index}>
+            <TouchableOpacity onPress={() => navigation.navigate(element.url)}>
             <View className="mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja">
               <Image source={element.logo} className="w-14 h-14" resizeMode="contain" />
             </View>
+            </TouchableOpacity>
             <Text className="text-xs font-poppinsBold">{element.nombre}</Text>
           </View>
         ))}

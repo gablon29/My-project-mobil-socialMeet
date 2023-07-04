@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export default function Apiurlselector({ navigation }) {
   const [textosValiosos, setTextosValiosos] = useState({});
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState("https://whopaws-production.up.railway.app");
 
   useFocusEffect(
     useCallback(() => {
@@ -50,7 +50,7 @@ export default function Apiurlselector({ navigation }) {
           <Button title="LUIS LOCAL" onPress={() => handleChangeAPU_URL('http://192.168.18.6:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <Button title="  LUIS CASA" onPress={() => handleChangeAPU_URL('http://192.168.100.60:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <Button title="IGNA" onPress={() => handleChangeAPU_URL('http://192.168.1.84:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
-          <Button title="Santi" onPress={() => handleChangeAPU_URL('no recuerdo')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="Santi" onPress={() => handleChangeAPU_URL('http://192.168.178.211:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <Button title="RODRI" onPress={() => handleChangeAPU_URL('http://192.168.0.12:8080')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <Button title="NULL" onPress={() => handleChangeAPU_URL('')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <Button

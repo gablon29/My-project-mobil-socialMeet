@@ -5,6 +5,8 @@ const pet = require('./pet.route');
 const admin = require('./admin.route')
 const notify = require('./pushNotify.route');
 const stripe = require('./stripe.route');
+const PetModel = require("../models/pet.model")
+const UserModel = require("../models/user.model")
 
 const { limit5cada30minutos } = require('../utils/rate-limiters');
 const notificationController = require('../controllers/notificationController');
@@ -51,5 +53,31 @@ router.put('/api/admin/desAmin', isLoggedIn, catchedAsync(admin.remove_admin_pow
 router.use('/stripe/start-pay-process', catchedAsync(stripe.iniciar_proceso_de_compra));
 router.use('/stripe/callback', express.raw({ type: 'application/json' }),
   catchedAsync(stripe.ruta_donde_recibiremos_eventos));
+
+
+
+  router.post('/pet-info', async (req, res) => {
+    try {
+      const { chipId } = req.body;
+  
+      // Buscar la mascota por el ID del chip
+      const pet = await PetModel.findOne({ chip: chipId });
+  
+      if (!pet) {
+        return res.status(404).json({ error: 'Mascota no encontrada' });
+      }
+  
+      let ownerInfo = {};
+      if (pet.owner) {
+        // Buscar el usuario por el campo email
+        ownerInfo = await UserModel.findOne({ email: pet.owner });
+      }
+  
+      res.json({ pet, owner: ownerInfo });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al obtener la información de la mascota' });
+    }
+  });
 
 module.exports = router;

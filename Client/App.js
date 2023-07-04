@@ -1,46 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import Welcome from './src/Components/Welcome/Welcome';
 import store from './src/Redux/Store';
 import { useFonts } from 'expo-font';
-import Login from './src/Components/Login/Login';
-import Register from './src/Components/Register/Register';
-import ResetPassword from './src/Components/ResetPassword/ResetPasword';
-import Home from './src/Components/Home/Home';
-import Header from './src/Components/Header/Header';
-import Profile from './src/Components/Profile/Profile';
-import MyPets from './src/Components/MyPets/MyPets';
-import CreatePet from './src/Components/CreatePet/CreatePet';
-import CreatePet6 from './src/Components/CreatePet/CreatePet6';
-import { BackHandler } from 'react-native';
-import PetProfile from './src/Components/PetProfile/PetProfile';
-import EditPetProfile from './src/Components/EditPetProfile/EditPetProfile';
+
 import axios from 'axios';
 
 //Stripe imports:
 import { StripeProvider } from '@stripe/stripe-react-native';
-
-import RegisterStep3 from './src/Components/Register/RegisterStep3';
-
 //devmode
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Apiurlselector from './src/Components/Apiurlselector/Apiurlselector';
 import Navigations from './src/Navigations';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   // DESARROLLO
-  axios.defaults.baseURL = 'http://192.168.0.12:8080'; //LUIS CASA
+  // axios.defaults.baseURL = 'http://192.168.0.12:8080'; //LUIS CASA
   // axios.defaults.baseURL = "http://192.168.18.6:8080"; //LUIS LOCAL
   // axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; //IP IGNA
 
   // PRODUCCION
-  // axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
+ axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),
@@ -48,11 +30,11 @@ export default function App() {
     'Poppins-SemiBold': require('./src/fonts/Poppins-SemiBold.ttf'),
   });
 
-  const showHeader = (route) => {
-    //función para mostrar Header, excluyendo los siguientes:
-    const screenNamesToHideHeader = ['Welcome', 'Register', 'Login', 'ResetPassword'];
-    return !screenNamesToHideHeader.includes(route.name);
-  };
+  // const showHeader = (route) => {
+  //   //función para mostrar Header, excluyendo los siguientes:
+  //   const screenNamesToHideHeader = ['Welcome', 'Register', 'Login', 'ResetPassword'];
+  //   return !screenNamesToHideHeader.includes(route.name);
+  // };
 
   if (!fontsLoaded) {
     return null;

@@ -17,10 +17,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const mongodbURI =
-  JSON.stringify(process.env.NODEENV) === JSON.stringify('start')
-    ? process.env.DB_PRO
-    : process.env.DB_DEV;
+const mongodbURI = process.env.DB_DEV
 
 console.log(JSON.stringify(process.env.NODEENV), mongodbURI);
 

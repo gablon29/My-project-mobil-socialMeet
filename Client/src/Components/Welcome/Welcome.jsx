@@ -51,7 +51,7 @@ export default function Welcome() {
           <Button title="Registrarme" onPress={() => navigation.navigate('Register')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         </View>
         {/* BORRAR ESTE BOTON EN PRODUCCIÓN ------ */}
-        <Button
+        {/* <Button
           title="CAMBIAR IP DE API_URL"
           onPress={() => {
             navigation.navigate('Selecturl');
@@ -61,7 +61,7 @@ export default function Welcome() {
           ancho="w-72"
           alto="h-14"
           textSize="text-lg"
-        />
+        /> */}
         {/* BORRAR ESTE BOTON EN PRODUCCIÓN ^^^^^ */}
       </View>
     </ScrollView>
