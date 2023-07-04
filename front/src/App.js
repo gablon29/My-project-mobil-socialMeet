@@ -4,10 +4,10 @@ import { Home } from "./Components/Home";
 import { Panel } from "./Components/Panel";
 import axios from "axios";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
-import { Mascotas } from "./Components/Mascotas";
+import { Mascotas } from "./Components/Chips/Mascotas";
 
 
-axios.defaults.baseURL = "http://localhost:8080"
+axios.defaults.baseURL = "https://whopaws-production.up.railway.app"
 
 // axios.defaults.withCredentials = true;
 
@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/dashboard/usuarios" />
 
         <Route exact path="/dashboard/add" />
-        <Route exact path="/search/:id" component={Mascotas} />
+        <Route exact path="/activate/:id" component={Mascotas} />
 
       </Switch>
     </div>
