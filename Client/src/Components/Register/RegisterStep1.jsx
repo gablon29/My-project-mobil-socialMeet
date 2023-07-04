@@ -5,10 +5,12 @@ import logo from '../../../images/logo.png';
 import Button from '../Buttons/Button';
 import { SelectList } from 'react-native-dropdown-select-list';
 import countrys from '../../../extras/countrys.json';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setErrorAuth } from '../../Redux/ReducerAuth';
 
 export default function RegisterStep1(props) {
   const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
+  const dispatch = useDispatch();
   const { email, setEmail, firstName, setFirstName, lastName, setLastName, phone, setPhone, country, setCountry, province, setProvince, zipcode, setZipcode, confirmEmail, setConfirmEmail, setRegisterSteps, navigation } = props;
 
   const [countryOptions, setCountryOptions] = useState([]);
@@ -36,14 +38,15 @@ export default function RegisterStep1(props) {
   }, [country]);
 
   const nextRegistro = () => {
-    if(!email || !firstName || !lastName || !phone || !country || !province || !zipcode || !confirmEmail){
-      alert('Hay campos vacios');
+    if (!email || !firstName || !lastName || !phone || !country || !province || !zipcode || !confirmEmail) {
+      dispatch(setErrorAuth('Falta Campos por Completar para Registrarse'));
       return;
     }
     if (email !== confirmEmail) {
-      alert('Correos no coinciden');
+      dispatch(setErrorAuth('Correos no coinciden'));
       return;
     }
+    dispatch(setErrorAuth(''));
     setRegisterSteps(1);
   };
 
@@ -113,7 +116,9 @@ export default function RegisterStep1(props) {
             <Button title="Siguiente" onPress={nextRegistro} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
           </View>
         </View>
-        <View className="my-4" />
+        <View className="flex min-h-[64px] justify-center">
+          <Text className="font-poppins text text-xs text-red-500">{errorAuth}</Text>
+        </View>
         <View>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text className="font-poppins underline text-xs">¿Ya tienes una cuenta? Inicia sesión</Text>
