@@ -54,7 +54,6 @@ export default function EditPet({ route, navigation }) {
   };
 
   const editPet = () => {
-    console.log('ENTRANDO EDITPET');
     EditPetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
@@ -68,7 +67,6 @@ export default function EditPet({ route, navigation }) {
 
   return (
     <>
-      {console.log(pet.sex)}
       <View className="flex">
         <View className="flex flex-row items-center my-5 ml-4">
           <TouchableOpacity>

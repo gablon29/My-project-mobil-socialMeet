@@ -16,7 +16,7 @@ const updatePet = async (PetData, petID, ownerEmail) => {
   const queryCondition = { _id: petID, owner: ownerEmail };
 
   const updatedPet = await PetModel.updateOne(queryCondition, PetData);
-  console.log('entrando a la wea de updatepet', updatedPet);
+
   return updatedPet;
 };
 
@@ -24,7 +24,6 @@ const filterByOwner = async (id) => {
   const ownerPets = await PetModel.find({ owner: id });
   return ownerPets;
 };
-
 
 module.exports = {
   createPet,

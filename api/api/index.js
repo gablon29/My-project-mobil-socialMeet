@@ -17,7 +17,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const mongodbURI = process.env.DB_DEV
+const mongodbURI = process.env.DB_DEV;
 
 console.log(JSON.stringify(process.env.NODEENV), mongodbURI);
 
@@ -26,9 +26,8 @@ async function main() {
 }
 
 const app = express();
-app.use(morgan("dev"))
+app.use(morgan('dev'));
 app.get('/api', async (req, res) => {
-  // console.log(process.env);
   res.send({
     message: 'Server working',
   });
@@ -70,8 +69,6 @@ app.use('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   const message_to_send = '🐾' + err.message;
-  console.log("este es el body que le llegó a la ruta: ")
-  console.log(req.body)
   res.status(err.statusCode || 500).send({
     error: true,
     message: message_to_send,

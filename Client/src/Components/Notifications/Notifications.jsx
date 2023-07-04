@@ -19,10 +19,9 @@ const Notifications = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('DATAAAAA', response.data);
+
         if (response.error) throw new Error(data.message);
         setNotifications(response.data.payload);
-
       } catch (error) {
         console.error('Error al obtener las notificaciones:', error);
       }
@@ -34,7 +33,7 @@ const Notifications = () => {
   return (
     <View>
       <Text>Lista de notificaciones:</Text>
-      {console.log('NOTIFICVACION', notifications, profile)}
+
       {notifications?.map((notification, _idx) => (
         <View key={_idx}>
           <Text>{notification}</Text>

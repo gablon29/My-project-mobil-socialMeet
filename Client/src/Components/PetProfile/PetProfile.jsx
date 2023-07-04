@@ -8,7 +8,6 @@ import editIcon from '../../../images/iconos/editIcon.png';
 export default function PetProfile({ route, navigation }) {
   const { element } = route.params;
 
-  /*   console.log(element); */
   return (
     <>
       <View className="flex ">

@@ -3,8 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const CreatePetMethod = async (pet) => {
   try {
-    // loading(true);
-    console.log("ok")
     const token = await AsyncStorage.getItem('Token');
     const response = await axios.post('/api/pet/add', pet, {
       headers: {
@@ -12,7 +10,7 @@ export const CreatePetMethod = async (pet) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response
+    return response;
     // success(response.data);
     // loading(false);
   } catch (err) {
@@ -26,14 +24,14 @@ export const EditPetMethod = async ({ pet, loading, error, success }) => {
   try {
     loading(true);
     const token = await AsyncStorage.getItem('Token');
-    console.log('DEBAJO DE TOKEN');
+
     const response = await axios.put('/api/pet/profile', pet, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('ABAJO DE RESPONSE');
+
     success(response.data);
     loading(false);
   } catch (err) {
