@@ -101,19 +101,19 @@ export default function EditPet({ route, navigation }) {
               <Text>{pet.specie}</Text>
               <View className="flex-row mt-4">
                 <TouchableOpacity onPress={() => handleSelect('Perro')}>
-                  <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+                  <View className={`${pet.specie=="Perro" ? "bg-orange-500 border border-black" : "bg-gris"} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={dog} className="w-14 h-14 mx-auto my-2 " />
                     <Text className="text-center text-white font-poppinsBold">Perro</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleSelect('Gato')}>
-                  <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+                  <View className={`${pet.specie=="Gato" ? "bg-orange-500 border border-black" : "bg-gris"} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={cat} className="w-14 h-14 mx-auto my-2" />
                     <Text className="text-center text-white font-poppinsBold">Gato</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleOtro}>
-                  <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+                  <View className={`${pet.specie=="Otro" ? "bg-orange-500 border border-black" : "bg-gris"} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={other} className="w-14 h-14 mx-auto my-2" />
                     <Text className="text-center text-white font-poppinsBold">Otro</Text>
                   </View>
@@ -168,12 +168,12 @@ export default function EditPet({ route, navigation }) {
           <Text className="font-poppinsBold">Sexo</Text>
           <View className="flex flex-row mx-6 mt-2">
             <TouchableOpacity onPress={() => setSex('Macho')}>
-              <View className={`${sexStyles} ${pet.sex == 'Macho' ? ' bg-naranja' : 'bg-gris'}`}>
+              <View className={`${sexStyles} ${pet.sex == 'Macho' ? 'border border-black bg-naranja' : 'bg-gris'}`}>
                 <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Macho</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setSex('Hembra')}>
-              <View className={`${sexStyles} ${pet.sex == 'Hembra' ? 'bg-naranja ' : 'bg-gris'}`}>
+              <View className={`${sexStyles} ${pet.sex == 'Hembra' ? 'border border-black bg-naranja ' : 'bg-gris'}`}>
                 <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Hembra</Text>
               </View>
             </TouchableOpacity>
@@ -213,12 +213,12 @@ export default function EditPet({ route, navigation }) {
                 </View>
                 <View className="flex flex-row mx-6">
                   <TouchableOpacity onPress={() => item.setStateFunction(true)}>
-                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-naranja ' : 'bg-gris'}`}>
+                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-naranja border border-black' : 'bg-gris'}`}>
                       <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => item.setStateFunction(false)}>
-                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-naranja ' : 'bg-gris'}`}>
+                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-naranja border border-black' : 'bg-gris'}`}>
                       <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
                     </View>
                   </TouchableOpacity>
