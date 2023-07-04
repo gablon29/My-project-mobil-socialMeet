@@ -22,12 +22,14 @@ const chips = {
     const { chipId, petId } = req.body;
     if (!chipId || !petId) throw new ClientError('Faltó enviar datos por body {chipId: "el id del chip", petId: "id de la mascota"}', 400);
     const pet = await PetModel.findOne({ _id: petId });
-    if (!pet) throw new ClientError('No se ha encontrado una mascota con esa id', 500);
-    const owner =  await UserModel.findOne({ _id: req.user.userId }); //recordar que si está logeado, por req le llega el id en req.user.userId
-    if (pet.owner!= owner._id)throw new ClientError('Esta mascota no le pertenece.', 500);
-    response(res, 200, { pet, owner: ownerInfo });
+    if (!pet || pet.id !=petId) throw new ClientError('No se ha encontrado una mascota con esa id', 500);
+    const user =  await UserModel.findOne({ _id: req.user.userId }); //recordar que si está logeado, por req le llega el id en req.user.userId
+    if (pet.owner!= user._id)throw new ClientError('Esta mascota no le pertenece.', 500);
+    pet.chip = chipId;
+    await pet.save();
+    response(res, 200, { pet, user });
   },
-  
+
   ruta_incorrecta: async (req, res) => {
      throw new ClientError('Faltó enviar el id por params /api/pet-info/:chipId', 400);
   },
