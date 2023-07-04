@@ -29,7 +29,7 @@ export const Menu = ({ sidebarOpen, setSidebarOpen }) => {
           General
         </Link>
         <Link
-          to="/dashboard/admin"
+          to="/dashboard/usuarios"
           className="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-purple-700"
           onClick={() => aux(1)}
         >
@@ -48,10 +48,10 @@ export const Menu = ({ sidebarOpen, setSidebarOpen }) => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
-         Chips
+         Usuarios
         </Link>
         <Link
-          to="/dashboard/clientes"
+          to="/dashboard/mascotas"
           className="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-purple-700"
           onClick={() => aux(2)}
         >
@@ -70,10 +70,10 @@ export const Menu = ({ sidebarOpen, setSidebarOpen }) => {
               d="M13 10V3L4 14h7v7l9-11h-7z"
             />
           </svg>
-          Usuarios
+          Mascotas
         </Link>
         <Link
-          to="/dashboard/usuarios"
+          to="/dashboard/chips"
           className="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-purple-700"
           onClick={() => aux(3)}
         >
@@ -92,7 +92,7 @@ export const Menu = ({ sidebarOpen, setSidebarOpen }) => {
               d="M13 10V3L4 14h7v7l9-11h-7z"
             />
           </svg>
-          Mascotas
+          Chips
         </Link>
       </nav>
     </div>

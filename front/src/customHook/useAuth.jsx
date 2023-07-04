@@ -8,7 +8,6 @@ export const useAuth = () => {
   const [login, setLogin] = useState({
     email: "",
     password: "",
-    name: "",
   });
 
   const [register, setRegister] = useState(false);
@@ -27,9 +26,12 @@ export const useAuth = () => {
         email: login.email,
         password: login.password,
       });
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.data.payload.token);
+
       dispatch(InputRegister(response.data.user));
       history.push("/dashboard");
+
+      
     } catch (error) {
       console.log(error);
       setIncorrect(true);

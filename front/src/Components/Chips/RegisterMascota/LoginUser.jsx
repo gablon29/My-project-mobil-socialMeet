@@ -1,22 +1,52 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useAuth } from "../customHook/useAuth";
-export const Home = (props) => {
-  const {
-    login,
-    setLogin,
-    handleChange,
-    setRegister,
-    register,
-    handleSubmit,
-    incorrect,
-  } = useAuth();
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
+import { InputRegister } from "../../../redux/actions";
+export const LoginUser = ({steps, setSteps, petid}) => {
+
+
+    const [login, setLogin] = useState({
+        email: "",
+        password: "",
+      });
+    
+      const [register, setRegister] = useState(false);
+      const [incorrect, setIncorrect] = useState(false);
+      const handleChange = (e) => {
+        setLogin({
+          ...login,
+          [e.target.name]: e.target.value,
+        });
+      };
+      const dispatch = useDispatch();
+      const history = useHistory();
+      const handleSubmit = async () => {
+        try {
+          const response = await axios.post("/api/user/login", {
+            email: login.email,
+            password: login.password,
+          });
+          localStorage.setItem("token", response.data.payload.token);
+    
+          dispatch(InputRegister(response.data.user));
+          setSteps(2)    
+          
+        } catch (error) {
+          console.log(error);
+          setIncorrect(true);
+        }
+      };
+    
+
+
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div></div>
           <div className="mt-12 flex flex-col items-center">
-            <h1 className="text-2xl xl:text-3xl font-extrabold">Panel de administracion</h1>
+            <h1 className="text-2xl xl:text-3xl font-extrabold">Vemos que este chip aun no esta activado</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
           
