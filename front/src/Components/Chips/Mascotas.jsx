@@ -26,7 +26,6 @@ useEffect(() => {
         },
       });
 
-      console.log(response.data);
       setLoading(false);
       setMascota(response.data.payload)
     } catch (error) {
@@ -44,7 +43,7 @@ console.log(mascota)
 
   return (
     <>
-    {mascota ? <RenderMascota mascota={mascota} id={id}/> : <RegisterMascota id={id} petid={petid}/>}
+    {mascota.owner ? <RenderMascota mascota={mascota} id={id}/> : <RegisterMascota id={id} petid={petid}/>}
     </>
   );
 };
