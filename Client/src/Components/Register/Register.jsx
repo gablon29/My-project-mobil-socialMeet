@@ -4,7 +4,7 @@ import RegisterStep1 from './RegisterStep1';
 import { RegisterStep2 } from './RegisterStep2';
 import { RegisterAuthMethod } from '../../metodos/authMetodos';
 import { useDispatch, useSelector } from 'react-redux';
-import { authSetUser, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
+import { authSetUser, setErrorAuth, setLoadingAuth, setRegistroAuth } from '../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -15,7 +15,6 @@ export default function Register() {
   const { email, setEmail, password, setPassword, firstName, setFirstName, lastName, setLastName, phone, setPhone, country, setCountry, province, setProvince, zipcode, setZipcode, confirmEmail, setConfirmEmail, checkPassword, setCheckPassword } = useAuth();
 
   const [registerSteps, setRegisterSteps] = useState(0);
-
   const handleRegister = () => {
     RegisterAuthMethod({
       reg: {email, password, firstName, lastName, phone, country, province, zipcode},
@@ -23,6 +22,7 @@ export default function Register() {
       error: (msg) => dispatch(setErrorAuth(msg)),
       success: async (res) => {
         dispatch(authSetUser(res.payload));
+        dispatch(setRegistroAuth(true))
         await AsyncStorage.setItem('Token', res.payload.token);
         navigation.navigate('RegisterStep3');
       },

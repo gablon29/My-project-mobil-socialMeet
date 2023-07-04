@@ -28,23 +28,23 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
       {/* <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Revisar email', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center'  }} /> */}
-      <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
+      <StackAuthFalse.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthFalse.Navigator>
   );
 }
 
-// function NavigatorBienvenida() {
-//   return (
-//     <StackAuthBienvenida.Navigator>
-//       <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
-//     </StackAuthBienvenida.Navigator>
-//   );
-// }
+function NavigatorBienvenida() {
+  return (
+    <StackAuthBienvenida.Navigator>
+      <StackAuthBienvenida.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: false }} />
+    </StackAuthBienvenida.Navigator>
+  );
+}
 
 const NavigatorAuthTrue = () => {
   const showHeader = (route) => {
     //función para mostrar Header, excluyendo los siguientes:
-    const screenNamesToHideHeader = ['RegisterStep3'];
+    const screenNamesToHideHeader = [];
     return !screenNamesToHideHeader.includes(route.name);
   };
 
@@ -59,29 +59,29 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
-      <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: false }} />
     </StackAuthTrue.Navigator>
   );
 };
 
 const Navigations = () => {
-  const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
+  const { authenticatedAuth, loadingAuth, errorAuth, profile, token, registro } = useSelector((state) => state.ReducerAuth);
 
   return (
     <>
       {authenticatedAuth ? (
-        <NavigationContainer>
-          <NavigatorAuthTrue />
-        </NavigationContainer>
-      ) : (
-        <>
-          {/* <NavigationContainer>
-            <NavigatorBienvenida />
-          </NavigationContainer> */}
+        registro ? (
           <NavigationContainer>
-            <NavigatorAuthFalse />
+            <NavigatorBienvenida />
           </NavigationContainer>
-        </>
+        ) : (
+          <NavigationContainer>
+            <NavigatorAuthTrue />
+          </NavigationContainer>
+        )
+      ) : (
+        <NavigationContainer>
+          <NavigatorAuthFalse />
+        </NavigationContainer>
       )}
     </>
   );
