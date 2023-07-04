@@ -8,6 +8,7 @@ import axios from "axios";
 import { Menu } from "./Menu";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Usuarios } from "./Usuarios";
+import { Mascotas } from "./Chips/Mascotas";
 
 export const Panel = (props) => {
   const dispatch = useDispatch();
@@ -112,9 +113,9 @@ export const Panel = (props) => {
 ) : location.pathname === "/dashboard/usuarios" ?
   <div className="mb-8">
     <Usuarios/>
-
   </div>
-  : null
+  : location.pathname === "/activate/:id" || "/activate" ?
+  <Mascotas/> : null
 }
           </div>
         </div>
