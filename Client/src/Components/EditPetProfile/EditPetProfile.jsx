@@ -11,6 +11,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import dog from '../../../images/iconos/dog.png';
 import cat from '../../../images/iconos/cat.png';
 import other from '../../../images/iconos/other.png';
+import { EditPetMethod } from '../../metodos/petsMetodos';
 
 export default function EditPet({ route, navigation }) {
   console.log('ROUTE EN EDITPROFILE', route);
@@ -52,6 +53,15 @@ export default function EditPet({ route, navigation }) {
   };
 
   /* console.log(pet); */
+  const editPet = () => {
+    EditPetMethod({
+      pet,
+      loading: (v) => dispatch(setLoadingPets(v)),
+      error: (msg) => dispatch(setErrorPets(msg)),
+      success: (res) => navigation.navigate('MyPets'),
+    });
+  };
+
   return (
     <>
       {console.log('ESTE ES EL PET', pet)}
@@ -84,51 +94,54 @@ export default function EditPet({ route, navigation }) {
         </View>
         <View className="mt-44 items-center">
           {/* AQUI VA LO DE CREATE PET 2  */}
-          <View className="items-center justify-center">
-            <Text className="text-base text-center font-poppinsBold mt-32">¿Qué mascota es?</Text>
-            <Text>{pet.specie}</Text>
-            <View className="flex-row mt-4">
-              <TouchableOpacity onPress={() => handleSelect('Perro')}>
-                <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
-                  <Image source={dog} className="w-14 h-14 mx-auto my-2 " />
-                  <Text className="text-center text-white font-poppinsBold">Perro</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleSelect('Gato')}>
-                <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
-                  <Image source={cat} className="w-14 h-14 mx-auto my-2" />
-                  <Text className="text-center text-white font-poppinsBold">Gato</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleOtro}>
-                <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
-                  <Image source={other} className="w-14 h-14 mx-auto my-2" />
-                  <Text className="text-center text-white font-poppinsBold">Otro</Text>
-                </View>
-              </TouchableOpacity>
+
+          {
+            <View className="items-center justify-center">
+              <Text className="text-base text-center font-poppinsBold mt-32">¿Qué mascota es?</Text>
+              <Text>{pet.specie}</Text>
+              <View className="flex-row mt-4">
+                <TouchableOpacity onPress={() => handleSelect('Perro')}>
+                  <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+                    <Image source={dog} className="w-14 h-14 mx-auto my-2 " />
+                    <Text className="text-center text-white font-poppinsBold">Perro</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleSelect('Gato')}>
+                  <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+                    <Image source={cat} className="w-14 h-14 mx-auto my-2" />
+                    <Text className="text-center text-white font-poppinsBold">Gato</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleOtro}>
+                  <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+                    <Image source={other} className="w-14 h-14 mx-auto my-2" />
+                    <Text className="text-center text-white font-poppinsBold">Otro</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              {otro && (
+                <>
+                  <Text className="text-center mt-8 font-poppinsBold">Especifica qué animal es:</Text>
+                  <View className="w-60 bg-gray-300 rounded-full">
+                    <SelectList
+                      data={options}
+                      selected={selectedSpecie}
+                      setSelected={handleSelect}
+                      placeholder="Seleccionar"
+                      search={false}
+                      fontFamily="Poppins"
+                      boxStyles={{
+                        backgroundColor: '#DADADA',
+                        borderRadius: 999,
+                        borderColor: '#DADADA',
+                      }}
+                      dropdownStyles={{ backgroundColor: '#DADADA' }}
+                    />
+                  </View>
+                </>
+              )}
             </View>
-            {otro && (
-              <>
-                <Text className="text-center mt-8 font-poppinsBold">Especifica qué animal es:</Text>
-                <View className="w-60 bg-gray-300 rounded-full">
-                  <SelectList
-                    data={options}
-                    selected={selectedSpecie}
-                    setSelected={handleSelect}
-                    placeholder="Seleccionar"
-                    search={false}
-                    fontFamily="Poppins"
-                    boxStyles={{
-                      backgroundColor: '#DADADA',
-                      borderRadius: 999,
-                      borderColor: '#DADADA',
-                    }}
-                    dropdownStyles={{ backgroundColor: '#DADADA' }}
-                  />
-                </View>
-              </>
-            )}
-          </View>
+          }
 
           {/* AQUI TERMINA LO DE CREATE PET 2 */}
 
@@ -154,43 +167,68 @@ export default function EditPet({ route, navigation }) {
 
           <Text className="font-poppinsBold">Sexo</Text>
           <View className="flex flex-row mx-6 mt-2">
-            <View className={`${sexStyles} ${pet.sex == 'Macho' ? 'bg-red-600 ' : 'bg-gris'}`}>
-              <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Macho</Text>
-            </View>
-            <View className={`${sexStyles} ${!pet.sex == 'Hembra' ? 'bg-red-600 ' : 'bg-gris'}`}>
-              <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Hembra</Text>
-            </View>
+            <TouchableOpacity onPress={() => setSex('Macho')}>
+              <View className={`${sexStyles} ${pet.sex == 'Macho' ? ' bg-naranja' : 'bg-gris'}`}>
+                <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Macho</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSex('Hembra')}>
+              <View className={`${sexStyles} ${pet.sex == 'Hembra' ? 'bg-naranja ' : 'bg-gris'}`}>
+                <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Hembra</Text>
+              </View>
+            </TouchableOpacity>
           </View>
 
           <View className="flex mt-10 mx-10">
             {[
-              { question: '¿Está castrado o esterilizado?', property: 'castrado' },
-              { question: '¿Tiene microchip?', property: 'microchip' },
-              { question: '¿Se lleva bien con perros?', property: 'okWithDogs' },
-              { question: '¿Se lleva bien con gatos?', property: 'okWithCats' },
-              { question: '¿Se lleva bien con niños?', property: 'okWithChildren' },
-            ].map((item, index /* {pet.health[item.property] ? 'Si' : 'No'} */) => (
+              {
+                question: '¿Está castrado o esterilizado?',
+                property: 'castrado',
+                setStateFunction: setHealthCastrado,
+              },
+              {
+                question: '¿Tiene microchip?',
+                property: 'microchip',
+                setStateFunction: setHealthMicrochip,
+              },
+              {
+                question: '¿Se lleva bien con perros?',
+                property: 'okWithDogs',
+                setStateFunction: setHealthOkWithDogs,
+              },
+              {
+                question: '¿Se lleva bien con gatos?',
+                property: 'okWithCats',
+                setStateFunction: setHealthOkWithCats,
+              },
+              {
+                question: '¿Se lleva bien con niños?',
+                property: 'okWithChildren',
+                setStateFunction: setHealthOkWithChildren,
+              },
+            ].map((item, index) => (
               <View className="flex  mx-3 my-3" key={index}>
                 <View className="w-64 h-11 bg-black rounded-xl">
                   <Text className="text-white text-base font-poppinsSemiBold text-center mt-2">{item.question}</Text>
                 </View>
-                {
-                  <View className="flex flex-row mx-6">
-                    <TouchableOpacity onPress={() => setHealthCastrado(true)}>
-                      <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-red-500 ' : 'bg-gris'}`}>
-                        <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setHealthCastrado(false)}>
-                      <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-red-500 ' : 'bg-gris'}`}>
-                        <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                }
+                <View className="flex flex-row mx-6">
+                  <TouchableOpacity onPress={() => item.setStateFunction(true)}>
+                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-naranja ' : 'bg-gris'}`}>
+                      <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => item.setStateFunction(false)}>
+                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-naranja ' : 'bg-gris'}`}>
+                      <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             ))}
           </View>
+        </View>
+        <View className="flex my-10">
+          <Button title="Guardar cambios" onPress={editPet} colorButton="bg-naranja" colorText="text-white" ancho="w-48" alto="h-8" textFont="font-poppinsSemiBold" otrosButton="mx-20 mt-4 shadow" />
         </View>
       </ScrollView>
     </>
