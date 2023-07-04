@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../CustomHooks/useAuth';
 import RegisterStep1 from './RegisterStep1';
 import { RegisterStep2 } from './RegisterStep2';
 import { RegisterAuthMethod } from '../../metodos/authMetodos';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authSetUser, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -11,15 +11,12 @@ import { useNavigation } from '@react-navigation/native';
 export default function Register() {
   const navigation = useNavigation();
   const dispatch = useDispatch()
+  const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
   const { email, setEmail, password, setPassword, firstName, setFirstName, lastName, setLastName, phone, setPhone, country, setCountry, province, setProvince, zipcode, setZipcode, confirmEmail, setConfirmEmail, checkPassword, setCheckPassword } = useAuth();
 
   const [registerSteps, setRegisterSteps] = useState(0);
 
   const handleRegister = () => {
-    if(password !== checkPassword){
-      alert('La Contraseña no coiciden')
-      return
-    }
     RegisterAuthMethod({
       reg: {email, password, firstName, lastName, phone, country, province, zipcode},
       loading: (v) => dispatch(setLoadingAuth(v)),
@@ -31,6 +28,14 @@ export default function Register() {
       },
     });
   };
+
+  useEffect(() => {
+    return () => {
+      if (!errorAuth) {
+        dispatch(setErrorAuth(''));
+      }
+    };
+  }, []);
 
   return (
     <>

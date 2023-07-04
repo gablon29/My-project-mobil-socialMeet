@@ -18,6 +18,7 @@ import Header from './Components/Header/Header';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
+const StackAuthBienvenida = createNativeStackNavigator();
 
 function NavigatorAuthFalse() {
   return (
@@ -29,6 +30,14 @@ function NavigatorAuthFalse() {
       {/* <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Revisar email', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center'  }} /> */}
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthFalse.Navigator>
+  );
+}
+
+function NavigatorBienvenida() {
+  return (
+    <StackAuthBienvenida.Navigator>
+      <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
+    </StackAuthBienvenida.Navigator>
   );
 }
 
@@ -46,7 +55,6 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="CreatePet" component={CreatePet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
@@ -64,9 +72,14 @@ const Navigations = () => {
           <NavigatorAuthTrue />
         </NavigationContainer>
       ) : (
-        <NavigationContainer>
-          <NavigatorAuthFalse />
-        </NavigationContainer>
+        <>
+          <NavigationContainer>
+            <NavigatorBienvenida />
+          </NavigationContainer>
+          <NavigationContainer>
+            <NavigatorAuthFalse />
+          </NavigationContainer>
+        </>
       )}
     </>
   );
