@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, Text } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import adopcion from '../../../images/dropDownMenu/adopcion.png';
 import afiliacion from '../../../images/dropDownMenu/afiliacion.png';
@@ -36,7 +36,7 @@ export default function Header() {
     {working: false, logo: marketPlace, nombre: 'Marketplace' },
     {working: true, logo: misMascotas, nombre: 'Mis mascotas', url: "MyPets" },
     {working: true, logo: miPerfil, nombre: 'Mi perfil', url: "Profile" },
-    {working: true, logo: afiliacion, nombre: 'Afiliación' },
+    {working: false, logo: afiliacion, nombre: 'Afiliación' },
   ];
 
   const [showMenu, setShowMenu] = useState(false);
@@ -68,7 +68,7 @@ export default function Header() {
       <>
         {logoOpciones.map((element, index) => (
           <View className="items-center my-3" key={index}>
-            <TouchableOpacity onPress={() => navigation.navigate(element.url)}>
+            <TouchableOpacity onPress={() => {element.working ? navigation.navigate(element.url) : Alert.alert("Aun no implementdao")}}>
             <View className={element.working ? "mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja" : "mx-5 mt-3 mb-1 p-3 rounded-lg bg-gris"}>
               <Image source={element.logo} className="w-14 h-14" resizeMode="contain" />
             </View>
