@@ -8,22 +8,23 @@ import editIcon from '../../../images/iconos/editIcon.png';
 import cruz from '../../../images/iconos/cruz.png';
 import { usePets } from '../../CustomHooks/usePets';
 import { SelectList } from 'react-native-dropdown-select-list';
+import { useDispatch } from 'react-redux';
 import dog from '../../../images/iconos/dog.png';
 import cat from '../../../images/iconos/cat.png';
 import other from '../../../images/iconos/other.png';
 import { EditPetMethod } from '../../metodos/petsMetodos';
+import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 
 export default function EditPet({ route, navigation }) {
-  console.log('ROUTE EN EDITPROFILE', route);
   const { element } = route.params;
 
   const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets(element);
 
   const { url, uploadImage } = useImage(null);
-
+  const dispatch = useDispatch();
   const sexStyles = `ml-4 w-40 h-8 rounded-full`;
   const answerStylesView = `ml-4 mt-4 w-16 h-11 rounded-full`;
-
+  const borderOn = ''; //border border-black
   const optionsSpecie = ['Hamster', 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
   // para el SelectList de editar otra especie de mascota
 
@@ -52,19 +53,22 @@ export default function EditPet({ route, navigation }) {
     }
   };
 
-  /* console.log(pet); */
   const editPet = () => {
+    console.log('ENTRANDO EDITPET');
     EditPetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
-      error: (msg) => dispatch(setErrorPets(msg)),
+      error: (msg) => {
+        dispatch(setErrorPets(msg));
+        console.log(msg);
+      },
       success: (res) => navigation.navigate('MyPets'),
     });
   };
 
   return (
     <>
-      {console.log('ESTE ES EL PET', pet)}
+      {console.log(pet.sex)}
       <View className="flex">
         <View className="flex flex-row items-center my-5 ml-4">
           <TouchableOpacity>
@@ -101,19 +105,19 @@ export default function EditPet({ route, navigation }) {
               <Text>{pet.specie}</Text>
               <View className="flex-row mt-4">
                 <TouchableOpacity onPress={() => handleSelect('Perro')}>
-                  <View className={`${pet.specie=="Perro" ? "bg-orange-500 border border-black" : "bg-gris"} " w-24 h-24  rounded-2xl mx-2"`}>
+                  <View className={`${pet.specie == 'Perro' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={dog} className="w-14 h-14 mx-auto my-2 " />
                     <Text className="text-center text-white font-poppinsBold">Perro</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleSelect('Gato')}>
-                  <View className={`${pet.specie=="Gato" ? "bg-orange-500 border border-black" : "bg-gris"} " w-24 h-24  rounded-2xl mx-2"`}>
+                  <View className={`${pet.specie == 'Gato' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={cat} className="w-14 h-14 mx-auto my-2" />
                     <Text className="text-center text-white font-poppinsBold">Gato</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleOtro}>
-                  <View className={`${pet.specie=="Otro" ? "bg-orange-500 border border-black" : "bg-gris"} " w-24 h-24  rounded-2xl mx-2"`}>
+                  <View className={`${pet.specie == 'Otro' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={other} className="w-14 h-14 mx-auto my-2" />
                     <Text className="text-center text-white font-poppinsBold">Otro</Text>
                   </View>
@@ -168,12 +172,12 @@ export default function EditPet({ route, navigation }) {
           <Text className="font-poppinsBold">Sexo</Text>
           <View className="flex flex-row mx-6 mt-2">
             <TouchableOpacity onPress={() => setSex('Macho')}>
-              <View className={`${sexStyles} ${pet.sex == 'Macho' ? 'border border-black bg-naranja' : 'bg-gris'}`}>
+              <View className={`${sexStyles} ${pet.sex == 'Macho' ? borderOn + ' bg-naranja' : 'bg-gris'}`}>
                 <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Macho</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setSex('Hembra')}>
-              <View className={`${sexStyles} ${pet.sex == 'Hembra' ? 'border border-black bg-naranja ' : 'bg-gris'}`}>
+              <View className={`${sexStyles} ${pet.sex == 'Hembra' ? borderOn + ' bg-naranja ' : 'bg-gris'}`}>
                 <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Hembra</Text>
               </View>
             </TouchableOpacity>
@@ -213,12 +217,12 @@ export default function EditPet({ route, navigation }) {
                 </View>
                 <View className="flex flex-row mx-6">
                   <TouchableOpacity onPress={() => item.setStateFunction(true)}>
-                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-naranja border border-black' : 'bg-gris'}`}>
+                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-naranja ' + borderOn : 'bg-gris'}`}>
                       <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => item.setStateFunction(false)}>
-                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-naranja border border-black' : 'bg-gris'}`}>
+                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-naranja ' + borderOn : 'bg-gris'}`}>
                       <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
                     </View>
                   </TouchableOpacity>
