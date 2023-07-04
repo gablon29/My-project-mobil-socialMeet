@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 //SE INICIA OBJETO DEL REDUCER
 const initialState = {
-   authenticatedAuth: true,
+   authenticatedAuth: false,
    loadingAuth: false,
    errorAuth: '',
    token: '',

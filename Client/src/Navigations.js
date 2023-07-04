@@ -68,6 +68,7 @@ const Navigations = () => {
 
   return (
     <>
+    {console.log(authenticatedAuth, loadingAuth, errorAuth, profile, token, registro)}
       {authenticatedAuth ? (
         registro ? (
           <NavigationContainer>
