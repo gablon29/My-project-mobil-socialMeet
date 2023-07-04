@@ -1,8 +1,19 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Button from "../Buttons/Button";
+import { CreatePetMethod } from "../../metodos/petsMetodos";
 
 export const CreatePet5 = ({ steps, setSteps, health, setHealth, addPet }) => {
+ 
+  const Create = () =>{
+    try{
+      addPet()
+    }
+    catch(err){
+      console.log(err)
+    }
+  
+  }
   return (
     <View className="w-screen h-screen">
       <View className="flex mt-10">
@@ -98,7 +109,7 @@ export const CreatePet5 = ({ steps, setSteps, health, setHealth, addPet }) => {
         />
         <Button
           title="Continuar"
-          onPress={addPet}
+          onPress={Create}
           colorButton="bg-naranja"
           colorText="text-white"
           ancho="w-40"

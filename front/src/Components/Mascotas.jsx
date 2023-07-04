@@ -33,6 +33,9 @@ export const Mascotas = () => {
     obtenerMascota();
   }, [id]);
 
+  // si no llega informacion se va renderizar otro componente
+  // bienvenidoa  whopaws 
+
   if (loading) {
     return <p>Cargando...</p>;
   }

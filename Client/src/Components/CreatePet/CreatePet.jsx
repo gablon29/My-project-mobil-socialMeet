@@ -9,6 +9,7 @@ import { CreatePet5 } from './CreatePet5';
 import { CreatePetMethod } from '../../metodos/petsMetodos';
 import { useDispatch } from 'react-redux';
 import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
+import CreatePet6 from './CreatePet6';
 
 export default function CreatePet({ navigation }) {
   const dispatch = useDispatch();
@@ -16,13 +17,15 @@ export default function CreatePet({ navigation }) {
 
   const [steps, setSteps] = useState(0);
 
-  const addPet = () => {
-    CreatePetMethod({
-      pet,
-      loading: (v) => dispatch(setLoadingPets(v)),
-      error: (msg) => dispatch(setErrorPets(msg)),
-      success: (res) => navigation.navigate('CreatePet6'),
-    });
+  const addPet = async () => {
+    try {
+   await CreatePetMethod(pet).then((succes ) => navigation.navigate('CreatePet6'),)
+      // loading: (v) => dispatch(setLoadingPets(v)),
+      // error: (msg) => dispatch(setErrorPets(msg)),);
+  }
+  catch(err){
+    console.error(err)
+  }
   };
 
   const [crear, setCrear] = useState({
@@ -60,7 +63,7 @@ export default function CreatePet({ navigation }) {
           steps={steps}
           setSteps={setSteps}
         />
-      ) : null}
+      ) : <CreatePet6/>}
     </View>
   );
 }
