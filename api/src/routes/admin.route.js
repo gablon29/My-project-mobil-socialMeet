@@ -5,14 +5,19 @@ const { ClientError } = require('../utils/errors');
 //const { deletePet } = require('../controllers/deletePet.js');
 
 module.exports ={
-/* 
+
 delete_by_id: async (req, res) => {
-  const deletedPet = await deletePet(req.body.id);
+  if(!req.query || !req.query.id){throw new ClientError("No se ha enviado id por query", 400)}
+  const deletedPet = await PetModel.deleteOne({_id: req.body.id});
   response(res, 200, deletedPet);
-}, */
+}, 
 
 list_all_pets: async (req, res) => {
   const allPets = await PetModel.find().sort([['created_at', 1]]);
+  response(res, 200, allPets);
+},
+list_all_users: async (req, res) => {
+  const allPets = await UserModel.find().sort([['created_at', 1]]);
   response(res, 200, allPets);
 },
 

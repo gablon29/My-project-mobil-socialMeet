@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 //SE INICIA OBJETO DEL REDUCER
 const initialState = {
-   authenticatedAuth: true,
+   authenticatedAuth: false,
    loadingAuth: false,
    errorAuth: '',
    token: '',
    successAuth: '',
    profile: undefined,
+   registro: false, // ESTA SOLO AVISA SI SE REGISTRO
 };
 
 //ACÁ SE CREA EL REDUCER JUNTO CON LAS ACTIONS
@@ -56,9 +57,15 @@ const ReducerAuth = createSlice({
             successAuth: action.payload
          };
       },
+      setRegistroAuth(state, action) {
+         return {
+            ...state,
+            registro: action.payload
+         };
+      },
    },
 });
 
-export const { authSetUser, signOffAuth, userRefresh, setLoadingAuth, setErrorAuth, setSuccessAuth } = ReducerAuth.actions;
+export const { authSetUser, signOffAuth, userRefresh, setLoadingAuth, setErrorAuth, setSuccessAuth, setRegistroAuth } = ReducerAuth.actions;
 
 export default ReducerAuth.reducer;

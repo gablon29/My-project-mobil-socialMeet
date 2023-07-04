@@ -4,7 +4,7 @@ const { response } = require('../utils');
 module.exports = {
   create_pet: async (req, res) => {
     const PetData = req.body;
-    const newPet = await createPet(PetData, req.user.id);
+    const newPet = await createPet(PetData, req.user.userId);
     response(res, 200, newPet);
   },
 
@@ -12,7 +12,7 @@ module.exports = {
   edit_pet: async (req, res) => {
     const newData = req.body;
 
-    const updatedPet = await updatePet(newData, req.body.id, req.user.id);
+    const updatedPet = await updatePet(newData, req.body.id, req.user.userId);
 
     response(res, 200, updatedPet);
   },

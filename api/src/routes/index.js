@@ -5,14 +5,14 @@ const pet = require('./pet.route');
 const admin = require('./admin.route')
 const notify = require('./pushNotify.route');
 const stripe = require('./stripe.route');
-const PetModel = require("../models/pet.model")
-const UserModel = require("../models/user.model")
+
 
 const { limit5cada30minutos } = require('../utils/rate-limiters');
 const notificationController = require('../controllers/notificationController');
 
 const { catchedAsync } = require('../utils');
 const { checkJwt } = require('../utils/jwtUtils');
+const chips = require('../controllers/chipsController');
 const isLoggedIn = checkJwt
 
 
@@ -39,45 +39,35 @@ router.put('/api/pet/profile', isLoggedIn, catchedAsync(pet.edit_pet));
 
 
 // admin routes
-router.delete('/api/admin/deletePet', isLoggedIn, catchedAsync(admin.delete_by_id));
-router.get('/api/admin/getAllPets', isLoggedIn, catchedAsync(admin.list_all_pets));
-router.get('/api/admin/userban', isLoggedIn, catchedAsync(admin.list_all_banned_users));
-router.put('/api/admin/ban', isLoggedIn, catchedAsync(admin.ban_user_by_email));
-router.put('/api/admin/desbanear', isLoggedIn, catchedAsync(admin.unban_user_by_email));
-router.get('/api/admin/checkPetsByEmail', isLoggedIn, catchedAsync(admin.find_all_pets_by_email));
-router.put('/api/admin/desAmin', isLoggedIn, catchedAsync(admin.give_admin_powers));
-router.put('/api/admin/desAmin', isLoggedIn, catchedAsync(admin.remove_admin_powers));
+router.delete('/api/admin/deletePet', /* isLoggedIn, */ catchedAsync(admin.delete_by_id));
+router.get('/api/admin/getAllPets', /* isLoggedIn, */ catchedAsync(admin.list_all_pets));
+router.get('/api/admin/getAllUsers', /* isLoggedIn, */ catchedAsync(admin.list_all_users));
+
+router.get('/api/admin/userban', /* isLoggedIn, */ catchedAsync(admin.list_all_banned_users));
+router.put('/api/admin/ban', /* isLoggedIn, */ catchedAsync(admin.ban_user_by_email));
+router.put('/api/admin/desbanear', /* isLoggedIn, */ catchedAsync(admin.unban_user_by_email));
+router.get('/api/admin/checkPetsByEmail', /* isLoggedIn, */ catchedAsync(admin.find_all_pets_by_email));
+router.put('/api/admin/addAmin', /* isLoggedIn, */ catchedAsync(admin.give_admin_powers));
+router.put('/api/admin/desAmin', /* isLoggedIn, */ catchedAsync(admin.remove_admin_powers));
 
 
 //stripe
-router.use('/stripe/start-pay-process', catchedAsync(stripe.iniciar_proceso_de_compra));
-router.use('/stripe/callback', express.raw({ type: 'application/json' }),
-  catchedAsync(stripe.ruta_donde_recibiremos_eventos));
+router.post('/stripe/start-pay-process', catchedAsync(stripe.iniciar_proceso_de_compra));
+router.post('/stripe/callback', express.raw({ type: 'application/json' }),  catchedAsync(stripe.ruta_donde_recibiremos_eventos));
 
 
+// CHIPS
+router.get('/api/pet-info', catchedAsync(chips.ruta_incorrecta));
+router.get('/api/pet-info/:chipId', catchedAsync(chips.buscar_por_id));
 
-  router.post('/pet-info', async (req, res) => {
-    try {
-      const { chipId } = req.body;
+router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo));
+
+/* Explicón------------------------
+
+  catchedAsync(argumento) espera que "argumento" sea una funcion asyncrona que tome (req, res).
+  ¿Para qué? porque, al pasar a través de es función, le pone un .catch automaticamente y maneja el error.
   
-      // Buscar la mascota por el ID del chip
-      const pet = await PetModel.findOne({ chip: chipId });
-  
-      if (!pet) {
-        return res.status(404).json({ error: 'Mascota no encontrada' });
-      }
-  
-      let ownerInfo = {};
-      if (pet.owner) {
-        // Buscar el usuario por el campo email
-        ownerInfo = await UserModel.findOne({ email: pet.owner });
-      }
-  
-      res.json({ pet, owner: ownerInfo });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al obtener la información de la mascota' });
-    }
-  });
+*/
+
 
 module.exports = router;
