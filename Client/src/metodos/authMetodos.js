@@ -4,8 +4,8 @@ import axios from 'axios';
 export const RegisterAuthMethod = async ({ reg, loading, error, success }) => {
   try {
     loading(true);
+    if (!email || !password || !firstName || !lastName || !phone || !country || !province || !zipcode || !checkPassword) throw new Error('Falta Campos por Completar para Registrarse');
     const response = await axios.post('/api/user/register', reg, { headers: { 'Content-Type': 'application/json' } });
-
     success(response.data);
     loading(false);
   } catch (err) {

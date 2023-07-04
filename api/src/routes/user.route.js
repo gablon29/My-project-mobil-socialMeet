@@ -72,7 +72,7 @@ module.exports = {
     const user = await UserModel.findOne({ email });
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     // Obtener el array de notificaciones del usuario
-    const notifications = user.notifications;
+    const notifications = user.Notifications;
     response(res, 200, notifications);
   },
 };
