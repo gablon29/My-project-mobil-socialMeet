@@ -69,6 +69,16 @@ app.use('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   const message_to_send = '🐾' + err.message;
+  if(err.statusCode==400){
+    console.log("---400---\r\n significa que llegron datos malos, este es el req.body")
+    console.log(req.body)
+    console.error(message_to_send)
+  }
+  if(err.statusCode==500){
+    console.log("---500---\r\n significa que probablemente algo falló en el backend")
+    console.log(req.body)
+    console.error(message_to_send)
+  }
   res.status(err.statusCode || 500).send({
     error: true,
     message: message_to_send,
