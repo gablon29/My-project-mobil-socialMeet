@@ -36,7 +36,7 @@ export default function Header() {
     {working: false, logo: marketPlace, nombre: 'Marketplace' },
     {working: true, logo: misMascotas, nombre: 'Mis mascotas', url: "MyPets" },
     {working: true, logo: miPerfil, nombre: 'Mi perfil', url: "Profile" },
-    {working: true, logo: afiliacion, nombre: 'Afiliación' },
+    {working: false, logo: afiliacion, nombre: 'Afiliación' },
   ];
 
   const [showMenu, setShowMenu] = useState(false);
