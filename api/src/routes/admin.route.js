@@ -16,6 +16,10 @@ list_all_pets: async (req, res) => {
   const allPets = await PetModel.find().sort([['created_at', 1]]);
   response(res, 200, allPets);
 },
+list_all_users: async (req, res) => {
+  const allPets = await UserModel.find().sort([['created_at', 1]]);
+  response(res, 200, allPets);
+},
 
 list_all_banned_users: async (req, res) => {
   const allPetsReports = await UserModel.find({ tipo: 'inhabilitado' });
