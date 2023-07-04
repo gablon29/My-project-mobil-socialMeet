@@ -39,14 +39,16 @@ router.put('/api/pet/profile', isLoggedIn, catchedAsync(pet.edit_pet));
 
 
 // admin routes
-router.delete('/api/admin/deletePet', isLoggedIn, catchedAsync(admin.delete_by_id));
-router.get('/api/admin/getAllPets', isLoggedIn, catchedAsync(admin.list_all_pets));
-router.get('/api/admin/userban', isLoggedIn, catchedAsync(admin.list_all_banned_users));
-router.put('/api/admin/ban', isLoggedIn, catchedAsync(admin.ban_user_by_email));
-router.put('/api/admin/desbanear', isLoggedIn, catchedAsync(admin.unban_user_by_email));
-router.get('/api/admin/checkPetsByEmail', isLoggedIn, catchedAsync(admin.find_all_pets_by_email));
-router.put('/api/admin/addAmin', isLoggedIn, catchedAsync(admin.give_admin_powers));
-router.put('/api/admin/desAmin', isLoggedIn, catchedAsync(admin.remove_admin_powers));
+router.delete('/api/admin/deletePet', /* isLoggedIn, */ catchedAsync(admin.delete_by_id));
+router.get('/api/admin/getAllPets', /* isLoggedIn, */ catchedAsync(admin.list_all_pets));
+router.get('/api/admin/getAllUsers', /* isLoggedIn, */ catchedAsync(admin.list_all_users));
+
+router.get('/api/admin/userban', /* isLoggedIn, */ catchedAsync(admin.list_all_banned_users));
+router.put('/api/admin/ban', /* isLoggedIn, */ catchedAsync(admin.ban_user_by_email));
+router.put('/api/admin/desbanear', /* isLoggedIn, */ catchedAsync(admin.unban_user_by_email));
+router.get('/api/admin/checkPetsByEmail', /* isLoggedIn, */ catchedAsync(admin.find_all_pets_by_email));
+router.put('/api/admin/addAmin', /* isLoggedIn, */ catchedAsync(admin.give_admin_powers));
+router.put('/api/admin/desAmin', /* isLoggedIn, */ catchedAsync(admin.remove_admin_powers));
 
 
 //stripe
