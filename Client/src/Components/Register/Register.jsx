@@ -24,7 +24,7 @@ export default function Register() {
       success: async (res) => {
         dispatch(authSetUser(res.payload));
         await AsyncStorage.setItem('Token', res.payload.token);
-        navigation.navigate('Home');
+        navigation.navigate('RegisterStep3');
       },
     });
   };

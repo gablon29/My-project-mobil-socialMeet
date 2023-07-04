@@ -33,22 +33,23 @@ function NavigatorAuthFalse() {
   );
 }
 
-function NavigatorBienvenida() {
-  return (
-    <StackAuthBienvenida.Navigator>
-      <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
-    </StackAuthBienvenida.Navigator>
-  );
-}
+// function NavigatorBienvenida() {
+//   return (
+//     <StackAuthBienvenida.Navigator>
+//       <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: true }} />
+//     </StackAuthBienvenida.Navigator>
+//   );
+// }
 
 const NavigatorAuthTrue = () => {
   const showHeader = (route) => {
     //función para mostrar Header, excluyendo los siguientes:
-    const screenNamesToHideHeader = [];
+    const screenNamesToHideHeader = ['RegisterStep3'];
     return !screenNamesToHideHeader.includes(route.name);
   };
 
   return (
+    //
     <StackAuthTrue.Navigator screenOptions={{ header: (props) => showHeader(props.route) && <Header />, headerShown: true }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
@@ -58,6 +59,7 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
+      <StackAuthTrue.Screen name="RegisterStep3" component={RegisterStep3} options={{ headerShown: false }} />
     </StackAuthTrue.Navigator>
   );
 };
@@ -73,9 +75,9 @@ const Navigations = () => {
         </NavigationContainer>
       ) : (
         <>
-          <NavigationContainer>
+          {/* <NavigationContainer>
             <NavigatorBienvenida />
-          </NavigationContainer>
+          </NavigationContainer> */}
           <NavigationContainer>
             <NavigatorAuthFalse />
           </NavigationContainer>
