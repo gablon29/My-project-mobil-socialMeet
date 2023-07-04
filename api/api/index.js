@@ -9,6 +9,7 @@ const { globalLimit } = require('../src/utils/rate-limiters');
 const admin = require('firebase-admin');
 const serviceAccount = require('./happy-clean-8e79e-firebase-adminsdk-d9ktq-6d4baeab21'); // Ruta al archivo JSON de las credenciales de servicio
 const morgan = require('morgan');
+const { ClientError } = require('../src/utils/errors');
 require('dotenv').config();
 
 mongoose.set('strictQuery', true);
@@ -64,18 +65,18 @@ app.get('/api/report/:number', checkJwt, checkAdmin, async (req, res) => {
 });
 
 app.use('*', (req, res) => {
-  res.status(404).send(req.baseUrl);
+  throw new ClientError("Ruta no encontrada "+ req.baseUrl, 404);
 });
 
 app.use((err, req, res, next) => {
-  const message_to_send = '🐾' + err.message;
+  let message_to_send = '🐾' + err.message;
   if(err.statusCode==400){
-    console.log("---400---\r\n significa que llegron datos malos, este es el req.body")
+    console.log("---400--- significa que llegron datos malos, este es el req.body")
     console.log(req.body)
     console.error(message_to_send)
   }
   if(err.statusCode==500){
-    console.log("---500---\r\n significa que probablemente algo falló en el backend")
+    console.log("---500--- significa que probablemente algo falló en el backend")
     console.log(req.body)
     console.error(message_to_send)
   }
