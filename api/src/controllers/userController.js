@@ -43,6 +43,8 @@ const registerUser = async (
     expiresIn: '3000h',
   });
   newUser.tokens.push({ token });
+  newUser.Notifications.push('Bienvenido a Whopaws')
+
   await newUser.save();
   return {
     ok: true,

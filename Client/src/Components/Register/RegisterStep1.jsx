@@ -5,8 +5,10 @@ import logo from '../../../images/logo.png';
 import Button from '../Buttons/Button';
 import { SelectList } from 'react-native-dropdown-select-list';
 import countrys from '../../../extras/countrys.json';
+import { useSelector } from 'react-redux';
 
 export default function RegisterStep1(props) {
+  const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);
   const { email, setEmail, firstName, setFirstName, lastName, setLastName, phone, setPhone, country, setCountry, province, setProvince, zipcode, setZipcode, confirmEmail, setConfirmEmail, setRegisterSteps, navigation } = props;
 
   const [countryOptions, setCountryOptions] = useState([]);
@@ -47,7 +49,7 @@ export default function RegisterStep1(props) {
 
   return (
     <ScrollView className="bg-white">
-      <View className="flex-1 items-center justify-center mt-12 bg-white">
+      <View className="flex-1 items-center justify-center bg-white my-12">
         <Image source={logo} />
 
         <View className="w-4/5 mt-5">

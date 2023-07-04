@@ -30,6 +30,9 @@ export const RegisterStep2 = ({ password, setPassword, setRegisterSteps, handleR
           <Button title="Registrarme" onPress={handleRegister} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
         </View>
         <View className="my-5" />
+        <View className="flex min-h-[64px] justify-center">
+            <Text className="font-poppins text text-xs text-red-500">{errorAuth}</Text>
+          </View>
         <View className="mt-28">
           <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
             <Text className="font-poppins underline text-xs">¿Has olvidado tu contraseña? Recupérala aquí</Text>
