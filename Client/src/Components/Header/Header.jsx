@@ -22,21 +22,21 @@ import { useNavigation } from '@react-navigation/native';
 export default function Header() {
   const navigation = useNavigation()
   const logoOpciones = [
-    { logo: inicio, nombre: 'Inicio', url: "Home" },
-    { logo: socialPaws, nombre: 'Socialpaws' },
-    { logo: veterinarios, nombre: 'Veterinarios' },
-    { logo: cuidadores, nombre: 'Cuidadores' },
-    { logo: paseadores, nombre: 'Paseadores' },
-    { logo: peluqueros, nombre: 'Peluqueros' },
-    { logo: educadores, nombre: 'Educadores' },
-    { logo: adopcion, nombre: 'Adopción' },
-    { logo: chipWhopaws, nombre: 'Chip Whopaws' },
-    { logo: blog, nombre: 'Blog' },
-    { logo: areaProfesional, nombre: 'Área profesional' },
-    { logo: marketPlace, nombre: 'Marketplace' },
-    { logo: misMascotas, nombre: 'Mis mascotas', url: "MyPets" },
-    { logo: miPerfil, nombre: 'Mi perfil', url: "Profile" },
-    { logo: afiliacion, nombre: 'Afiliación' },
+    {working: true , logo: inicio, nombre: 'Inicio', url: "Home" },
+    {working: false, logo: socialPaws, nombre: 'Socialpaws' },
+    {working: false, logo: veterinarios, nombre: 'Veterinarios' },
+    {working: false, logo: cuidadores, nombre: 'Cuidadores' },
+    {working: false, logo: paseadores, nombre: 'Paseadores' },
+    {working: false, logo: peluqueros, nombre: 'Peluqueros' },
+    {working: false, logo: educadores, nombre: 'Educadores' },
+    {working: false, logo: adopcion, nombre: 'Adopción' },
+    {working: false, logo: chipWhopaws, nombre: 'Chip Whopaws' },
+    {working: false, logo: blog, nombre: 'Blog' },
+    {working: false, logo: areaProfesional, nombre: 'Área profesional' },
+    {working: false, logo: marketPlace, nombre: 'Marketplace' },
+    {working: true, logo: misMascotas, nombre: 'Mis mascotas', url: "MyPets" },
+    {working: true, logo: miPerfil, nombre: 'Mi perfil', url: "Profile" },
+    {working: true, logo: afiliacion, nombre: 'Afiliación' },
   ];
 
   const [showMenu, setShowMenu] = useState(false);
@@ -69,7 +69,7 @@ export default function Header() {
         {logoOpciones.map((element, index) => (
           <View className="items-center my-3" key={index}>
             <TouchableOpacity onPress={() => navigation.navigate(element.url)}>
-            <View className="mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja">
+            <View className={element.working ? "mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja" : "mx-5 mt-3 mb-1 p-3 rounded-lg bg-gris"}>
               <Image source={element.logo} className="w-14 h-14" resizeMode="contain" />
             </View>
             </TouchableOpacity>
