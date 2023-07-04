@@ -6,7 +6,6 @@ import leftIcon from '../../../images/leftIcon.png';
 import editIcon from '../../../images/iconos/editIcon.png';
 
 export default function PetProfile({ route, navigation }) {
-  console.log('ROUTE EN PETPROFILE', route);
   const { element } = route.params;
 
   /*   console.log(element); */
@@ -37,7 +36,9 @@ export default function PetProfile({ route, navigation }) {
           </View>
           <View className="h-fit">
             <Text className="mt-20 ml-20 font-poppinsBold">¡Hola! Me llamo {element.name}</Text>
-            <Text className="ml-16 font-poppins">Especie | Raza | Edad | Peso Kg</Text>
+            <Text className="ml-16 font-poppins">
+              {element.specie} | {element.breed} | {element.age.years} años {element.age.months} meses | {element.weight} Kg
+            </Text>
             <Button title="Perfil de Socialpaws" colorButton="bg-naranja" colorText="text-white" ancho="w-48" alto="h-8" textFont="font-poppinsSemiBold" otrosButton="mx-20 mt-4 shadow" />
             <Text className="mx-10 mt-10 font-poppins">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed posuere quam. Morbi molestie bibendum orci, ut dignissim odio auctor sed. Quisque condimentum magna ut sapien elementum iaculis. Maecenas eleifend velit ut convallis blandit.</Text>
             <View className="flex mt-10">
