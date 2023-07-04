@@ -58,7 +58,7 @@ router.post('/stripe/callback', express.raw({ type: 'application/json' }),  catc
 router.get('/api/pet-info', catchedAsync(chips.ruta_incorrecta));
 router.get('/api/pet-info/:chipId', catchedAsync(chips.buscar_por_id));
 
-router.put('/api/pet-info', catchedAsync(chips.asignar_id_chip_nuevo));
+router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo));
 
 /* Explicón------------------------
 
