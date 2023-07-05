@@ -61,8 +61,6 @@ const petSchema = mongoose.Schema(
     //LISTO
     profilePic: {
       type: String,
-      default:
-        'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
     //LISTO
     coverImage: {
