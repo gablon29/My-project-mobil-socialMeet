@@ -39,7 +39,7 @@ router.put('/api/pet/profile', isLoggedIn, catchedAsync(pet.edit_pet));
 
 
 // admin routes
-router.delete('/api/admin/pet', /* isLoggedIn, */ catchedAsync(admin.delete_by_id));
+router.delete('/api/admin/deletepet', /* isLoggedIn, */ catchedAsync(admin.delete_by_id));
 router.get('/api/admin/pets', /* isLoggedIn, */ catchedAsync(admin.list_all_pets));
 router.get('/api/admin/users', /* isLoggedIn, */ catchedAsync(admin.list_all_users));
 
