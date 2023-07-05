@@ -76,7 +76,7 @@ const loginUser = async (emailParam, password) => {
     expiresIn: '3000h',
   });
 
-  if(user.tokens.length>0){
+  if(user.tokens.length==0){
   user.tokens.push({ token })
 }
   else{
