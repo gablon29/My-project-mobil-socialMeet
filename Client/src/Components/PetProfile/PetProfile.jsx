@@ -4,15 +4,17 @@ import Button from '../Buttons/Button';
 import ButtonWithImage from '../Buttons/ButtonWithImage';
 import leftIcon from '../../../images/leftIcon.png';
 import editIcon from '../../../images/iconos/editIcon.png';
+import { useNavigation } from '@react-navigation/native';
 
-export default function PetProfile({ route, navigation }) {
+export default function PetProfile({ route }) {
+  const navigation = useNavigation();
   const { element } = route.params;
 
   return (
     <>
       <View className="flex ">
         <View className="flex flex-row items-center my-5 ml-4">
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={leftIcon} className="w-4 h-4" />
           </TouchableOpacity>
           <View className="flex-1 justify-center ml-3">
@@ -23,17 +25,17 @@ export default function PetProfile({ route, navigation }) {
       </View>
       <ScrollView className="w-full h-full">
         <View className="w-full h-full">
-          <View className="h-56 bg-naranja">
+          <View className="h-48 bg-naranja items-center">
             <Image
               source={{ uri: element.profilePic || 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg' }}
               style={{
                 width: 120,
                 height: 120,
               }}
-              className="absolute top-3/4 left-[34%] rounded-full"
+              className="absolute top-32 rounded-full"
             />
           </View>
-          <View className="h-fit">
+          <View className="h-fit items-center">
             <Text className="mt-20 ml-20 font-poppinsBold">¡Hola! Me llamo {element.name}</Text>
             <Text className="ml-16 font-poppins">
               {element.specie} | {element.breed} | {element.age.years} años {element.age.months} meses | {element.weight} Kg
@@ -62,19 +64,19 @@ export default function PetProfile({ route, navigation }) {
           <View className="h-12 mt-12 bg-naranja">
             <Text className="text-white font-poppinsSemiBold text-xl text-center mt-2">Información de cuidado</Text>
           </View>
-          <View className="my-5">
+          <View className="my-5 items-center">
             <Text className="font-poppinsSemiBold text-lg text-center mx-4">¿Cada cuanto tiempo tiene que ir a hacer sus necesidades?</Text>
             <View className="h-fit w-80 mx-8 mt-5 rounded-lg  bg-naranja">
               <Text className="m-3 font-poppins text-xs text-white text-center">Solemos sacarlo a pasear a la calle cada 4 horas aun que también podría estar en una casa con jardín</Text>
             </View>
           </View>
-          <View className="my-5">
+          <View className="my-5 items-center">
             <Text className="font-poppinsSemiBold text-lg text-center mx-4">¿Cual es su rutina de alimentación?</Text>
             <View className="h-fit w-80 mx-8 mt-5 rounded-lg  bg-naranja">
               <Text className="m-3 font-poppins text-xs text-white text-center">Come 2 veces al día, una por la mañana y otra por la noche</Text>
             </View>
           </View>
-          <View className="my-5">
+          <View className="my-5 items-center">
             <Text className="font-poppinsSemiBold text-lg text-center mx-4">Otra información a tener en cuenta</Text>
             <View className="h-fit w-80 mx-8 mt-5 mb-8 rounded-lg  bg-naranja">
               <Text className="m-3 font-poppins text-xs text-white text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed posuere quam. Morbi molestie bibendum orci, ut dignissim odio auctor sed. Quisque condimentum magna ut sapien elementum iaculis. Maecenas eleifend velit ut convallis blandit.</Text>
