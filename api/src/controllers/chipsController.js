@@ -14,16 +14,16 @@ const chips = {
     const pet = await PetModel.findOne({ chip: chipId });
     if (!pet) return response(res, 200, { pet: false, owner: false, message: "el PET id no existe, id recibido: "+ chipId});
     let ownerInfo = {};
-    if (pet.owner) ownerInfo = await UserModel.findOne({ _id: pet.owner });
+    if (pet.owner) ownerInfo = await UserModel.findById(pet.owner );
     response(res, 200, { pet, owner: ownerInfo });
   },
   //PUT recibe body
   asignar_id_chip_nuevo: async (req, res) => {
     const { chipId, petId } = req.body;
     if (!chipId || !petId) throw new ClientError('Faltó enviar datos por body {chipId: "el id del chip", petId: "id de la mascota"}', 400);
-    const pet = await PetModel.findOne({ _id: petId });
+    const pet = await PetModel.findById(petId);
     if (!pet || pet.id !=petId) throw new ClientError('No se ha encontrado una mascota con esa id', 500);
-    const user =  await UserModel.findOne({ _id: req.user.userId }); //recordar que si está logeado, por req le llega el id en req.user.userId
+    const user =  await UserModel.findById(req.user.userId); //recordar que si está logeado, por req le llega el id en req.user.userId
     if (pet.owner!= user._id)throw new ClientError('Esta mascota no le pertenece.', 500);
     pet.chip = chipId;
     await pet.save();
