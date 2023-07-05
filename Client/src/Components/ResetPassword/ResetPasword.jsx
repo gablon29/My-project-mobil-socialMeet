@@ -6,6 +6,7 @@ import { Reset2Step } from "./Reset2Step";
 import { Reset3Step } from "./Reset3Step";
 import HeaderLeftArrow from "../Header/HeaderLeftArrow";
 import { useNavigation } from "@react-navigation/native";
+import { recovery } from "../../metodos/authMetodos";
 
 export default function ResetPasword() {
   const navigation = useNavigation();

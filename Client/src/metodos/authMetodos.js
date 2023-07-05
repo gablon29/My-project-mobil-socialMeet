@@ -75,6 +75,7 @@ export const SignOffMethod = async ({ loading, error, success }) =>{
 
 export const recovery = async (email, password) => {
   try {
+    console.log('ENTRO');
     const response = await fetch('/api/user/recovery', {
       method: 'POST',
       headers: {
@@ -86,6 +87,7 @@ export const recovery = async (email, password) => {
       }),
     });
 
+    console.log('CUERPO');
     const data = await response.json();
 
     if (data.error) {

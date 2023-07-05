@@ -26,7 +26,7 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
-      <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
+      <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: false, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
       {/* <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Revisar email', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center'  }} /> */}
       <StackAuthFalse.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthFalse.Navigator>
