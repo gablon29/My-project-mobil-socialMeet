@@ -1,9 +1,11 @@
-import React from "react";
+
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { InputRegister } from "../redux/actions";
+import { user_login } from "../utils/axiosHandlers";
+
+
 export const useAuth = () => {
   const [login, setLogin] = useState({
     email: "",
@@ -20,18 +22,13 @@ export const useAuth = () => {
   };
   const dispatch = useDispatch();
   const history = useHistory();
-  const handleSubmit = async () => {
+
+const handleSubmit = async (set_hay_token) => {
     try {
-      const response = await axios.post("/api/user/login", {
-        email: login.email,
-        password: login.password,
-      });
-      localStorage.setItem("token", response.data.payload.token);
-
-      dispatch(InputRegister(response.data.user));
-      history.push("/dashboard");
-
-      
+      const userdata = await user_login(login.email,login.password);
+      dispatch(InputRegister(userdata));
+      set_hay_token(true)
+      history.push("/dashboard");      
     } catch (error) {
       console.log(error);
       setIncorrect(true);

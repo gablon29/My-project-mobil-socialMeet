@@ -1,50 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {useDispatch } from "react-redux";
 import {
   CleanProfile,
 } from "../redux/actions";
-import axios from "axios";
+
 import { Menu } from "./Menu";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Usuarios } from "./Usuarios";
-import { Mascotas } from "./Chips/Mascotas";
+import { MisMascotas } from "./Chips/MisMascotas";
 
 export const Panel = (props) => {
   const dispatch = useDispatch();
   const [paginas, setPaginas] = useState(1);
   const history = useHistory();
   const location = useLocation();
-  const tokenUser = localStorage.getItem("accessToken");
+
 
   const logout = () => {
-    localStorage.clear("accessToken");
-    if (tokenUser) {
-      axios
-        .post(
-          "/ingles/logout",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${tokenUser}`,
-            },
-          }
-        )
-        .then((success) => {
-          localStorage.clear("accessToken");
+          localStorage.removeItem("token");
           dispatch(CleanProfile());
-
+          props.set_hay_token(false)
           history.push("/");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      localStorage.clear("tokenGoogle");
-      dispatch(CleanProfile());
-
-      history.push("/");
-    }
   };
 
   const [newCard, setNewCard] = useState(true);
@@ -54,7 +31,10 @@ export const Panel = (props) => {
   function handleSidebarToggle() {
     setSidebarOpen(!sidebarOpen);
   }
-
+  if(!props.hay_token){ //el panel desaparece si está deslogeado
+    return <></>
+  }
+  else
   return (
     <div>
       <div className="flex h-screen bg-gray-100 z-">
@@ -115,7 +95,7 @@ export const Panel = (props) => {
     <Usuarios/>
   </div>
   : location.pathname === "/activate/:id" || "/activate" ?
-  <Mascotas/> : null
+  <MisMascotas set_hay_token={props.set_hay_token}/> : null
 }
           </div>
         </div>

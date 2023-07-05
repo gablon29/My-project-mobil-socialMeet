@@ -1,5 +1,3 @@
-import axios from "axios";
-
 
 export const InputRegister = (payload) =>{
   return{

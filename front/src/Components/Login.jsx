@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useAuth } from "../customHook/useAuth";
-export const Home = (props) => {
+export const Login = (props) => {
   const {
     login,
     setLogin,
@@ -10,16 +10,18 @@ export const Home = (props) => {
     handleSubmit,
     incorrect,
   } = useAuth();
+
+  if(props.hay_token || !props.quiere_logearse) return <></>
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div></div>
           <div className="mt-12 flex flex-col items-center">
-            <h1 className="text-2xl xl:text-3xl font-extrabold">Panel de administracion</h1>
+            <h1 className="text-2xl xl:text-3xl font-extrabold">Porfavor inicie sesión para continuar</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
-          
+              Ingrese sus datos de Whopaws
               </div>
 
               <div className="mx-auto max-w-xs">
@@ -41,7 +43,7 @@ export const Home = (props) => {
                 />
                 
                   <button
-                    onClick={() => handleSubmit()}
+                    onClick={() => handleSubmit(props.set_hay_token)}
                     className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
                     <svg
