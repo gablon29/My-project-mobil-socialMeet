@@ -38,7 +38,7 @@ export const MisMascotas = (props) => {
 
   return (
     <div >
-      {todas_mis_mascotas && owner ? todas_mis_mascotas.map(pet=><RenderMascota key={pet.id} mascota={pet} owner={owner}  />): <RenderMascota/>}
+      {todas_mis_mascotas && owner ? todas_mis_mascotas.map(pet=><RenderMascota key={pet.id} mascota={pet} owner={owner} detalloso={false} />): <RenderMascota/>}
     </div>
   );
 };

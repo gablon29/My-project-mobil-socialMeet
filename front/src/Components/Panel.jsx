@@ -31,7 +31,7 @@ export const Panel = (props) => {
   function handleSidebarToggle() {
     setSidebarOpen(!sidebarOpen);
   }
-  if(!props.hay_token){ //el panel desaparece si está deslogeado
+  if(!props.hay_token || !props.quiere_logearse){ //el panel desaparece si está deslogeado
     return <></>
   }
   else

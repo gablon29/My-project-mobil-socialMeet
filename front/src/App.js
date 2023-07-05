@@ -30,11 +30,11 @@ function App() {
       set_hay_token(false);
     }
   }, []);
-  console.log(quiere_logearse)
+
 
   return (
     <div className="App">
-      <Panel set_hay_token={set_hay_token} hay_token={hay_token} />
+      <Panel set_hay_token={set_hay_token} quiere_logearse={quiere_logearse} hay_token={hay_token} />
 
       <Switch>
         {/* Orden importa, activate primero sino pide logearse y no da ganas de complejizar mas el codigo */}
@@ -49,6 +49,7 @@ function App() {
         
           <Route
             path="/"
+            exact
             component={(props) => (
               <Login
                 {...props}

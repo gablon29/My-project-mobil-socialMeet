@@ -5,10 +5,11 @@ import { RegisterMascota } from "./CheckChipId";
 
 import { buscar_chipId, checkear_si_esta_logeado } from "../../utils/axiosHandlers";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { log } from "react-modal/lib/helpers/ariaAppHider";
 
 
 
-export const Mascota = (props) => {
+export const Mascota = ({set_quiere_logearse}) => {
   const history =useHistory()
 
   const { chipId } = useParams();
@@ -16,14 +17,16 @@ export const Mascota = (props) => {
   const [owner, setOwner] = useState(null)
   const [loading, setLoading] = useState(true)
  
-
+  set_quiere_logearse(false)
   const [needRegisterChip, setNeedRegisterChip] = useState(false)
 
 
   const obtenerMascota = async () => {
-
-    const payload = buscar_chipId(chipId)
+    console.log(chipId);
+    const payload = await buscar_chipId(chipId)
     setLoading(false)
+    console.log("ASDSAD",payload);
+
     if(payload.pet && payload.owner){
       setMascota(payload.pet)
       setOwner(payload.owner) 
@@ -36,7 +39,6 @@ export const Mascota = (props) => {
 
   useEffect(() => {
     setLoading(true) 
-   
     //con lo siguiente logre reducit el numero de peticiones  a 2 en lugar de 4 o a lo mejor me estoy imaginando cosas son las 3 am
     if(!loading) //porq sino hace 4 peticiones porq el componente se monta 4 veces siempre, siempre fue asi react.
     obtenerMascota().catch((err) => {
@@ -51,7 +53,7 @@ export const Mascota = (props) => {
 
   return (
     <>
-      {!mascota && !owner &&<RegisterMascota set_quiere_logearse={props.set_quiere_logearse} chipId={chipId} />}
+      {!mascota && !owner &&<RegisterMascota set_quiere_logearse={set_quiere_logearse} chipId={chipId} />}
      
       {mascota && owner &&  <RenderMascota mascota={mascota} owner={owner} />}
     </>
