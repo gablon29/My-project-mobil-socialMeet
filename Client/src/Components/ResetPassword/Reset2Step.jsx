@@ -17,7 +17,7 @@ export const Reset2Step = ({ verification, setSteps }) => {
 
   const changePassword = () => {
     const enteredCode = verificationCode.join('');
-    if (enteredCode === verification.verificationCode) {
+    if (enteredCode == verification.code) {
       setSteps(2);
     }
   };

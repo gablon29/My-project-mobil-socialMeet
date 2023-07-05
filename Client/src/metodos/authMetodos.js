@@ -19,8 +19,8 @@ export const LoginAuthMethod = async ({ email, password, loading, error, success
   try {
     loading(true);
     if (!email && !password) throw new Error('Falta Correo y Contraseña');
-    else if(!email) throw new Error('Ingrese un Correo')
-    else if(!password) throw new Error('Ingrese una Contraseña')
+    else if (!email) throw new Error('Ingrese un Correo');
+    else if (!password) throw new Error('Ingrese una Contraseña');
     const response = await axios.post(
       '/api/user/login',
       { email, password },
@@ -60,43 +60,54 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
   }
 };
 
-export const SignOffMethod = async ({ loading, error, success }) =>{
-  try{
+export const SignOffMethod = async ({ loading, error, success }) => {
+  try {
     loading(true);
     await AsyncStorage.removeItem('Token');
     success('ok');
     loading(false);
-  }catch(err){
+  } catch (err) {
     console.log(err);
     error(err.message);
     loading(false);
   }
-}
+};
 
-export const recovery = async (email, password) => {
+export const RecoveryMethod = async ({ email, password, loading, error, success }) => {
   try {
-    console.log('ENTRO');
-    const response = await fetch('/api/user/recovery', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-
-    console.log('CUERPO');
-    const data = await response.json();
-
-    if (data.error) {
-      throw new Error(data.message);
-    }
-
-    return data.payload;
-  } catch (error) {
-    console.error(error);
-    throw error;
+    loading(true);
+    const response = await axios.post('/api/user/recovery', { email, password }, { headers: { 'Content-Type': 'application/json' } });
+    success(response.data);
+    loading(false);
+  } catch (err) {
+    console.log(err);
+    error(err.message);
+    loading(false);
   }
+
+  // try {
+  //   console.log('ENTRO');
+  //   const response = await fetch('/api/user/recovery', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //       password: password,
+  //     }),
+  //   });
+
+  //   console.log('CUERPO');
+  //   const data = await response.json();
+
+  //   if (data.error) {
+  //     throw new Error(data.message);
+  //   }
+
+  //   return data.payload;
+  // } catch (error) {
+  //   console.error(error);
+  //   throw error;
+  // }
 };
