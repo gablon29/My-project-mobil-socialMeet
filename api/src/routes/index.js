@@ -43,8 +43,8 @@ router.delete('/api/admin/deletepet', /* isLoggedIn, */ catchedAsync(admin.delet
 router.get('/api/admin/pets', /* isLoggedIn, */ catchedAsync(admin.list_all_pets));
 router.get('/api/admin/users', /* isLoggedIn, */ catchedAsync(admin.list_all_users));
 
-router.get('/api/admin/fix', /* isLoggedIn, */ catchedAsync(admin.list_damaged_pets));
-router.put('/api/admin/fix', /* isLoggedIn, */ catchedAsync(admin.edit_damaged_pet));
+router.get('/api/admin/find', /* isLoggedIn, */ catchedAsync(admin.list_damaged_pets));
+router.get('/api/admin/fix', /* isLoggedIn, */ catchedAsync(admin.edit_damaged_pet));
 
 router.get('/api/admin/userban', /* isLoggedIn, */ catchedAsync(admin.list_all_banned_users));
 router.put('/api/admin/ban', /* isLoggedIn, */ catchedAsync(admin.ban_user_by_email));
