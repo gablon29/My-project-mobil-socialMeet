@@ -18,8 +18,8 @@ list_damaged_pets: async (req, res) => {
   response(res, 200, damaged_pets);
 },
 edit_damaged_pet: async (req, res) => {
-  if(!req.query || !req.query.id || !req.query.key || !req.query.value)throw new ClientError("Tienes que enviar por query id=petId key=propiedad value=valor",400)
-  const thepet = await PetModel.findOne({["_"+req.query.key]: req.query.value}).sort([['created_at', 1]]);
+  if(!req.query || !req.query.petid || !req.query.key || !req.query.value)throw new ClientError("Tienes que enviar por query petid=petId key=propiedad value=valor",400)
+  const thepet = await PetModel.findOne({_id: petid}).sort([['created_at', 1]]);
   thepet[req.query.key]= req.query.value
   if (!thepet) throw new ClientError('Esta mascota no existe', 500);
   await thepet.save();
