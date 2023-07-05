@@ -1,7 +1,7 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
-import { useImage } from '../../CustomHooks/useImage';
+import { useImage, useSelectImagen } from '../../CustomHooks/useImage';
 import ButtonWithImage from '../Buttons/ButtonWithImage';
 import leftIcon from '../../../images/leftIcon.png';
 import editIcon from '../../../images/iconos/editIcon.png';
@@ -15,14 +15,14 @@ import other from '../../../images/iconos/other.png';
 import { EditPetMethod } from '../../metodos/petsMetodos';
 import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function EditPet({ route }) {
   const navigation = useNavigation();
   const { element } = route.params;
 
-  const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets(element);
+  const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic, setCoverImage } = usePets(element);
 
-  const { url, uploadImage } = useImage(null);
   const dispatch = useDispatch();
   const sexStyles = `ml-4 w-40 h-8 rounded-full`;
   const answerStylesView = `ml-4 mt-4 w-16 h-11 rounded-full`;
@@ -44,6 +44,8 @@ export default function EditPet({ route }) {
     //MANEJA OTRO TIPO DE ANIMAL
     setOtro(true);
   };
+
+  const { selImg, setProfile, setPortada } = useSelectImagen();
 
   const handleSelect = (value) => {
     if (value === 'Perro' || value === 'Gato') {
@@ -67,8 +69,17 @@ export default function EditPet({ route }) {
     });
   };
 
+  useEffect(() => {
+    setProfilePic(selImg.profile);
+  }, [selImg.profile]);
+
+  useEffect(() => {
+    setCoverImage(selImg.portada);
+  }, [selImg.portada]);
+
   return (
     <>
+      {console.log(pet)}
       <View className="flex">
         <View className="flex flex-row items-center my-5 ml-4">
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -83,17 +94,53 @@ export default function EditPet({ route }) {
       <ScrollView className="w-fit h-fit">
         <View className="h-56 mt-10 items-center">
           <Text className="font-poppinsBold">Imagen de perfil</Text>
-          <Image
-            source={{ uri: pet.profilePic || 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg' }}
-            style={{
-              width: 120,
-              height: 120,
-            }}
-            className="rounded-full "
-          />
+          <View>
+            <TouchableOpacity
+              className="absolute z-50 top-7 -right-5"
+              onPress={() => {
+                if (pet.profilePic) {
+                  setProfilePic('');
+                } else {
+                  console.log('NO SE ELIMINA', pet.profilePic);
+                }
+              }}
+            >
+              <View className="bg-black rounded-full p-2">
+                <Icon name="delete" size={28} color="white" />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setProfile();
+              }}
+            >
+              <View className="bg-naranja rounded-full w-32 h-32 justify-center items-center">
+                <Image
+                  source={pet.profilePic ? { uri: pet.profilePic } : cruz}
+                  style={{
+                    width: pet.profilePic ? 128 : 50,
+                    height: pet.profilePic ? 128 : 50,
+                  }}
+                  className="rounded-full"
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
           <Text className="font-poppinsSemiBold mt-10 text-center">Imagen de portada</Text>
-          <TouchableOpacity className="flex justify-center items-center rounded-lg bg-gris w-80 h-40 mt-2 " onPress={uploadImage}>
-            <Image source={!url ? cruz : { uri: url }} style={{ width: 50, height: 50 }} />
+          <TouchableOpacity
+            className="flex justify-center items-center rounded-lg bg-gris w-80 h-40 mt-2 "
+            onPress={() => {
+              setPortada();
+            }}
+          >
+            {/* <Image source={!url ? cruz : { uri: url }} style={{ width: 50, height: 50 }} /> */}
+            <Image
+              source={pet.coverImage ? { uri: pet.coverImage } : cruz}
+              style={{
+                width: pet.coverImage ? 128 : 50,
+                height: pet.coverImage ? 128 : 50,
+              }}
+            />
           </TouchableOpacity>
         </View>
         <View className="mt-44 items-center">
@@ -116,20 +163,21 @@ export default function EditPet({ route }) {
                     <Text className="text-center text-white font-poppinsBold">Gato</Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleOtro}>
-                  <View className={`${pet.specie == 'Otro' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
+                <TouchableOpacity onPress={() => handleSelect('Otro')}>
+                  <View className={`${pet.specie !== 'Perro' && pet.specie !== 'Gato' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
                     <Image source={other} className="w-14 h-14 mx-auto my-2" />
                     <Text className="text-center text-white font-poppinsBold">Otro</Text>
                   </View>
                 </TouchableOpacity>
               </View>
-              {otro && (
+              {pet.specie !== 'Perro' && pet.specie !== 'Gato' ? (
                 <>
                   <Text className="text-center mt-8 font-poppinsBold">Especifica qué animal es:</Text>
                   <View className="w-60 bg-gray-300 rounded-full">
                     <SelectList
                       data={options}
-                      selected={selectedSpecie}
+                      onSelect={console.log}
+                      selected={'Canario'}
                       setSelected={handleSelect}
                       placeholder="Seleccionar"
                       search={false}
@@ -143,7 +191,7 @@ export default function EditPet({ route }) {
                     />
                   </View>
                 </>
-              )}
+              ) : null}
             </View>
           }
 

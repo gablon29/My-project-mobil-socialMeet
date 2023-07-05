@@ -1,6 +1,49 @@
 import React, { useState } from 'react';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 
+export const useSelectImagen = () => {
+  const [selImg, setSelImg] = useState({ profile: '', portada: '' });
+
+  // const SelectedImage = async () => {
+  //   try {
+  //     const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+
+  //     const { uri } = resp.assets[0];
+  //     setSelImg(uri);
+  //   } catch (error) {
+  //     console.error('Error selected image:', error.message);
+  //   }
+  // };
+
+  const setProfile = async () => {
+    try {
+      const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+
+      const { uri } = resp.assets[0];
+      setSelImg({ ...selImg, profile: uri });
+    } catch (error) {
+      console.error('Error selected image:', error.message);
+    }
+  };
+
+  const setPortada = async () => {
+    try {
+      const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+
+      const { uri } = resp.assets[0];
+      setSelImg({ ...selImg, portada: uri });
+    } catch (error) {
+      console.error('Error selected image:', error.message);
+    }
+  };
+
+  return {
+    selImg,
+    setProfile,
+    setPortada,
+  };
+};
+
 export const useImage = () => {
   const [url, setUrl] = useState('');
 
