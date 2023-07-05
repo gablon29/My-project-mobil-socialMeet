@@ -93,11 +93,11 @@ userType  "user o admin"}
           <div className="font-bold text-xl mb-2">{mascota.name}</div>
           <p className="text-gray-700 text-base">{mascota.information}</p>
           
-          {(mascota.chip + "").length<3 ? <p className="text-red-600">Debe de asociar un chip correcto mayor a 3 caracteres</p>:<p><strong>Chip asociado a esta mascota: </strong> {mascota.chip}</p>}
+          {(mascota.chip + "").length<10 ? <p className="text-red-600">Debe de asociar un chip correcto mayor a 10 caracteres</p>:<p><strong>Chip asociado a esta mascota: </strong> {mascota.chip}</p>}
         </div>
         <div className="px-6 pt-4 pb-2">
           
-          {(mascota.chip + "").length<3 ? (
+          {(mascota.chip + "").length<10 ? (
             <button
               onClick={(e) => handleActivar()}
               className="btn btn-primary"
@@ -109,7 +109,7 @@ userType  "user o admin"}
               onClick={(e) => handleVer()}
               className="h-12 w-40 rounded-xl cursor-default bg-orange-400"
             >
-              Chip Activo{((mascota.chip + "").length)+""}
+              Chip Activo
             </button>
           )}
         </div>
