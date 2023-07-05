@@ -75,12 +75,11 @@ const loginUser = async (emailParam, password) => {
   const token = jwt.sign({ userId: user._id }, jwtSecretKey, {
     expiresIn: '3000h',
   });
-
-  if(user.tokens.length==0){
+  if(user.tokens && user.tokens.length==0){
   user.tokens.push({ token })
 }
   else{
-    user.tokens[0]({ token });
+    user.tokens = [{ token }]
   }
 
   
