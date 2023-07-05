@@ -15,7 +15,7 @@ export const CreatePet1 = ({ profilePic, setProfilePic, steps, setSteps }) => {
     <View>
       <View className="mx-32 mt-20">
         <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-36 h-36" onPress={uploadImage}>
-          <Image source={!url ? cruz : { uri: url }} style={{ width: 100, height: 100 }} />
+          <Image className='rounded-full' source={!url ? cruz : { uri: url }} style={{ width: 144, height: 144 }} />
         </TouchableOpacity>
 
         <Text className="font-poppinsBold mt-5">Imagen de perfil</Text>
