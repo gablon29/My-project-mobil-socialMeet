@@ -14,8 +14,10 @@ import cat from '../../../images/iconos/cat.png';
 import other from '../../../images/iconos/other.png';
 import { EditPetMethod } from '../../metodos/petsMetodos';
 import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
+import { useNavigation } from '@react-navigation/native';
 
-export default function EditPet({ route, navigation }) {
+export default function EditPet({ route }) {
+  const navigation = useNavigation();
   const { element } = route.params;
 
   const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets(element);
@@ -69,7 +71,7 @@ export default function EditPet({ route, navigation }) {
     <>
       <View className="flex">
         <View className="flex flex-row items-center my-5 ml-4">
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={leftIcon} className="w-4 h-4" />
           </TouchableOpacity>
           <View className="flex-1 justify-center ml-3">
