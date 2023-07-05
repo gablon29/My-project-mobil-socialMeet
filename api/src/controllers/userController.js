@@ -37,11 +37,13 @@ const registerUser = async (
     province,
     zipcode,
   });
+
   await newUser.save();
   const jwtSecretKey = 'MySuperSecretKey123!@';
-  const token = jwt.sign({ userId: newUser._id }, jwtSecretKey, {
+  const token = jwt.sign({ userId: newUser._id, email}, jwtSecretKey, {
     expiresIn: '3000h',
   });
+
   newUser.tokens.push({ token });
   newUser.Notifications.push('Bienvenido a Whopaws')
 
@@ -73,7 +75,15 @@ const loginUser = async (emailParam, password) => {
   const token = jwt.sign({ userId: user._id }, jwtSecretKey, {
     expiresIn: '3000h',
   });
-  user.tokens.push({ token });
+
+  if(user.tokens.length==0){
+  user.tokens.push({ token })
+}
+  else{
+    user.tokens[0]({ token });
+  }
+
+  
   await user.save();
   const { userType, firstName, lastName, email, profilePic, pets, id } = user;
   return {
