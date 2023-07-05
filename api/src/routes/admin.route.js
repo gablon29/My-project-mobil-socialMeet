@@ -68,7 +68,7 @@ find_all_pets_by_email: async (req, res) => {
 give_admin_powers: async (req, res) => {
     const { OwenerEmail } = req.body;
     const checkUser = await UserModel.findOne({
-      _email: req.user.email,
+      email: req.user.email,
       tipo: 'Admin',
     });
     if (!checkUser) throw new ClientError('No eres admin');
@@ -83,7 +83,7 @@ remove_admin_powers: async (req, res) => {
 
     const { OwenerEmail } = req.body;
     const checkUser = await UserModel.findOne({
-      _email: req.user.email,
+      email: req.user.email,
       tipo: 'Admin',
     });
     if (!checkUser) throw new ClientError('No eres admin');
