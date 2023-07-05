@@ -11,9 +11,9 @@ export const SelectPet = ({ steps, setSteps, petid, id }) => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get('/api/pet/byowner', {
+        const response = await axios.get("/api/pet/byowner", {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
@@ -28,29 +28,28 @@ export const SelectPet = ({ steps, setSteps, petid, id }) => {
     fetchData();
   }, []);
 
-
   const activar = (petid) => {
     const token = localStorage.getItem("token");
-  
+
     axios
       .put(
         "/api/pet-info",
         {
-          "chipId": petid,
-          "petId": petid,
+          chipId: petid,
+          petId: petid,
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
       )
-      .then(response => {
+      .then((response) => {
         // Lógica adicional en caso de éxito
-      alert("chip activado hijo de puta")
+        alert("Chip activado con éxito");
       })
-      .catch(error => {
+      .catch((error) => {
         // Lógica adicional en caso de error
         console.error(error);
       });
@@ -58,19 +57,22 @@ export const SelectPet = ({ steps, setSteps, petid, id }) => {
   return (
     <>
       <p>Selecciona la mascota a la cual activaremos el chip</p>
-      {mascotas?.map((ele) => 
-      <div class="max-w-sm rounded overflow-hidden shadow-lg">
-      <img class="w-full" src={ele.profilePic} alt="Sunset in the mountains"/>
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">{ele.name}</div>
-        <p class="text-gray-700 text-base">
-          {ele.information}
-        </p>
-      </div>
-      <div class="px-6 pt-4 pb-2">
-     <button onClick={() => activar(ele.id)}>activar</button>
-      </div>
-    </div>)}
+      {mascotas?.map((ele) => (
+        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+          <img
+            class="w-full"
+            src={ele.profilePic}
+            alt="Sunset in the mountains"
+          />
+          <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">{ele.name}</div>
+            <p class="text-gray-700 text-base">{ele.information}</p>
+          </div>
+          <div class="px-6 pt-4 pb-2">
+            <button onClick={() => activar(ele.id)}>activar</button>
+          </div>
+        </div>
+      ))}
     </>
   );
 };

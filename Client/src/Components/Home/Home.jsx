@@ -33,14 +33,14 @@ export default function Home() {
 
     if (status === 'granted') {
       const { data: token } = await Notifications.getExpoPushTokenAsync();
-      console.log('Token de notificaciones del dispositivo:', token);
+      /*  console.log('Token de notificaciones del dispositivo:', token); */
       await sendNotification(token, '¡Bienvenido a MyPets!', 'Disfruta de tus mascotas');
     }
   };
   useEffect(() => {
     registerForPushNotifications()
       .then((resp) => {
-        console.log('Notificacion enviada!');
+        /*  console.log('Notificacion enviada!'); */
       })
       .catch((err) => {
         console.error('Notif: ', err.message);
