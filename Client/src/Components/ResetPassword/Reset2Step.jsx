@@ -24,13 +24,13 @@ export const Reset2Step = ({ verification, setSteps }) => {
 
   return (
     <>
-      <View className="flex-1 items-center justify-center bg-white">
+      <View className="flex-1 items-center justify-center bg-white w-screen">
         <Text className="text-base font-poppins text-center mb-10">Introduce el código que te hemos enviado por correo</Text>
 
-        <View className="w-3/5">
+        <View className="mx-5">
           <View style={{ flexDirection: 'row' }}>
             {verificationCode.map((value, index) => (
-              <TextInput key={index} ref={(input) => (codeInputs.current[index] = input)} placeholder="" value={value} onChangeText={(value) => handleChangeCode(index, value)} className="w-1/6 rounded bg-gray-300 mx-1 h-14" maxLength={1} keyboardType="default" />
+              <TextInput key={index} ref={(input) => (codeInputs.current[index] = input)} placeholder="" value={value} onChangeText={(value) => handleChangeCode(index, value)} className="w-10 text-center font-bold text-2xl rounded bg-gray-300 mx-1 h-14" maxLength={1} keyboardType="default" />
             ))}
           </View>
         </View>
