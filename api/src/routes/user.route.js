@@ -10,7 +10,7 @@ const { ClientError } = require('../utils/errors');
 module.exports = {
   get_my_data: async (req, res) => {
     const { userId } = req.user;
-    const user = await UserModel.findOne({ _id: userId });
+    const user = await UserModel.findById(userId);
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     const { userType, firstName, lastName, email, profilePic, pets, id } = user;
     response(res, 200, { userType, firstName, lastName, email, profilePic, pets, id });
