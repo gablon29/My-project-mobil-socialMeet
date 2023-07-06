@@ -32,19 +32,20 @@ export const CreatePet2 = ({ steps, setSteps, specie, setSpecie }) => {
         <Text className="text-base text-center font-poppinsBold mt-32">¿Qué mascota es?</Text>
         <View className="flex-row mt-4">
           <TouchableOpacity onPress={() => handleSelect('Perro')}>
-            <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+
+            <View className={`${specie == 'Perro' ? 'bg-orange-500 border border-black-200' : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
               <Image source={dog} className="w-14 h-14 mx-auto my-2 " />
               <Text className="text-center text-white font-poppinsBold">Perro</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handleSelect('Gato')}>
-            <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+            <View className={`${specie == 'Gato' ? 'bg-orange-500 border border-black-200' : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
               <Image source={cat} className="w-14 h-14 mx-auto my-2" />
               <Text className="text-center text-white font-poppinsBold">Gato</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleOtro}>
-            <View className="w-24 h-24 bg-orange-500 rounded-2xl mx-2">
+            <View className={`${specie != 'Perro' && specie != 'Gato' && specie ? 'bg-orange-500 border border-black-200' : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
               <Image source={other} className="w-14 h-14 mx-auto my-2" />
               <Text className="text-center text-white font-poppinsBold">Otro</Text>
             </View>

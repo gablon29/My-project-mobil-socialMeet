@@ -1,62 +1,21 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import Button from "../Buttons/Button";
+import YesNoBoolean from "../Buttons/YesNoButton";
 
 export const CreatePet4 = ({ steps, setSteps, health, setHealth }) => {
+  function bordeable(react_state) {
+    if (react_state) {
+      return "bg-naranja rounded-full"
+    } else {
+      return "bg-naranja rounded-full border border-black-300"
+    }
+  }
+
   return (
     <View className="w-screen h-screen">
-      <View className="flex mt-10">
-        <Text className="font-poppinsBold text-center">
-          ¿Está castrado o esterilizado?
-        </Text>
-        <View className="flex flex-row">
-          <View className="flex-1 mx-3">
-            <TouchableOpacity
-              className={!health.castrado ? "bg-naranja rounded-full" : "bg-naranja rounded-full border border-black-300"}
-              onPress={() => setHealth.setHealthCastrado(true)}
-            >
-              <Text className="font-poppinsBold text-center text-white">
-                Sí
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View className="flex-1 mx-3">
-            <TouchableOpacity
-              className={health.castrado ? "bg-naranja rounded-full" : "bg-naranja rounded-full border border-black-300"}
-              onPress={() => setHealth.setHealthCastrado(false)}
-            >
-              <Text className="font-poppinsBold text-center text-white">
-                No
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-      <View className="flex mt-3">
-        <Text className="font-poppinsBold text-center"> ¿Tiene microchip?</Text>
-        <View className="flex flex-row">
-          <View className="flex-1 mx-3">
-            <TouchableOpacity
-              className="bg-naranja rounded-full"
-              onPress={() => setHealth.setHealthMicrochip(true)}
-            >
-              <Text className="font-poppinsBold text-center text-white">
-                Si
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View className="flex-1 mx-3">
-            <TouchableOpacity
-              className="bg-naranja rounded-full"
-              onPress={() => setHealth.setHealthMicrochip(false)}
-            >
-              <Text className="font-poppinsBold text-center text-white">
-                No
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <YesNoBoolean text="¿Está castrado o esterilizado?" setClassName={"flex mt-10 "} reactState={health.castrado} setReactState={setHealth.setHealthCastrado} />
+      <YesNoBoolean text="¿Tiene microchip?" setClassName={"flex mt-3 "} reactState={health.microchip} setReactState={setHealth.setHealthMicrochip} />
       <View className="flex flex-row justify-between mx-6 mt-48">
         <Button
           title="Atrás"
