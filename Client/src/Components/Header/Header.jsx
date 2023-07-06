@@ -30,7 +30,7 @@ export default function Header() {
     { working: false, logo: peluqueros, nombre: 'Peluqueros' },
     { working: false, logo: educadores, nombre: 'Educadores' },
     { working: false, logo: adopcion, nombre: 'Adopción' },
-    { working: false, logo: chipWhopaws, nombre: 'Chip Whopaws' },
+    { working: false, logo: chipWhopaws, nombre: 'My Whopaws' },
     { working: false, logo: blog, nombre: 'Blog' },
     { working: false, logo: areaProfesional, nombre: 'Área profesional' },
     { working: false, logo: marketPlace, nombre: 'Marketplace' },
@@ -48,46 +48,7 @@ export default function Header() {
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
-
-  //Menú hamburgesa:
-
-  const renderMenuItems = () => {
-    if (showMenu) {
-      return (
-        <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-24">
-          {/* top- debe ser igual al tamaño del header */}
-          <Boxes />
-        </View>
-      );
-    }
-    return null;
-  };
-
-  const Boxes = () => {
-    return (
-      <>
-        {logoOpciones.map((element, index) => (
-          <View className="items-center my-3" key={index}>
-            <TouchableOpacity
-              onPress={() => {
-                if (element.working) {
-                  setShowMenu(!showMenu);
-                  navigation.navigate(element.url);
-                } else {
-                  Alert.alert('Aun no implementdao');
-                }
-              }}
-            >
-              <View className={element.working ? 'mx-5 mt-3 mb-1 p-3 rounded-lg bg-naranja' : 'mx-5 mt-3 mb-1 p-3 rounded-lg bg-gris'}>
-                <Image source={element.logo} className="w-14 h-14" resizeMode="contain" />
-              </View>
-            </TouchableOpacity>
-            <Text className="text-xs font-poppinsBold">{element.nombre}</Text>
-          </View>
-        ))}
-      </>
-    );
-  };
+  
   //Notificaciones:
 
   const renderNotifications = () => {
@@ -102,7 +63,7 @@ export default function Header() {
   };
 
   return (
-    <>
+    <View className={`w-screen ${showMenu ? 'h-screen' : 'h-fit'}`}>
       <View className="flex flex-row justify-between items-center p-2 h-24 bg-black">
         {/* h- debe ser igual a top- del renderMenuItems */}
         <TouchableOpacity onPress={toggleMenu} className="ml-2 mt-5">
@@ -114,8 +75,32 @@ export default function Header() {
           {showNotifications ? <Icon name="close" size={28} color="white" /> : <Icon name="bell" size={24} color="white" />}
         </TouchableOpacity>
       </View>
-      {renderMenuItems()}
+      {showMenu && (
+        <ScrollView>
+          <View className="flex flex-row flex-wrap gap-5 p-2 justify-center">
+            {logoOpciones.map((elem, _idx) => (
+              <TouchableOpacity
+              key={_idx}
+                className="justify-center items-center"
+                onPress={() => {
+                  if (elem.working) {
+                    setShowMenu(!showMenu);
+                    navigation.navigate(elem.url);
+                  } else {
+                    Alert.alert('Aun no implementdao');
+                  }
+                }}
+              >
+                <View className={`w-20 h-20 ${elem.working ? 'bg-naranja' : 'bg-gris'} rounded-xl justify-center items-center shadow-lg`}>
+                  <Image source={elem.logo} className="h-16 w-16" resizeMode="contain" />
+                </View>
+                <Text className="text-xs font-poppins text-center pt-1">{elem.nombre}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      )}
       {renderNotifications()}
-    </>
+    </View>
   );
 }
