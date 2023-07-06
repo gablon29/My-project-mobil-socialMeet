@@ -14,7 +14,7 @@ module.exports = {
       },
       fontSize: {
         //no funca no sé pq
-        xxs: ['0.625rem', { lineHeight: '0.875rem' }],
+        xxs: [{fontSize: '0.625rem'}, { lineHeight: '0.875rem' }],
         xxxs: ['0.5rem', { lineHeight: '0.625rem' }],
       },
     },
