@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Welcome from './Components/Welcome/Welcome';
-import Login from './Components/Login/Login';
-import Register from './Components/Register/Register';
-import ResetPasword from './Components/ResetPassword/ResetPasword';
+import Login from './Components/Auth/Login';
+import Register from './Components/Auth/Register/Register';
+import ResetPasword from './Components/Auth/ResetPassword/ResetPasword';
 import Home from './Components/Home/Home';
 import ProfileComponent from './Components/Profile/Profile';
 import MyPets from './Components/MyPets/MyPets';
@@ -12,7 +12,7 @@ import CreatePet6 from './Components/CreatePet/CreatePet6';
 import PetProfile from './Components/PetProfile/PetProfile';
 import EditPetProfile from './Components/EditPetProfile/EditPetProfile';
 import Apiurlselector from './Components/Apiurlselector/Apiurlselector';
-import RegisterStep3 from './Components/Register/RegisterStep3';
+import RegisterStep3 from './Components/Auth/Register/RegisterStep3';
 import { useSelector } from 'react-redux';
 import Header from './Components/Header/Header';
 
@@ -27,7 +27,6 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: false, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
-      {/* <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: true, headerTintColor: '#000', title: 'Revisar email', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center'  }} /> */}
       <StackAuthFalse.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthFalse.Navigator>
   );

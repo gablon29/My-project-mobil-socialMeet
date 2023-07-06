@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import Button from '../Buttons/Button';
-import logo from '../../../images/logo.png';
+import Button from '../../Buttons/Button';
+import logo from '../../../../images/logo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { setErrorAuth } from '../../Redux/ReducerAuth';
+import { setErrorAuth } from '../../../Redux/ReducerAuth';
 import { useNavigation } from '@react-navigation/native';
 
 export const RegisterStep2 = ({ password, setPassword, setRegisterSteps, handleRegister, checkPassword, setCheckPassword }) => {

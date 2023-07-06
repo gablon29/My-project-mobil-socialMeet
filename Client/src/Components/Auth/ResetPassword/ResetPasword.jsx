@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native';
 import React, { useState } from 'react';
-import { useAuth } from '../../CustomHooks/useAuth';
+import { useAuth } from '../../../CustomHooks/useAuth';
 import { Reset1Step } from './Reset1Step';
 import { Reset2Step } from './Reset2Step';
 import { Reset3Step } from './Reset3Step';
-import HeaderLeftArrow from '../Header/HeaderLeftArrow';
+import HeaderLeftArrow from '../../Header/HeaderLeftArrow';
 import { useNavigation } from '@react-navigation/native';
-import { RecoveryMethod } from '../../metodos/authMetodos';
+import { RecoveryMethod } from '../../../metodos/authMetodos';
 
 export default function ResetPasword() {
   const navigation = useNavigation();

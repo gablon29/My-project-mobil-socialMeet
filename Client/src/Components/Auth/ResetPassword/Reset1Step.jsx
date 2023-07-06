@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TextInput, Text } from "react-native";
-import Button from "../Buttons/Button";
+import Button from "../../Buttons/Button";
 
 export const Reset1Step = ({
   email,

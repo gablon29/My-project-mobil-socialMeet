@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../CustomHooks/useAuth';
 import RegisterStep1 from './RegisterStep1';
 import { RegisterStep2 } from './RegisterStep2';
-import { RegisterAuthMethod } from '../../metodos/authMetodos';
+import { RegisterAuthMethod } from '../../../metodos/authMetodos';
 import { useDispatch, useSelector } from 'react-redux';
-import { authSetUser, setErrorAuth, setLoadingAuth, setRegistroAuth } from '../../Redux/ReducerAuth';
+import { authSetUser, setErrorAuth, setLoadingAuth, setRegistroAuth } from '../../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../../CustomHooks/useAuth';
 
 export default function Register() {
   const navigation = useNavigation();

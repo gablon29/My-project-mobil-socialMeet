@@ -20,19 +20,20 @@ export default function Welcome() {
    **/
   const getData = async () => {
     const value = await AsyncStorage.getItem('Token');
+    console.log('TOKEN LEIDO EN getData', value)
     if (value) {
       ReloadAuthMethod({
         loading: (v) => dispatch(setLoadingAuth(v)),
         error: (msg) => dispatch(setErrorAuth(msg)),
         success: (res) => {
           dispatch(userRefresh(res.payload));
-
           navigation.navigate('Home');
           console.log('TOKEN WELCOME', value);
         },
       });
     }
   };
+  
   useFocusEffect(
     useCallback(() => {
       getData();
@@ -44,27 +45,12 @@ export default function Welcome() {
       <View className="flex-1 items-center justify-center bg-white my-12">
         <Image source={logo} />
         <Image source={welcomeImage} className="mt-8" />
-
         <Image source={wuau} className="mt-8" />
         <View className="flex mt-16">
           <Button title="Iniciar sesión" onPress={() => navigation.navigate('Login')} colorButton="bg-naranja" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <View className="my-4" />
-
           <Button title="Registrarme" onPress={() => navigation.navigate('Register')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
         </View>
-        {/* BORRAR ESTE BOTON EN PRODUCCIÓN ------ */}
-        {/* <Button
-          title="CAMBIAR IP DE API_URL"
-          onPress={() => {
-            navigation.navigate('Selecturl');
-          }}
-          colorButton="bg-black"
-          colorText="text-white"
-          ancho="w-72"
-          alto="h-14"
-          textSize="text-lg"
-        /> */}
-        {/* BORRAR ESTE BOTON EN PRODUCCIÓN ^^^^^ */}
       </View>
     </ScrollView>
   );

@@ -1,12 +1,12 @@
 import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 /* import { Picker } from "@react-native-picker/picker"; */ // más adelante cambiar el SelectList por este para ver si los estilos quedan mejor
 import React, { useEffect, useState } from 'react';
-import logo from '../../../images/logo.png';
-import Button from '../Buttons/Button';
+import logo from '../../../../images/logo.png';
+import Button from '../../Buttons/Button';
 import { SelectList } from 'react-native-dropdown-select-list';
-import countrys from '../../../extras/countrys.json';
+import countrys from '../../../../extras/countrys.json';
 import { useDispatch, useSelector } from 'react-redux';
-import { setErrorAuth } from '../../Redux/ReducerAuth';
+import { setErrorAuth } from '../../../Redux/ReducerAuth';
 
 export default function RegisterStep1(props) {
   const { authenticatedAuth, loadingAuth, errorAuth, profile, token } = useSelector((state) => state.ReducerAuth);

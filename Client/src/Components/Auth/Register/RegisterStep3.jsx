@@ -1,12 +1,12 @@
 import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import React from 'react';
-import logo from '../../../images/logo.png';
-import mensajeDeBienvenida from '../../../images/mensajeDeBienvenida.png';
-import Button from '../Buttons/Button';
+import logo from '../../../../images/logo.png';
+import mensajeDeBienvenida from '../../../../images/mensajeDeBienvenida.png';
+import Button from '../../Buttons/Button';
 import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRegistroAuth } from '../../Redux/ReducerAuth';
+import { setRegistroAuth } from '../../../Redux/ReducerAuth';
 
 export default function RegisterStep3() {
   const navigation = useNavigation();

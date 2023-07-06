@@ -35,7 +35,7 @@ export const EditPetMethod = async ({ pet, loading, error, success }) => {
     success(response.data);
     loading(false);
   } catch (err) {
-    console.error(error);
+    console.error('EditPetMethod', error);
     error(error.message);
     loading(false);
   }
@@ -56,7 +56,7 @@ export const GetPetsMethod = async ({ loading, error, success }) => {
     success(response.data);
     loading(false);
   } catch (err) {
-    console.error(error);
+    console.error('GetPetsMethod', error);
     error(error.message);
     loading(false);
   }

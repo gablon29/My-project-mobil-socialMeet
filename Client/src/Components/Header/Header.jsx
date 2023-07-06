@@ -6,17 +6,17 @@ import afiliacion from '../../../images/dropDownMenu/afiliacion.png';
 import areaProfesional from '../../../images/dropDownMenu/areaProfesional.png';
 import blog from '../../../images/dropDownMenu/blog.png';
 import chipWhopaws from '../../../images/dropDownMenu/chipWhopaws.png';
-import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import educadores from '../../../images/dropDownMenu/educadores.png';
 import inicio from '../../../images/dropDownMenu/inicio.png';
 import marketPlace from '../../../images/dropDownMenu/marketPlace.png';
 import miPerfil from '../../../images/dropDownMenu/miPerfil.png';
 import misMascotas from '../../../images/dropDownMenu/misMascotas.png';
-import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import peluqueros from '../../../images/dropDownMenu/peluqueros.png';
 import socialPaws from '../../../images/dropDownMenu/socialPaws.png';
-import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import Notifications from '../Notifications/Notifications';
+import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
+import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
+import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Header() {
