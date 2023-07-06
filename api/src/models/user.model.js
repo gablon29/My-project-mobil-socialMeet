@@ -67,10 +67,21 @@ const userSchema = mongoose.Schema(
       type: Array, // Token de verificacion para notificaciones push
       default: [],
     },
-    Notifications: {
-      type: Array, // Array de notificaciones que llegan al usuario
-      default: [],
-    },
+    Notifications: [
+      {
+        typeNot: {
+          type: String,
+        },
+        titleNot: {
+          type: String,
+        },
+        bodyNot: {
+          type: String,
+        },
+        createdAt: 'created_at', // Use `created_at` to store the created date
+      },
+
+    ],
     deviceTokens: [
       {
         type: String,
@@ -125,7 +136,7 @@ const userSchema = mongoose.Schema(
 userSchema.plugin(toJSON);
 //userSchema.plugin(paginate);
 
-userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
+userSchema.statics.isEmailTaken = async function(email, excludeUserId) {
   const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
   return !!user;
 };
