@@ -67,21 +67,10 @@ const userSchema = mongoose.Schema(
       type: Array, // Token de verificacion para notificaciones push
       default: [],
     },
-    Notifications: [
-      {
-        typeNot: {
-          type: String,
-        },
-        titleNot: {
-          type: String,
-        },
-        bodyNot: {
-          type: String,
-        },
-        createdAt: 'created_at', // Use `created_at` to store the created date
-      },
-
-    ],
+    Notifications: {
+      type: Array, 
+      default: [],
+    },
     deviceTokens: [
       {
         type: String,
