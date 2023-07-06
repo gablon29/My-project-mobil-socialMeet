@@ -4,12 +4,11 @@ import axios from 'axios';
 export const RegisterAuthMethod = async ({ reg, loading, error, success }) => {
   try {
     loading(true);
-    // if (!email || !password || !firstName || !lastName || !phone || !country || !province || !zipcode || !checkPassword) throw new Error('Falta Campos por Completar para Registrarse');
     const response = await axios.post('/api/user/register', reg, { headers: { 'Content-Type': 'application/json' } });
     success(response.data);
     loading(false);
   } catch (err) {
-    console.log(err);
+    console.log('RegisterAuthMethod', err);
     error(err.message);
     loading(false);
   }
@@ -34,7 +33,7 @@ export const LoginAuthMethod = async ({ email, password, loading, error, success
     success(response.data);
     loading(false);
   } catch (err) {
-    console.log(err);
+    console.log('LoginAuthMethod', err);
     error(err.message);
     loading(false);
   }
@@ -54,7 +53,7 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
     success(response.data);
     loading(false);
   } catch (err) {
-    console.log(err);
+    console.log('ReloadAuthMethod', err);
     error(err.message);
     loading(false);
   }
@@ -67,7 +66,7 @@ export const SignOffMethod = async ({ loading, error, success }) => {
     success('ok');
     loading(false);
   } catch (err) {
-    console.log(err);
+    console.log('SignOffMethod', err);
     error(err.message);
     loading(false);
   }
@@ -80,34 +79,8 @@ export const RecoveryMethod = async ({ email, password, loading, error, success 
     success(response.data);
     loading(false);
   } catch (err) {
-    console.log(err);
+    console.log('RecoveryMethod', err);
     error(err.message);
     loading(false);
   }
-
-  // try {
-  //   console.log('ENTRO');
-  //   const response = await fetch('/api/user/recovery', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       email: email,
-  //       password: password,
-  //     }),
-  //   });
-
-  //   console.log('CUERPO');
-  //   const data = await response.json();
-
-  //   if (data.error) {
-  //     throw new Error(data.message);
-  //   }
-
-  //   return data.payload;
-  // } catch (error) {
-  //   console.error(error);
-  //   throw error;
-  // }
 };

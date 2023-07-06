@@ -27,7 +27,13 @@ export default function EditPet({ route }) {
   const sexStyles = `ml-4 w-40 h-8 rounded-full`;
   const answerStylesView = `ml-4 mt-4 w-16 h-11 rounded-full`;
   const borderOn = ''; //border border-black
-  const optionsSpecie = ['Hamster', 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
+  const optionsSpecie = [
+    { key: 1, value: 'Hamster' }, 
+    { key: 1, value: 'Hamster' }, 
+    { key: 1, value: 'Hamster' }, 
+    { key: 1, value: 'Hamster' }, 
+    { key: 1, value: 'Hamster' }, 
+    { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, , 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
   // para el SelectList de editar otra especie de mascota
 
   const dogOptions = ['ShiTzu', 'Salchicha', 'Poodle'];
@@ -50,10 +56,10 @@ export default function EditPet({ route }) {
   const handleSelect = (value) => {
     if (value === 'Perro' || value === 'Gato') {
       setSpecie(value);
-      setOtro(false);
+      // setOtro(false);
     } else {
       setSpecie(value);
-      setSelectedSpecie(value);
+      // setSelectedSpecie(value);
     }
   };
 
@@ -173,11 +179,12 @@ export default function EditPet({ route }) {
               {pet.specie !== 'Perro' && pet.specie !== 'Gato' ? (
                 <>
                   <Text className="text-center mt-8 font-poppinsBold">Especifica qué animal es:</Text>
+                  {console.log(pet.specie)}
                   <View className="w-60 bg-gray-300 rounded-full">
                     <SelectList
                       data={options}
-                      onSelect={console.log}
-                      selected={'Canario'}
+                      defaultOption={pet.specie}
+                      selected={pet.specie}
                       setSelected={handleSelect}
                       placeholder="Seleccionar"
                       search={false}

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { TextInput, View, Text } from 'react-native';
-import Button from '../Buttons/Button';
+import Button from '../../Buttons/Button';
 
 export const Reset2Step = ({ verification, setSteps }) => {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);

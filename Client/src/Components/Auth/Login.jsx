@@ -8,7 +8,6 @@ import { LoginAuthMethod } from '../../metodos/authMetodos';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSetUser, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Loading from '../Loading/Loading';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Login() {
