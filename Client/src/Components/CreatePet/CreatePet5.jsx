@@ -2,20 +2,22 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Button from "../Buttons/Button";
 import { CreatePetMethod } from "../../metodos/petsMetodos";
+import YesNoBoolean from "../Buttons/YesNoButton";
 
 export const CreatePet5 = ({ steps, setSteps, health, setHealth, addPet }) => {
- 
-  const Create = () =>{
-    try{
+
+  const Create = () => {
+    try {
       addPet()
     }
-    catch(err){
+    catch (err) {
       console.log(err)
     }
-  
+
   }
   return (
     <View className="w-screen h-screen">
+      <YesNoBoolean setClassName="flex mt-10" text="¿Se lleva bien con perros?" reactState={health.okWidhDogs} setReactState={setHealth.setHealthOkWithDogs} />
       <View className="flex mt-10">
         <Text className="font-poppinsBold text-center">
           ¿Se lleva bien con perros?
