@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
 import Button from '../Buttons/Button';
 import { AdressIcon, CardIcon, ChatIcon, InvoiceIcon, ProfileIcon, ReportIcon } from '../../icons/LowerMenuBarIcons';
+import Checkout from '../Stripe/Checkout';
 
 const ProfileComponent = ({ navigation }) => {
   const authenticatedAuth = useSelector((state) => state.ReducerAuth.authenticatedAuth);
@@ -58,7 +59,7 @@ const ProfileComponent = ({ navigation }) => {
     <View className="flex items-center my-5 h-full">
       {mounted === 1 ? <Perfil profile={profile}/> : <></>}
       {mounted === 2 ? <PlaceJolder name={'Adresses'}/> : <></>}
-      {mounted === 3 ? <PlaceJolder name={'Tarjetas'}/> : <></>}
+      {mounted === 3 ? <Checkout name={'Tarjetas'}/> : <></>}
       {mounted === 4 ? <PlaceJolder name={'Facturación'}/> : <></>}
       {mounted === 5 ? <PlaceJolder name={'Un Cha'}/> : <></>}
       {mounted === 6 ? <PlaceJolder name={'Soporte'}/> : <></>}
