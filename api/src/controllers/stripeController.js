@@ -5,6 +5,7 @@ const Stripe = require('stripe');
 const { ClientError } = require('../utils/errors');
 //require('dotenv').config();
 
+
 //se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
 const stripe_secret_key = process.env.STRIPE_SECRET_KEY;
 // se obtiene de: https://stripe.com/docs/stripe-cli
@@ -42,6 +43,11 @@ async function processPurchase(req, res) {
 
   const clientSecret = paymentIntent.client_secret;
   response(res, 200, clientSecret);
+}
+
+async function getApiKey(req, res) {
+  if(!STRIPE_PUBLISHABLE_KEY) throw ClientError("STRIPE_PUBLISHABLE_KEY no existe en las variables de entorno", 500);
+  response(res, 200, STRIPE_PUBLISHABLE_KEY)
 }
 
 // Stripe va llamando a esta ruta con "eventos", cada evento es diferente
@@ -120,4 +126,5 @@ async function stripeCallback(req, res) {
 module.exports = {
   stripeCallback,
   processPurchase,
+  getApiKey
 };
