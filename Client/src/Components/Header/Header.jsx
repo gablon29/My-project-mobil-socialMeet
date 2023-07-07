@@ -18,6 +18,7 @@ import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import { useNavigation } from '@react-navigation/native';
+import Button from '../Buttons/Button';
 
 const ejemploNotificaciones = [
   { type: '', title: 'Titulo de Ejemplo', body: 'A tu mascota blacky le toca una vacuna', date: 'Hace 2 minutos' },
@@ -29,7 +30,12 @@ const ejemploNotificaciones = [
   { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion un9o dos tres cuatro cinco seis siete ocho nueve cies once doce trece catorse quince diesiseis diesiocho diesimiene veinte', date: '' },
   { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
   { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdh', date: '' },
+  {
+    type: '',
+    title: 'Titulo de Ejemplo',
+    body: 'Este es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdh',
+    date: '',
+  },
   { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
   { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
   { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
@@ -124,7 +130,8 @@ export default function Header() {
         </ScrollView>
       )}
       {showNotifications && (
-        // <View className="w-full h-full">
+        <>
+        <Button title='Ver mi calendario' colorText='text-white' alto='h-16' ancho='w-full' colorButton='bg-black' />
         <FlatList
           data={ejemploNotificaciones}
           renderItem={({ item, index }) => (
@@ -139,24 +146,8 @@ export default function Header() {
             </View>
           )}
         />
-        // </View>
+        </>
       )}
-      {/* <FlatList
-        data={ejemploNotificaciones}
-        renderItem={({ item, index }) => (
-          <View className="bg-slate-400 h-36 m-2 flex flex-row items-center">
-            <View className="m-4 rounded-full bg-naranja w-14 h-14 justify-center items-center">
-              <Icon name="close" size={48} color="white" />
-            </View>
-            <View className="flex-1 flex flex-col justify-center px-4">
-              <Text className="text-black text-sm">{item.title}</Text>
-              <Text className="text-black text-sm">{item.body}</Text>
-              <Text className="text-black text-sm">{item.date}</Text>
-            </View>
-          </View>
-        )}
-      /> */}
-      {/* {renderNotifications()} */}
     </View>
   );
 }
