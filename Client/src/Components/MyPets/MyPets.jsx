@@ -33,9 +33,9 @@ export default function MyPets({ navigation }) {
         <View className="flex w-full h-full">
           <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="mt-10 mx-4 mb-6" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('CreatePet')} />
           <ScrollView>
-            <View className="flex flex-row flex-wrap mx-4 justify-center align-middle">
+            <View className="flex flex-row flex-wrap mx-7 justify-center align-middle">
               {userPets.map((element, index) => (
-                <View key={index} className="h-fit w-fit m-2 p-1 rounded-xl justify-center items-center">
+                <View key={index} className="h-fit w-full m-2 p-1 rounded-xl justify-center items-center">
                   <Image
                     source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
                     style={{
@@ -44,7 +44,7 @@ export default function MyPets({ navigation }) {
                     }}
                     className="z-10 rounded-full -mb-12"
                   />
-                  <View className="flex justify-center items-center bg-naranja h-40 w-64 rounded-xl">
+                  <View className="flex justify-center items-center bg-naranja h-40 w-full rounded-xl">
                     <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
                       <Icon name="trash-can-outline" size={30} color="white" />
                     </TouchableOpacity>

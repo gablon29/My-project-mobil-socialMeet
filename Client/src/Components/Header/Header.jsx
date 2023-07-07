@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, Text, Alert, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Alert, ScrollView, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import adopcion from '../../../images/dropDownMenu/adopcion.png';
 import afiliacion from '../../../images/dropDownMenu/afiliacion.png';
@@ -18,6 +18,29 @@ import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import { useNavigation } from '@react-navigation/native';
+
+const ejemploNotificaciones = [
+  { type: '', title: 'Titulo de Ejemplo', body: 'A tu mascota blacky le toca una vacuna', date: 'Hace 2 minutos' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Tienes una cita mañana a las 7:30 PM.', date: 'Hace 23 minutos' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Tu pedido se a realizado correctamente', date: '08:20 PM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Has anadido una nueva mascotas!', date: '05:43 PM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Vacuna de la rabia', date: '11:45 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Tienes una cita veterinaria hoy a las 9:15 AM.', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion un9o dos tres cuatro cinco seis siete ocho nueve cies once doce trece catorse quince diesiseis diesiocho diesimiene veinte', date: '' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdh', date: '' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
+];
 
 export default function Header() {
   const navigation = useNavigation();
@@ -48,7 +71,7 @@ export default function Header() {
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
-  
+
   //Notificaciones:
 
   const renderNotifications = () => {
@@ -63,7 +86,7 @@ export default function Header() {
   };
 
   return (
-    <View className={`w-screen ${showMenu ? 'h-screen' : 'h-fit'}`}>
+    <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'}`}>
       <View className="flex flex-row justify-between items-center p-2 h-24 bg-black">
         {/* h- debe ser igual a top- del renderMenuItems */}
         <TouchableOpacity onPress={toggleMenu} className="ml-2 mt-5">
@@ -80,7 +103,7 @@ export default function Header() {
           <View className="flex flex-row flex-wrap gap-5 p-2 justify-center">
             {logoOpciones.map((elem, _idx) => (
               <TouchableOpacity
-              key={_idx}
+                key={_idx}
                 className="justify-center items-center"
                 onPress={() => {
                   if (elem.working) {
@@ -100,7 +123,40 @@ export default function Header() {
           </View>
         </ScrollView>
       )}
-      {renderNotifications()}
+      {showNotifications && (
+        // <View className="w-full h-full">
+        <FlatList
+          data={ejemploNotificaciones}
+          renderItem={({ item, index }) => (
+            <View className="h-fit min-h-[100px] m-2 flex flex-row items-center">
+              <View className="m-4 rounded-full bg-naranja w-14 h-14 justify-center items-center">
+                <Icon name="close" size={48} color="white" />
+              </View>
+              <View className="flex flex-1 my-4 mr-4">
+                <Text className="text-black text-justify font-poppins text-lg">{item.body}</Text>
+                <Text className="text-slate-600 font-poppins text-sm">{item.date}</Text>
+              </View>
+            </View>
+          )}
+        />
+        // </View>
+      )}
+      {/* <FlatList
+        data={ejemploNotificaciones}
+        renderItem={({ item, index }) => (
+          <View className="bg-slate-400 h-36 m-2 flex flex-row items-center">
+            <View className="m-4 rounded-full bg-naranja w-14 h-14 justify-center items-center">
+              <Icon name="close" size={48} color="white" />
+            </View>
+            <View className="flex-1 flex flex-col justify-center px-4">
+              <Text className="text-black text-sm">{item.title}</Text>
+              <Text className="text-black text-sm">{item.body}</Text>
+              <Text className="text-black text-sm">{item.date}</Text>
+            </View>
+          </View>
+        )}
+      /> */}
+      {/* {renderNotifications()} */}
     </View>
   );
 }
