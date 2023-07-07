@@ -55,8 +55,9 @@ router.put('/api/admin/desAmin', /* isLoggedIn, */ catchedAsync(admin.remove_adm
 
 
 //stripe
+router.get('/stripe/getpubkey', catchedAsync(stripe.get_pub_key));
 router.post('/stripe/start-pay-process', catchedAsync(stripe.iniciar_proceso_de_compra));
-router.post('/stripe/callback', express.raw({ type: 'application/json' }),  catchedAsync(stripe.ruta_donde_recibiremos_eventos));
+router.post('/stripe/callback', express.raw({ type: 'application/json' }), catchedAsync(stripe.ruta_donde_recibiremos_eventos));
 
 
 // CHIPS
