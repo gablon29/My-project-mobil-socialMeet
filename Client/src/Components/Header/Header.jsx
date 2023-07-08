@@ -130,23 +130,24 @@ export default function Header() {
         </ScrollView>
       )}
       {showNotifications && (
-        <>
-        <Button title='Ver mi calendario' colorText='text-white' alto='h-16' ancho='w-full' colorButton='bg-black' />
-        <FlatList
-          data={ejemploNotificaciones}
-          renderItem={({ item, index }) => (
-            <View className="h-fit min-h-[100px] m-2 flex flex-row items-center">
-              <View className="m-4 rounded-full bg-naranja w-14 h-14 justify-center items-center">
-                <Icon name="close" size={48} color="white" />
+        <View className="flex flex-1 m-4">
+          <Button title="Ver mi calendario" colorText="text-white" alto="h-12" ancho="w-full" colorButton="bg-black" onPress={() => navigation.navigate('MiCalendario')} />
+          <FlatList
+            data={ejemploNotificaciones}
+            ItemSeparatorComponent={() => <View className="h-px w-full bg-slate-400"></View>}
+            renderItem={({ item, index }) => (
+              <View className="h-fit min-h-[100px] m-2 flex flex-row items-center">
+                <View className="mr-4 rounded-full bg-naranja w-12 h-12 justify-center items-center">
+                  <Icon name="close" size={32} color="white" />
+                </View>
+                <View className="flex flex-1 my-4 mr-4">
+                  <Text className="text-black text-justify font-poppins text-sm">{item.body}</Text>
+                  <Text className="text-slate-600 font-poppins text-xs">{item.date}</Text>
+                </View>
               </View>
-              <View className="flex flex-1 my-4 mr-4">
-                <Text className="text-black text-justify font-poppins text-lg">{item.body}</Text>
-                <Text className="text-slate-600 font-poppins text-sm">{item.date}</Text>
-              </View>
-            </View>
-          )}
-        />
-        </>
+            )}
+          />
+        </View>
       )}
     </View>
   );
