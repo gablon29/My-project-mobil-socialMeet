@@ -1,14 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import dog1 from '../../../images/dog1.png';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MiCalendario = () => {
   const navigation = useNavigation();
+  const [date, setDate] = useState(new Date(Date.now()));
+
+  const onChange = (event, value) => {
+    setDate(value);
+    if (Platform.OS === 'android') {
+      setIsPickerShow(false);
+    }
+  };
+
   return (
-    <View className="w-screen h-screen">
-      <View className="flex flex-row justify-start items-center p-2 h-fit bg-slate-300">
+    <View className="w-screen h-screen bg-white">
+      <View className="flex flex-row justify-start items-center p-2 mt-5 h-fit">
         <TouchableOpacity onPress={() => navigation.goBack()} className="m-3">
           <Icon name="arrow-left" size={32} color="black" />
         </TouchableOpacity>
@@ -36,7 +46,14 @@ const MiCalendario = () => {
           </View>
         </View>
         <View>
-            {/* <Calendar /> */}
+          {/* <DateTimePicker
+          value={date}
+          mode={'date'}
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          is24Hour={true}
+          onChange={onChange}
+          // style={styles.datePicker}
+        /> */}
         </View>
       </ScrollView>
     </View>
