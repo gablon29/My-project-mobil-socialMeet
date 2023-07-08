@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import Header from './Components/Header/Header';
 import MiCalendario from './Components/Screens/MiCalendario';
 import AddPet from './Components/Pets/Create/AddPet';
+import { LandingPage } from './Components/CompraChip/LandingPage/LandingPage';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -62,6 +63,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
+      <StackAuthTrue.Screen name="CompraWhopaws" component={LandingPage} options={{ headerShown: true }} />
+
     </StackAuthTrue.Navigator>
   );
 };
