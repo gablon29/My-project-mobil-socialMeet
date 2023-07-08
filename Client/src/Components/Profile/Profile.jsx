@@ -33,6 +33,7 @@ const ProfileComponent = ({ navigation, props }) => {
 
   //LE QUEDO MUY BUENO SU DRAWER, QUE LIBRERIAS NI QUE OCHO CUARTOS ACA SOMOS ENTEROS PROS
   //LE ISE UNOS AJUSTES PARA QUE SE LE VIERA MAS BAKANO XD CON AMOR DON TOULON ♥
+  //
 
   return (
     <View className="flex items-center my-5 h-full">

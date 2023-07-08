@@ -3,18 +3,9 @@ import React, { useState } from 'react';
 import { Image, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import dog1 from '../../../images/dog1.png';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MiCalendario = () => {
   const navigation = useNavigation();
-  const [date, setDate] = useState(new Date(Date.now()));
-
-  const onChange = (event, value) => {
-    setDate(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
-    }
-  };
 
   return (
     <View className="w-screen h-screen bg-white">
