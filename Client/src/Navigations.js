@@ -15,6 +15,7 @@ import Apiurlselector from './Components/Apiurlselector/Apiurlselector';
 import RegisterStep3 from './Components/Auth/Register/RegisterStep3';
 import { useSelector } from 'react-redux';
 import Header from './Components/Header/Header';
+import MiCalendario from './Components/Screens/MiCalendario';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -43,13 +44,13 @@ function NavigatorBienvenida() {
 const NavigatorAuthTrue = () => {
   const showHeader = (route) => {
     //función para mostrar Header, excluyendo los siguientes:
-    const screenNamesToHideHeader = [];
+    const screenNamesToHideHeader = ['MiCalendario'];
     return !screenNamesToHideHeader.includes(route.name);
   };
 
   return (
     //
-    <StackAuthTrue.Navigator screenOptions={{ header: (props) => showHeader(props.route) && <Header />, headerShown: true }}>
+    <StackAuthTrue.Navigator screenOptions={{ header: (props) => <Header />, headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
@@ -57,6 +58,7 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthTrue.Navigator>
   );
@@ -67,7 +69,7 @@ const Navigations = () => {
 
   return (
     <>
-    {console.log(authenticatedAuth, loadingAuth, errorAuth, profile, token, registro)}
+      {console.log(authenticatedAuth, loadingAuth, errorAuth, profile, token, registro)}
       {authenticatedAuth ? (
         registro ? (
           <NavigationContainer>
