@@ -8,8 +8,10 @@ import { setAllPets, setLoadingPets, setErrorPets, setSuccessPets } from '../../
 import { NoPets } from './NoPets';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '../Buttons/Button';
+import { useNavigation } from '@react-navigation/native';
 
-export default function MyPets({ navigation }) {
+export default function MyPets() {
+  const navigation = useNavigation();
   const authenticatedAuth = useSelector((state) => state.ReducerAuth.authenticatedAuth);
   const { userPets, loadingPets, errorPets, successPets } = useSelector((state) => state.ReducerPets);
   const dispatch = useDispatch();
@@ -31,7 +33,8 @@ export default function MyPets({ navigation }) {
     <>
       {userPets.length ? (
         <View className="flex w-full h-full">
-          <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="mt-10 mx-4 mb-6" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('CreatePet')} />
+          <ButtonWithImage title="A. n mascota ex" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="mx-4 mt-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('CreatePet')} />
+          <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="m-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('AddPet')} />
           <ScrollView>
             <View className="flex flex-row flex-wrap mx-7 justify-center align-middle">
               {userPets.map((element, index) => (
@@ -45,7 +48,7 @@ export default function MyPets({ navigation }) {
                     className="z-10 rounded-full -mb-12"
                   />
                   <View className="flex justify-center items-center bg-naranja h-40 w-full rounded-xl">
-                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => alert('FUNCIONALIDAD PENDIENTE algo')}>
                       <Icon name="trash-can-outline" size={30} color="white" />
                     </TouchableOpacity>
                     <Text className="mt-7 mb-4 px-4 text-base text-white font-poppinsSemiBold text-center">

@@ -6,7 +6,7 @@ import Register from './Components/Auth/Register/Register';
 import ResetPasword from './Components/Auth/ResetPassword/ResetPasword';
 import Home from './Components/Home/Home';
 import ProfileComponent from './Components/Profile/Profile';
-import MyPets from './Components/MyPets/MyPets';
+import MyPets from './Components/Pets/MyPets';
 import CreatePet from './Components/CreatePet/CreatePet';
 import CreatePet6 from './Components/CreatePet/CreatePet6';
 import PetProfile from './Components/PetProfile/PetProfile';
@@ -16,6 +16,7 @@ import RegisterStep3 from './Components/Auth/Register/RegisterStep3';
 import { useSelector } from 'react-redux';
 import Header from './Components/Header/Header';
 import MiCalendario from './Components/Screens/MiCalendario';
+import AddPet from './Components/Pets/Create/AddPet';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -54,6 +55,7 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="CreatePet" component={CreatePet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
