@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const NombreMascota = () => {
+const EdadMascota = () => {
   return (
     <View>
-        <Text>NombreMascota</Text>
+        <Text>EdadMascota</Text>
     </View>
     )
 };
 
-export default NombreMascota;
+export default EdadMascota;
