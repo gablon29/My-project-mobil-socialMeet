@@ -37,6 +37,7 @@ const ReducerAuth = createSlice({
             ...state,
             authenticatedAuth: true,
             profile: action.payload,
+            
          };
       },
       setLoadingAuth(state, action) {
