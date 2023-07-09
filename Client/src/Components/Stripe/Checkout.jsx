@@ -2,73 +2,176 @@ import { Alert, Button, TextInput, View } from 'react-native';
 import { useState } from 'react';
 import { useStripe } from '@stripe/stripe-react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // example
-const API_STRIPE_ROUTE = 'stripe/start-pay-process';
+const API_STRIPE_ROUTE = 'api/stripe/start-pay-process';
+
+/* 
+type ShippingData = {
+  address: {
+    city: string;
+    country: string;
+    line1: string;
+    line2: string;
+    postal_code: string;
+    state: string;
+  };
+  tracking_number: string;
+  name: string;
+  phone: string;
+
+}; */
 
 export default function Checkout() {
   const [product_id, setProduct_id] = useState('1337');
-  const [customer_id, setCustomer_id] = useState('4124');
-  const [address, setAdress] = useState('España, Madrid, Valenciana 3882');
-  const [name, setName] = useState('Sandro Meda');
-  const [amount, setAmount] = useState('12');
+  const [shippingAdress, setShippingAdress] = useState({
+    address: {
+      city: '',
+      country: '',
+      line1: '',
+      line2: '',
+      postal_code: '',
+      state: '',
+    },
+    name: '',
+    phone: '',
+  });
+
+  const handleChange = (e, key) => {
+    console.log("EEEEEEEEEEEEEEEEEEEEEEEee");
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    console.log(e);
+    if (key == 'name' || key == 'phone') {
+      setShippingAdress({ ...shippingAdress, [key]: e });
+    } else {
+      setShippingAdress({ ...shippingAdress, address: { ...shippingAdress.address, [key]: e } });
+    }
+  };
+
   const stripe = useStripe();
 
   const handleBuy = async () => {
     const finalAmount = parseInt(amount);
 
-    const axios_body =  { amount: finalAmount, name, address, product_id, customer_id }
+    const axios_body = { amount: finalAmount, name, address, product_id, customer_id };
     const axios_config = {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          amount: finalAmount,
-          name, //Edna Scripts 6
-          address,
-          product_id,
-          customer_id,
-        },
-      };
-    if (finalAmount <= 1) return Alert.alert('El precio minimo es 1 USD');
-    console.log(API_STRIPE_ROUTE);
-    const response = await axios.post(API_STRIPE_ROUTE, axios_body,axios_config);
-    const data = await response.data;
-    console.log(data,"asdsasadsa");
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await AsyncStorage.getItem('Token')}`,
+      },
+    };
+
+    if (finalAmount <= 1) return Alert.alert('El precio minimo es 1 EURO');
+
+    const response = await axios.post(API_STRIPE_ROUTE, axios_body, axios_config).catch((err) => {
+      throw new Error(err.response.data.message);
+    });
+
+    const data = response.data.payload;
+    const { clientSecret, ephemeralKey, customer } = data;
     if (data.error) return Alert.alert(data.message);
     const initSheet = await stripe.initPaymentSheet({
-      paymentIntentClientSecret: data.payload.clientSecret,
+      paymentIntentClientSecret: clientSecret,
       merchantDisplayName: 'Whopaws',
-    }); 
-
-    if(initSheet.error) return Alert.alert(initSheet.error.message);
-    if(initSheet.paymentOption==undefined) return Alert.alert("Falta agregar en el .env del server las API keys de STRIPE")
-    const presentSheet = await stripe.presentPaymentSheet({
-      clientSecret: data.payload.clientSecret,
+      customerId: customer,
     });
+
+    if (initSheet.error) return Alert.alert(initSheet.error.message);
+    //if(initSheet.paymentOption==undefined) return Alert.alert("Falta agregar en el .env del server las API keys de STRIPE")
+    const presentSheet = await stripe.presentPaymentSheet({
+      clientSecret: clientSecret,
+    });
+
     if (presentSheet.error) {
-      return Alert.alert(presentSheet.error.message);
+      return Alert.alert('Ops: ', presentSheet.error.message);
     }
     Alert.alert('Donated successfully! Thank you for the donation.');
   };
   return (
     <View>
-      <TextInput placeholder="Name" style={{ padding: 10, borderColor: 'black', borderWidth: 1 }} value={name} onChangeText={(e) => setName(e)} />
-      <TextInput placeholder="Address" style={{ padding: 10, borderColor: 'black', borderWidth: 1 }} value={address} onChangeText={(e) => setAdress(e)} />
       <TextInput
-        placeholder="ProductID, poner cualquier numero" //DEV
-        keyboardType="numeric"
+        placeholder="Nombre"
         style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
-        value={product_id}
-        onChangeText={(e) => setProduct_id(e)}
+        value={shippingAdress.name}
+        onChangeText={(e) => {
+          handleChange(e, 'name');
+        }}
       />
-      <TextInput placeholder="Amount" keyboardType="numeric" style={{ padding: 10, borderColor: 'black', borderWidth: 1 }} value={amount} onChangeText={(e) => setAmount(e)} />
+      <TextInput
+        placeholder="Teléfono"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.phone}
+        onChangeText={(e) => {
+          handleChange(e, 'phone');
+        }}
+      />
+      <TextInput
+        placeholder="País"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.address.country}
+        onChangeText={(e) => {
+          handleChange(e, 'country');
+        }}
+      />
+      <TextInput
+        placeholder="Provincia"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.address.staate}
+        onChangeText={(e) => {
+          handleChange(e, 'postal_code');
+        }}
+      />
+      <TextInput
+        placeholder="Ciudad"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.address.city}
+        onChangeText={(e) => {
+          handleChange(e, 'city');
+        }}
+      />
+      <TextInput
+        placeholder="Código Postal"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.address.postal_code}
+        onChangeText={(e) => {
+          handleChange(e, 'postal_code');
+        }}
+      />
+      <TextInput
+        placeholder="Linea 1"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.address.line1}
+        onChangeText={(e) => {
+          handleChange(e, 'line1');
+        }}
+      />
+      <TextInput
+        placeholder="Linea 2 (opcional)"
+        style={{ padding: 10, borderColor: 'black', borderWidth: 1 }}
+        value={shippingAdress.address.line2}
+        onChangeText={(e) => {
+          handleChange(e, 'line2');
+        }}
+      />
+
       <Button
         title="Buy"
         onPress={() => {
           handleBuy()
             .then((_) => {
               //luego de comprar, por ejemplo, que lo redirigjha a algun lugar
-              
             })
 
             .catch((err) => {
@@ -79,7 +182,7 @@ export default function Checkout() {
               if (err.code) {
                 extra_message += '\r\n' + err.code;
               }
-              Alert.alert('Payment failed!' + extra_message);
+              Alert.alert(err.message);
             });
         }}
       />
