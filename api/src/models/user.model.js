@@ -47,14 +47,9 @@ const userSchema = mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default:
-        'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
+      default: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
       validate(value) {
-        if (
-          !value.match(
-            /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/
-          )
-        ) {
+        if (!value.match(/^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/)) {
           throw new ClientError('La url es incorrecta.', 400);
         }
       },
@@ -68,7 +63,7 @@ const userSchema = mongoose.Schema(
       default: [],
     },
     Notifications: {
-      type: Array, 
+      type: Array,
       default: [],
     },
     deviceTokens: [
@@ -85,6 +80,12 @@ const userSchema = mongoose.Schema(
     },
     zipcode: {
       type: String,
+    },
+    shippingaddresss: {
+      address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
+      tracking_number : { type: String },
+      name: { type: String },
+      phone: { type: String },
     },
     addresses: [
       {
@@ -125,7 +126,7 @@ const userSchema = mongoose.Schema(
 userSchema.plugin(toJSON);
 //userSchema.plugin(paginate);
 
-userSchema.statics.isEmailTaken = async function(email, excludeUserId) {
+userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
   return !!user;
 };

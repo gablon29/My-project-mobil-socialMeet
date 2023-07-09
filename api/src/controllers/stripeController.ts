@@ -1,6 +1,5 @@
 import * as Stripe from "stripe";
 import { response } from "../utils";
-import { Request, RequestHandler } from "express";
 import { ClientError } from "../utils/errors";
 //require('dotenv').config();
 const UserModel = require('../models/user.model'); //por si hay que hacer que cambie algun estado del usuario que compró algo
@@ -11,21 +10,56 @@ interface input extends Express.Request {
   body,
   params,
   query,
-  user: {userId, email}
+  user: { userId, email }
 }
 
-const stripe_secret_key:string = process.env.STRIPE_SECRET_KEY;//se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
-const STRIPE_WEBHOOK_SECRET:string = process.env.STRIPE_WEBHOOK_SECRET; // se obtiene de: https://stripe.com/docs/stripe-cli
-const STRIPE_PUBLISHABLE_KEY:string = process.env.STRIPE_PUBLISHABLE_KEY
+type ShippingData = {
+    address: {
+      city: string;
+      country: string;
+      line1: string;
+      line2: string;
+      postal_code: string;
+      state: string;
+    };
+    tracking_number: string;
+    name: string;
+    phone: string;
+};
 
-const stripe = new Stripe.Stripe(stripe_secret_key,null);
+const stripe_secret_key: string = process.env.STRIPE_SECRET_KEY;//se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
+const STRIPE_WEBHOOK_SECRET: string = process.env.STRIPE_WEBHOOK_SECRET; // se obtiene de: https://stripe.com/docs/stripe-cli
+const STRIPE_PUBLISHABLE_KEY: string = process.env.STRIPE_PUBLISHABLE_KEY
+
+const stripe = new Stripe.Stripe(stripe_secret_key, null);
 
 export async function processPurchase(req: input, res) {
-  let { amount, name, product_id, address, customer_id } = req.headers;
+
+  let { amount, name, product_id, address, customer_id } = req.body;
   if (!amount || !name || !address || !product_id || !customer_id) throw new ClientError('Datos insuficientes', 400);
 
   amount = parseInt(amount);
+  const user = await UserModel.findById(req.user.userId)
+
+  if (!user || !user.email) throw new ClientError("Datos necesarios no encontrados." + user, 500)
+  const dir: ShippingData = user.shippingaddresss
+  //if (!(dir.name && dir.address.city && dir.address.country && dir.address.line1)) throw new ClientError("Usted no tiene agregada una dirección de entrega de producto.", 500)
+  //cre un cliente en la DB de stripe de nuestra cuenta
+
+  
+  const customer = await stripe.customers.create(
+    {
+      email: user.email,
+    }
+  )
+
+  // Obtiene clave efímera, sea lo que sea eso.
+  const ephemeralKey = await stripe.ephemeralKeys.create({ customer: customer.id, },
+    { apiVersion: '2022-11-15' })
+
+
   const paymentIntent = await stripe.paymentIntents.create({
+    customer: customer.id,
     amount: Math.round(amount * 100),
     currency: 'EUR',
     payment_method_types: ['card'],
@@ -35,15 +69,16 @@ export async function processPurchase(req: input, res) {
       customer_id,
       address,
     },
+    shipping:{ address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postal_code: '538', state: 'Madrid' }, tracking_number : '21321', name: 'Haahah', phone: '646464646' }
   });
-  
 
   const clientSecret = paymentIntent.client_secret;
-  response(res, 200, {clientSecret});
+
+  response(res, 200, { ephemeralKey, clientSecret, customer: customer.id });
 }
 
 export async function getApiKey(req, res) {
-  if(!STRIPE_PUBLISHABLE_KEY) throw new ClientError("STRIPE_PUBLISHABLE_KEY no existe en las variables de entorno", 500);
+  if (!STRIPE_PUBLISHABLE_KEY) throw new ClientError("STRIPE_PUBLISHABLE_KEY no existe en las variables de entorno", 500);
   response(res, 200, STRIPE_PUBLISHABLE_KEY)
 }
 
@@ -57,9 +92,9 @@ export async function stripeCallback(req, res) {
   let event: Stripe.Stripe.Event;
   // Check if the event is sent from Stripe or a third party
   // And parse the event
-  console.log("event",event);
+
   event = await stripe.webhooks.constructEvent(req.body, sig, STRIPE_WEBHOOK_SECRET);
-  console.log("event2222",event);
+
   // Event when a payment is initiated
   if (event.type === 'payment_intent.created') {
     console.log(`${JSON.stringify(event.data.object)} initated payment!`);
