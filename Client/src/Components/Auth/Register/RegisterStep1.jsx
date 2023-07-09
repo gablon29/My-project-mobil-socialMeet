@@ -63,10 +63,18 @@ export default function RegisterStep1(props) {
           <TextInput placeholder="" value={lastName} onChangeText={(text) => setLastName(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Email</Text>
-          <TextInput placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
+          <TextInput 
+              inputMode='email'
+              textContentType='emailAddress'
+          
+          placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Repetir Email</Text>
-          <TextInput placeholder="" value={confirmEmail} onChangeText={(text) => setConfirmEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
+          <TextInput
+            inputMode='email'
+            textContentType='emailAddress'
+            
+          placeholder="" value={confirmEmail} onChangeText={(text) => setConfirmEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Teléfono</Text>
           <TextInput placeholder="" value={phone} onChangeText={(text) => setPhone(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
