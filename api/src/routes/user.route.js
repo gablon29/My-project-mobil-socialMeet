@@ -1,3 +1,4 @@
+const { filterByOwner } = require('../controllers/petController');
 const {
   loginUser,
   registerUser,
@@ -13,7 +14,8 @@ module.exports = {
     const user = await UserModel.findById(userId);
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     const { userType, firstName, lastName, email, profilePic, pets, id } = user;
-    response(res, 200, { userType, firstName, lastName, email, profilePic, pets, id });
+    const userPets = await filterByOwner(id)
+    response(res, 200, userPets, { userType, firstName, lastName, email, profilePic, pets, id });
   },
 
   register_new: async (req, res, next) => {
