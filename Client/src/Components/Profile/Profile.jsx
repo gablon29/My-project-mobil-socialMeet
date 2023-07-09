@@ -37,7 +37,7 @@ const ProfileComponent = ({ navigation, props }) => {
 
   return (
     <View className="flex items-center my-5 h-full">
-      {mounted === 1 ? <DisplayProfile /> : null}
+      {mounted === 1 ? <DisplayProfile  navigation={navigation}/> : null}
       {mounted === 2 ? <DisplayAddress /> : null}
       {mounted === 3 ? <Checkout /> : null}
       {mounted === 4 ? <PlaceJolder name={'Facturación'} /> : null}

@@ -54,6 +54,8 @@ export default function Login() {
           <TextInput
             placeholder=""
             value={email}
+            inputMode='email'
+            textContentType='emailAddress'
             onChangeText={(text) => setEmail(text)}
             className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
           />
@@ -61,6 +63,7 @@ export default function Login() {
           <TextInput
             placeholder=""
             secureTextEntry={true}
+            textContentType='password'
             value={password}
             onChangeText={(text) => setPassword(text)}
             className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
