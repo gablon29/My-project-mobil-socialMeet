@@ -41,6 +41,12 @@ app.get('/api', async (req, res) => {
   });
 });
 
+app.get('/', async (req, res) => {
+  res.send({
+    message: 'Server ts working',
+  });
+});
+
 
 app.use(cors({ origin: '*' }));
 app.use(globalLimit);
