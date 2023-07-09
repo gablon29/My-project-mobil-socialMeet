@@ -17,6 +17,8 @@ import { useSelector } from 'react-redux';
 import Header from './Components/Header/Header';
 import MiCalendario from './Components/Screens/MiCalendario';
 import AddPet from './Components/Pets/Create/AddPet';
+import { ChipWhopaws } from './Components/CompraChip/LandingPage/ChipWhopaws';
+import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/ConfigurateChip';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -48,7 +50,6 @@ const NavigatorAuthTrue = () => {
     const screenNamesToHideHeader = ['MiCalendario'];
     return !screenNamesToHideHeader.includes(route.name);
   };
-
   return (
     //
     <StackAuthTrue.Navigator screenOptions={{ header: (props) => <Header />, headerShown: false }}>
@@ -62,6 +63,12 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
+      <StackAuthTrue.Screen name="ChipWhopaws" component={ChipWhopaws} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen
+        name="ConfigurateChip"
+        component={ConfigurateChip}
+        options={{ headerShown: true }}
+      />
     </StackAuthTrue.Navigator>
   );
 };

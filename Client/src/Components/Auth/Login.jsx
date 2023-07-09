@@ -17,14 +17,15 @@ export default function Login() {
   const { email, setEmail, password, setPassword, handleLogin } = useAuth();
 
   const login = () => {
-    LoginAuthMethod({
+    LoginAuthMethod({   
       email,
       password,
-      loading: (v) => {
+      loading: (v) => { //loadion es 1 funcion calback invocada en true para indicar que see sta cargando el proceso
+        //cuando el proceso finaliza pasa a true
         dispatch(setLoadingAuth(v));
       },
-      error: (msg) => dispatch(setErrorAuth(msg)),
-      success: async (res) => {
+      error: (msg) => dispatch(setErrorAuth(msg)), //si ocurre un error se ejecuta esta funcion y manda a redux el error
+      success: async (res) => { //si el axios sale bien se ejecuta succes 
         dispatch(authSetUser(res.payload));
         await AsyncStorage.setItem('Token', res.payload.token);
         navigation.navigate('Home');
