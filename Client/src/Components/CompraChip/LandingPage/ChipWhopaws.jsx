@@ -7,8 +7,9 @@ import drop from '../../../../images/iconos/drop.png';
 import feather from '../../../../images/iconos/feather.png';
 import smartphone from '../../../../images/iconos/smartphone.png';
 import detective from '../../../../images/detective.png';
-
-export const LandingPage = () => {
+import { NavigationAction, useNavigation } from '@react-navigation/native';
+export const ChipWhopaws = () => {
+  const navigation = useNavigation()
   return (
     <ScrollView>
       <View className="flex items-center">
@@ -56,7 +57,7 @@ export const LandingPage = () => {
       <View className=" ml-6 h-20 w-50 bg-black rounded-full flex justify-content  mr-6">
         <Text className="text-white ml-8 mt-5 text-3xl font-poppinsBol">14,99€</Text>
         <View className=" ml-40  h-10 w-48 bg-naranja rounded-full flex  items-center absolute mt-5 ">
-            <TouchableOpacity onPress={() => console.log("comprame esta")}>
+            <TouchableOpacity onPress={() => navigation.navigate("ConfigurateChip")}>
         <Text className="text-white text-xl font-poppinsBol mt-1">Comprar</Text>
         </TouchableOpacity>
 </View>

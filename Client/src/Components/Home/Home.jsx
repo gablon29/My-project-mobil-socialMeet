@@ -85,7 +85,7 @@ export default function Home() {
             </Text>
             <View className="mt-2">
               <Button
-                onPress={() => navigation.navigate("CompraWhopaws")}
+                onPress={() => navigation.navigate("ChipWhopaws")}
                 title="Más información"
                 // onPress={() => {
                 //   /* alert("botón activado") */
