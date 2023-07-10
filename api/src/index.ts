@@ -11,7 +11,7 @@ const serviceAccount = require('../happy-clean-8e79e-firebase-adminsdk-d9ktq-6d4
 const morgan = require('morgan');
 const { ClientError } = require('./utils/errors');
 require('dotenv').config();
-
+/* vini */
 mongoose.set('strictQuery', true);
 
 admin.initializeApp({
