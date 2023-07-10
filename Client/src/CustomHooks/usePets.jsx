@@ -29,8 +29,14 @@ const petInit = {
 
 export const usePets = (element) => {
   const [pet, setPet] = useState(element ? element : petInit);
+  const [valida, setValida] = useState(false)
 
-  const setName = (name) => setPet({ ...pet, name });
+  const nextStep = (numero) =>{
+    setValida(!valida)
+    setRender(numero)
+  }
+
+  const setName = (name) => setPet({ ...pet, name } , setValida(!valida));
   const setSpecie = (specie) => setPet({ ...pet, specie });
   const setBreed = (breed) => setPet({ ...pet, breed });
   const setWeight = (weight) => setPet({ ...pet, weight });
