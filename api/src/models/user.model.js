@@ -81,6 +81,11 @@ const userSchema = mongoose.Schema(
     zipcode: {
       type: String,
     },
+    stripe:{
+      customer: {type: String},
+      creditCardTokens: [{type:String}]
+
+    },
     shippingaddresss: {
       address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
       tracking_number : { type: String },

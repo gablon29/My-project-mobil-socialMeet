@@ -3,7 +3,9 @@ import { response } from "../utils";
 import { ClientError } from "../utils/errors";
 //require('dotenv').config();
 const UserModel = require('../models/user.model'); //por si hay que hacer que cambie algun estado del usuario que compró algo
-
+const stripe_secret_key: string = process.env.STRIPE_SECRET_KEY;//se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
+const STRIPE_WEBHOOK_SECRET: string = process.env.STRIPE_WEBHOOK_SECRET; // se obtiene de: https://stripe.com/docs/stripe-cli
+const STRIPE_PUBLISHABLE_KEY: string = process.env.STRIPE_PUBLISHABLE_KEY
 
 interface input extends Express.Request {
   headers,
@@ -27,54 +29,74 @@ type ShippingData = {
     phone: string;
 };
 
-const stripe_secret_key: string = process.env.STRIPE_SECRET_KEY;//se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
-const STRIPE_WEBHOOK_SECRET: string = process.env.STRIPE_WEBHOOK_SECRET; // se obtiene de: https://stripe.com/docs/stripe-cli
-const STRIPE_PUBLISHABLE_KEY: string = process.env.STRIPE_PUBLISHABLE_KEY
+
 
 const stripe = new Stripe.Stripe(stripe_secret_key, null);
 
+
+export async function saveCreditCard(req: input, res) {
+  const {token} =req.body
+  if(!token) throw new ClientError("token no se envio",400)
+  const user = await UserModel.findById(req.user.userId);
+  user.stripe.creditCardTokens.push(token)
+  await user.save()
+  response(res, 200, "saved credit card");
+}
+
 export async function processPurchase(req: input, res) {
 
-  let { amount, name, product_id, address, customer_id } = req.body;
-  if (!amount || !name || !address || !product_id || !customer_id) throw new ClientError('Datos insuficientes', 400);
+  //--------------------------------------------------------------
+  //Validaciones / Sanitización rápida
+  let { shippingAdress,  productId } = req.body;
+  if (!shippingAdress) throw new ClientError('Debes enviar shippingAdress', 400);
+  if(!productId) throw new ClientError('Debes enviar productId', 400);
 
-  amount = parseInt(amount);
   const user = await UserModel.findById(req.user.userId)
-
-  if (!user || !user.email) throw new ClientError("Datos necesarios no encontrados." + user, 500)
-  const dir: ShippingData = user.shippingaddresss
+  if (!user || !user.email) throw new ClientError("El usuario no existe " + user, 500)
+  //const dir: ShippingData = user.shippingaddresss
   //if (!(dir.name && dir.address.city && dir.address.country && dir.address.line1)) throw new ClientError("Usted no tiene agregada una dirección de entrega de producto.", 500)
-  //cre un cliente en la DB de stripe de nuestra cuenta
 
+  //--------------------------------------------------------------
+  //Crea un cliente si no existe 
+  let customer
+  if(user.stripe.customer && user.stripe.customer.length>1){
+    customer=user.stripe.customer
+    console.log("usuario viejo");
+    
+  }else{
+    const customerData = await stripe.customers.create(
+      {
+        email: user.email,
+      })
+      console.log("usuario nuevo");
+      user.stripe.customer = customerData.id;
+      await user.save();
+  }
+  console.log(customer);
   
-  const customer = await stripe.customers.create(
-    {
-      email: user.email,
-    }
-  )
-
+  
+  //--------------------------------------------------------------
   // Obtiene clave efímera, sea lo que sea eso.
-  const ephemeralKey = await stripe.ephemeralKeys.create({ customer: customer.id, },
+  const ephemeralKey = await stripe.ephemeralKeys.create({ customer: customer },
     { apiVersion: '2022-11-15' })
 
 
+  //--------------------------------------------------------------
+  //Con los datos q enviamos a stripe se procesan y stripe nos devuelve datos X
   const paymentIntent = await stripe.paymentIntents.create({
-    customer: customer.id,
-    amount: Math.round(amount * 100),
+    customer: customer,
+    amount: Math.round(14.99 * 100),
     currency: 'EUR',
     payment_method_types: ['card'],
     metadata: {
-      amount: Math.round(amount * 100),
-      name,
-      customer_id,
-      address,
+      amount: Math.round(14.99 * 100),
     },
     shipping:{ address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postal_code: '538', state: 'Madrid' }, tracking_number : '21321', name: 'Haahah', phone: '646464646' }
   });
 
   const clientSecret = paymentIntent.client_secret;
 
-  response(res, 200, { ephemeralKey, clientSecret, customer: customer.id });
+  response(res, 200, { ephemeralKey, clientSecret, customer: customer });
 }
 
 export async function getApiKey(req, res) {
