@@ -10,12 +10,8 @@ import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTex
 
 const EspecieMascota = ({ setSpecie, specie, setValida }) => {
 
-  if(specie){
-    setValida(false)
-  }
-
   const onPress = (v) => {
-    if(specie){
+    if(v){
       setValida(false)
     } else {
       setValida(true)

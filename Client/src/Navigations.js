@@ -65,16 +65,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="ChipWhopaws" component={ChipWhopaws} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen
-        name="ConfigurateChip"
-        component={ConfigurateChip}
-        options={{ headerShown: true }}
-      />
-            <StackAuthTrue.Screen
-        name="Checkout"
-        component={Checkout}
-        options={{ headerShown: true }}
-      />
+      <StackAuthTrue.Screen name="ConfigurateChip" component={ConfigurateChip} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="Checkout" component={Checkout} options={{ headerShown: true }} />
     </StackAuthTrue.Navigator>
   );
 };

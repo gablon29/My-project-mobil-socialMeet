@@ -27,13 +27,7 @@ export default function EditPet({ route }) {
   const sexStyles = `ml-4 w-40 h-8 rounded-full`;
   const answerStylesView = `ml-4 mt-4 w-16 h-11 rounded-full`;
   const borderOn = ''; //border border-black
-  const optionsSpecie = [
-    { key: 1, value: 'Hamster' }, 
-    { key: 1, value: 'Hamster' }, 
-    { key: 1, value: 'Hamster' }, 
-    { key: 1, value: 'Hamster' }, 
-    { key: 1, value: 'Hamster' }, 
-    { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, , 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
+  const optionsSpecie = [{ key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, , 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
   // para el SelectList de editar otra especie de mascota
 
   const dogOptions = ['ShiTzu', 'Salchicha', 'Poodle'];
@@ -132,6 +126,8 @@ export default function EditPet({ route }) {
               </View>
             </TouchableOpacity>
           </View>
+
+          {/* ------------------------------------------------------------ ACA EMPIESA LA MAGIA HDP */}
           <Text className="font-poppinsSemiBold mt-10 text-center">Imagen de portada</Text>
           <TouchableOpacity
             className="flex justify-center items-center rounded-lg bg-gris w-80 h-40 mt-2 "

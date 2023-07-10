@@ -22,17 +22,19 @@ export const LoginAuthMethod = async ({ email, password, loading, error, success
     if (!email && !password) throw new Error('Falta Correo y Contraseña');
     else if (!email) throw new Error('Ingrese un Correo');
     else if (!password) throw new Error('Ingrese una Contraseña');
-    const response = await axios.post(
-      '/api/user/login',
-      { email, password },
-      {
-        headers: {
-          'Content-Type': 'application/json',
+    const response = await axios
+      .post(
+        '/api/user/login',
+        { email, password },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    ).catch((err) => {
-      throw new Error(err.response.data.message);
-    });
+      )
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
 
     success(response.data);
     loading(false);
@@ -47,15 +49,17 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
   try {
     loading(true);
     const token = await AsyncStorage.getItem('Token');
-    const response = await axios.get('/api/user/user', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }).catch((err) => {
-      throw new Error(err.response.data.message);
-    });
-    console.log(response.data)
+    const response = await axios
+      .get('/api/user/user', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+    console.log(response.data);
     success(response.data);
     loading(false);
   } catch (err) {

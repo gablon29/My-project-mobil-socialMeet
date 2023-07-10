@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, PanResponder } from 'react-native';
 
-const EdadMascota = () => {
-  const [anos, setAnos] = useState(0);
-  const [meses, setMeses] = useState(0);
-
+const EdadMascota = ({ years, months, setAgeYears, setAgeMonths, setValida }) => {
   const panResponderAnos = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gestureState) => {
       const { dx, dy } = gestureState;
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
-        if(dx > 0){
-          setAnos(anos + 1);
+        if (dx > 0) {
+          setAgeYears(years + 1);
+          if (years + 1 || months) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         } else {
-          setAnos(anos - 1);
+          setAgeYears(years - 1);
+          if (years - 1 || months) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         }
-        // setDirection(dx > 0 ? 'right' : 'left');
-        // if(direction < 10){
-        //   // setDirection(0)
-        //   console.log(direction, 10)
-        //   setDirection(dx > 0 ? direction + 1 : direction - 1);
-        // }
-        // setDirection(dx > 0 ? direction + 1 : direction - 1);
       }
     },
     // ,
@@ -37,18 +37,21 @@ const EdadMascota = () => {
       const { dx, dy } = gestureState;
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
-        if(dx > 0){
-          setMeses(meses + 1);
+        if (dx > 0) {
+          setAgeMonths(months + 1);
+          if (years || months + 1) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         } else {
-          setMeses(meses - 1);
+          setAgeMonths(months - 1);
+          if (years || months - 1) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         }
-        // setDirection(dx > 0 ? 'right' : 'left');
-        // if(direction < 10){
-        //   // setDirection(0)
-        //   console.log(direction, 10)
-        //   setDirection(dx > 0 ? direction + 1 : direction - 1);
-        // }
-        // setDirection(dx > 0 ? direction + 1 : direction - 1);
       }
     },
     // ,
@@ -62,37 +65,37 @@ const EdadMascota = () => {
       <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Qué edad tiene?</Text>
       <View className="flex flex-row" {...panResponderAnos.panHandlers}>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-xl font-poppinsBold text-gray-400">{anos - 2}</Text>
+          <Text className="text-xl font-poppinsBold text-gray-400">{years - 2}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-2xl font-poppinsBold text-gray-600">{anos - 1}</Text>
+          <Text className="text-2xl font-poppinsBold text-gray-600">{years - 1}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-3xl font-poppinsBold">{anos}</Text>
+          <Text className="text-3xl font-poppinsBold">{years}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-2xl font-poppinsBold text-gray-600">{anos + 1}</Text>
+          <Text className="text-2xl font-poppinsBold text-gray-600">{years + 1}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-xl font-poppinsBold text-gray-400">{anos + 2}</Text>
+          <Text className="text-xl font-poppinsBold text-gray-400">{years + 2}</Text>
         </View>
       </View>
       <Text className="font-poppins">Años</Text>
       <View className="flex flex-row" {...panResponderMeses.panHandlers}>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-xl font-poppinsBold text-gray-400">{meses - 2}</Text>
+          <Text className="text-xl font-poppinsBold text-gray-400">{months - 2}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-2xl font-poppinsBold text-gray-600">{meses - 1}</Text>
+          <Text className="text-2xl font-poppinsBold text-gray-600">{months - 1}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-3xl font-poppinsBold">{meses}</Text>
+          <Text className="text-3xl font-poppinsBold">{months}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-2xl font-poppinsBold text-gray-600">{meses + 1}</Text>
+          <Text className="text-2xl font-poppinsBold text-gray-600">{months + 1}</Text>
         </View>
         <View className="w-12 h-12 justify-center items-center">
-          <Text className="text-xl font-poppinsBold text-gray-400">{meses + 2}</Text>
+          <Text className="text-xl font-poppinsBold text-gray-400">{months + 2}</Text>
         </View>
       </View>
       <Text className="font-poppins">Meses</Text>

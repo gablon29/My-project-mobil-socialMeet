@@ -25,7 +25,8 @@ const petSchema = mongoose.Schema(
     },
     //LISTO
     weight: {
-      type: String,
+      kilos: { type: String },
+      gramos: { type: String },
     },
     //LISTO
     breed: {

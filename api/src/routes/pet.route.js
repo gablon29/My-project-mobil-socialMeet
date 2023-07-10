@@ -3,8 +3,9 @@ const { response } = require('../utils');
 
 module.exports = {
   create_pet: async (req, res) => {
-    const PetData = req.body;
-    const newPet = await createPet(PetData, req.user.userId);
+    const pet = req.body;
+    console.log(req.body);
+    const newPet = await createPet(pet, req.user.userId);
     response(res, 200, newPet);
   },
 

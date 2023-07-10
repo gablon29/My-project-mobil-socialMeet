@@ -17,11 +17,11 @@ const SexoMascota = ({ setSex, sex, setValida }) => {
     <View className="justify-center items-center my-7">
       <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Cuál es su sexo?</Text>
       <View className="flex flex-row">
-        <ButtonImageRounder activado={true} texto="Macho">
-          <Icon name="gender-male" size={60} color={true ? 'white' : 'gray'} />
+        <ButtonImageRounder activado={sex === 'Macho' ? true : false} texto="Macho" onPress={() => onPress('Macho')}>
+          <Icon name="gender-male" size={60} color={sex === 'Macho' ? 'white' : 'gray'} />
         </ButtonImageRounder>
-        <ButtonImageRounder activado={false} texto="Hembra">
-          <Icon name="gender-female" size={60} color={false ? 'white' : 'gray'} />
+        <ButtonImageRounder activado={sex === 'Hembra' ? true : false} texto="Hembra" onPress={() => onPress('Hembra')}>
+          <Icon name="gender-female" size={60} color={sex === 'Hembra' ? 'white' : 'gray'} />
         </ButtonImageRounder>
       </View>
     </View>

@@ -12,7 +12,7 @@ export const NoPets = ({ navigation }) => {
           <Text className="font-poppinsBold text-center text-lg mt-5">Aún no has añadido ninguna mascota, agrega una ahora</Text>
         </View>
         <View className="flex items-center mt-10">
-          <Button title="Añadir mascota" onPress={() => navigation.navigate('CreatePet')} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
+          <Button title="Añadir mascota" onPress={() => navigation.navigate('AddPet')} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
         </View>
       </View>
     </View>

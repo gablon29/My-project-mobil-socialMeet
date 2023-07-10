@@ -5,18 +5,15 @@ const petInit = {
   name: '',
   specie: '',
   breed: '',
-  weight: '',
+  weight: { kilos: 0, gramos: 0 },
   sex: '',
-  age: {
-    years: '',
-    months: '',
-  },
+  age: { years: 0, months: 0 },
   health: {
-    castrado: false,
-    microchip: false,
-    okWithDogs: false,
-    okWithCats: false,
-    okWithChildren: false,
+    castrado: null,
+    microchip: null,
+    okWithDogs: null,
+    okWithCats: null,
+    okWithChildren: null,
   },
   routineOfNeeds: '',
   routineOfDiet: '',
@@ -29,17 +26,19 @@ const petInit = {
 
 export const usePets = (element) => {
   const [pet, setPet] = useState(element ? element : petInit);
-  const [valida, setValida] = useState(false)
+  const [valida, setValida] = useState(false);
 
-  const nextStep = (numero) =>{
-    setValida(!valida)
-    setRender(numero)
-  }
+  const nextStep = (numero) => {
+    setValida(!valida);
+    setRender(numero);
+  };
 
-  const setName = (name) => setPet({ ...pet, name } , setValida(!valida));
+  const setName = (name) => setPet({ ...pet, name }, setValida(!valida));
   const setSpecie = (specie) => setPet({ ...pet, specie });
   const setBreed = (breed) => setPet({ ...pet, breed });
-  const setWeight = (weight) => setPet({ ...pet, weight });
+  // const setWeight = (weight) => setPet({ ...pet, weight });
+  const setKilos = (kilos) => setPet({ ...pet, weight: { ...pet.weight, kilos } });
+  const setGramos = (gramos) => setPet({ ...pet, weight: { ...pet.weight, gramos } });
   const setSex = (sex) => setPet({ ...pet, sex });
   const setAgeYears = (years) => setPet({ ...pet, age: { ...pet.age, years } });
   const setAgeMonths = (months) => setPet({ ...pet, age: { ...pet.age, months } });
@@ -58,5 +57,5 @@ export const usePets = (element) => {
   const setGallery = (gallery) => setPet({ ...pet, gallery });
   const setOwnerAdress = (ownerAdress) => setPet({ ...pet, ownerAdress });
 
-  return { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress };
+  return { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress };
 };
