@@ -22,7 +22,7 @@ const ProfileComponent = ({ navigation, props }) => {
   );
 
   const LowerBar = (props) => (
-    <View className="absolute bottom-10 h-14 w-11/12 flex flex-row bg-naranja rounded-full">
+    <View className="absolute bottom-5 h-14 w-11/12 flex flex-row bg-naranja rounded-full">
       <IconButtons iconComponent={ProfileIcon} newStep={1} rounder="rounded-l-full" />
       <IconButtons iconComponent={AdressIcon} newStep={2} />
       <IconButtons iconComponent={CardIcon} newStep={3} />
@@ -37,7 +37,7 @@ const ProfileComponent = ({ navigation, props }) => {
   //
 
   return (
-    <View className="flex items-center my-5 h-full">
+    <View className="justify-center items-center relative h-full w-screen">
       {mounted === 1 ? <DisplayProfile  navigation={navigation}/> : null}
       {mounted === 2 ? <DisplayAddress /> : null}
       {mounted === 3 ? <Checkout /> : null}
@@ -46,6 +46,7 @@ const ProfileComponent = ({ navigation, props }) => {
       {mounted === 6 ? <PlaceJolder name={'Soporte'} /> : null}
 
       <LowerBar />
+      <View className="h-40"></View>
     </View>
   );
 };
