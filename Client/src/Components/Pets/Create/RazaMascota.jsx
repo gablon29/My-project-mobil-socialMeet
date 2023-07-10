@@ -3,10 +3,6 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 const RazaMascota = ({ setBreed, breed, setValida }) => {
 
-  if(breed){
-    setValida(false)
-  }
-
   const change = (text) => {
     if (text) {
       setValida(false);

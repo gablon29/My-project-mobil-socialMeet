@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, PanResponder } from 'react-native';
 
-const PesoMascota = () => {
-  const [kilos, setKilos] = useState(0);
-  const [gramos, setGramos] = useState(0);
+const PesoMascota = ({kilos, gramos, setKilos, setGramos, setValida}) => {
 
   const panResponderKilos = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -13,16 +11,19 @@ const PesoMascota = () => {
       if (isHorizontalSwipe) {
         if(dx > 0){
           setKilos(kilos + 1);
+          if (gramos || kilos + 1) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         } else {
           setKilos(kilos - 1);
+          if (gramos || kilos - 1) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         }
-        // setDirection(dx > 0 ? 'right' : 'left');
-        // if(direction < 10){
-        //   // setDirection(0)
-        //   console.log(direction, 10)
-        //   setDirection(dx > 0 ? direction + 1 : direction - 1);
-        // }
-        // setDirection(dx > 0 ? direction + 1 : direction - 1);
       }
     },
     // ,
@@ -39,16 +40,19 @@ const PesoMascota = () => {
       if (isHorizontalSwipe) {
         if(dx > 0){
           setGramos(gramos + 1);
+          if (gramos + 1 || kilos) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         } else {
           setGramos(gramos - 1);
+          if (gramos - 1 || kilos) {
+            setValida(false);
+          } else {
+            setValida(true);
+          }
         }
-        // setDirection(dx > 0 ? 'right' : 'left');
-        // if(direction < 10){
-        //   // setDirection(0)
-        //   console.log(direction, 10)
-        //   setDirection(dx > 0 ? direction + 1 : direction - 1);
-        // }
-        // setDirection(dx > 0 ? direction + 1 : direction - 1);
       }
     },
     // ,

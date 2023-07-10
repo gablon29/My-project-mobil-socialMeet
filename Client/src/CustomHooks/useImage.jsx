@@ -44,6 +44,27 @@ export const useSelectImagen = () => {
   };
 };
 
+export const suvirImagen = async (uri) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', {
+      uri,
+      type: 'image/jpeg', // Reemplaza por el tipo correcto de imagen si es necesario
+      name: 'image.jpg', // Reemplaza por el nombre correcto de la imagen si es necesario
+    });
+    formData.append('upload_preset', 'ztq7o1jj');
+    const response = await fetch('https://api.cloudinary.com/v1_1/dvhstnw3u/image/upload?api_key=376411672781128', {
+      method: 'POST',
+      body: formData,
+    });
+    const responseData = await response.json();
+    return responseData.url;
+  } catch (err) {
+    console.error('suvirImagen: ', err.message);
+    return '';
+  }
+};
+
 export const useImage = () => {
   const [url, setUrl] = useState('');
 
