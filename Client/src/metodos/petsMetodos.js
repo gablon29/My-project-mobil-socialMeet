@@ -9,7 +9,9 @@ export const CreatePetMethod = async ({ pet, loading, error, success }) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    });
+    }).catch((err) => {
+        throw new Error(err.response.data.message);
+      });
     success(response.data);
     loading(false);
   } catch (err) {
