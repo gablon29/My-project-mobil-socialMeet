@@ -15,47 +15,16 @@ import CastradoMascota_5 from './CastradoMascota_5';
 import ImagenMascota from './ImagenMascota';
 import { useNavigation } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
+import { usePets } from '../../../CustomHooks/usePets';
 
 const AddPet = () => {
   const navigation = useNavigation();
   const [render, setRender] = useState(1);
-
-  const PantallasRender = () => {
-    switch (render) {
-      case 1:
-        return <NombreMascota />;
-      case 2:
-        return <EspecieMascota />;
-      case 3:
-        return <RazaMascota />;
-      case 4:
-        return <SexoMascota />;
-      case 5:
-        return <EdadMascota />;
-      case 6:
-        return <PesoMascota />;
-      case 7:
-        return <CastradoMascota_1 />;
-      case 8:
-        return <CastradoMascota_2 />;
-      case 9:
-        return <CastradoMascota_3 />;
-      case 10:
-        return <CastradoMascota_4 />;
-      case 11:
-        return <CastradoMascota_5 />;
-      case 12:
-        return <ImagenMascota />;
-      default:
-        return (
-          <View>
-            <Text>Vista No Encontrada</Text>
-          </View>
-        );
-    }
-  };
+  const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets();
+  const [valida, setValida] = useState(true)
 
   const NextPantalla = () => {
+    setValida(true)
     setRender(render + 1);
   };
 
@@ -63,6 +32,7 @@ const AddPet = () => {
     if (render <= 1) {
       navigation.goBack();
     } else {
+      setValida(false)
       setRender(render - 1);
     }
   };
@@ -70,6 +40,7 @@ const AddPet = () => {
   return (
     <>
       <View className="flex flex-1 w-screen h-screen bg-white">
+        {console.log(valida, pet)}
         <View className="flex flex-row justify-between items-center px-2 pt-2 h-fit">
           <TouchableOpacity onPress={PrevPantalla} className="m-2">
             <Icon name="arrow-left" size={40} color="black" />
@@ -87,10 +58,26 @@ const AddPet = () => {
         />
         <View className="flex flex-1 h-3 mx-4">
           <ScrollView>
-            <PantallasRender />
+            {render === 1 && <NombreMascota setName={setName} name={pet.name} setValida={setValida} />}
+            {render === 2 && <EspecieMascota setSpecie={setSpecie} specie={pet.specie} setValida={setValida} />}
+            {render === 3 && <RazaMascota setBreed={setBreed} breed={pet.breed} setValida={setValida} />}
+            {render === 4 && <SexoMascota setSex={setSex} sex={pet.sex} setValida={setValida} />}
+            {render === 5 && <EdadMascota />}
+            {render === 6 && <PesoMascota />}
+            {render === 7 && <CastradoMascota_1 />}
+            {render === 8 && <CastradoMascota_2 />}
+            {render === 9 && <CastradoMascota_3 />}
+            {render === 10 && <CastradoMascota_4 />}
+            {render === 11 && <CastradoMascota_5 />}
+            {render === 12 && <ImagenMascota />}
+            {render > 12 && (
+              <View>
+                <Text>Vista No Encontrada</Text>
+              </View>
+            )}
           </ScrollView>
-          <TouchableOpacity className="w-64 h-12 mx-auto rounded-xl bg-naranja justify-center items-center my-4" onPress={NextPantalla}>
-            <Text className="text-sm text-center text-white font-poppinsSemiBold">Siguiente</Text>
+          <TouchableOpacity className={`w-64 h-12 mx-auto rounded-xl ${valida ? 'bg-gray-400' : 'bg-naranja' } justify-center items-center my-4`} onPress={NextPantalla} disabled={valida}>
+            <Text className="text-sm text-center text-white font-poppinsSemiBold">{render == 12 ? 'Finalizar' : 'Siguiente'}</Text>
           </TouchableOpacity>
         </View>
       </View>

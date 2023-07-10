@@ -6,52 +6,37 @@ import ave from '../../../../images/especies/ic_ave.png';
 import reptil from '../../../../images/especies/ic_reptil.png';
 import pez from '../../../../images/especies/ic_pez.png';
 import roedor from '../../../../images/especies/ic_roedor.png';
+import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTextBorderBlack';
 
-const EspecieMascota = () => {
+const EspecieMascota = ({ setSpecie, specie, setValida }) => {
+
+  if(specie){
+    setValida(false)
+  }
+
+  const onPress = (v) => {
+    if(specie){
+      setValida(false)
+    } else {
+      setValida(true)
+    }
+    setSpecie(v)
+  }
+
   return (
-      <View className="justify-center items-center my-7">
-        <Text className="text-xl text-center font-poppinsBold w-56 mb-7">¿Cuál es su especie?</Text>
-        <View className="flex flex-row gap-4">
-          <TouchableOpacity>
-            <View className="w-20 h-20 bg-naranja rounded-xl shadow-xl justify-center items-center">
-              <Image source={perro} className="h-16 w-16" resizeMode="contain" />
-            </View>
-            <Text className="text-center font-poppins text-lg">Perro</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View className="w-20 h-20 bg-naranja rounded-xl shadow-xl justify-center items-center">
-              <Image source={gato} className="h-16 w-16" resizeMode="contain" />
-            </View>
-            <Text className="text-center font-poppins text-lg">Gato</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View className="w-20 h-20 bg-naranja rounded-xl shadow-xl justify-center items-center">
-              <Image source={ave} className="h-16 w-16" resizeMode="contain" />
-            </View>
-            <Text className="text-center font-poppins text-lg">Ave</Text>
-          </TouchableOpacity>
-        </View>
-        <View className="flex flex-row gap-4 mt-4">
-          <TouchableOpacity>
-            <View className="w-20 h-20 bg-naranja rounded-xl shadow-xl justify-center items-center">
-              <Image source={reptil} className="h-16 w-16" resizeMode="contain" />
-            </View>
-            <Text className="text-center font-poppins text-lg">Reptil</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View className="w-20 h-20 bg-naranja rounded-xl shadow-xl justify-center items-center">
-              <Image source={pez} className="h-16 w-16" resizeMode="contain" />
-            </View>
-            <Text className="text-center font-poppins text-lg">Pez</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View className="w-20 h-20 bg-naranja rounded-xl shadow-xl justify-center items-center">
-              <Image source={roedor} className="h-16 w-16" resizeMode="contain" />
-            </View>
-            <Text className="text-center font-poppins text-lg">Roedor</Text>
-          </TouchableOpacity>
-        </View>
+    <View className="justify-center items-center my-7">
+      <Text className="text-xl text-center font-poppinsBold w-56 mb-7">¿Cuál es su especie?</Text>
+      <View className="flex flex-row">
+        <ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={specie === 'Perro' ? true : false} onPress={() => onPress('Perro')} />
+        <ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={specie === 'Gato' ? true : false} onPress={() => onPress('Gato')} />
+        <ButtonSquareImageTextBorderBlack texto="Ave" imagen={ave} activado={specie === 'Ave' ? true : false} onPress={() => onPress('Ave')} />
       </View>
+      <View className="flex flex-row mt-4">
+        <ButtonSquareImageTextBorderBlack texto="Reptil" imagen={reptil} activado={specie === 'Reptil' ? true : false} onPress={() => onPress('Reptil')} />
+        <ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={specie === 'Pez' ? true : false} onPress={() => onPress('Pez')} />
+        <ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={specie === 'Roedor' ? true : false} onPress={() => onPress('Roedor')} />
+      </View>
+    </View>
   );
 };
 
