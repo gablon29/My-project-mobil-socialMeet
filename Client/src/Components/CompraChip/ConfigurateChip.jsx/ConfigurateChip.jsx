@@ -6,6 +6,7 @@ import CreatePet from "../../CreatePet/CreatePet";
 import { useAuth } from "../../../CustomHooks/useAuth";
 import { addCart, setErrorCart, setLoadingCart } from "../../../Redux/ReducerCart";
 import { getChip } from "../../../metodos/getStripeMetodos";
+import AddPet from "../../Pets/Create/AddPet";
 
 export const ConfigurateChip = ({ navigation }) => {
   const { userPets } = useSelector((state) => state.ReducerPets);
@@ -18,15 +19,17 @@ export const ConfigurateChip = ({ navigation }) => {
         <View className="flex items-center">
           <View className="flex items-center">
             <Text className="text-xl font-poppinsBold text-black mt-12">
-              Vemos que aún no tienes mascotas
+             ¡Ups! Vemos que aún no tienes mascotas
             </Text>
             <Text className="text-xs font-poppins text-black mt-12 ml-4 mr-4">
               Agrega una mascota a tu cuenta para configurar tu chip
             </Text>
           </View>
           <View className="mt-1">
-            <CreatePet navigation={navigation} />
-          </View>
+          <TouchableOpacity className="w-64 h-12 mx-auto rounded-xl bg-naranja justify-center items-center my-4" onPress={navigation.navigate("AddPet")} >
+            <Text className="text-sm text-center text-white font-poppinsSemiBold">Agregar nueva mascota</Text>
+          </TouchableOpacity>       
+             </View>
         </View>
       </ScrollView>
     );
