@@ -19,6 +19,7 @@ import MiCalendario from './Components/Screens/MiCalendario';
 import AddPet from './Components/Pets/Create/AddPet';
 import { ChipWhopaws } from './Components/CompraChip/LandingPage/ChipWhopaws';
 import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/ConfigurateChip';
+import Checkout from './Components/Stripe/Checkout';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -67,6 +68,11 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen
         name="ConfigurateChip"
         component={ConfigurateChip}
+        options={{ headerShown: true }}
+      />
+            <StackAuthTrue.Screen
+        name="Checkout"
+        component={Checkout}
         options={{ headerShown: true }}
       />
     </StackAuthTrue.Navigator>

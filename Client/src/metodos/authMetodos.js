@@ -4,7 +4,9 @@ import axios from 'axios';
 export const RegisterAuthMethod = async ({ reg, loading, error, success }) => {
   try {
     loading(true);
-    const response = await axios.post('/api/user/register', reg, { headers: { 'Content-Type': 'application/json' } });
+    const response = await axios.post('/api/user/register', reg, { headers: { 'Content-Type': 'application/json' } }).catch((err) => {
+      throw new Error(err.response.data.message);
+    });
     success(response.data);
     loading(false);
   } catch (err) {
@@ -28,7 +30,9 @@ export const LoginAuthMethod = async ({ email, password, loading, error, success
           'Content-Type': 'application/json',
         },
       },
-    );
+    ).catch((err) => {
+      throw new Error(err.response.data.message);
+    });
 
     success(response.data);
     loading(false);
@@ -48,8 +52,10 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+    }).catch((err) => {
+      throw new Error(err.response.data.message);
     });
-
+    console.log(response.data)
     success(response.data);
     loading(false);
   } catch (err) {
@@ -75,7 +81,9 @@ export const SignOffMethod = async ({ loading, error, success }) => {
 export const RecoveryMethod = async ({ email, password, loading, error, success }) => {
   try {
     loading(true);
-    const response = await axios.post('/api/user/recovery', { email, password }, { headers: { 'Content-Type': 'application/json' } });
+    const response = await axios.post('/api/user/recovery', { email, password }, { headers: { 'Content-Type': 'application/json' } }).catch((err) => {
+      throw new Error(err.response.data.message);
+    });
     success(response.data);
     loading(false);
   } catch (err) {
