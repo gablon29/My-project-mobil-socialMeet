@@ -34,6 +34,14 @@ type ShippingData = {
 const stripe = new Stripe.Stripe(stripe_secret_key, null);
 
 
+export async function saveCreditCard(req: input, res) {
+  const {token} =req.body
+  if(!token) throw new ClientError("token no se envio",400)
+  const user = await UserModel.findById(req.user.userId);
+  user.stripe.creditCardTokens.push(token)
+  await user.save()
+  response(res, 200, "saved credit card");
+}
 
 export async function processPurchase(req: input, res) {
 

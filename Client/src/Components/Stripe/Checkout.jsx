@@ -8,6 +8,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const API_STRIPE_ROUTE = 'api/stripe/start-pay-process';
 
 /* 
+........................................
+No descomentar porque no estas en typescript
+........................................
 type ShippingData = {
   address: {
     city: string;
@@ -52,6 +55,7 @@ export default function Checkout() {
   //Cuando se preciona el boton, ejecuta est afunción.
   const handleBuy = async () => {
 
+    
 
     const axios_body = { shippingAdress, productId: productId };
     const axios_config = {
@@ -61,8 +65,6 @@ export default function Checkout() {
         Authorization: `Bearer ${await AsyncStorage.getItem('Token')}`,
       },
     };
-
-    
 
 
     //Del bcakend nuestro, obtenemos el clientSecret que lo necesitamos mas adelante.

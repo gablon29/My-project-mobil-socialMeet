@@ -5,6 +5,7 @@ import { AdressIcon, CardIcon, ChatIcon, InvoiceIcon, ProfileIcon, ReportIcon } 
 import Checkout from '../Stripe/Checkout';
 import DisplayProfile from './DisplayProfile';
 import DisplayAddress from './DisplayAddress';
+import AddCard from '../Stripe/AddCard';
 
 const ProfileComponent = ({ navigation, props }) => {
   const [mounted, setMounted] = useState(1);
@@ -40,7 +41,7 @@ const ProfileComponent = ({ navigation, props }) => {
       {mounted === 1 ? <DisplayProfile  navigation={navigation}/> : null}
       {mounted === 2 ? <DisplayAddress /> : null}
       {mounted === 3 ? <Checkout /> : null}
-      {mounted === 4 ? <PlaceJolder name={'Facturación'} /> : null}
+      {mounted === 4 ? <AddCard  /> : null}
       {mounted === 5 ? <PlaceJolder name={'Un Cha'} /> : null}
       {mounted === 6 ? <PlaceJolder name={'Soporte'} /> : null}
 

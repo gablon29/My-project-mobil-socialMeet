@@ -83,6 +83,7 @@ const userSchema = mongoose.Schema(
     },
     stripe:{
       customer: {type: String},
+      creditCardTokens: [{type:String}]
 
     },
     shippingaddresss: {
