@@ -49,7 +49,7 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.log(response.data)
     success(response.data);
     loading(false);
   } catch (err) {

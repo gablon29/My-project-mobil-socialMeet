@@ -9,6 +9,8 @@ import { ReloadAuthMethod } from '../../metodos/authMetodos';
 import { useDispatch } from 'react-redux';
 import { userRefresh, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAuth';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { setAllPets, setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
+import { GetPetsMethod } from '../../metodos/petsMetodos';
 
 export default function Welcome() {
   const navigation = useNavigation();
@@ -20,7 +22,6 @@ export default function Welcome() {
    **/
   const getData = async () => {
     const value = await AsyncStorage.getItem('Token');
-    console.log('TOKEN LEIDO EN getData', value)
     if (value) {
       ReloadAuthMethod({
         loading: (v) => dispatch(setLoadingAuth(v)),
@@ -30,6 +31,12 @@ export default function Welcome() {
           navigation.navigate('Home');
           console.log('TOKEN WELCOME', value);
         },
+        
+      });
+      GetPetsMethod({
+        loading: (v) => dispatch(setLoadingPets(v)),
+        error: (msg) => dispatch(setErrorPets(msg)),
+        success: (res) => dispatch(setAllPets(res.payload)),
       });
     }
   };

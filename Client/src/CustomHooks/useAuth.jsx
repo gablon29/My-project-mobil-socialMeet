@@ -22,7 +22,7 @@ export const useAuth = () => {
   const [confirmEmail, setConfirmEmail] = useState('');
   const [checkSms, setCheckSms] = useState('');
   const [verification, setVerification] = useState('');
-
+  const [informacion, setInformacion] = useState("")
   async function verifyNumber() {
     const url = 'https://api.nexmo.com/verify/json';
 
@@ -124,6 +124,7 @@ export const useAuth = () => {
     setCheckPassword,
     emailPassword,
     verification,
+    informacion, setInformacion
   };
 };
 
