@@ -75,6 +75,7 @@ export default function Checkout() {
 
     const data = response.data.payload;
     const { clientSecret, ephemeralKey, customer } = data;
+console.log(data)
     if (data.error) return Alert.alert(data.message);
 
     //Aqui le decimos a striple que nos genere una plantilla de pago asociada al ClientSecret generado en el backend:

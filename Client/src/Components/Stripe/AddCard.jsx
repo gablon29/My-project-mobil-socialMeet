@@ -49,7 +49,7 @@ const AddCard = () => {
     <View>
         <Text>Title</Text>
     
-      <CardField
+      <View
         postalCodeEnabled={false}
         placeholder={{
           number: 'Número de tarjeta',
