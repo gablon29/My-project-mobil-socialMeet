@@ -16,9 +16,8 @@ const DisplayProfile = ({ navigation }) => {
       <ScrollView>
         <View 
         style={{
-                width: 400,
                 height: 550,
-          }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-40 mb-10">
+          }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-40 mb-10 w-11/12">
           <View className="bg-naranja w-32 h-32 rounded-full absolute -top-14"></View>
           <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
             <Icon name="idcard" size={32} color="white" className="pr-4" />
