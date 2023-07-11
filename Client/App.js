@@ -28,7 +28,7 @@ export default function App() {
 
   // PRODUCCION
 
-   //axios.defaults.baseURL = 'https://whopaws-production-e1cc.up.railway.app';
+   axios.defaults.baseURL = 'https://whopaws-production-e1cc.up.railway.app';
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),

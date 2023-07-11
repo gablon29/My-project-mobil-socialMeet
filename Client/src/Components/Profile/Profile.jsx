@@ -47,7 +47,7 @@ const ProfileComponent = ({ navigation, props }) => {
       {mounted === 6 ? <DisplaySupport name={'Soporte'} /> : null}
 
       <LowerBar />
-      <View className="h-40"></View>
+      <View className="h-20"></View>
     </View>
   );
 };
