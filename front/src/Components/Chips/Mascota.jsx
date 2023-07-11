@@ -22,10 +22,8 @@ export const Mascota = ({set_quiere_logearse}) => {
 
 
   const obtenerMascota = async () => {
-    console.log(chipId);
     const payload = await buscar_chipId(chipId)
     setLoading(false)
-    console.log("ASDSAD",payload);
 
     if(payload.pet && payload.owner){
       setMascota(payload.pet)

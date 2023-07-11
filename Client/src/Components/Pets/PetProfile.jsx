@@ -1,89 +1,98 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { View, Text, Image, ScrollView, ActivityIndicator } from 'react-native';
+import React, { useEffect } from 'react';
 import Button from '../Buttons/Button';
-import ButtonWithImage from '../Buttons/ButtonWithImage';
-import leftIcon from '../../../images/leftIcon.png';
-import editIcon from '../../../images/iconos/editIcon.png';
 import { useNavigation } from '@react-navigation/native';
+import { GetMyPetMethod } from '../../metodos/petsMetodos';
+import { useDispatch, useSelector } from 'react-redux';
+import { setErrorPets, setLoadingPets, setPet } from '../../Redux/ReducerPets';
 
 export default function PetProfile({ route }) {
   const navigation = useNavigation();
+  const { userPet, loadingPets, errorPets, successPets } = useSelector((state) => state.ReducerPets);
+  const dispatch = useDispatch();
   const { element } = route.params;
+
+  useEffect(() => {
+    if (element) {
+      getPet();
+    }
+  }, [element]);
+
+  const getPet = async () => {
+    await GetMyPetMethod({
+      id: element,
+      loading: (v) => dispatch(setLoadingPets(v)),
+      error: (msg) => dispatch(setErrorPets(msg)),
+      success: (res) => dispatch(setPet(res.payload)),
+    });
+  };
 
   return (
     <>
-      <View className="flex ">
-        <View className="flex flex-row items-center my-5 ml-4">
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={leftIcon} className="w-4 h-4" />
-          </TouchableOpacity>
-          <View className="flex-1 justify-center ml-3">
-            <Text className=" font-poppinsSemiBold text-xs">volver a mascotas</Text>
-          </View>
-          <ButtonWithImage title="Editar" textFont="font-poppinsSemiBold" image={editIcon} imageClasses="w-3 h-3 ml-1 mt-0.5" onPress={() => navigation.navigate('EditPetProfile', { element })} colorButton="bg-naranja" colorText="text-white" ancho="w-16" alto="h-5" textSize="text-xs" margins="mr-3" />
+      {loadingPets ? (
+        <View className="bg-white justify-center items-center w-screen h-screen">
+          <ActivityIndicator size="large" color="#000000" />
         </View>
-      </View>
-      <ScrollView className="w-full h-full">
-        <View className="w-full h-full">
-          <View className="h-48 bg-naranja items-center">
-            <Image
-              source={{ uri: element.profilePic || 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg' }}
-              style={{
-                width: 120,
-                height: 120,
-              }}
-              className="absolute top-32 rounded-full"
-            />
-          </View>
-          <View className="h-fit items-center">
-            <Text className="mt-20 ml-20 font-poppinsBold">¡Hola! Me llamo {element.name}</Text>
-            <Text className="ml-16 font-poppins">
-              {element.specie} | {element.breed} | {element.age.years} años {element.age.months} meses | {element.weight} Kg
-            </Text>
-            <Button title="Perfil de Socialpaws" colorButton="bg-naranja" colorText="text-white" ancho="w-48" alto="h-8" textFont="font-poppinsSemiBold" otrosButton="mx-20 mt-4 shadow" />
-            <Text className="mx-10 mt-10 font-poppins">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed posuere quam. Morbi molestie bibendum orci, ut dignissim odio auctor sed. Quisque condimentum magna ut sapien elementum iaculis. Maecenas eleifend velit ut convallis blandit.</Text>
-            <View className="flex mt-10">
-              {[
-                { question: '¿Está castrado o esterilizado?', property: 'castrado' },
-                { question: '¿Tiene microchip?', property: 'microchip' },
-                { question: '¿Se lleva bien con perros?', property: 'okWithDogs' },
-                { question: '¿Se lleva bien con gatos?', property: 'okWithCats' },
-                { question: '¿Se lleva bien con niños?', property: 'okWithChildren' },
-              ].map((item, index) => (
-                <View className="flex flex-row mx-3 my-3" key={index}>
-                  <View className="w-64 h-11 bg-black rounded-xl">
-                    <Text className="text-white text-base font-poppinsSemiBold text-center mt-2">{item.question}</Text>
+      ) : (
+        <ScrollView>
+          <Image
+            source={{ uri: userPet?.profilePic || 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg' }}
+            style={{
+              width: 150,
+              height: 150,
+            }}
+            className="rounded-full mx-auto mt-4"
+          />
+          <View className="w-full h-full mb-4">
+            <View className="h-fit w-full my-4">
+              <Text className="font-poppinsBold text-center">¡Hola! Me llamo {userPet?.name}</Text>
+              <Text className="font-poppins text-center">
+                {userPet?.specie} | {userPet?.breed} | {userPet?.age?.years} años {userPet?.age?.months} meses | {parseInt(userPet?.weight?.kilos) + parseInt(userPet?.weight?.gramos) / 1000} Kg
+              </Text>
+              <Button title="Editar Perfil" colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-10" textFont="font-poppinsSemiBold" otrosButton="mx-auto my-4 shadow-lg" onPress={() => navigation.navigate('PetProfile')} />
+              <View className="flex justify-center items-center m-1">
+                {[
+                  { question: '¿Está castrado o esterilizado?', property: 'castrado' },
+                  { question: '¿Tiene microchip?', property: 'microchip' },
+                  { question: '¿Se lleva bien con perros?', property: 'okWithDogs' },
+                  { question: '¿Se lleva bien con gatos?', property: 'okWithCats' },
+                  { question: '¿Se lleva bien con niños?', property: 'okWithChildren' },
+                ].map((item, index) => (
+                  <View className="flex flex-row gap-2 py-2" key={index}>
+                    <View className="w-fit h-fit bg-black rounded-lg">
+                      <Text className="text-white text-sm font-poppinsSemiBold text-center w-60 h-fit px-2 py-2">{item.question}</Text>
+                    </View>
+                    <View className="bg-naranja rounded-xl w-fit h-fit">
+                      <Text className="text-white text-base font-poppinsSemiBold text-center w-14 h-fit px-2 py-2">{userPet?.health[item.property] ? 'Si' : 'No'}</Text>
+                    </View>
                   </View>
-                  <View className="ml-4 w-16 h-11 bg-naranja rounded-full">
-                    <Text className="text-white text-base font-poppinsSemiBold text-center mt-2">{element.health[item.property] ? 'Si' : 'No'}</Text>
-                  </View>
-                </View>
-              ))}
+                ))}
+              </View>
+            </View>
+            <View className="bg-naranja py-4">
+              <Text className="text-white font-poppinsSemiBold text-xl text-center">Información de cuidado</Text>
+            </View>
+            <View className="p-2">
+              <Text className="font-poppinsSemiBold text-lg text-center mx-2 my-4">¿Cada cuanto tiempo tiene que ir a hacer sus necesidades?</Text>
+              <View className="h-fit w-full rounded-lg bg-naranja min-h-[120px] p-4">
+                <Text className="font-poppins text-sm text-white text-justify">{userPet?.routineOfNeeds}</Text>
+              </View>
+            </View>
+            <View className="p-2">
+              <Text className="font-poppinsSemiBold text-lg text-center mx-2 my-4">¿Cual es su rutina de alimentación?</Text>
+              <View className="h-fit w-full rounded-lg bg-naranja min-h-[120px] p-4">
+                <Text className="font-poppins text-sm text-white text-justify">{userPet?.routineOfDiet}</Text>
+              </View>
+            </View>
+            <View className="p-2">
+              <Text className="font-poppinsSemiBold text-lg text-center mx4">Otra información a tener en cuenta</Text>
+              <View className="h-fit w-full rounded-lg bg-naranja min-h-[120px] p-4">
+                <Text className="font-poppins text-sm text-white text-justify">{userPet?.information}</Text>
+              </View>
             </View>
           </View>
-          <View className="h-12 mt-12 bg-naranja">
-            <Text className="text-white font-poppinsSemiBold text-xl text-center mt-2">Información de cuidado</Text>
-          </View>
-          <View className="my-5 items-center">
-            <Text className="font-poppinsSemiBold text-lg text-center mx-4">¿Cada cuanto tiempo tiene que ir a hacer sus necesidades?</Text>
-            <View className="h-fit w-80 mx-8 mt-5 rounded-lg  bg-naranja">
-              <Text className="m-3 font-poppins text-xs text-white text-center">Solemos sacarlo a pasear a la calle cada 4 horas aun que también podría estar en una casa con jardín</Text>
-            </View>
-          </View>
-          <View className="my-5 items-center">
-            <Text className="font-poppinsSemiBold text-lg text-center mx-4">¿Cual es su rutina de alimentación?</Text>
-            <View className="h-fit w-80 mx-8 mt-5 rounded-lg  bg-naranja">
-              <Text className="m-3 font-poppins text-xs text-white text-center">Come 2 veces al día, una por la mañana y otra por la noche</Text>
-            </View>
-          </View>
-          <View className="my-5 items-center">
-            <Text className="font-poppinsSemiBold text-lg text-center mx-4">Otra información a tener en cuenta</Text>
-            <View className="h-fit w-80 mx-8 mt-5 mb-8 rounded-lg  bg-naranja">
-              <Text className="m-3 font-poppins text-xs text-white text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed posuere quam. Morbi molestie bibendum orci, ut dignissim odio auctor sed. Quisque condimentum magna ut sapien elementum iaculis. Maecenas eleifend velit ut convallis blandit.</Text>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </>
   );
 }

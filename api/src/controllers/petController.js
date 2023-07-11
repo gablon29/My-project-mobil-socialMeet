@@ -25,8 +25,14 @@ const filterByOwner = async (id) => {
   return ownerPets;
 };
 
+const petByOwner = async (idPet, idUser) => {
+  const ownerPets = await PetModel.find({ owner: idUser, _id: idPet });
+  return ownerPets;
+};
+
 module.exports = {
   createPet,
   updatePet,
   filterByOwner,
+  petByOwner
 };

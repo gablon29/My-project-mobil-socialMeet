@@ -10,7 +10,7 @@ import MyPets from './Components/Pets/MyPets';
 import CreatePet from './Components/CreatePet/CreatePet';
 import CreatePet6 from './Components/CreatePet/CreatePet6';
 import PetProfile from './Components/Pets/PetProfile';
-import EditPetProfile from './Components/EditPetProfile/EditPetProfile';
+import EditPetProfile from './Components/Pets/EditPetProfile';
 import Apiurlselector from './Components/Apiurlselector/Apiurlselector';
 import RegisterStep3 from './Components/Auth/Register/RegisterStep3';
 import { useSelector } from 'react-redux';
@@ -20,6 +20,7 @@ import AddPet from './Components/Pets/Create/AddPet';
 import { ChipWhopaws } from './Components/CompraChip/LandingPage/ChipWhopaws';
 import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/ConfigurateChip';
 import Checkout from './Components/Stripe/Checkout';
+import HeaderBack from './Components/Screens/HeaderBack';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -48,12 +49,12 @@ function NavigatorBienvenida() {
 const NavigatorAuthTrue = () => {
   const showHeader = (route) => {
     //función para mostrar Header, excluyendo los siguientes:
-    const screenNamesToHideHeader = ['MiCalendario'];
+    const screenNamesToHideHeader = ['PetProfile', 'PetProfile'];
     return !screenNamesToHideHeader.includes(route.name);
   };
   return (
     //
-    <StackAuthTrue.Navigator screenOptions={{ header: (props) => <Header />, headerShown: false }}>
+    <StackAuthTrue.Navigator screenOptions={{ header: (props) => showHeader(props.route) ? <Header /> : <HeaderBack />, headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
@@ -76,7 +77,7 @@ const Navigations = () => {
 
   return (
     <>
-      {console.log(authenticatedAuth, loadingAuth, errorAuth, profile, token, registro)}
+    {/* {console.log(userPet)} */}
       {authenticatedAuth ? (
         registro ? (
           <NavigationContainer>

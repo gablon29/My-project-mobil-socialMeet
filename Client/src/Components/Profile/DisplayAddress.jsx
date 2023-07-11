@@ -28,7 +28,6 @@ const DisplayAddress = ({ navigation }) => {
   useEffect(() => {
     ScanForAddress()
       .then((resp) => {
-        console.log('AAAADRES', resp);
         if (Array.isArray(resp) && resp.length > 0) {
           setAdressAndContact(resp);
         } else {
@@ -80,7 +79,6 @@ const DisplayAddress = ({ navigation }) => {
             // Make sure to set `visible` back to false to dismiss the address element.
 
             setAddressSheetVisible(false);
-            console.log('ok pressed: ', addressDetails);
             await addAddress(addressDetails);
 
             // Handle result and update your UI
@@ -88,7 +86,6 @@ const DisplayAddress = ({ navigation }) => {
           onError={(error) => {
             if (error.code === AddressSheetError.Failed) {
               Alert.alert('There was an error.', 'Check the logs for details.');
-              console.log(err?.localizedMessage);
             }
             // Make sure to set `visible` back to false to dismiss the address element.
             setAddressSheetVisible(false);
