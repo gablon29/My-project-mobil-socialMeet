@@ -9,10 +9,12 @@ import Phone from 'react-native-vector-icons/Feather';
 import Location from 'react-native-vector-icons/EvilIcons';
 import Pencil from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelectImagen } from '../../CustomHooks/useImage';
 
 const DisplayProfile = () => {
   const profile = useSelector((state) => state.ReducerAuth.profile);
   const navigation = useNavigation();
+  const { selImg, setProfile } = useSelectImagen();
   return (
     <View className="w-screen h-full">
       <ScrollView>
@@ -21,11 +23,12 @@ const DisplayProfile = () => {
                 height: 550,
           }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-40 mb-10 w-11/12">
           <View className="bg-naranja w-32 h-32 rounded-full absolute -top-14">
-            {/* <Image source={require("../../../images/dog1.png")} className="w-[100%] h-[100%] rounded-full"/> */}
+            <TouchableOpacity className="flex justify-center items-center rounded-full w-[100%] h-[100%]" onPress={() => setProfile()}>
+              {selImg.profile ? <Image /* source={require("../../../images/dog1.png")} */ source={{ uri: selImg.profile }} className='w-[100%] h-[100%] rounded-full' /> : null }
+            </TouchableOpacity>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
             <Icon name="idcard" size={32} color="white" className="pr-4" />
-            {/* <TextInput bg placeholder="Nombre de la persona" className="placeholder-white text-lg" placeholderTextColor="white"/> */}
             <Text className="text-white text-lg">Nombre de la persona</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
