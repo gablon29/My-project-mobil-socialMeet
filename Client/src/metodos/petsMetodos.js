@@ -62,3 +62,26 @@ export const GetPetsMethod = async ({ loading, error, success }) => {
     loading(false);
   }
 };
+
+export const GetMyPetMethod = async ({ id, loading, error, success }) => {
+  try {
+    loading(true);
+    console.log('------------------------------------', id)
+    const token = await AsyncStorage.getItem('Token');
+
+    const response = await axios.get(`/api/pet/my/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    success(response.data);
+    loading(false);
+    console.log('-----------------------------------------')
+  } catch (err) {
+    console.error('GetMyPetMethod', err);
+    error(err.message);
+    loading(false);
+  }
+};

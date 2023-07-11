@@ -1,7 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
-const Loading = ({ loading, auth, children, navigation }) => {
+const Loading = ({ children, loading, auth }) => {
+
+  const navigation = useNavigation()
+
   if (loading) {
     return (
       <View className="bg-white justify-center items-center w-screen h-screen">

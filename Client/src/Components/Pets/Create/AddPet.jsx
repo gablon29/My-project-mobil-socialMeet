@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NombreMascota from './NombreMascota';
 import EdadMascota from './EdadMascota';
@@ -18,13 +18,14 @@ import Slider from '@react-native-community/slider';
 import { usePets } from '../../../CustomHooks/usePets';
 import { suvirImagen, useSelectImagen } from '../../../CustomHooks/useImage';
 import { CreatePetMethod } from '../../../metodos/petsMetodos';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setErrorPets, setLoadingPets } from '../../../Redux/ReducerPets';
 import MascotaCreada from './MascotaCreada';
 
 const AddPet = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { loadingPets, errorPets, successPets } = useSelector((state) => state.ReducerPets);
   const [render, setRender] = useState(1);
   const { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets();
   const [valida, setValida] = useState(true);
@@ -34,7 +35,6 @@ const AddPet = () => {
   const CrearPet = async () => {
     const linkImagen = await suvirImagen(selImg.profile);
     pet.profilePic = linkImagen;
-    console.log(pet);
     await CreatePetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
@@ -77,26 +77,21 @@ const AddPet = () => {
 
   return (
     <>
-      {creada ? (
+      {loadingPets ? (
+        <View className="bg-white justify-center items-center w-screen h-screen">
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      ) : creada ? (
         <MascotaCreada />
       ) : (
         <View className="flex flex-1 w-screen h-screen bg-white">
-          {console.log('DOM PADRE', pet)}
           <View className="flex flex-row justify-between items-center px-2 pt-2 h-fit">
             <TouchableOpacity onPress={PrevPantalla} className="m-2">
               <Icon name="arrow-left" size={40} color="black" />
             </TouchableOpacity>
             <Text className="text-base font-poppins mr-4">{render}/12</Text>
           </View>
-          <Slider
-            className="w-full"
-            thumbTintColor="transparent"
-            minimumValue={0}
-            maximumValue={12}
-            value={render}
-            // onValueChange={(value) => console.log(value)}
-            minimumTrackTintColor="#FB6726"
-          />
+          <Slider className="w-full" thumbTintColor="transparent" minimumValue={0} maximumValue={12} value={render} minimumTrackTintColor="#FB6726" />
           <View className="flex flex-1 h-3 mx-4">
             <ScrollView>
               {render === 1 && <NombreMascota setName={setName} name={pet.name} setValida={setValida} />}

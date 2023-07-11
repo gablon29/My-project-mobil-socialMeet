@@ -32,10 +32,8 @@ export default function Apiurlselector({ navigation }) {
   function handleChangeAPU_URL(ip) {
     setReady(false);
     axios.defaults.baseURL = textosValiosos.current_url;
-    console.log(ip, axios.defaults.baseURL);
     setTextosValiosos({ ...textosValiosos, current_url: ip });
     AsyncStorage.setItem('API_URL', textosValiosos.current_url).then((_) => {
-      console.log(ip, axios.defaults.baseURL);
       setReady(true);
     });
   }

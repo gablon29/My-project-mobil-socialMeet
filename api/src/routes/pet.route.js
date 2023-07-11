@@ -1,4 +1,4 @@
-const { updatePet, filterByOwner, createPet } = require('../controllers/petController');
+const { updatePet, filterByOwner, createPet, petByOwner } = require('../controllers/petController');
 const { response } = require('../utils');
 
 module.exports = {
@@ -21,5 +21,11 @@ module.exports = {
   all_my_pets: async (req, res) => {
     const pets = await filterByOwner(req.user.userId);
     response(res, 200, pets);
+  },
+
+  my_pet: async (req, res) => {
+    const { id } = req.params
+    const pet = await petByOwner(id, req.user.userId);
+    response(res, 200, pet[0]);
   },
 };

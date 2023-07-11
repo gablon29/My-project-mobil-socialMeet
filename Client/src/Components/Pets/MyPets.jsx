@@ -53,7 +53,7 @@ export default function MyPets() {
                     <Text className="mt-7 mb-4 px-4 text-base text-white font-poppinsSemiBold text-center">
                       {element.name} | {element.specie} | {element.breed}
                     </Text>
-                    <Button title="Perfil Mascota" colorButton="bg-white" colorText="text-black" ancho="w-32" alto="h-7" textSize="text-xs" onPress={() => navigation.navigate('PetProfile', { element })} />
+                    <Button title="Perfil Mascota" colorButton="bg-white" colorText="text-black" ancho="w-32" alto="h-7" textSize="text-xs" onPress={() => navigation.navigate('PetProfile', { element: element.id })} />
                   </View>
                 </View>
               ))}
