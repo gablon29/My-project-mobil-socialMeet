@@ -20,6 +20,7 @@ import AddPet from './Components/Pets/Create/AddPet';
 import { ChipWhopaws } from './Components/CompraChip/LandingPage/ChipWhopaws';
 import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/ConfigurateChip';
 import Checkout from './Components/Stripe/Checkout';
+import EditInfoProfile from './Components/Profile/EditInfoProfile';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -56,6 +57,7 @@ const NavigatorAuthTrue = () => {
     <StackAuthTrue.Navigator screenOptions={{ header: (props) => <Header />, headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true}}/>
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="CreatePet" component={CreatePet} options={{ headerShown: true }} />
