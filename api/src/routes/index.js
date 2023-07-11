@@ -34,6 +34,7 @@ router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
 
 //pet handling
 router.get('/api/pet/byowner', isLoggedIn, catchedAsync(pet.all_my_pets));
+router.get('/api/pet/my/:id', isLoggedIn, catchedAsync(pet.my_pet));
 router.post('/api/pet/add', isLoggedIn, catchedAsync(pet.create_pet));
 router.put('/api/pet/profile', isLoggedIn, catchedAsync(pet.edit_pet));
 

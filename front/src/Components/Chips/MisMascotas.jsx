@@ -21,7 +21,6 @@ export const MisMascotas = (props) => {
       set_owner(payload_userdata)
  
     }else{
-      console.log("respuesta de MisMascotas: "+ payload)
       alert("No se han podido cargar las mascotas")
     }
     setLoading(false)

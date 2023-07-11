@@ -17,7 +17,7 @@ import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function EditPet({ route }) {
+export default function EditPetProfile({ route }) {
   const navigation = useNavigation();
   const { element } = route.params;
 
@@ -63,7 +63,6 @@ export default function EditPet({ route }) {
       loading: (v) => dispatch(setLoadingPets(v)),
       error: (msg) => {
         dispatch(setErrorPets(msg));
-        console.log(msg);
       },
       success: (res) => navigation.navigate('MyPets'),
     });
@@ -79,7 +78,6 @@ export default function EditPet({ route }) {
 
   return (
     <>
-      {console.log(pet)}
       <View className="flex">
         <View className="flex flex-row items-center my-5 ml-4">
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -101,7 +99,6 @@ export default function EditPet({ route }) {
                 if (pet.profilePic) {
                   setProfilePic('');
                 } else {
-                  console.log('NO SE ELIMINA', pet.profilePic);
                 }
               }}
             >
@@ -175,7 +172,6 @@ export default function EditPet({ route }) {
               {pet.specie !== 'Perro' && pet.specie !== 'Gato' ? (
                 <>
                   <Text className="text-center mt-8 font-poppinsBold">Especifica qué animal es:</Text>
-                  {console.log(pet.specie)}
                   <View className="w-60 bg-gray-300 rounded-full">
                     <SelectList
                       data={options}

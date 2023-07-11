@@ -92,16 +92,14 @@ export default function Header() {
   };
 
   return (
-    <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'}`}>
-      <View className="flex flex-row justify-between items-center p-2 h-24 bg-black">
-        {/* h- debe ser igual a top- del renderMenuItems */}
-        <TouchableOpacity onPress={toggleMenu} className="ml-2 mt-5">
-          {showMenu ? <Icon name="close" size={28} color="white" /> : <Icon name="menu" size={28} color="white" />}
+    <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'} bg-white`}>
+      <View className="flex flex-row justify-between items-end w-screen h-24 bg-black">
+        <TouchableOpacity onPress={toggleMenu} className="p-1 m-2 rounded-full">
+          {showMenu ? <Icon name="close" size={36} color="white" /> : <Icon name="menu" size={36} color="white" />}
         </TouchableOpacity>
-        <Image source={require('../../../images/logo.png')} className="w-32 h-10 mt-6" resizeMode="contain" />
-
-        <TouchableOpacity onPress={toggleNotifications} className="ml-2 mt-5">
-          {showNotifications ? <Icon name="close" size={28} color="white" /> : <Icon name="bell" size={24} color="white" />}
+        <Image source={require('../../../images/logo.png')} className="w-32 h-10 mb-2" resizeMode="contain" />
+        <TouchableOpacity onPress={toggleNotifications} className="p-1 m-2 rounded-full">
+          {showNotifications ? <Icon name="close" size={36} color="white" /> : <Icon name="bell" size={36} color="white" />}
         </TouchableOpacity>
       </View>
       {showMenu && (

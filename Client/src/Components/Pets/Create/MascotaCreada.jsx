@@ -23,10 +23,10 @@ const MascotaCreada = () => {
   };
 
   return (
-    <View className="flex-1 items-center justify-center mt-40">
-      <View className="flex items-center mb-20">
+    <View className="flex-1 items-center justify-center m-4">
+      <View className="flex items-center">
         <Image source={mensajeDeBienvenida} />
-        <View className="my-10">
+        <View>
           <Text className="font-poppinsBold text-center text-lg mt-5">¡Enhorabuena, tu mascota ya ha sido creada!</Text>
         </View>
         <View className="flex items-center mt-10">

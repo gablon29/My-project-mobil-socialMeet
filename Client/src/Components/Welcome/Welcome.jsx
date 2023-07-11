@@ -23,7 +23,7 @@ export default function Welcome() {
   const getData = async () => {
     const value = await AsyncStorage.getItem('Token');
     if (value) {
-      ReloadAuthMethod({
+      await ReloadAuthMethod({
         loading: (v) => dispatch(setLoadingAuth(v)),
         error: (msg) => dispatch(setErrorAuth(msg)),
         success: (res) => {
@@ -33,7 +33,7 @@ export default function Welcome() {
         },
         
       });
-      GetPetsMethod({
+      await GetPetsMethod({
         loading: (v) => dispatch(setLoadingPets(v)),
         error: (msg) => dispatch(setErrorPets(msg)),
         success: (res) => dispatch(setAllPets(res.payload)),
