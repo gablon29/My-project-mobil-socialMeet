@@ -92,7 +92,7 @@ export default function Header() {
   };
 
   return (
-    <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'}`}>
+    <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'} bg-white`}>
       <View className="flex flex-row justify-between items-center p-2 h-24 bg-black">
         {/* h- debe ser igual a top- del renderMenuItems */}
         <TouchableOpacity onPress={toggleMenu} className="ml-2 mt-5">
