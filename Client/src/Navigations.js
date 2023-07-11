@@ -22,6 +22,8 @@ import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/Con
 import Checkout from './Components/Stripe/Checkout';
 import EditInfoProfile from './Components/Profile/EditInfoProfile';
 import HeaderBack from './Components/Screens/HeaderBack';
+import OrderReceived from './Components/CompraChip/NoticeBuyChip/OrderReceived';
+import OrderNotReceived from './Components/CompraChip/NoticeBuyChip/OrderNotReceived';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -70,6 +72,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="ChipWhopaws" component={ChipWhopaws} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="ConfigurateChip" component={ConfigurateChip} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Checkout" component={Checkout} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="OrderReceived" component={OrderReceived} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="OrderNotReceived" component={OrderNotReceived} options={{ headerShown: true }} />
     </StackAuthTrue.Navigator>
   );
 };
