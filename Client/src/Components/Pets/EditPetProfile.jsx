@@ -39,11 +39,6 @@ export default function EditPetProfile({ route }) {
 
   const options = ['Hamster', 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
 
-  const [otro, setOtro] = useState(false); //OTRO TIPO DE ANIMAL
-  const handleOtro = () => {
-    //MANEJA OTRO TIPO DE ANIMAL
-    setOtro(true);
-  };
 
   const { selImg, setProfile, setPortada } = useSelectImagen();
 
@@ -58,6 +53,7 @@ export default function EditPetProfile({ route }) {
   };
 
   const editPet = () => {
+    
     EditPetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
