@@ -9,7 +9,7 @@ import ProfileComponent from './Components/Profile/Profile';
 import MyPets from './Components/Pets/MyPets';
 import CreatePet from './Components/CreatePet/CreatePet';
 import CreatePet6 from './Components/CreatePet/CreatePet6';
-import PetProfile from './Components/PetProfile/PetProfile';
+import PetProfile from './Components/Pets/PetProfile';
 import EditPetProfile from './Components/EditPetProfile/EditPetProfile';
 import Apiurlselector from './Components/Apiurlselector/Apiurlselector';
 import RegisterStep3 from './Components/Auth/Register/RegisterStep3';
