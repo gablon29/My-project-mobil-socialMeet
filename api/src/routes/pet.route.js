@@ -12,7 +12,7 @@ module.exports = {
   //logged, user, modifica el PET con lo q le pase por body
   edit_pet: async (req, res) => {
     const newData = req.body;
-
+console.log(newData)
     const updatedPet = await updatePet(newData, req.body.id, req.user.userId);
 
     response(res, 200, updatedPet);
@@ -25,7 +25,8 @@ module.exports = {
 
   my_pet: async (req, res) => {
     const { id } = req.params
-    const pet = await petByOwner(id, req.user.userId);
+    const {userId} = req.user.userId
+    const pet = await petByOwner(id, userId);
     response(res, 200, pet[0]);
   },
 };
