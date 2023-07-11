@@ -25,8 +25,9 @@ const filterByOwner = async (id) => {
   return ownerPets;
 };
 
-const petByOwner = async (idPet, idUser) => {
-  const ownerPets = await PetModel.find({ owner: idUser, _id: idPet });
+const petByOwner = async (idPet, userId) => {
+  const lookingOwner = await UserModel.find({_id: userId})
+  const ownerPets = await PetModel.find({ owner: lookingOwner.email, _id: idPet });
   return ownerPets;
 };
 

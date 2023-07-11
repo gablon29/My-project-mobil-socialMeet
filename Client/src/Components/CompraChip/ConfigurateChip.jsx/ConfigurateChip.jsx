@@ -7,6 +7,7 @@ import { useAuth } from "../../../CustomHooks/useAuth";
 import { addCart, setErrorCart, setLoadingCart } from "../../../Redux/ReducerCart";
 import { getChip } from "../../../metodos/getStripeMetodos";
 import AddPet from "../../Pets/Create/AddPet";
+import { usePay } from "../../../CustomHooks/usePay";
 
 export const ConfigurateChip = ({ navigation }) => {
   const { userPets } = useSelector((state) => state.ReducerPets);
@@ -35,32 +36,47 @@ export const ConfigurateChip = ({ navigation }) => {
     );
   }
   const { email, setEmail, firstName, setFirstName, phone, setPhone, address, setAddress, informacion, setInformacion} = useAuth();
-
+const {handleBuy} = usePay()
 const [petSelect, setPetSelect] = useState("")  
 const dispatch = useDispatch()
-  const addToCart = () =>{
-    ChipConfiguration ={
-        pet: petSelect,
-        email: email,
-        telefono: phone,
-        veterinarioName: firstName,
-        veterinarioAdress: address,
-        informacion: informacion
-    }
-    // if(pet && email && telefono && veterinarioName && veterinarioAdress) {
-        getChip({
-            reg: "price_1NQutGD6q36zl0IbXT9cRqri", //le pasamos el nombre del producto
-            loading: (v) => dispatch(setLoadingCart(v)),
-            error: (msg) => dispatch(setErrorCart(msg)),
-            success: async (res) => {
-              dispatch(addCart(res, ChipConfiguration))
-              navigation.navigate('Checkout');
-            }
-            ,
-          });
-        
-  }
 const {cart} = useSelector((state) => state.ReducerCart)
+
+const addToCart = async () => {
+  const ChipConfiguration = {
+    pet: petSelect,
+    email: email,
+    telefono: phone,
+    veterinarioName: firstName,
+    veterinarioAdress: address,
+    informacion: informacion
+  };
+  const productId = "price_1NQutGD6q36zl0IbXT9cRqri";
+
+   getChip({
+    reg: "price_1NQutGD6q36zl0IbXT9cRqri", //le pasamos el nombre del producto
+    loading: (v) => dispatch(setLoadingCart(v)),
+    error: (msg) => dispatch(setErrorCart(msg)),
+    success: async (res) => {
+      dispatch(addCart(res, ChipConfiguration));
+      navigation.navigate('Checkout');
+    },
+  });
+
+//   const shippingAddress = {
+//     address: {
+//       city: 'a',
+//       country: 'ES',
+//       line1: 'xd',
+//       line2: 'da',
+//       postal_code: '123',
+//       state: 'Sara',
+//     },
+//     name: 'nn',
+//     phone: 'zz',
+//   };
+
+//   await handleBuy(productId, shippingAddress);
+ };
   return (
     <>
       <View className="flex items-center">
