@@ -33,7 +33,6 @@ export default function MyPets() {
     <>
       {userPets.length ? (
         <View className="flex w-full h-full">
-          <ButtonWithImage title="A. n mascota ex" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="mx-4 mt-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('CreatePet')} />
           <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="m-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('AddPet')} />
           <ScrollView>
             <View className="flex flex-row flex-wrap mx-7 justify-center align-middle">
@@ -60,26 +59,6 @@ export default function MyPets() {
               ))}
             </View>
           </ScrollView>
-          {/* <View className="flex flex-row flex-wrap ml-8 mt-14">
-            {userPets.map((element, index) => (
-              <View key={index} className="m-2">
-                <TouchableOpacity onPress={() => navigation.navigate('PetProfile', { element })}>
-                  <Image
-                    source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
-                    style={{
-                      width: 148,
-                      height: 186,
-                    }}
-                    className="rounded-md"
-                  />
-
-                  <View className="absolute mt-36 ml-3 w-32 h-5 bg-naranja rounded-full">
-                    <Text className="font-poppins text-white text-base text-center mb-0.5">{element.name}</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </View> */}
         </View>
       ) : (
         <NoPets navigation={navigation} />
