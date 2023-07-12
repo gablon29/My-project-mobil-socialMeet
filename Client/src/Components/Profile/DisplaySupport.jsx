@@ -1,8 +1,10 @@
 import { View, Text, FlatList, ScrollView } from "react-native";
 import Button from "../Buttons/Button"
+import { useNavigation } from "@react-navigation/core";
 
 const DisplaySupport = () => {
-   
+    const navigation = useNavigation();
+
     const data = [
         {
             title: "Prueba",
@@ -71,6 +73,7 @@ const DisplaySupport = () => {
                     ancho="w-8/12"
                     alto="h-14"
                     margin="my-10"
+                    onPress={()=>{navigation.navigate("AddNewTicket")}}
                 />
                 <View className="w-10/12 mt-5">
                     <FlatList 
