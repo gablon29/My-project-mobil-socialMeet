@@ -10,7 +10,7 @@ import { RecoveryMethod } from '../../../metodos/authMetodos';
 
 export default function ResetPasword() {
   const navigation = useNavigation();
-  const { email, setEmail, password, setPassword, emailPassword, verification } = useAuth();
+  const { email, setEmail, password, setPassword, emailPassword, verification,setVerification,checkCode } = useAuth();
   const [steps, setSteps] = useState(0); //MODIFICAR PARA REVISAR LOS DEMÁS COMPONENTES DE PASOS DE RESETEO DE PASSWORD
 
   const handleGoBack = () => {
@@ -21,6 +21,7 @@ export default function ResetPasword() {
     RecoveryMethod({
       password,
       email,
+      code:verification,
       loading: (v) => {
         console.log(v);
       },
@@ -38,7 +39,9 @@ export default function ResetPasword() {
     <>
       <View className="flex-1 items-center justify-start pt-10 bg-white">
         <HeaderLeftArrow text={steps == 1 ? 'Revisar email' : 'Iniciar sesión'} goBack={handleGoBack} steps={steps} setSteps={setSteps} />
-        {steps === 0 ? <Reset1Step email={email} setEmail={setEmail} password={password} setPassword={setPassword} steps={steps} setSteps={setSteps} emailPassword={emailPassword} verification={verification} /> : steps === 1 ? <Reset2Step verification={verification} steps={steps} setSteps={setSteps} /> : <Reset3Step password={password} setPassword={setPassword} Code={Code} />}
+        {steps === 0 ? <Reset1Step email={email} setEmail={setEmail} password={password} setPassword={setPassword} steps={steps} setSteps={setSteps} emailPassword={emailPassword} verification={verification} /> :
+         steps === 1 ? <Reset2Step setVerification={setVerification} checkCode={checkCode} steps={steps} setSteps={setSteps} /> :
+         <Reset3Step password={password} setPassword={setPassword} Code={Code} />}
       </View>
     </>
   );
