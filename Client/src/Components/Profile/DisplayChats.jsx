@@ -1,39 +1,48 @@
 import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import Search from "react-native-vector-icons/AntDesign";
 import Button from "../Buttons/ButtonCuston";
+import { useEffect, useState } from 'react';
 
 const DisplayChats = () => {
+    const [chats, setChats] = useState([])
+    const [chatsFilter, setChatsFilter] = useState([])
+    const [text, setText] = useState("")
 
-    const chats = [
-        {
-            picture: require("../../../images/dog1.png"),
-            name: "Tony",
-            hora: "19:23",
-            resumen: "Un mensaje random",
-            m: "2",
-        },
-        {
-            picture: require("../../../images/dog1.png"),
-            name: "Tony",
-            hora: "19:23",
-            resumen: "Un mensaje random",
-            m: "0",
-        },
-        {
-            picture: require("../../../images/dog1.png"),
-            name: "Tony",
-            hora: "19:23",
-            resumen: "Un mensaje random",
-            m: "0",
-        },
-        {
-            picture: require("../../../images/dog1.png"),
-            name: "Tony",
-            hora: "19:23",
-            resumen: "Un mensaje random",
-            m: "0",
-        },
-    ]
+    useEffect(()=>{
+        const chatsData = [
+            {
+                picture: require("../../../images/dog1.png"),
+                name: "Julio",
+                hora: "19:23",
+                resumen: "Un mensaje random",
+                m: "2",
+            },
+            {
+                picture: require("../../../images/dog1.png"),
+                name: "Sonia",
+                hora: "19:23",
+                resumen: "Un mensaje random",
+                m: "0",
+            },
+            {
+                picture: require("../../../images/dog1.png"),
+                name: "Tony",
+                hora: "19:23",
+                resumen: "Un mensaje random",
+                m: "0",
+            },
+            {
+                picture: require("../../../images/dog1.png"),
+                name: "EmaJ",
+                hora: "19:23",
+                resumen: "Un mensaje random",
+                m: "0",
+            },
+        ];
+        setChats(chatsData)
+        setChatsFilter(chatsData)
+    },[]);
+
 
     const renderChat = ({item, index}) => {
         return (
@@ -63,7 +72,21 @@ const DisplayChats = () => {
             />
             
         )
-    }
+    };
+
+    const searchTextFilter = (text) => {
+        setText(text);
+        if(text) {
+            const newData = chats.filter(item=>{
+                const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+                const textData = text.toUpperCase();
+                return itemData.indexOf(textData) > -1;
+            })
+            setChatsFilter(newData);
+        } else {
+            setChatsFilter(chats)
+        }
+    };
 
     return (
         <ScrollView>
@@ -73,11 +96,13 @@ const DisplayChats = () => {
                         placeholder='Buscar'
                         placeholderTextColor="text-black"
                         className="h-full w-[85%] p-3 text-base"
+                        value={text}
+                        onChangeText={searchTextFilter}
                     />
                     <Search name="search1" size={32} className="absolute right-5"/>
                 </View>
                 <View className="w-10/12 mt-14">
-                    {chats.map((item, index) => renderChat({ item, index }))}
+                    {chatsFilter.map((item, index) => renderChat({ item, index }))}
                 </View>
             </View>
         </ScrollView>
