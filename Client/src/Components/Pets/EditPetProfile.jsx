@@ -1,56 +1,37 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
-import { useImage, useSelectImagen } from '../../CustomHooks/useImage';
-import ButtonWithImage from '../Buttons/ButtonWithImage';
-import leftIcon from '../../../images/leftIcon.png';
-import editIcon from '../../../images/iconos/editIcon.png';
-import cruz from '../../../images/iconos/cruz.png';
+import { useSelectImagen } from '../../CustomHooks/useImage';
 import { usePets } from '../../CustomHooks/usePets';
-import { SelectList } from 'react-native-dropdown-select-list';
 import { useDispatch } from 'react-redux';
-import dog from '../../../images/iconos/dog.png';
-import cat from '../../../images/iconos/cat.png';
-import other from '../../../images/iconos/other.png';
 import { EditPetMethod } from '../../metodos/petsMetodos';
 import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import perro from '../../../images/especies/ic_perro.png';
+import gato from '../../../images/especies/ic_gato.png';
+import ave from '../../../images/especies/ic_ave.png';
+import reptil from '../../../images/especies/ic_reptil.png';
+import pez from '../../../images/especies/ic_pez.png';
+import roedor from '../../../images/especies/ic_roedor.png';
+import ButtonSquareImageTextBorderBlack from '../Buttons/ButtonSquareImageTextBorderBlack';
+import ButtonImageRounder from '../Buttons/ButtonImageRounder';
+import ButtonTextRounderGris from '../Buttons/ButtonTextRounderGris';
 
 export default function EditPetProfile({ route }) {
   const navigation = useNavigation();
   const { element } = route.params;
-
-  const { pet, setName, setSpecie, setBreed, setWeight, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic, setCoverImage } = usePets(element);
-
+  const { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets(element);
   const dispatch = useDispatch();
-  const sexStyles = `ml-4 w-40 h-8 rounded-full`;
+  //NUEVOS METODOS ACA
+
+  //
+
   const answerStylesView = `ml-4 mt-4 w-16 h-11 rounded-full`;
   const borderOn = ''; //border border-black
-  const optionsSpecie = [{ key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, { key: 1, value: 'Hamster' }, , 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
   // para el SelectList de editar otra especie de mascota
 
-  const dogOptions = ['ShiTzu', 'Salchicha', 'Poodle'];
-  const catOptions = ['Persa', 'Normal', 'Siberiano'];
-  const otherOptions = ['opción 1', 'opción 2', 'opción 3'];
-
-  const [selectedBreed, setSelectedBreed] = useState('');
-  const [selectedSpecie, setSelectedSpecie] = useState(''); //otherType
-
-  const options = ['Hamster', 'Conejo', 'Canario', 'Pez dorado', 'Tortuga', 'Cobaya', 'Pájaro', 'Peces tropicales', 'Iguana', 'Pájaro cantor', 'Ratón', 'Erizo', 'Pájaro loro', 'Cotorra', 'Pájaro jilguero', 'Cuyo', 'Pájaro pinzón'];
-
-
-  const { selImg, setProfile, setPortada } = useSelectImagen();
-
-  const handleSelect = (value) => {
-    if (value === 'Perro' || value === 'Gato') {
-      setSpecie(value);
-      // setOtro(false);
-    } else {
-      setSpecie(value);
-      // setSelectedSpecie(value);
-    }
-  };
+  const { selImg, setProfile } = useSelectImagen();
 
   const editPet = () => {
     
@@ -60,7 +41,7 @@ export default function EditPetProfile({ route }) {
       error: (msg) => {
         dispatch(setErrorPets(msg));
       },
-      success: (res) => navigation.navigate('MyPets'),
+      success: () => navigation.navigate('MyPets'),
     });
   };
 
@@ -68,163 +49,109 @@ export default function EditPetProfile({ route }) {
     setProfilePic(selImg.profile);
   }, [selImg.profile]);
 
-  useEffect(() => {
-    setCoverImage(selImg.portada);
-  }, [selImg.portada]);
+  // useEffect(() => {
+  //   setCoverImage(selImg.portada);
+  // }, [selImg.portada]);
 
   return (
     <>
-      <View className="flex">
-        <View className="flex flex-row items-center my-5 ml-4">
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={leftIcon} className="w-4 h-4" />
+      <ScrollView>
+        <Text className="text-base font-poppinsBold mx-auto mt-4 mb-1">Imagen de perfil</Text>
+        <View className="rounded-full w-[150px] h-[150px] mx-auto mb-2 bg-naranja">
+          <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-[150px] h-[150px]" onPress={() => setProfile()}>
+            {pet.profilePic ? <Image source={{ uri: pet.profilePic }} style={{ width: 150, height: 150 }} className="rounded-full" /> : <Icon name="plus" size={60} color="white" />}
           </TouchableOpacity>
-          <View className="flex-1 justify-center ml-3">
-            <Text className=" font-poppinsSemiBold text-xs">volver al perfil</Text>
-          </View>
-          <ButtonWithImage title="Editar" textFont="font-poppinsSemiBold" image={editIcon} imageClasses="w-3 h-3 ml-1 mt-0.5" onPress={() => navigation.navigate('EditPetProfile') /*aquí goBack */} colorButton="bg-naranja" colorText="text-white" ancho="w-16" alto="h-5" textSize="text-xs" margins="mr-3" />
-        </View>
-      </View>
-      <ScrollView className="w-fit h-fit">
-        <View className="h-56 mt-10 items-center">
-          <Text className="font-poppinsBold">Imagen de perfil</Text>
-          <View>
-            <TouchableOpacity
-              className="absolute z-50 top-7 -right-5"
-              onPress={() => {
-                if (pet.profilePic) {
-                  setProfilePic('');
-                } else {
-                }
-              }}
-            >
-              <View className="bg-black rounded-full p-2">
-                <Icon name="delete" size={28} color="white" />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setProfile();
-              }}
-            >
-              <View className="bg-naranja rounded-full w-32 h-32 justify-center items-center">
-                <Image
-                  source={pet.profilePic ? { uri: pet.profilePic } : cruz}
-                  style={{
-                    width: pet.profilePic ? 128 : 50,
-                    height: pet.profilePic ? 128 : 50,
-                  }}
-                  className="rounded-full"
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          {/* ------------------------------------------------------------ ACA EMPIESA LA MAGIA HDP */}
-          <Text className="font-poppinsSemiBold mt-10 text-center">Imagen de portada</Text>
           <TouchableOpacity
-            className="flex justify-center items-center rounded-lg bg-gris w-80 h-40 mt-2 "
+            className="absolute z-50 top-7 -right-5"
             onPress={() => {
-              setPortada();
+              if (pet.profilePic) setProfilePic('');
             }}
           >
-            {/* <Image source={!url ? cruz : { uri: url }} style={{ width: 50, height: 50 }} /> */}
-            <Image
-              source={pet.coverImage ? { uri: pet.coverImage } : cruz}
-              style={{
-                width: pet.coverImage ? 128 : 50,
-                height: pet.coverImage ? 128 : 50,
-              }}
-            />
+            <View className="bg-black rounded-full p-2">
+              <Icon name="delete" size={28} color="white" />
+            </View>
           </TouchableOpacity>
         </View>
-        <View className="mt-44 items-center">
-          {/* AQUI VA LO DE CREATE PET 2  */}
-
-          {
-            <View className="items-center justify-center">
-              <Text className="text-base text-center font-poppinsBold mt-32">¿Qué mascota es?</Text>
-              <Text>{pet.specie}</Text>
-              <View className="flex-row mt-4">
-                <TouchableOpacity onPress={() => handleSelect('Perro')}>
-                  <View className={`${pet.specie == 'Perro' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
-                    <Image source={dog} className="w-14 h-14 mx-auto my-2 " />
-                    <Text className="text-center text-white font-poppinsBold">Perro</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleSelect('Gato')}>
-                  <View className={`${pet.specie == 'Gato' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
-                    <Image source={cat} className="w-14 h-14 mx-auto my-2" />
-                    <Text className="text-center text-white font-poppinsBold">Gato</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleSelect('Otro')}>
-                  <View className={`${pet.specie !== 'Perro' && pet.specie !== 'Gato' ? 'bg-orange-500 ' + borderOn : 'bg-gris'} " w-24 h-24  rounded-2xl mx-2"`}>
-                    <Image source={other} className="w-14 h-14 mx-auto my-2" />
-                    <Text className="text-center text-white font-poppinsBold">Otro</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              {pet.specie !== 'Perro' && pet.specie !== 'Gato' ? (
-                <>
-                  <Text className="text-center mt-8 font-poppinsBold">Especifica qué animal es:</Text>
-                  <View className="w-60 bg-gray-300 rounded-full">
-                    <SelectList
-                      data={options}
-                      defaultOption={pet.specie}
-                      selected={pet.specie}
-                      setSelected={handleSelect}
-                      placeholder="Seleccionar"
-                      search={false}
-                      fontFamily="Poppins"
-                      boxStyles={{
-                        backgroundColor: '#DADADA',
-                        borderRadius: 999,
-                        borderColor: '#DADADA',
-                      }}
-                      dropdownStyles={{ backgroundColor: '#DADADA' }}
-                    />
-                  </View>
-                </>
-              ) : null}
-            </View>
-          }
-
-          {/* AQUI TERMINA LO DE CREATE PET 2 */}
-
-          <Text className="font-poppinsBold">RAZA</Text>
-          <SelectList
-            data={pet.specie == 'Perro' ? dogOptions : pet.specie == 'Gato' ? catOptions : otherOptions}
-            selected={selectedBreed} //otherType
-            setSelected={handleSelect}
-            placeholder="Seleccionar"
-            search={false}
-            fontFamily="Poppins"
-            boxStyles={{
-              backgroundColor: '#DADADA',
-              borderRadius: 999,
-              borderColor: '#DADADA',
-              height: 40,
-              padding: 10,
-            }}
-            dropdownStyles={{
-              backgroundColor: '#DADADA',
-            }}
-          />
-
-          <Text className="font-poppinsBold">Sexo</Text>
-          <View className="flex flex-row mx-6 mt-2">
-            <TouchableOpacity onPress={() => setSex('Macho')}>
-              <View className={`${sexStyles} ${pet.sex == 'Macho' ? borderOn + ' bg-naranja' : 'bg-gris'}`}>
-                <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Macho</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSex('Hembra')}>
-              <View className={`${sexStyles} ${pet.sex == 'Hembra' ? borderOn + ' bg-naranja ' : 'bg-gris'}`}>
-                <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Hembra</Text>
-              </View>
-            </TouchableOpacity>
+        <Text className="text-base text-center font-poppinsBold mt-4">¿Qué mascota es?</Text>
+        <View className="justify-center items-center">
+          <View className="flex flex-row">
+            <ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={pet.specie === 'Perro' ? true : false} onPress={() => setSpecie('Perro')} />
+            <ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={pet.specie === 'Gato' ? true : false} onPress={() => setSpecie('Gato')} />
+            <ButtonSquareImageTextBorderBlack texto="Ave" imagen={ave} activado={pet.specie === 'Ave' ? true : false} onPress={() => setSpecie('Ave')} />
           </View>
+          <View className="flex flex-row mt-4">
+            <ButtonSquareImageTextBorderBlack texto="Reptil" imagen={reptil} activado={pet.specie === 'Reptil' ? true : false} onPress={() => setSpecie('Reptil')} />
+            <ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={pet.specie === 'Pez' ? true : false} onPress={() => setSpecie('Pez')} />
+            <ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={pet.specie === 'Roedor' ? true : false} onPress={() => setSpecie('Roedor')} />
+          </View>
+        </View>
+        <View className="justify-center items-center mx-4">
+          <Text className="text-base text-center font-poppinsBold mt-6">¿Cómo se llama tu mascota?</Text>
+          <TextInput placeholder="Escribe su nombre" value={pet.name} onChangeText={(t) => setName(t)} className="w-full max-w-sm min-w-[250px] rounded-lg bg-gris h-12 px-4" />
+          <Text className="text-base text-center font-poppinsBold mt-4">Peso en KG</Text>
+          <View className="flex flex-row w-full h-fit max-w-sm min-w-[250px]">
+            <View className="w-1/2">
+              <Text className="text-sm text-center font-poppinsBold mr-2">Kilos</Text>
+            </View>
+            <View className="w-1/2">
+              <Text className="text-sm text-center font-poppinsBold ml-2">Gramos</Text>
+            </View>
+          </View>
+          <View className="flex flex-row w-full h-fit max-w-sm min-w-[250px]">
+            <View className="w-1/2">
+              <TextInput keyboardType="numeric" placeholder="Escribe en kilos" value={pet.weight.kilos} onChangeText={(t) => setKilos(t)} className="rounded-lg bg-gris h-12 px-4 mr-2" />
+            </View>
+            <View className="w-1/2">
+              <TextInput keyboardType="numeric" placeholder="Escribe en gramos" value={pet.weight.gramos} onChangeText={(t) => setGramos(t)} className="rounded-lg bg-gris h-12 px-4 ml-2" />
+            </View>
+          </View>
+          <Text className="text-base text-center font-poppinsBold mt-4">Edad</Text>
+          <View className="flex flex-row w-full h-fit max-w-sm min-w-[250px]">
+            <View className="w-1/2">
+              <Text className="text-sm text-center font-poppinsBold mr-2">Años</Text>
+            </View>
+            <View className="w-1/2">
+              <Text className="text-sm text-center font-poppinsBold ml-2">Meses</Text>
+            </View>
+          </View>
+          <View className="flex flex-row w-full h-fit max-w-sm min-w-[250px]">
+            <View className="w-1/2">
+              <TextInput keyboardType="numeric" placeholder="Escribe los años" value={pet.age.years} onChangeText={(t) => setAgeYears(t)} className="rounded-lg bg-gris h-12 px-4 mr-2" />
+            </View>
+            <View className="w-1/2">
+              <TextInput keyboardType="numeric" placeholder="Escribe los meses" value={pet.age.months} onChangeText={(t) => setAgeMonths(t)} className="rounded-lg bg-gris h-12 px-4 ml-2" />
+            </View>
+          </View>
+          <Text className="text-base text-center font-poppinsBold mt-4">Raza de la mascota</Text>
+          <TextInput placeholder="Escribe su raza" value={pet.age.breed} onChangeText={(t) => setBreed(t)} className="w-full max-w-sm min-w-[250px] rounded-lg bg-gris h-12 px-4" />
+        </View>
+        <Text className="text-base text-center font-poppinsBold mt-4">Sexo</Text>
+        <View className="flex flex-row justify-center">
+          <ButtonImageRounder activado={pet.sex === 'Macho' ? true : false} texto="Macho" onPress={() => setSex('Macho')}>
+            <Icon name="gender-male" size={60} color={pet.sex === 'Macho' ? 'white' : 'gray'} />
+          </ButtonImageRounder>
+          <ButtonImageRounder activado={pet.sex === 'Hembra' ? true : false} texto="Hembra" onPress={() => setSex('Hembra')}>
+            <Icon name="gender-female" size={60} color={pet.sex === 'Hembra' ? 'white' : 'gray'} />
+          </ButtonImageRounder>
+        </View>
+        <View className="justify-center items-center mx-4 mt-2">
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2">¿Está castrado o esterilizado?</Text>
+          <View className="flex flex-row p-4">
+            <View className="w-20 mr-2">
+              <ButtonTextRounderGris activado={pet.health.castrado === true ? true : false} texto="Si" onPress={() => setHealthCastrado(true)} />
+            </View>
+            <View className="w-20 ml-2">
+              <ButtonTextRounderGris activado={pet.health.castrado === false ? true : false} texto="No" onPress={() => setHealthCastrado(false)} />
+            </View>
+          </View>
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Tiene microchip?</Text>
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con perros?</Text>
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con gatos?</Text>
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con niños?</Text>
+        </View>
+        <View className="flex flex-row w-full h-fit max-w-sm min-w-[250px]"></View>
+        <View className="items-center">
+          {/* AQUI TERMINA LO DE CREATE PET 2 */}
 
           <View className="flex mt-10 mx-10">
             {[
