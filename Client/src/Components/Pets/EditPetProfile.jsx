@@ -34,6 +34,7 @@ export default function EditPetProfile({ route }) {
   const { selImg, setProfile } = useSelectImagen();
 
   const editPet = () => {
+    
     EditPetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
