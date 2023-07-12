@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import cruz from '../../../images/iconos/cruz.png';
 import ButtonWithImage from '../Buttons/ButtonWithImage';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetPetsMethod } from '../../metodos/petsMetodos';
+import { DelMyPetMethod, GetPetsMethod } from '../../metodos/petsMetodos';
 import { setAllPets, setLoadingPets, setErrorPets, setSuccessPets } from '../../Redux/ReducerPets'; //para despachar se trae la fx de redux/reducer
 import { NoPets } from './NoPets';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -18,16 +18,27 @@ export default function MyPets() {
   const imagenDefault = 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg';
 
   useEffect(() => {
-    const fetchData = () => {
-      GetPetsMethod({
-        loading: (v) => dispatch(setLoadingPets(v)),
-        error: (msg) => dispatch(setErrorPets(msg)),
-        success: (res) => dispatch(setAllPets(res.payload)),
-      });
-    };
-
     fetchData();
   }, [dispatch]);
+
+  const fetchData = () => {
+    GetPetsMethod({
+      loading: (v) => dispatch(setLoadingPets(v)),
+      error: (msg) => dispatch(setErrorPets(msg)),
+      success: (res) => dispatch(setAllPets(res.payload)),
+    });
+  };
+
+  const delPet = (id) => {
+    DelMyPetMethod({
+      id,
+      loading: (v) => dispatch(setLoadingPets(v)),
+      error: (msg) => dispatch(setErrorPets(msg)),
+      success: (res) => {
+        fetchData();
+      },
+    });
+  };
 
   return (
     <>
@@ -47,7 +58,7 @@ export default function MyPets() {
                     className="z-10 rounded-full -mb-12"
                   />
                   <View className="flex justify-center items-center bg-naranja h-40 w-full rounded-xl">
-                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => alert('FUNCIONALIDAD PENDIENTE algo')}>
+                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => delPet(element.id)}>
                       <Icon name="trash-can-outline" size={30} color="white" />
                     </TouchableOpacity>
                     <Text className="mt-7 mb-4 px-4 text-base text-white font-poppinsSemiBold text-center">

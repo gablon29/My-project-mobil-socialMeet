@@ -83,3 +83,24 @@ export const GetMyPetMethod = async ({ id, loading, error, success }) => {
     loading(false);
   }
 };
+
+export const DelMyPetMethod = async ({ id, loading, error, success }) => {
+  try {
+    loading(true);
+    const token = await AsyncStorage.getItem('Token');
+
+    const response = await axios.delete(`/api/pet/delete?id=${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    success(response.data);
+    loading(false);
+  } catch (err) {
+    console.error('DelMyPetMethod', err);
+    error(err.message);
+    loading(false);
+  }
+};
