@@ -1,11 +1,10 @@
 import * as Stripe from "stripe";
 import { response } from "../utils";
 import { ClientError } from "../utils/errors";
+import axios from "axios";
+import { STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } from "../config/env";
 //require('dotenv').config();
 const UserModel = require('../models/user.model'); //por si hay que hacer que cambie algun estado del usuario que compró algo
-const stripe_secret_key: string = process.env.STRIPE_SECRET_KEY;//se obtiene de stripe la página, luego de el registro completo, el modo dev no requiere de registro completo.
-const STRIPE_WEBHOOK_SECRET: string = process.env.STRIPE_WEBHOOK_SECRET; // se obtiene de: https://stripe.com/docs/stripe-cli
-const STRIPE_PUBLISHABLE_KEY: string = process.env.STRIPE_PUBLISHABLE_KEY
 
 interface input extends Express.Request {
   headers,
@@ -16,40 +15,61 @@ interface input extends Express.Request {
 }
 
 type ShippingData = {
-    address: {
-      city: string;
-      country: string;
-      line1: string;
-      line2: string;
-      postal_code: string;
-      state: string;
-    };
-    tracking_number: string;
-    name: string;
-    phone: string;
+  address: {
+    city: string;
+    country: string;
+    line1: string;
+    line2: string;
+    postal_code: string;
+    state: string;
+  };
+  tracking_number: string;
+  name: string;
+  phone: string;
 };
 
 
 
-const stripe = new Stripe.Stripe(stripe_secret_key, null);
+const stripe = new Stripe.Stripe(STRIPE_SECRET_KEY, null);
 
 
 export async function saveCreditCard(req: input, res) {
-  const {token} =req.body
-  if(!token) throw new ClientError("token no se envio",400)
+  const { token } = req.body
+  if (!token) throw new ClientError("token no se envio", 400)
   const user = await UserModel.findById(req.user.userId);
   user.stripe.creditCardTokens.push(token)
   await user.save()
   response(res, 200, "saved credit card");
 }
 
+export async function get_product(req, res) {
+  const { item_price_id } = req.body
+  const resp = await axios.post(
+    "https://dashboard.stripe.com/v1/products/prod_ODLaCJVZYdeqvM",
+    {
+      default_price: item_price_id,
+    },
+    {
+      headers: {
+        Authorization:
+          "Bearer " + STRIPE_SECRET_KEY,
+      },
+    }
+  );
+
+  response(res, 200, resp.data);
+
+}
+
+
+
 export async function processPurchase(req: input, res) {
 
   //--------------------------------------------------------------
   //Validaciones / Sanitización rápida
-  let { shippingAdress,  productId } = req.body;
+  let { shippingAdress, productId } = req.body;
   if (!shippingAdress) throw new ClientError('Debes enviar shippingAdress', 400);
-  if(!productId) throw new ClientError('Debes enviar productId', 400);
+  if (!productId) throw new ClientError('Debes enviar productId', 400);
 
   const user = await UserModel.findById(req.user.userId)
   if (!user || !user.email) throw new ClientError("El usuario no existe " + user, 500)
@@ -59,22 +79,22 @@ export async function processPurchase(req: input, res) {
   //--------------------------------------------------------------
   //Crea un cliente si no existe 
   let customer
-  if(user.stripe.customer && user.stripe.customer.length>1){
-    customer=user.stripe.customer
+  if (user.stripe.customer && user.stripe.customer.length > 1) {
+    customer = user.stripe.customer
     console.log("usuario viejo");
-    
-  }else{
+
+  } else {
     const customerData = await stripe.customers.create(
       {
         email: user.email,
       })
-      console.log("usuario nuevo");
-      user.stripe.customer = customerData.id;
-      await user.save();
+    console.log("usuario nuevo");
+    user.stripe.customer = customerData.id;
+    await user.save();
   }
   console.log(customer);
-  
-  
+
+
   //--------------------------------------------------------------
   // Obtiene clave efímera, sea lo que sea eso.
   const ephemeralKey = await stripe.ephemeralKeys.create({ customer: customer },
@@ -91,7 +111,7 @@ export async function processPurchase(req: input, res) {
     metadata: {
       amount: Math.round(14.99 * 100),
     },
-    shipping:{ address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postal_code: '538', state: 'Madrid' }, tracking_number : '21321', name: 'Haahah', phone: '646464646' }
+    shipping: { address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postal_code: '538', state: 'Madrid' }, tracking_number: '21321', name: 'Haahah', phone: '646464646' }
   });
 
   const clientSecret = paymentIntent.client_secret;

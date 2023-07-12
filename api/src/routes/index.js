@@ -30,7 +30,11 @@ router.get('/api/user/notifications', isLoggedIn, catchedAsync(user.retrieve_not
 //login not required in those:
 router.post('/api/user/login', catchedAsync(user.login));
 router.post('/api/user/register', catchedAsync(user.register_new));
+
+router.post('/api/user/sendemail', catchedAsync(user.send_recover_email));
+router.post('/api/user/check-code', catchedAsync(user.check_code));
 router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
+
 
 //pet handling
 router.get('/api/pet/byowner', isLoggedIn, catchedAsync(pet.all_my_pets));

@@ -38,6 +38,9 @@ const userSchema = mongoose.Schema(
     email_verified: {
       type: Boolean,
     },
+    latest_email_verification_code: {
+      type: String,
+    },
     password: {
       type: String,
     },
