@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 
-export const useSelectImagen = () => {
-  const [selImg, setSelImg] = useState({ profile: '', portada: '' });
+export const useSelectImagen = (profilePic) => {
+  const [selImg, setSelImg] = useState({ profile: profilePic ? profilePic : '', portada: '' });
 
   // const SelectedImage = async () => {
   //   try {
@@ -37,10 +37,13 @@ export const useSelectImagen = () => {
     }
   };
 
+  const setImgProfile = (v) => setSelImg({ ...selImg, profile: v });
+
   return {
     selImg,
     setProfile,
     setPortada,
+    setImgProfile,
   };
 };
 
