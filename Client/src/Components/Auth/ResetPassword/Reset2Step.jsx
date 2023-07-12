@@ -1,15 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, View, Text, Alert } from 'react-native';
 import Button from '../../Buttons/Button';
 
-export const Reset2Step = ({ verification, setSteps }) => {
+export const Reset2Step = ({ setSteps ,checkCode}) => {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
   const codeInputs = useRef([]);
   const handleChangeCode = (index, value) => {
     const newCode = [...verificationCode];
     newCode[index] = value;
     setVerificationCode(newCode);
-
     if (value && index < verificationCode.length - 1) {
       codeInputs.current[index + 1].focus();
     }
@@ -17,9 +16,15 @@ export const Reset2Step = ({ verification, setSteps }) => {
 
   const changePassword = () => {
     const enteredCode = verificationCode.join('');
-    if (enteredCode == verification.code) {
+    checkCode(enteredCode)
+    .then(r=>{
+      console.log(r);
       setSteps(2);
-    }
+    })
+    .catch(e=>{
+      Alert.alert(e.message)
+    })
+
   };
 
   return (
@@ -30,7 +35,7 @@ export const Reset2Step = ({ verification, setSteps }) => {
         <View className="mx-5">
           <View style={{ flexDirection: 'row' }}>
             {verificationCode.map((value, index) => (
-              <TextInput key={index} ref={(input) => (codeInputs.current[index] = input)} placeholder="" value={value} onChangeText={(value) => handleChangeCode(index, value)} className="w-10 text-center font-bold text-2xl rounded bg-gray-300 mx-1 h-14" maxLength={1} keyboardType="default" />
+              <TextInput inputMode='numeric' key={index} ref={(input) => (codeInputs.current[index] = input)} placeholder="" value={value} onChangeText={(value) => handleChangeCode(index, value)} className="w-10 text-center font-bold text-2xl rounded bg-gray-300 mx-1 h-14" maxLength={1} keyboardType="default" />
             ))}
           </View>
         </View>
