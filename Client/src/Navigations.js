@@ -24,6 +24,7 @@ import EditInfoProfile from './Components/Profile/EditInfoProfile';
 import HeaderBack from './Components/Screens/HeaderBack';
 import OrderReceived from './Components/CompraChip/NoticeBuyChip/OrderReceived';
 import OrderNotReceived from './Components/CompraChip/NoticeBuyChip/OrderNotReceived';
+import AddNewTicket from './Components/Profile/AddNewTicket';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -74,6 +75,7 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="Checkout" component={Checkout} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="OrderReceived" component={OrderReceived} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="OrderNotReceived" component={OrderNotReceived} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="AddNewTicket" component={AddNewTicket} options={{ headerShown: true }} />
     </StackAuthTrue.Navigator>
   );
 };

@@ -20,7 +20,7 @@ const DisplayProfile = () => {
       <ScrollView>
         <View 
         style={{
-                height: 550,
+                height: 500,
           }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-40 mb-10 w-11/12">
           <View className="bg-naranja w-32 h-32 rounded-full absolute -top-14">
             <TouchableOpacity className="flex justify-center items-center rounded-full w-[100%] h-[100%]" onPress={() => setProfile()}>
