@@ -1,4 +1,5 @@
 import axios from "axios";
+import { emailSendVerifCode } from "../utils/sendInBlueEmail";
 
 require('dotenv').config(); // Carga las variables de entorno desde .env
 
@@ -100,40 +101,19 @@ const sendEmail = async (email) => {
   }
   //------------------------
 
-  const sendSmtpEmail = {
-    to: [
-      {
-        email: email,
-        name: 'de whopaws',
-      },
-    ],
-    templateId: 2,
-    params: {
-      code: code,
-    },
-    headers: {
-      'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2',
-    },
-  };
-
-  const result = await axios.post('https://api.sendinblue.com/v3/smtp/email', sendSmtpEmail, {
-    headers: {
-      'api-key': SENDINBLUE_KEY,
-      'Content-Type': 'application/json',
-    },
-  });
+  const result_data =await emailSendVerifCode(email,code)
+ 
   user.latest_email_verification_code = code;
   await user.save();
-  console.warn(result.data);
-  return result.data;
+  return result_data;
 };
 //^^^^^^^^^^ SEND EMAIL ^^^^^^^^^^
 
 
 //recoverPassword, recibe email y nueva contraseña, requiere el codigo de activacion recibido por mail
 //sigue siendo inseguro, pero un raate limiter a esta ruta de 10 peticiones por cada 5 horas estaria bien.
-const recoverPassword = async (email, password, code) => {
-  const user = await UserModel.findOne({ email });
+const recoverPassword = async (email: string, password, code) => {
+  const user = await UserModel.findOne({ email: email.toLowerCase() });
   if (!user) throw new ClientError('Usuario ' + email + ' no registrado', 400);
   if (user.latest_email_verification_code !== code || user.latest_email_verification_code == 'already used' ) throw new ClientError('Codigo verificación incorrecto ' + code, 400);
   const hashedPassword = await bcrypt.hash(password, 10);
