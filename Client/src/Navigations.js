@@ -55,7 +55,7 @@ function NavigatorBienvenida() {
 const NavigatorAuthTrue = () => {
   const showHeader = (route) => {
     //función para mostrar Header, excluyendo los siguientes:
-    const screenNamesToHideHeader = ['PetProfile', 'EditPetProfile', 'ConfigurateChip'];
+    const screenNamesToHideHeader = ['PetProfile', 'EditPetProfile', 'ConfigurateChip', 'MyPets'];
     return !screenNamesToHideHeader.includes(route.name);
   };
   return (

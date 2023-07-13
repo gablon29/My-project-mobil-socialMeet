@@ -13,7 +13,6 @@ import miPerfil from '../../../images/dropDownMenu/miPerfil.png';
 import misMascotas from '../../../images/dropDownMenu/misMascotas.png';
 import peluqueros from '../../../images/dropDownMenu/peluqueros.png';
 import socialPaws from '../../../images/dropDownMenu/socialPaws.png';
-import Notifications from '../Notifications/Notifications';
 import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
@@ -76,19 +75,6 @@ export default function Header() {
   };
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
-  };
-
-  //Notificaciones:
-
-  const renderNotifications = () => {
-    if (showNotifications) {
-      return (
-        <View className="flex flex-row flex-wrap w-screen h-screen absolute justify-between bg-white top-24">
-          <Notifications />
-        </View>
-      );
-    }
-    return null;
   };
 
   return (
