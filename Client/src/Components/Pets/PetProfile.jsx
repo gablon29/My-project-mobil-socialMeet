@@ -30,7 +30,7 @@ export default function PetProfile({ route }) {
   return (
     <>
       {loadingPets ? (
-        <View className="bg-white justify-center items-center w-screen h-screen">
+        <View className="bg-white justify-center items-center w-full h-full">
           <ActivityIndicator size="large" color="#000000" />
         </View>
       ) : (
