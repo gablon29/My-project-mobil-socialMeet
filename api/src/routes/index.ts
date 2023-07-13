@@ -21,10 +21,10 @@ const isLoggedIn = checkJwt
 const router = express.Router();
 
 // ------------->  NOTIFICTIONS  <-------------
-router.post('/save-device-token', catchedAsync(notificationController.saveDeviceToken));
-router.post('/send/push-notify', catchedAsync(notify.pushear));
-router.post('/send/send-notification', catchedAsync(notify.sendear));
-router.post('/send/save-device-token', catchedAsync(notify.guardar_token));
+router.post('/api/save-device-token', catchedAsync(notificationController.saveDeviceToken));
+router.post('/api/send/push-notify', catchedAsync(notify.pushear));
+router.post('/api/send/send-notification', catchedAsync(notify.sendear));
+router.post('/api/send/save-device-token', catchedAsync(notify.guardar_token));
 
 
 // ------------->  USER  <-------------
