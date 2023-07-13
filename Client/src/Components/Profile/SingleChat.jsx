@@ -1,15 +1,21 @@
 import { Image, ScrollView, Text, TextInput, View, TouchableOpacity, StatusBar } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
 import RowBack from 'react-native-vector-icons/AntDesign';
+import Send from 'react-native-vector-icons/Feather';
 import Button from '../Buttons/ButtonCuston';
+import { useState } from 'react';
 
 const SingleChat = ({route}) => {
     const {name} = route.params;
     const navigation = useNavigation();
+    const [message, setMessage] = useState('');
+  
+    const handleTextChange = (text) => {
+      setMessage(text);
+    };
 
     return (
-        <View className="w-screen h-full items-center">
-            <StatusBar hidden={true}/>
+        <View className="w-screen h-full items-center bg-gris">
             <View className="flex-row w-screen items-center p-4 justify-between h-20 bg-white fixed top-0 z-50">
                 <Button 
                     title={<RowBack name="arrowleft" size={32}/>}
@@ -28,23 +34,25 @@ const SingleChat = ({route}) => {
                         {false ? <Image source={require("../../../images/dog1.png")} className='rounded-full w-11 h-11' /> : ""}
                     </TouchableOpacity>
                     <Button 
-                        title={
+                        component={
                             <Image 
                                 source={require("../../../images/points.png")}
-                                className="w-8 h-8 ml-3"
+                                className="w-8 h-9"
                             />}
+                        buttonClass="w-8 h-full"
+                        titleClass="hidden"
                     />
                 </View>
 
             </View>
 
             <ScrollView className="bg-gris">
-                <View className="relative w-full items-center pt-10 bg-gris">
+                <View className="relative w-screen items-center pt-10 bg-gris gap-4">
                         
-                        <View className="relative right-4 w-full items-end p-6">
+                        <View className="relative w-10/12 items-end">
                             <View className="flex-row relative">
                                 <View
-                                    className="bg-naranja w-80 p-4"
+                                    className="bg-naranja w-10/12 p-4"
                                     style={{
                                         borderTopLeftRadius: 10, 
                                         borderTopRightRadius: 10, 
@@ -62,10 +70,10 @@ const SingleChat = ({route}) => {
                             </View>
                         </View>
                         
-                        <View className="relative right-4 w-full items-end p-6">
+                        <View className="relative w-10/12 items-end">
                             <View className="flex-row-reverse relative flex">
                                 <View
-                                    className="bg-black w-80 p-4 order-2"
+                                    className="bg-black w-10/12 p-4"
                                     style={{
                                         borderTopLeftRadius: 10, 
                                         borderTopRightRadius: 10, 
@@ -87,9 +95,18 @@ const SingleChat = ({route}) => {
                 </View>
             </ScrollView>
 
-            <View className="flex flex-row justify-between items-end w-screen h-24 bg-naranja fixed bottom-0 z-50">
-                {/* Aqui va el input de chat */}
+            <View className="bg-naranja w-screen p-3 relative flex-row">
+                <TextInput 
+                    value={message}
+                    onChangeText={handleTextChange}
+                    multiline
+                    textAlignVertical="top"
+                    placeholder='Escribir mensaje'
+                    className="bg-white text-base py-1 text-black rounded-xl px-3 w-9/12"
+                />
+                <Button titleClass="hidden" buttonClass="absolute bottom-2 right-7 bg-white rounded-full w-10 h-10 items-center justify-center" component={<Send name="send" size={25} className="relative right-[2px]"/>}/>
             </View>
+            <StatusBar backgroundColor="transparent" barStyle="dark-content"/>
         </View>
     );
 }
