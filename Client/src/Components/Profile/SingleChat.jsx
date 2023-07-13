@@ -19,7 +19,7 @@ const SingleChat = ({route}) => {
             <View className="flex-row w-screen items-center p-4 justify-between h-20 bg-white fixed top-0 z-50">
                 <Button 
                     title={<RowBack name="arrowleft" size={32}/>}
-                    onPress={()=>navigation.navigate("Chats")}
+                    onPress={()=>navigation.goBack()}
                 />
                 <View className="flex-row justify-end items-center w-60">
                     <View className="mr-5">
