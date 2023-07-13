@@ -2,11 +2,13 @@ import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import Search from "react-native-vector-icons/AntDesign";
 import Button from "../Buttons/ButtonCuston";
 import { useEffect, useState } from 'react';
+import { useNavigation } from "@react-navigation/core";
 
 const DisplayChats = () => {
-    const [chats, setChats] = useState([])
-    const [chatsFilter, setChatsFilter] = useState([])
-    const [text, setText] = useState("")
+    const [chats, setChats] = useState([]);
+    const [chatsFilter, setChatsFilter] = useState([]);
+    const [text, setText] = useState("");
+    const navigation = useNavigation();
 
     useEffect(()=>{
         const chatsData = [
@@ -69,6 +71,7 @@ const DisplayChats = () => {
                     </View>
                 </View>
                 }
+                onPress={()=>navigation.navigate("SingleChats", {name: item.name})}
             />
             
         )

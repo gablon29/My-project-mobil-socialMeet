@@ -26,6 +26,7 @@ import OrderReceived from './Components/CompraChip/NoticeBuyChip/OrderReceived';
 import OrderNotReceived from './Components/CompraChip/NoticeBuyChip/OrderNotReceived';
 import AddNewTicket from './Components/Profile/AddNewTicket';
 import DisplayChats from './Components/Profile/DisplayChats';
+import SingleChat from './Components/Profile/SingleChat';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -78,6 +79,7 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="OrderNotReceived" component={OrderNotReceived} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddNewTicket" component={AddNewTicket} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Chats" component={DisplayChats} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="SingleChats" component={SingleChat} options={{ headerShown: false }} />
     </StackAuthTrue.Navigator>
   );
 };

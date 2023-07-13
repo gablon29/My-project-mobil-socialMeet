@@ -15,7 +15,6 @@ const EditInfoProfile = () => {
                     <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-40 h-40" onPress={() => setProfile()}>
                         {selImg.profile ? <Image source={{ uri: selImg.profile }} style={{ width: 160, height: 160 }} className='rounded-full' /> : <Icon name="plus" size={60} color="white" />}
                     </TouchableOpacity>
-                        {/* <Button title={<Plus name="plus" size={40} color="white"/>} className="absolute"/> */}
                         <View className="absolute z-50 -right-4 -top-3 w-16 h-16 bg-black rounded-full justify-center">
                             <Button title={<Delete name="trash-can-outline" size={32} color="white"/>}/>
                         </View>
