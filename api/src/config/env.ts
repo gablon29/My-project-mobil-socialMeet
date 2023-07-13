@@ -11,3 +11,17 @@ export const PORT:string = process.env.PORT || '8080'
 export const ADMIN_EMAIL:string = process.env.ADMIN_EMAIL
 export const ADMIN_NAME:string = process.env.ADMIN_NAME
 
+function checkEnv(envVar,name){
+    if(!envVar) console.warn(name +" es undefined");
+    
+}
+checkEnv(DB_DEV,"DB_DEV")
+checkEnv(DB_PRO,"DB_PRO")
+checkEnv(STRIPE_SECRET_KEY,"STRIPE_SECRET_KEY")
+checkEnv(STRIPE_WEBHOOK_SECRET,"STRIPE_WEBHOOK_SECRET")
+checkEnv(STRIPE_PUBLISHABLE_KEY,"STRIPE_PUBLISHABLE_KEY")
+checkEnv(SENDINBLUE_KEY,"SENDINBLUE_KEY")
+checkEnv(JWT_RANDOM_PASSWORD,"JWT_RANDOM_PASSWORD")
+checkEnv(ADMIN_EMAIL,"ADMIN_EMAIL")
+checkEnv(ADMIN_NAME,"ADMIN_NAME")
+

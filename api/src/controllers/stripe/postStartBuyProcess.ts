@@ -35,6 +35,7 @@ export default async function (req: input, res){
       console.log("usuario nuevo");
       user.stripe.customer = customerData.id;
       await user.save();
+      customer = customerData.id
     }
     console.log(customer);
   
