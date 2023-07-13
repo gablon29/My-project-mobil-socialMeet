@@ -72,7 +72,7 @@ export default function MyPets() {
           </ScrollView>
         </View>
       ) : (
-        <NoPets navigation={navigation} />
+        <NoPets />
       )}
     </>
   );

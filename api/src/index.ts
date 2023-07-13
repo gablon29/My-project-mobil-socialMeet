@@ -1,9 +1,10 @@
+import { PORT } from "./config/env";
+
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT || 8080;
 const { checkJwt, checkAdmin } = require('./utils/jwtUtils');
 const { globalLimit } = require('./utils/rate-limiters');
 const admin = require('firebase-admin');
@@ -90,8 +91,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server has started on port ${port}!`);
+app.listen(PORT, () => {
+  console.log(`Server has started on PORT ${PORT}!`);
 });
 
 async function main() {

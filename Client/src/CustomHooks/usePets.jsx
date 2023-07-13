@@ -22,6 +22,14 @@ const petInit = {
   coverImage: '',
   gallery: [],
   ownerAdress: '',
+  chip: {
+    id: '',
+    telefono: '',
+    email: '',
+    veterinaria: '',
+    veterinariaAdress: '',
+    information: '',
+  },
 };
 
 export const usePets = (element) => {
@@ -51,5 +59,13 @@ export const usePets = (element) => {
   const setGallery = (gallery) => setPet({ ...pet, gallery });
   const setOwnerAdress = (ownerAdress) => setPet({ ...pet, ownerAdress });
 
-  return { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress };
+  // INFORMACION DE COMPRA CHIP
+  const setChipId = (id) => setPet({ ...pet, chip: { ...pet.chip, id } });
+  const setChipTelefono = (telefono) => setPet({ ...pet, chip: { ...pet.chip, telefono } });
+  const setChipEmail = (email) => setPet({ ...pet, chip: { ...pet.chip, email } });
+  const setChipVeterinaria = (veterinaria) => setPet({ ...pet, chip: { ...pet.chip, veterinaria } });
+  const setChipVeterinariaAdress = (veterinariaAdress) => setPet({ ...pet, chip: { ...pet.chip, veterinariaAdress } });
+  const setChipInformation = (information) => setPet({ ...pet, chip: { ...pet.chip, information } });
+
+  return { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setRoutineOfNeeds, setRoutineOfDiet, setInformation, setProfilePic, setCoverImage, addItemGallery, setGallery, setOwnerAdress, setChipId, setChipTelefono, setChipEmail, setChipVeterinaria, setChipVeterinariaAdress, setChipInformation };
 };
