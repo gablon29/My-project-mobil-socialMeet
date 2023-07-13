@@ -54,13 +54,13 @@ function NavigatorBienvenida() {
 
 const NavigatorAuthTrue = () => {
   const showHeader = (route) => {
-    //función para mostrar Header, excluyendo los siguientes:
+    //función para mostrar Header, excluyendo los siguientes: MUESTRA HEADERBACK EN ESTAS PANTALLAS
     const screenNamesToHideHeader = ['PetProfile', 'EditPetProfile', 'ConfigurateChip', 'MyPets'];
     return !screenNamesToHideHeader.includes(route.name);
   };
 
   const sinHeader = (route) => {
-    //función para mostrar Header, excluyendo los siguientes:
+    //función para mostrar Header, excluyendo los siguientes: NO MUESTRA NINGUNA HEADER EN ESTAS PANTALLAS
     const screenNamesToHideHeader = ['AddPet'];
     return !screenNamesToHideHeader.includes(route.name);
   };
