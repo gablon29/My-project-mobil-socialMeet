@@ -49,13 +49,13 @@ const DisplayChats = () => {
     const renderChat = ({item, index}) => {
         return (
             <Button 
-                title={
-                <View key={index} className="mb-10 w-full flex-row border-b-2 pb-4 justify-between items-start">
+            component={
+                <View className="w-full mb-3 border-b-2 flex-row justify-between pb-4">
                     <Image 
                         source={item.picture}
                         className="w-20 h-20 rounded-full"
                     />
-                    <View className="relative right-7">
+                    <View className="relative right-3">
                         <Text className="font-bold text-base">{item.name}</Text>
                         <Text className="text-[#848484]">{item.resumen}</Text>
                     </View>
@@ -70,10 +70,11 @@ const DisplayChats = () => {
                         }
                     </View>
                 </View>
-                }
-                onPress={()=>navigation.navigate("SingleChats", {name: item.name})}
-            />
-            
+            }
+            onPress={()=>navigation.navigate("SingleChats", {name: item.name})}
+            buttonClass="items-center w-full"
+            key={index}
+        />    
         )
     };
 
@@ -92,19 +93,18 @@ const DisplayChats = () => {
     };
 
     return (
-        <ScrollView>
+        <ScrollView className="bg-white">
             <View className="bg-white w-screen h-full items-center pt-14 pb-1">
                 <View className="h-14 w-9/12 relative justify-center bg-gris rounded-3xl shadow-md shadow-black">
                     <TextInput 
                         placeholder='Buscar'
-                        placeholderTextColor="text-black"
                         className="h-full w-[85%] p-3 text-base"
                         value={text}
                         onChangeText={searchTextFilter}
                     />
                     <Search name="search1" size={32} className="absolute right-5"/>
                 </View>
-                <View className="w-10/12 mt-14">
+                <View className="w-10/12 mt-14 items-center">
                     {chatsFilter.map((item, index) => renderChat({ item, index }))}
                 </View>
             </View>
