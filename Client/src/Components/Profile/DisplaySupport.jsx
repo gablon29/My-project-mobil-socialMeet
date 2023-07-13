@@ -73,6 +73,7 @@ const DisplaySupport = () => {
                     ancho="w-8/12"
                     alto="h-14"
                     margin="my-10"
+                    rounded="rounded-xl"
                     onPress={()=>{navigation.navigate("AddNewTicket")}}
                 />
                 <View className="w-10/12 mt-5">
