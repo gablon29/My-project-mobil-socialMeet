@@ -81,11 +81,11 @@ export const SignOffMethod = async ({ loading, error, success }) => {
   }
 };
 
-export const RecoveryMethod = async ({ email, password, loading, error, success }) => {
+export const RecoveryMethod = async ({ email, password,code, loading, error, success }) => {
   try {
     loading(true);
-    const response = await axios.post('/api/user/recovery', { email, password }, { headers: { 'Content-Type': 'application/json' } }).catch((err) => {
-      throw new Error(err.response.data.message);
+    const response = await axios.post('/api/user/recovery', { email, password,code }, { headers: { 'Content-Type': 'application/json' } }).catch((err) => {
+      throw new Error(err.response.data.message); 
     });
     success(response.data);
     loading(false);
