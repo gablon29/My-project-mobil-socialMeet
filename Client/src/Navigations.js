@@ -58,12 +58,19 @@ const NavigatorAuthTrue = () => {
     const screenNamesToHideHeader = ['PetProfile', 'EditPetProfile', 'ConfigurateChip', 'MyPets'];
     return !screenNamesToHideHeader.includes(route.name);
   };
+
+  const sinHeader = (route) => {
+    //función para mostrar Header, excluyendo los siguientes:
+    const screenNamesToHideHeader = ['AddPet'];
+    return !screenNamesToHideHeader.includes(route.name);
+  };
+
   return (
     //
-    <StackAuthTrue.Navigator screenOptions={{ header: (props) => showHeader(props.route) ? <Header /> : <HeaderBack />, headerShown: false }}>
+    <StackAuthTrue.Navigator screenOptions={{ header: (props) => (!sinHeader(props.route) ? null : showHeader(props.route) ? <Header /> : <HeaderBack />), headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true}}/>
+      <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="CreatePet" component={CreatePet} options={{ headerShown: true }} />
@@ -89,7 +96,7 @@ const Navigations = () => {
 
   return (
     <>
-    {/* {console.log(userPet)} */}
+      {/* {console.log(userPet)} */}
       {authenticatedAuth ? (
         registro ? (
           <NavigationContainer>
