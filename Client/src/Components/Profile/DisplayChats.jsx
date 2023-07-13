@@ -55,7 +55,7 @@ const DisplayChats = () => {
                         source={item.picture}
                         className="w-20 h-20 rounded-full"
                     />
-                    <View className="relative right-3">
+                    <View className="relative right-1">
                         <Text className="font-bold text-base">{item.name}</Text>
                         <Text className="text-[#848484]">{item.resumen}</Text>
                     </View>
