@@ -7,12 +7,42 @@ import ButtonIcon from '../Buttons/Button';
 import { useSelectImagen } from '../../CustomHooks/useImage';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../../CustomHooks/useAuth';
+import { ReloadAuthMethod, editUser } from '../../metodos/authMetodos';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setErrorAuth, setLoadingAuth, userRefresh } from '../../Redux/ReducerAuth';
 
-const EditInfoProfile = () => {
+const EditInfoProfile = ({navigation}) => {
     const { selImg, setProfile } = useSelectImagen();
     const profile = useSelector((state) => state.ReducerAuth.profile);
 
     const {firstName, setFirstName, lastName, setLastNamephone, setPhoneemail, setEmail, editProfile} = useAuth()
+
+const handleEdit = async () =>{
+    let profile ={
+        firstName, lastName 
+    }
+    const token = await AsyncStorage.getItem('Token');
+   await editUser({
+        profile,
+        token,
+        setUser: (u) => {
+             ReloadAuthMethod({
+                loading: (v) => dispatch(setLoadingAuth(v)),
+                error: (msg) => dispatch(setErrorAuth(msg)),
+                success: (res) => {
+                  console.log(res)
+                  dispatch(userRefresh(res.payload));
+                  navigation.navigate("Profile")
+                },
+                
+              });
+                    },
+        loading: (v) => dispatch(authSetLoading(v)),
+        error: (msg) => dispatch(authSetError(msg)),
+      });
+    
+    }
+
     return (
         <ScrollView>
             <View className="w-screen h-full bg-white items-center pt-10 mb-5">
