@@ -68,4 +68,20 @@ module.exports = {
     const notifications = user.Notifications;
     response(res, 200, notifications);
   },
+  editUser: async (req, res) => {
+    const userId = req.user.userId;
+    const { firstName, email, lastName, phone, profilePic, country, province, city, address } = req.body;
+    const updateUser = await editUser(userId, {
+      firstName,
+      email,
+      lastName,
+      phone,
+      profilePic,
+      country,
+      province,
+      city,
+      address
+    }, res);
+    response(res, 200, updateUser);
+  },
 };
