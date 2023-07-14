@@ -17,10 +17,10 @@ const EditInfoProfile = ({navigation}) => {
 
     const {firstName, setFirstName, lastName, setLastName, phone, setPhone, email, setEmail, country, setCountry, province, setProvince, editProfile} = useAuth()
     
-    useEffect(()=>{
-        profile.firstName
+    /* useEffect(()=>{
+        
     },[])
-
+ */
      
 const handleEdit = async () =>{
         let profile ={
@@ -52,7 +52,7 @@ const handleEdit = async () =>{
             <View className="w-screen h-full bg-white items-center pt-10 mb-5">
                 <View className="bg-naranja w-40 h-40 rounded-full relative justify-center">
                     <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-40 h-40" onPress={() => setProfile()}>
-                        {selImg.profile ? <Image source={{ uri: selImg.profile }} style={{ width: 160, height: 160 }} className='rounded-full' /> : profile.profilePic ?  <Image source={{ uri: profile.profilePic }} style={{ width: 160, height: 160 }} className='rounded-full' /> :  <Icon name="plus" size={60} color="white"/>}
+                        {selImg.profile ? <Image source={{ uri: selImg.profile }} style={{ width: 160, height: 160 }} className='rounded-full' /> : profile?.profilePic ?  <Image source={{ uri: profile.profilePic }} style={{ width: 160, height: 160 }} className='rounded-full' /> :  <Icon name="plus" size={60} color="white"/>}
                     </TouchableOpacity>
                         <View className="absolute z-50 -right-4 -top-3 w-16 h-16 bg-black rounded-full justify-center">
                             <ButtonIcon title={<Delete name="trash-can-outline" size={32} color="white"/>}/>
@@ -60,17 +60,17 @@ const handleEdit = async () =>{
                 </View>
                 <View className="w-11/12 items-center mt-5 mb-3">
                     <Text className="w-full text-left font-bold text-lg">Nombre</Text>
-                    <TextInput placeholder={profile.firstName} value={firstName} onChangeText={(text)=>setFirstName(text)}  className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput placeholder={profile?.firstName} value={firstName} onChangeText={(text)=>setFirstName(text)}  className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">Apellidos</Text>
-                    <TextInput placeholder={profile.lastName} value={lastName} onChangeText={(text)=>setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput placeholder={profile?.lastName} value={lastName} onChangeText={(text)=>setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">Email</Text>
-                    <TextInput placeholder={profile.email} value={email} onChangeText={(text)=>setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput placeholder={profile?.email} value={email} onChangeText={(text)=>setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">Télefono</Text>
-                    <TextInput placeholder={profile.phone} value={phone} onChangeText={(text)=>setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput placeholder={profile?.phone} value={phone} onChangeText={(text)=>setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">País</Text>
-                    <TextInput placeholder={profile.country} value={country} onChangeText={(text)=>setCountry(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput placeholder={profile?.country} value={country} onChangeText={(text)=>setCountry(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">Provincia</Text>
-                    <TextInput value={province} onChangeText={(text)=>setProvince(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput placeholder={profile?.province} value={province} onChangeText={(text)=>setProvince(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                 </View>
                 <Button 
                     title="Guardar Información"
