@@ -17,6 +17,7 @@ const EditInfoProfile = ({navigation}) => {
 
     const {firstName, setFirstName, lastName, setLastNamephone, setPhoneemail, setEmail, editProfile} = useAuth()
 
+ 
 const handleEdit = async () =>{
     let profile ={
         firstName, lastName 
