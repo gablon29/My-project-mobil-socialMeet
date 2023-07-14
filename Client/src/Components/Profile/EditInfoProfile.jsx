@@ -21,7 +21,8 @@ const EditInfoProfile = ({navigation}) => {
         profile.firstName
     },[])
 
-    const handleEdit = async () =>{
+     
+const handleEdit = async () =>{
         let profile ={
             firstName, lastName, phone, email, country, province, profilePic: selImg 
         }
