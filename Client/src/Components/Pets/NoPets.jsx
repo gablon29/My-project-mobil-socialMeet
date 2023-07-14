@@ -17,8 +17,8 @@ export const NoPets = () => {
         </View>
       ) : (
         <ScrollView>
-          <View className="flex-1 items-center justify-center mt-40">
-            <View className="flex items-center mb-20">
+          <View className="flex-1 h-full items-center justify-center mt-5">
+            <View className="flex items-center w-screen h-full">
               <Image source={noPets} />
               <View className="my-10">
                 <Text className="font-poppinsBold text-center text-lg mt-5">Aún no has añadido ninguna mascota, agrega una ahora</Text>
