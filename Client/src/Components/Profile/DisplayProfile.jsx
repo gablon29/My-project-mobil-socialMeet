@@ -24,8 +24,8 @@ const DisplayProfile = () => {
                 height: 500,
           }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-28 mb-20 w-11/12">
           <View className="bg-naranja w-32 h-32 rounded-full absolute -top-14">
-            <TouchableOpacity className="flex justify-center items-center rounded-full w-[100%] h-[100%]" onPress={() => setProfile()}>
-               <Image /* source={require("../../../images/dog1.png")} */ source={{ uri: profile.profilePic }} className='w-[100%] h-[100%] rounded-full' /> 
+          <TouchableOpacity className="flex justify-center items-center rounded-full w-[100%] h-[100%]" onPress={() => setProfile()}>
+               <Image /* source={require("../../../images/dog1.png")} */ source={{ uri: profile?.profilePic }} className='w-[100%] h-[100%] rounded-full' /> 
             </TouchableOpacity>
           </View>
           <View className=" bg-black border-b border-white flex-row pb-3 mb-5 w-11/12">
@@ -38,7 +38,7 @@ const DisplayProfile = () => {
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Phone name="phone" size={32} color="white" className="pr-4" />
-            <Text className="text-white text-lg">{profile.phone}</Text>
+            <Text className="text-white text-lg">{profile?.phone}</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Location name="location" size={42} color="white" className="pr-4" />
