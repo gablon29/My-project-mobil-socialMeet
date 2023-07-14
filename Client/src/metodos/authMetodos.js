@@ -60,7 +60,7 @@ export const ReloadAuthMethod = async ({ loading, error, success }) => {
         throw new Error(err.response.data.message);
       });
       console.log("prueba", response.data)
-    success(response.data);
+    success(response);
     loading(false);
   } catch (err) {
     console.log('ReloadAuthMethod', err);
