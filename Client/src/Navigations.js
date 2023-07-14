@@ -7,11 +7,8 @@ import ResetPasword from './Components/Auth/ResetPassword/ResetPasword';
 import Home from './Components/Home/Home';
 import ProfileComponent from './Components/Profile/Profile';
 import MyPets from './Components/Pets/MyPets';
-import CreatePet from './Components/CreatePet/CreatePet';
-import CreatePet6 from './Components/CreatePet/CreatePet6';
 import PetProfile from './Components/Pets/PetProfile';
 import EditPetProfile from './Components/Pets/EditPetProfile';
-import Apiurlselector from './Components/Apiurlselector/Apiurlselector';
 import RegisterStep3 from './Components/Auth/Register/RegisterStep3';
 import { useSelector } from 'react-redux';
 import Header from './Components/Header/Header';
@@ -39,7 +36,6 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: false, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
-      <StackAuthFalse.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
     </StackAuthFalse.Navigator>
   );
 }
@@ -73,12 +69,9 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="CreatePet" component={CreatePet} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="CreatePet6" component={CreatePet6} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
-      <StackAuthTrue.Screen name="Selecturl" component={Apiurlselector} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="ChipWhopaws" component={ChipWhopaws} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="ConfigurateChip" component={ConfigurateChip} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Checkout" component={Checkout} options={{ headerShown: true }} />

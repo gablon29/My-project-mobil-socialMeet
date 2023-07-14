@@ -11,7 +11,7 @@ module.exports = {
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     const { userType, firstName, lastName, email, profilePic, pets, id } = user;
     const userPets = await filterByOwner(id);
-    response(res, 200, userPets, { userType, firstName, lastName, email, profilePic, pets, id });
+    response(res, 200, userPets, user);
   },
 
   register_new: async (req, res, next) => {
