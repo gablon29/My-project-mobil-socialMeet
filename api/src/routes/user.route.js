@@ -68,7 +68,7 @@ module.exports = {
   editUser: async (req, res) => {
     const userId = req.user.userId;
     const { firstName, email, lastName, phone, profilePic, country, province, city, address } = req.body;
-    const updateUser = await editUser(userId, {
+    const updateUser = await UserModel.findOneAndUpdate({_id: userId}, {
       firstName,
       email,
       lastName,

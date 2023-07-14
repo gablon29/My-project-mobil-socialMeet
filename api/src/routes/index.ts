@@ -35,7 +35,7 @@ router.post('/api/user/register', catchedAsync(user.register_new));
 router.post('/api/user/sendemail',limit5cada30minutos ,catchedAsync(user.send_recover_email));
 router.post('/api/user/check-code', catchedAsync(user.check_code));
 router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
-router.put('/api/user/edit',isLoggedIn, catchedAsync(user.editUser));
+router.put('/api/user/edit', isLoggedIn, catchedAsync(user.editUser));
 
 
 // ------------->  PET  <-------------
