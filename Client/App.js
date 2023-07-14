@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/Redux/Store';
 import { useFonts } from 'expo-font';
-
 import axios from 'axios';
 
 //Stripe imports:
@@ -27,7 +26,8 @@ export default function App() {
 
   // PRODUCCION
 
-  //  axios.defaults.baseURL = 'https://whopaws-production-e1cc.up.railway.app';
+   axios.defaults.baseURL = 'https://whopaws-production-e1cc.up.railway.app';
+
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),
