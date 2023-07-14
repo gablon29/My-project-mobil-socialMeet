@@ -5,10 +5,14 @@ import Delete from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '../Buttons/ButtonCuston';
 import ButtonIcon from '../Buttons/Button';
 import { useSelectImagen } from '../../CustomHooks/useImage';
-
+import { useSelector } from 'react-redux';
+import { useAuth } from '../../CustomHooks/useAuth';
 
 const EditInfoProfile = () => {
     const { selImg, setProfile } = useSelectImagen();
+    const profile = useSelector((state) => state.ReducerAuth.profile);
+
+    const {firstName, setFirstName, lastName, setLastNamephone, setPhoneemail, setEmail, editProfile} = useAuth()
     return (
         <ScrollView>
             <View className="w-screen h-full bg-white items-center pt-10 mb-5">

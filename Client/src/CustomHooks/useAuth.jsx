@@ -76,6 +76,10 @@ export const useAuth = () => {
         throw new Error(error.response.data.message);
       });
   };
+
+  const editProfile = () =>{
+    //un metodo 
+  }
   return {
     email,
     setEmail,
@@ -110,6 +114,7 @@ export const useAuth = () => {
     setVerification,
     informacion,
     setInformacion,
+    editProfile
   };
 };
 
