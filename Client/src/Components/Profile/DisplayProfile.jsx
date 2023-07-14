@@ -30,15 +30,15 @@ const DisplayProfile = () => {
           </View>
           <View className=" bg-black border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Icon name="idcard" size={32} color="white" className="pr-4" />
-            <Text className="text-white text-lg">Nombre de la persona</Text>
+            <Text className="text-white text-lg">{profile?.firstName}</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Email name="email" size={32} color="white" className="pr-4" />
-            <Text className="text-white text-lg">Email de la persona</Text>
+            <Text className="text-white text-lg">{profile?.email}</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Phone name="phone" size={32} color="white" className="pr-4" />
-            <Text className="text-white text-lg">Télefono de la persona</Text>
+            <Text className="text-white text-lg">telefono</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Location name="location" size={42} color="white" className="pr-4" />
