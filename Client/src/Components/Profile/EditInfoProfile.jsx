@@ -9,6 +9,7 @@ import { useSelectImagen } from '../../CustomHooks/useImage';
 
 const EditInfoProfile = () => {
     const { selImg, setProfile } = useSelectImagen();
+    
     return (
         <ScrollView>
             <View className="w-screen h-full bg-white items-center pt-10 mb-5">
