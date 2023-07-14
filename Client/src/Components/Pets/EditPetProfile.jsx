@@ -1,9 +1,8 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Button from '../Buttons/Button';
-import { useSelectImagen } from '../../CustomHooks/useImage';
+import { suvirImagen, useSelectImagen } from '../../CustomHooks/useImage';
 import { usePets } from '../../CustomHooks/usePets';
-import { useDispatch } from 'react-redux';
 import { EditPetMethod } from '../../metodos/petsMetodos';
 import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { useNavigation } from '@react-navigation/native';
@@ -17,25 +16,19 @@ import roedor from '../../../images/especies/ic_roedor.png';
 import ButtonSquareImageTextBorderBlack from '../Buttons/ButtonSquareImageTextBorderBlack';
 import ButtonImageRounder from '../Buttons/ButtonImageRounder';
 import ButtonTextRounderGris from '../Buttons/ButtonTextRounderGris';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function EditPetProfile({ route }) {
   const navigation = useNavigation();
-  const { element } = route.params;
-  const { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setHealthOkWithChildren, setProfilePic } = usePets(element);
+  const { userPet, loadingPets, errorPets, successPets } = useSelector((state) => state.ReducerPets);
+  const { pet, setName, setSpecie, setBreed, setKilos, setGramos, setSex, setAgeYears, setAgeMonths, setHealthCastrado, setHealthMicrochip, setHealthOkWithDogs, setHealthOkWithCats, setProfilePic, setRoutineOfNeeds, setRoutineOfDiet, setInformation } = usePets(userPet);
   const dispatch = useDispatch();
-  //NUEVOS METODOS ACA
+  const { selImg, setProfile, setImgProfile } = useSelectImagen(userPet.profilePic);
 
-  //
-
-  const answerStylesView = `ml-4 mt-4 w-16 h-11 rounded-full`;
-  const borderOn = ''; //border border-black
-  // para el SelectList de editar otra especie de mascota
-
-  const { selImg, setProfile } = useSelectImagen();
-
-  const editPet = () => {
-    
-    EditPetMethod({
+  const editPet = async () => {
+    const linkImagen = await suvirImagen(selImg.profile);
+    pet.profilePic = linkImagen;
+    await EditPetMethod({
       pet,
       loading: (v) => dispatch(setLoadingPets(v)),
       error: (msg) => {
@@ -45,26 +38,20 @@ export default function EditPetProfile({ route }) {
     });
   };
 
-  useEffect(() => {
-    setProfilePic(selImg.profile);
-  }, [selImg.profile]);
-
-  // useEffect(() => {
-  //   setCoverImage(selImg.portada);
-  // }, [selImg.portada]);
-
   return (
     <>
       <ScrollView>
         <Text className="text-base font-poppinsBold mx-auto mt-4 mb-1">Imagen de perfil</Text>
         <View className="rounded-full w-[150px] h-[150px] mx-auto mb-2 bg-naranja">
           <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-[150px] h-[150px]" onPress={() => setProfile()}>
-            {pet.profilePic ? <Image source={{ uri: pet.profilePic }} style={{ width: 150, height: 150 }} className="rounded-full" /> : <Icon name="plus" size={60} color="white" />}
+            {selImg.profile ? <Image source={{ uri: selImg.profile }} style={{ width: 150, height: 150 }} className="rounded-full" resizeMode="contain" /> : <Icon name="plus" size={60} color="white" />}
           </TouchableOpacity>
           <TouchableOpacity
             className="absolute z-50 top-7 -right-5"
             onPress={() => {
-              if (pet.profilePic) setProfilePic('');
+              if (selImg.profile) {
+                setImgProfile('');
+              }
             }}
           >
             <View className="bg-black rounded-full p-2">
@@ -145,64 +132,48 @@ export default function EditPetProfile({ route }) {
             </View>
           </View>
           <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Tiene microchip?</Text>
-          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con perros?</Text>
-          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con gatos?</Text>
-          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con niños?</Text>
-        </View>
-        <View className="flex flex-row w-full h-fit max-w-sm min-w-[250px]"></View>
-        <View className="items-center">
-          {/* AQUI TERMINA LO DE CREATE PET 2 */}
-
-          <View className="flex mt-10 mx-10">
-            {[
-              {
-                question: '¿Está castrado o esterilizado?',
-                property: 'castrado',
-                setStateFunction: setHealthCastrado,
-              },
-              {
-                question: '¿Tiene microchip?',
-                property: 'microchip',
-                setStateFunction: setHealthMicrochip,
-              },
-              {
-                question: '¿Se lleva bien con perros?',
-                property: 'okWithDogs',
-                setStateFunction: setHealthOkWithDogs,
-              },
-              {
-                question: '¿Se lleva bien con gatos?',
-                property: 'okWithCats',
-                setStateFunction: setHealthOkWithCats,
-              },
-              {
-                question: '¿Se lleva bien con niños?',
-                property: 'okWithChildren',
-                setStateFunction: setHealthOkWithChildren,
-              },
-            ].map((item, index) => (
-              <View className="flex  mx-3 my-3" key={index}>
-                <View className="w-64 h-11 bg-black rounded-xl">
-                  <Text className="text-white text-base font-poppinsSemiBold text-center mt-2">{item.question}</Text>
-                </View>
-                <View className="flex flex-row mx-6">
-                  <TouchableOpacity onPress={() => item.setStateFunction(true)}>
-                    <View className={`${answerStylesView} ${pet.health[item.property] ? 'bg-naranja ' + borderOn : 'bg-gris'}`}>
-                      <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">Si</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => item.setStateFunction(false)}>
-                    <View className={`${answerStylesView} ${!pet.health[item.property] ? 'bg-naranja ' + borderOn : 'bg-gris'}`}>
-                      <Text className="text-black text-base font-poppinsSemiBold text-center mt-2">No</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ))}
+          <View className="flex flex-row p-4">
+            <View className="w-20 mr-2">
+              <ButtonTextRounderGris activado={pet.health.microchip === true ? true : false} texto="Si" onPress={() => setHealthMicrochip(true)} />
+            </View>
+            <View className="w-20 ml-2">
+              <ButtonTextRounderGris activado={pet.health.microchip === false ? true : false} texto="No" onPress={() => setHealthMicrochip(false)} />
+            </View>
           </View>
-        </View>
-        <View className="flex my-10">
-          <Button title="Guardar cambios" onPress={editPet} colorButton="bg-naranja" colorText="text-white" ancho="w-48" alto="h-8" textFont="font-poppinsSemiBold" otrosButton="mx-20 mt-4 shadow" />
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con perros?</Text>
+          <View className="flex flex-row p-4">
+            <View className="w-20 mr-2">
+              <ButtonTextRounderGris activado={pet.health.okWithDogs === true ? true : false} texto="Si" onPress={() => setHealthOkWithDogs(true)} />
+            </View>
+            <View className="w-20 ml-2">
+              <ButtonTextRounderGris activado={pet.health.okWithDogs === false ? true : false} texto="No" onPress={() => setHealthOkWithDogs(false)} />
+            </View>
+          </View>
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con gatos?</Text>
+          <View className="flex flex-row p-4">
+            <View className="w-20 mr-2">
+              <ButtonTextRounderGris activado={pet.health.okWithCats === true ? true : false} texto="Si" onPress={() => setHealthOkWithCats(true)} />
+            </View>
+            <View className="w-20 ml-2">
+              <ButtonTextRounderGris activado={pet.health.okWithCats === false ? true : false} texto="No" onPress={() => setHealthOkWithCats(false)} />
+            </View>
+          </View>
+          <Text className="text-white text-base font-poppinsSemiBold text-center rounded-xl bg-black w-full h-fit max-w-sm min-w-[250px] p-2 mt-4">¿Se lleva bien con niños?</Text>
+          <View className="flex flex-row p-4">
+            <View className="w-20 mr-2">
+              <ButtonTextRounderGris activado={pet.health.okWithChildren === true ? true : false} texto="Si" onPress={() => setHealthOkWithDogs(true)} />
+            </View>
+            <View className="w-20 ml-2">
+              <ButtonTextRounderGris activado={pet.health.okWithChildren === false ? true : false} texto="No" onPress={() => setHealthOkWithDogs(false)} />
+            </View>
+          </View>
+          <Text className="text-base max-w-sm text-center font-poppinsBold mt-4">¿Cada cuanto tiempo tiene que ir a hacer sus necesidades?</Text>
+          <TextInput keyboardType="default" multiline={true} placeholder="Describe sus necesidades" value={pet.routineOfNeeds} onChangeText={(t) => setRoutineOfNeeds(t)} className="rounded-lg bg-gris w-full h-fit min-h-[150px] max-w-sm min-w-[250px] px-4 text-justify" />
+          <Text className="text-base text-center font-poppinsBold mt-4">¿Cual es su rutina de alimentación?</Text>
+          <TextInput keyboardType="default" multiline={true} placeholder="Describe sus necesidades" value={pet.routineOfDiet} onChangeText={(t) => setRoutineOfDiet(t)} className="rounded-lg bg-gris w-full h-fit min-h-[150px] max-w-sm min-w-[250px] px-4 text-justify" />
+          <Text className="text-base text-center font-poppinsBold mt-4">Otra información a tener en cuenta</Text>
+          <TextInput keyboardType="default" multiline={true} placeholder="Describe sus necesidades" value={pet.information} onChangeText={(t) => setInformation(t)} className="rounded-lg bg-gris w-full h-fit min-h-[150px] max-w-sm min-w-[250px] px-4 text-justify" />
+          <Button title="Guardar cambios" onPress={editPet} colorButton="bg-naranja" colorText="text-white" ancho="w-48" alto="h-8" textFont="font-poppinsSemiBold" otrosButton="mx-20 my-4 shadow" />
         </View>
       </ScrollView>
     </>

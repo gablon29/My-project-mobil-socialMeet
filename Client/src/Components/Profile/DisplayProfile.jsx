@@ -21,25 +21,25 @@ const DisplayProfile = () => {
         <View 
         style={{
                 height: 500,
-          }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-40 mb-10 w-11/12">
+          }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-28 mb-20 w-11/12">
           <View className="bg-naranja w-32 h-32 rounded-full absolute -top-14">
             <TouchableOpacity className="flex justify-center items-center rounded-full w-[100%] h-[100%]" onPress={() => setProfile()}>
               {selImg.profile ? <Image /* source={require("../../../images/dog1.png")} */ source={{ uri: selImg.profile }} className='w-[100%] h-[100%] rounded-full' /> : null }
             </TouchableOpacity>
           </View>
-          <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
+          <View className=" bg-black border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Icon name="idcard" size={32} color="white" className="pr-4" />
             <Text className="text-white text-lg">Nombre de la persona</Text>
           </View>
-          <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
+          <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Email name="email" size={32} color="white" className="pr-4" />
             <Text className="text-white text-lg">Email de la persona</Text>
           </View>
-          <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
+          <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Phone name="phone" size={32} color="white" className="pr-4" />
             <Text className="text-white text-lg">Télefono de la persona</Text>
           </View>
-          <View className="border-b border-white flex-row pb-3 mb-5" style={{width: 330}}>
+          <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
             <Location name="location" size={42} color="white" className="pr-4" />
             <Text className="text-white text-lg">País | Provincia</Text>
           </View>

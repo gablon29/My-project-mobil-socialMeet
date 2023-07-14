@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, Text } from "react-native";
+import { View, TextInput, Text, Alert } from "react-native";
 import Button from "../../Buttons/Button";
 
 export const Reset1Step = ({
@@ -17,7 +17,7 @@ export const Reset1Step = ({
       await emailPassword();
       setSteps(1);
     } catch (error) {
-      console.log(error);
+      Alert.alert(error.message);
     }
   };
 
@@ -32,6 +32,7 @@ export const Reset1Step = ({
         <TextInput
           placeholder="   Email"
           placeholderTextColor="white"
+          inputMode="email"
           value={email}
           onChangeText={(text) => setEmail(text)}
           className="w-full rounded-full bg-naranja px-4 h-14 font-poppinsBold text-white"

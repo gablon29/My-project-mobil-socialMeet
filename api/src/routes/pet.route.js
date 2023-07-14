@@ -1,4 +1,4 @@
-const { updatePet, filterByOwner, createPet, petByOwner } = require('../controllers/petController');
+const { updatePet, filterByOwner, createPet, petByOwner, deletePetOwner } = require('../controllers/petController');
 const { response } = require('../utils');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
   //logged, user, modifica el PET con lo q le pase por body
   edit_pet: async (req, res) => {
     const newData = req.body;
-console.log(newData)
+    console.log(newData);
     const updatedPet = await updatePet(newData, req.body.id, req.user.userId);
 
     response(res, 200, updatedPet);
@@ -24,9 +24,16 @@ console.log(newData)
   },
 
   my_pet: async (req, res) => {
-    const { id } = req.params
-    const {userId} = req.user.userId
+    const { id } = req.params;
+    const { userId } = req.user;
     const pet = await petByOwner(id, userId);
     response(res, 200, pet[0]);
+  },
+
+  delete_my_pet: async (req, res) => {
+    const { id } = req.query
+    const { userId } = req.user;
+    const deletedPet = await deletePetOwner(id, userId);
+    response(res, 200, deletedPet);
   },
 };

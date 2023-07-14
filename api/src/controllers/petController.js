@@ -1,3 +1,4 @@
+const { Schema } = require('mongoose');
 const PetModel = require('../models/pet.model');
 const UserModel = require('../models/user.model');
 const { ClientError } = require('../utils/errors');
@@ -26,14 +27,21 @@ const filterByOwner = async (id) => {
 };
 
 const petByOwner = async (idPet, userId) => {
-  const lookingOwner = await UserModel.find({_id: userId})
-  const ownerPets = await PetModel.find({ owner: lookingOwner.email, _id: idPet });
+  // const lookingOwner = await UserModel.find({_id: userId})
+  const ownerPets = await PetModel.find({ owner: userId, _id: idPet });
   return ownerPets;
+};
+
+const deletePetOwner = async (idPet, userId) => {
+  // const pet = new Schema.Types.ObjectId(idPet)
+  const deletedPet = await PetModel.findOneAndDelete({ owner: userId, _id: idPet });
+  return deletedPet;
 };
 
 module.exports = {
   createPet,
   updatePet,
   filterByOwner,
-  petByOwner
+  petByOwner,
+  deletePetOwner
 };

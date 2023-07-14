@@ -7,6 +7,7 @@ import DisplayProfile from './DisplayProfile';
 import DisplayAddress from './DisplayAddress';
 import AddCard from '../Stripe/AddCard';
 import DisplaySupport from './DisplaySupport';
+import DisplayChats from './DisplayChats';
 
 const ProfileComponent = ({ navigation, props }) => {
   const [mounted, setMounted] = useState(1);
@@ -38,13 +39,13 @@ const ProfileComponent = ({ navigation, props }) => {
   //
 
   return (
-    <View className="justify-center items-center relative h-full w-screen">
+    <View className="justify-center items-center relative h-full w-screen bg-white">
       {mounted === 1 ? <DisplayProfile  navigation={navigation}/> : null}
       {mounted === 2 ? <DisplayAddress /> : null}
       {mounted === 3 ? <Checkout /> : null}
       {mounted === 4 ? <AddCard  /> : null}
-      {mounted === 5 ? <PlaceJolder name={'Un Cha'} /> : null}
-      {mounted === 6 ? <DisplaySupport name={'Soporte'} /> : null}
+      {mounted === 5 ? <DisplayChats /> : null}
+      {mounted === 6 ? <DisplaySupport /> : null}
 
       <LowerBar />
       <View className="h-20"></View>

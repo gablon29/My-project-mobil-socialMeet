@@ -66,8 +66,7 @@ const petSchema = mongoose.Schema(
     //LISTO
     coverImage: {
       type: String,
-      default:
-        'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
+      default: 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
     gallery: [
       {
@@ -82,8 +81,13 @@ const petSchema = mongoose.Schema(
       type: String,
     },
     chip: {
-      type: String,
-    }
+      id: { type: String },
+      telefono: { type: String },
+      email: { type: String },
+      veterinaria: { type: String },
+      veterinariaAdress: { type: String },
+      information: { type: String },
+    },
   },
   {
     timestamps: {

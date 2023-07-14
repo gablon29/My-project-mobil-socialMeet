@@ -46,7 +46,7 @@ const DisplaySupport = () => {
         const classTicketContainer = `w-full h-146 mb-5 bg-naranja rounded-xl flex-row justify-between p-5 ${bgClass}`
         const classTextDate = `${textColor}`
         return (
-        <View className={classTicketContainer}>
+        <View key={index} className={classTicketContainer}>
             <View>
                 <Text className="text-white font-poppins font-semibold text-xs">{item.title}</Text>
                 <Text className={classTextDate}>{item.date}</Text>
@@ -73,14 +73,11 @@ const DisplaySupport = () => {
                     ancho="w-8/12"
                     alto="h-14"
                     margin="my-10"
+                    rounded="rounded-xl"
                     onPress={()=>{navigation.navigate("AddNewTicket")}}
                 />
                 <View className="w-10/12 mt-5">
-                    <FlatList 
-                        data={data}
-                        renderItem={(item, index)=>renderTicket(item, index)}
-                        keyExtractor={(item, index)=>index.toString()}
-                    />
+                    {data.map((item, index) => renderTicket({ item, index }))}
                 </View>
             </View>
         </ScrollView>
