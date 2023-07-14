@@ -96,3 +96,19 @@ export const RecoveryMethod = async ({ email, password,code, loading, error, suc
     loading(false);
   }
 };
+
+export const editUser = async ({ profile, setUser, token, loading, error }) => {
+
+  try {
+    const response = await axios.put(`/api/user/edit`, profile, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    setUser(response.data.payload);
+  } catch (error) {
+    console.error("Error editing user:", error);
+    error(error.message);
+    throw error;
+  }
+};
