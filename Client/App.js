@@ -25,7 +25,7 @@ export default function App() {
 
   // PRODUCCION
 
-   axios.defaults.baseURL = 'https://whopaws-production.up.railway.app/';
+   axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
 
 
   const [fontsLoaded] = useFonts({
