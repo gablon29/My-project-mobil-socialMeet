@@ -13,6 +13,11 @@ const EditInfoProfile = () => {
     const profile = useSelector((state) => state.ReducerAuth.profile);
 
     const {firstName, setFirstName, lastName, setLastNamephone, setPhoneemail, setEmail, editProfile} = useAuth()
+    
+    const editState = (set, text) => {
+        set(text);
+    }
+
     return (
         <ScrollView>
             <View className="w-screen h-full bg-white items-center pt-10 mb-5">
@@ -26,7 +31,7 @@ const EditInfoProfile = () => {
                 </View>
                 <View className="w-11/12 items-center mt-5 mb-3">
                     <Text className="w-full text-left font-bold text-lg">Nombre</Text>
-                    <TextInput className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
+                    <TextInput value={firstName} onChangeText={()=>editState(setFirstName)}  className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">Apellidos</Text>
                     <TextInput className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/>
                     <Text className="w-full text-left font-bold text-lg">Email</Text>
