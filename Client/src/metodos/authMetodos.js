@@ -98,7 +98,6 @@ export const RecoveryMethod = async ({ email, password,code, loading, error, suc
 };
 
 export const editUser = async ({ profile, setUser, token, loading, error }) => {
-
   try {
     const response = await axios.put(`/api/user/edit`, profile, {
       headers: {
