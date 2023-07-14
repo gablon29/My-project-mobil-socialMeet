@@ -138,11 +138,31 @@ const findUserName = async (email) => {
   return userInDB.firstName + ' ' + userInDB.lastName;
 };
 
+const editUser = async (userId, info, res) => {
+  const user = await UserModel.findOne({ _id: userId });
+  if (!user) {
+    return res.status(404).json({ error: 'El usuario no está registrado' });
+  }
+  user.firstName = info.firstName || user.firstName;
+
+  user.email = info.email || user.email;
+  user.lastName = info.lastName || user.lastName;
+  user.phone = info.phone || user.phone;
+  user.profilePic = info.profilePic || user.profilePic;
+  user.country = info.country || user.country;
+  user.province = info.province || user.province;
+
+  await user.save();
+
+  return user;
+};
+
 module.exports = {
   registerUser,
   loginUser,
   findUser,
   findUserName,
+  editUser,
   recoverPassword,
   checkVerifCode,
   sendEmail,
