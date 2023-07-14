@@ -71,10 +71,10 @@ const loginUser = async (emailParam, password) => {
   }
 
   await user.save();
-  const { userType, firstName, lastName, email, profilePic, pets, id } = user;
+  const { userType, firstName, lastName, email, profilePic, pets, id, country, phone, province  } = user;
   return {
     token,
-    user: { userType, firstName, lastName, email, profilePic, pets, id },
+    user: { userType, firstName, lastName, email, profilePic, pets, id, country, phone, province },
   };
 };
 //^^^^^^^^^^ LOGIN ^^^^^^^^^^
