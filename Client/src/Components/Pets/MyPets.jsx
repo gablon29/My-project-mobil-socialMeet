@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import cruz from '../../../images/iconos/cruz.png';
 import ButtonWithImage from '../Buttons/ButtonWithImage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,9 +9,14 @@ import { NoPets } from './NoPets';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '../Buttons/Button';
 import { useNavigation } from '@react-navigation/native';
+import ModalPrevent from '../Modal/Modal';
 
 export default function MyPets() {
+  
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [idDelete, setIdDelete] = useState(null);
+  
   const authenticatedAuth = useSelector((state) => state.ReducerAuth.authenticatedAuth);
   const { userPets, loadingPets, errorPets, successPets } = useSelector((state) => state.ReducerPets);
   const dispatch = useDispatch();
@@ -29,6 +34,11 @@ export default function MyPets() {
     });
   };
 
+  const showModal = (id) => {
+    setModalVisible(true);
+    setIdDelete(id);
+  };
+
   const delPet = (id) => {
     DelMyPetMethod({
       id,
@@ -38,12 +48,17 @@ export default function MyPets() {
         fetchData();
       },
     });
+    setModalVisible(false);
+    setIdDelete(null);
   };
+
+  
 
   return (
     <>
       {userPets.length ? (
-        <View className="flex w-full h-full">
+        <View className="flex w-full h-full relative">
+          <ModalPrevent idDelete={idDelete} delPet={delPet} modalVisible={modalVisible} setModalVisible={setModalVisible} />
           <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="m-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('AddPet')} />
           <ScrollView>
             <View className="flex flex-row flex-wrap mx-7 justify-center align-middle">
@@ -58,7 +73,7 @@ export default function MyPets() {
                     className="z-10 rounded-full -mb-12"
                   />
                   <View className="flex justify-center items-center bg-naranja h-40 w-full rounded-xl">
-                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => delPet(element.id)}>
+                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => showModal(element.id)}>
                       <Icon name="trash-can-outline" size={30} color="white" />
                     </TouchableOpacity>
                     <Text className="mt-7 mb-4 px-4 text-base text-white font-poppinsSemiBold text-center">

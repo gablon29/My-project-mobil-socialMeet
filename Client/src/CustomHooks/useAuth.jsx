@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { registro } from '../metodos/authMetodos';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
-import { authSetUser } from '../Redux/ReducerAuth';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -45,8 +42,8 @@ export const useAuth = () => {
   }
   const checkCode = async (code) => {
     const data = {
-        email,
-        code,
+      email,
+      code,
     };
     await axios
       .post('api/user/check-code', data, {
@@ -54,32 +51,32 @@ export const useAuth = () => {
           'Content-Type': 'application/json',
         },
       })
-      .then(r=>{
-        setVerification(code)
+      .then((r) => {
+        setVerification(code);
       })
       .catch(function (error) {
         throw new Error(error.response.data.message);
       });
   };
-  const emailPassword = async () => {
-    const data = {
-        email,
-    };
+  // const emailPassword = async () => {
+  //   const data = {
+  //     email,
+  //   };
 
-    await axios
-      .post('api/user/sendemail', data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .catch(function (error) {
-        throw new Error(error.response.data.message);
-      });
+  //   await axios
+  //     .post('api/user/sendemail', data, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //     .catch(function (error) {
+  //       throw new Error(error.response.data.message);
+  //     });
+  // };
+
+  const editProfile = () => {
+    //un metodo
   };
-
-  const editProfile = () =>{
-    //un metodo 
-  }
   return {
     email,
     setEmail,
@@ -108,39 +105,12 @@ export const useAuth = () => {
     setCheckSms,
     checkPassword,
     setCheckPassword,
-    emailPassword,
+    // emailPassword,
     checkCode,
     verification,
     setVerification,
     informacion,
     setInformacion,
-    editProfile
+    editProfile,
   };
 };
-
-// const uno = {
-//    message: 'User created successfully',
-//    ok: true,
-//    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDlmOWJlNGViOTI3YWRiZWNhYWUzOGIiLCJpYXQiOjE2ODgxODE3MzIsImV4cCI6MTY5ODk4MTczMn0.YPEOomzSlSZfCVIyOd4GjzjD5TPCNubjIcLFzMzAu5M',
-//    user: {
-//       Notifications: [],
-//       addresses: [],
-//       country: 'México',
-//       created_at: '2023-07-01T03:22:12.589Z',
-//       deviceTokens: [],
-//       email: 'luis.llancamil.a@gmail.com',
-//       firstName: 'Luis',
-//       id: '649f9be4eb927adbecaae38b',
-//       lastName: 'Llancamil',
-//       password: '$2b$10$0qU5JHYANjd4YRn5YFs4/OyIqARm5DJm8ItAhxiMrK/acXOfCuOMG',
-//       pets: [],
-//       phone: '1232456789',
-//       profilePic: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-//       province: 'Baja California',
-//       pushToken: [],
-//       tokens: [[Object]],
-//       updated_at: '2023-07-01T03:22:12.594Z',
-//       userType: 'user',
-//       zipcode: '123456',
-//    },
-// };
