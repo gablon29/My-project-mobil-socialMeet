@@ -16,12 +16,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   // DESARROLLO
 
-  // axios.defaults.baseURL = 'http://192.168.100.60:8080'; // LUIS CASA
+  axios.defaults.baseURL = 'http://192.168.100.60:8080'; // LUIS CASA
   //  axios.defaults.baseURL = "http://192.168.18.6:8080"; // LUIS LOCAL
   // axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
-  axios.defaults.baseURL = 'http://192.168.1.2:8080'; // Vini
+  // axios.defaults.baseURL = 'http://192.168.1.2:8080'; // Vini
 
   // PRODUCCION
 
