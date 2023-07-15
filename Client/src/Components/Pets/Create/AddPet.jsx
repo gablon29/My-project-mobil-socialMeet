@@ -34,21 +34,25 @@ const AddPet = () => {
 
   const CrearPet = async () => {
     const linkImagen = await suvirImagen(selImg.profile);
+    setProfilePic(linkImagen)
     pet.profilePic = linkImagen;
     await CreatePetMethod({
       pet,
+      linkImagen,
       loading: (v) => dispatch(setLoadingPets(v)),
       error: (msg) => dispatch(setErrorPets(msg)),
-      success: (res) => /* dispatch(setAllPets(res.payload)) */ setCreada(true),
+      success: (res) =>  navigation.navigate("MascotaCreada")
     });
   };
 
   const NextPantalla = async () => {
-    if (render == 12) {
+    if (render === 12) {
       await CrearPet();
     }
+    if(render !== 12){
     setRender(render + 1);
     Validaciones(render + 1);
+  }
   };
 
   const PrevPantalla = () => {
@@ -106,11 +110,7 @@ const AddPet = () => {
               {render === 10 && <CastradoMascota_4 okWithCats={pet.health.okWithCats} setHealthOkWithCats={setHealthOkWithCats} setValida={setValida} />}
               {render === 11 && <CastradoMascota_5 okWithChildren={pet.health.okWithChildren} setHealthOkWithChildren={setHealthOkWithChildren} setValida={setValida} />}
               {render === 12 && <ImagenMascota profile={selImg.profile} setProfile={setProfile} setValida={setValida} />}
-              {render > 12 && (
-                <View>
-                  <Text>Vista No Encontrada</Text>
-                </View>
-              )}
+             
             </ScrollView>
             <TouchableOpacity className={`w-64 h-12 mx-auto rounded-xl ${valida ? 'bg-gray-400' : 'bg-naranja'} justify-center items-center my-4`} onPress={NextPantalla} disabled={valida}>
               <Text className="text-sm text-center text-white font-poppinsSemiBold">{render == 12 ? 'Finalizar' : 'Siguiente'}</Text>

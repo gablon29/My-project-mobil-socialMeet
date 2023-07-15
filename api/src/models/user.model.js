@@ -51,11 +51,7 @@ const userSchema = mongoose.Schema(
     profilePic: {
       type: String,
       default: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-      validate(value) {
-        if (!value.match(/^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/)) {
-          throw new ClientError('La url es incorrecta.', 400);
-        }
-      },
+     
     },
     pets: {
       type: Array, //ids de mascotas

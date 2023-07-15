@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const CreatePetMethod = async ({ pet, loading, error, success }) => {
   try {
+    console.log(pet)
     const token = await AsyncStorage.getItem('Token');
     const response = await axios.post('/api/pet/add', pet, {
       headers: {
