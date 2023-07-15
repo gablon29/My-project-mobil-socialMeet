@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ImagenMascota = ({ profile, setProfile, setValida }) => {
+  console.log(profile)
   return (
     <View className="justify-center items-center my-7">
       <TouchableOpacity className="flex justify-center items-center rounded-xl bg-naranja w-60 h-52" onPress={() => setProfile()}>

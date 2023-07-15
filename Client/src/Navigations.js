@@ -24,6 +24,7 @@ import OrderNotReceived from './Components/CompraChip/NoticeBuyChip/OrderNotRece
 import AddNewTicket from './Components/Profile/AddNewTicket';
 import DisplayChats from './Components/Profile/DisplayChats';
 import SingleChat from './Components/Profile/SingleChat';
+import MascotaCreada from './Components/Pets/Create/MascotaCreada';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -69,6 +70,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="MascotaCreada" component={MascotaCreada} options={{ headerShown: false }} />
+
       <StackAuthTrue.Screen name="PetProfile" component={PetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditPetProfile" component={EditPetProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
