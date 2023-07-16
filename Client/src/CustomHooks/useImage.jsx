@@ -44,10 +44,12 @@ export const useSelectImagen = (profilePic) => {
     setProfile,
     setPortada,
     setImgProfile,
+    setSelImg,
   };
 };
 
 export const suvirImagen = async (uri) => {
+
   try {
     const formData = new FormData();
     formData.append('file', {
@@ -61,6 +63,7 @@ export const suvirImagen = async (uri) => {
       body: formData,
     });
     const responseData = await response.json();
+
     return responseData.url;
   } catch (err) {
     console.error('suvirImagen: ', err.message);
@@ -90,7 +93,6 @@ export const useImage = () => {
       });
       const responseData = await response.json();
       setUrl(responseData.url);
-
       // Aquí puedes realizar acciones adicionales, como guardar la URL de la imagen en tu base de datos.
     } catch (error) {
       console.error('Error uploading image:', error.message);
@@ -99,6 +101,7 @@ export const useImage = () => {
 
   return {
     url,
+    setUrl,
     uploadImage,
   };
 };

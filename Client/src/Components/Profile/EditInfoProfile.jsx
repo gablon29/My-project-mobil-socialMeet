@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Delete from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '../Buttons/ButtonCuston';
 import ButtonIcon from '../Buttons/Button';
-import { useSelectImagen } from '../../CustomHooks/useImage';
+import { suvirImagen, useImage, useSelectImagen } from '../../CustomHooks/useImage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../CustomHooks/useAuth';
 import { ReloadAuthMethod, editUser } from '../../metodos/authMetodos';
@@ -14,11 +14,11 @@ import countrys from '../../../extras/countrys.json';
 import { SelectList } from 'react-native-dropdown-select-list';
 
 const EditInfoProfile = ({ navigation }) => {
-  const { selImg, setProfile } = useSelectImagen();
+  const { selImg, setProfile, setSelImg } = useSelectImagen();
   const profile = useSelector((state) => state.ReducerAuth.profile);
   const [countryOptions, setCountryOptions] = useState([]);
   const [provinceOptions, setProvinceOptions] = useState([]);
-
+const {url, setUrl, uploadImage} = useImage()
   const dispatch = useDispatch();
 
   const { firstName, setFirstName, lastName, setLastName, phone, setPhone, email, setEmail, country, setCountry, province, setProvince, zipcode, setZipcode, editProfile } = useAuth();
@@ -28,13 +28,13 @@ const EditInfoProfile = ({ navigation }) => {
     setCountryOptions(countries);
   }, []);
 
-//   useEffect(() =>{
-//     setFirstName(profile.firstName)
-//     setLastName(profile.lastName)
-//     setPhone(profile.phone)
-//     setEmail(profile.email)
-//     selImg(profile.profilePic)
-//   },[])
+  useEffect(() =>{
+    setFirstName(profile?.firstName)
+    setLastName(profile?.lastName)
+    setPhone(profile?.phone)
+    setEmail(profile?.email)
+    setUrl(profile?.profilePic)
+  },[])
   
   useEffect(() => {
     if (country) {
@@ -54,8 +54,7 @@ const EditInfoProfile = ({ navigation }) => {
           email: email, 
           country: country, 
           province: province,
-           profilePic: 
-           profilePic };
+           profilePic:  url };
     const token = await AsyncStorage.getItem('Token');
     await editUser({
       profile,
@@ -80,8 +79,8 @@ const EditInfoProfile = ({ navigation }) => {
     <ScrollView>
       <View className="w-screen h-full bg-white items-center pt-10 mb-5">
         <View className="bg-naranja w-40 h-40 rounded-full relative justify-center">
-          <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-40 h-40" onPress={() => setProfile()}>
-            {selImg.profile ? <Image source={{ uri: selImg.profile }} style={{ width: 160, height: 160 }} className="rounded-full" /> : profile?.profilePic ? <Image source={{ uri: profile.profilePic }} style={{ width: 160, height: 160 }} className="rounded-full" /> : <Icon name="plus" size={60} color="white" />}
+          <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-40 h-40" onPress={() => uploadImage()}>
+            <Image source={{ uri: url }} style={{ width: 160, height: 160 }} className="rounded-full" />
           </TouchableOpacity>
           <View className="absolute z-50 -right-4 -top-3 w-16 h-16 bg-black rounded-full justify-center">
             <ButtonIcon title={<Delete name="trash-can-outline" size={32} color="white" />} />
@@ -101,6 +100,7 @@ const EditInfoProfile = ({ navigation }) => {
             data={countryOptions}
             setSelected={setCountry}
             placeholder="Seleccionar"
+            defaultOption={{key: profile?.country, value:profile?.country}}
             search={false}
             fontFamily="Poppins"
             boxStyles={{
@@ -118,6 +118,7 @@ const EditInfoProfile = ({ navigation }) => {
             data={provinceOptions}
             setSelected={setProvince}
             placeholder="Seleccionar"
+            defaultOption={{key: profile?.province, value:profile?.province}}
             search={false}
             fontFamily={'Poppins'}
             boxStyles={{
