@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON /* , paginate */ } = require('./plugins');
 const { ClientError } = require('../utils/errors');
+const SupportTicket = require("./supportTicket.model")
 const userSchema = mongoose.Schema(
   {
     userType: {
@@ -91,6 +92,7 @@ const userSchema = mongoose.Schema(
       name: { type: String },
       phone: { type: String },
     },
+    
     addresses: [
       {
         address: {
@@ -117,6 +119,8 @@ const userSchema = mongoose.Schema(
         },
       },
     ],
+    supportTickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SupportTicket' }],
+
   },
   {
     timestamps: {

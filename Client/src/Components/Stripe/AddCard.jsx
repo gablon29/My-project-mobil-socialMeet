@@ -47,7 +47,7 @@ const AddCard = () => {
 };
   return (
     <View>
-        <Text>Title</Text>
+        <Text>Pagina de añadir tarjetas</Text>
     
       <View
         postalCodeEnabled={false}
