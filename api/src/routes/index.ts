@@ -89,7 +89,7 @@ router.put('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTicket
 router.put('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket));
 
 //admin
-router.put('/api/get-alltickets', isLoggedIn, catchedAsync(support.getAllTickets));
-router.put('/api/resp-tickets', isLoggedIn, catchedAsync(support.respondToTicket));
+router.put('/api/get-alltickets',  catchedAsync(support.getAllTickets));
+router.put('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 
 module.exports = router;

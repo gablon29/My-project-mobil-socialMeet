@@ -13,7 +13,7 @@ export const GetUserLocalMethod = async ({ loading, error, success }) => {
             Authorization: `Bearer ${token}`,
          },
       };
-      const response = await axios.get('/user/data', config);
+      const response = await axios.get('/api/user/user', config);
       success(response.data);
       loading(false);
    } catch (err) {
@@ -30,6 +30,7 @@ export const LoginUserMethod = async ({ email, password, loading, error, success
       const data = loginUser.data;
       localStorage.setItem('Token', data.payload.token);
       success(data);
+
       loading(false);
    } catch (err) {
       console.log('LoginUserMethod', err);

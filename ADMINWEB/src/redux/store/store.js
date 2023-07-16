@@ -1,12 +1,25 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import reducerAuth from '../reducer/reducerAuth';
-import reducerClient from '../reducer/reducerClient';
+import reducerUsuarios from '../reducer/reducerUsuarios';
 
-const store = configureStore({
-   reducer: {
-      reducerAuth,
-      reducerClient: reducerClient
-   },
+const rootReducer = combineReducers({
+  reducerAuth,
+  reducerUsuarios,
 });
 
-export default store;
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+});
+
+const persistor = persistStore(store);
+
+export { store, persistor };
