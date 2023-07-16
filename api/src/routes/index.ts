@@ -7,6 +7,7 @@ import notify from './pushNotify.route'
 
 import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
+import support from "../routes/support.route"
 
 import notificationController from '../controllers/notificationController'
 
@@ -77,5 +78,18 @@ router.get('/api/pet-info/:chipId', catchedAsync(chips.buscar_por_id));
 router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo));
 
 
+// ------------->  SOPORTE CON EL ADMIN  <-------------
+//usuario abre un ticket
+router.put('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket));
+//usuario responde al admin
+router.put('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
+//usuario ve todos los tickets mapear en pantalla
+router.put('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTickets));
+//usuario ve el ticket de el abierto para responder
+router.put('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket));
+
+//admin
+router.put('/api/get-alltickets', isLoggedIn, catchedAsync(support.getAllTickets));
+router.put('/api/resp-tickets', isLoggedIn, catchedAsync(support.respondToTicket));
 
 module.exports = router;

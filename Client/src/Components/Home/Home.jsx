@@ -15,6 +15,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
+import { sendNotification } from '../../metodos/notificationsMetodos';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
   // ESTADOS LOCALES y GLOBALES:
@@ -22,26 +24,59 @@ export default function Home() {
   const dispatch = useDispatch();
   const [dev_menu, set_dev_menu] = useState(1);
 
-  const sendNotification = async (token, title, body) => {
-    const notification = {
-      to: token,
-      title: title,
-      body: body,
-    };
-    await axios.post('api/send/send-notification', notification);
-  };
+
 
   const registerForPushNotifications = async () => {
-    const { status } = await Notifications.requestPermissionsAsync();
-
-    if (status === 'granted') {
-      const { data: token } = await Notifications.getExpoPushTokenAsync();
-      await sendNotification(token, '¡Bienvenido a MyPets!', 'Disfruta de tus mascotas');
+    let notificacionesToken = await AsyncStorage.getItem("Notification-token");
+  
+    if (notificacionesToken) {
+      await sendNotification({
+        token: notificacionesToken,
+        title,
+        body: content,
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          // Manejar respuesta exitosa
+        },
+        error: (err) => {
+          // Manejar respuesta de error
+        },
+      });
+    } else {
+      const { status } = await Notifications.requestPermissionsAsync();
+  
+      if (status === "granted") {
+        const { data: token } = await Notifications.getExpoPushTokenAsync();
+        await AsyncStorage.setItem("Notification-token", token);
+  
+        let title = "¡Bienvenido a MyPets!";
+        let content = "Disfruta de tus mascotas";
+  
+        await sendNotification({
+          token,
+          title,
+          body: content,
+          loading: (isLoading) => {
+            // Manejar estado de carga
+          },
+          success: (response) => {
+            // Manejar respuesta exitosa
+          },
+          error: (err) => {
+            // Manejar respuesta de error
+          },
+        });
+      }
     }
   };
+  
+
   useEffect(() => {
     registerForPushNotifications()
       .then((resp) => {
+        // Handle response
       })
       .catch((err) => {
         console.error('Notif: ', err.message);

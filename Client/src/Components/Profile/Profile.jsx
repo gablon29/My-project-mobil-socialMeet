@@ -8,6 +8,7 @@ import DisplayAddress from './DisplayAddress';
 import AddCard from '../Stripe/AddCard';
 import DisplaySupport from './DisplaySupport';
 import DisplayChats from './DisplayChats';
+import { UserInvoices } from './UserInvoices';
 
 const ProfileComponent = ({ navigation, props }) => {
   const [mounted, setMounted] = useState(1);
@@ -42,8 +43,8 @@ const ProfileComponent = ({ navigation, props }) => {
     <View className="justify-center items-center relative h-full w-screen bg-white">
       {mounted === 1 ? <DisplayProfile  navigation={navigation}/> : null}
       {mounted === 2 ? <DisplayAddress /> : null}
-      {mounted === 3 ? <Checkout /> : null}
-      {mounted === 4 ? <AddCard  /> : null}
+      {mounted === 3 ? <AddCard /> : null}
+      {mounted === 4 ? <UserInvoices  /> : null}
       {mounted === 5 ? <DisplayChats /> : null}
       {mounted === 6 ? <DisplaySupport /> : null}
 

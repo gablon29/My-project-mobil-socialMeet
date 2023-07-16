@@ -16,7 +16,6 @@ import MiCalendario from './Components/Screens/MiCalendario';
 import AddPet from './Components/Pets/Create/AddPet';
 import { ChipWhopaws } from './Components/CompraChip/LandingPage/ChipWhopaws';
 import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/ConfigurateChip';
-import Checkout from './Components/Stripe/Checkout';
 import EditInfoProfile from './Components/Profile/EditInfoProfile';
 import HeaderBack from './Components/Screens/HeaderBack';
 import OrderReceived from './Components/CompraChip/NoticeBuyChip/OrderReceived';
@@ -25,6 +24,7 @@ import AddNewTicket from './Components/Profile/AddNewTicket';
 import DisplayChats from './Components/Profile/DisplayChats';
 import SingleChat from './Components/Profile/SingleChat';
 import MascotaCreada from './Components/Pets/Create/MascotaCreada';
+import AddCard from './Components/Stripe/AddCard';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -77,7 +77,6 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="MiCalendario" component={MiCalendario} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="ChipWhopaws" component={ChipWhopaws} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="ConfigurateChip" component={ConfigurateChip} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="Checkout" component={Checkout} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="OrderReceived" component={OrderReceived} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="OrderNotReceived" component={OrderNotReceived} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddNewTicket" component={AddNewTicket} options={{ headerShown: true }} />

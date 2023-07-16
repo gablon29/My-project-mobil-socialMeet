@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { RenderMascota } from "./Components/Chips/RenderMascota";
 import { Mascota } from "./Components/Chips/Mascota";
 
-axios.defaults.baseURL = "https://whopaws-production.up.railway.app";
+axios.defaults.baseURL = "http://localhost:8080";
 
 // axios.defaults.withCredentials = true;
 
