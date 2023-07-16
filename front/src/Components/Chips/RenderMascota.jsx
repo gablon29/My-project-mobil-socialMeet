@@ -2,18 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { activar_pet } from "../../utils/axiosHandlers";
 export const RenderMascota = ({ mascota, owner,detalloso=true }) => {
-  /*
-  QUE DESASTRE XD HAY QUE REFACTORIZAR TODO ME PARECE
-  porlomenos funciona un poco
 
-  owner = {email
-firstName
-id
-lastName
-pets []
-profilePic
-userType  "user o admin"}
-  */
   const [chipId, setChipId] = useState("");
   const [petId, setPetId] = useState("");
 

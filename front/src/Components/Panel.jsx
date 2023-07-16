@@ -5,9 +5,7 @@ import {
   CleanProfile,
 } from "../redux/actions";
 
-import { Menu } from "./Menu";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import { Usuarios } from "./Usuarios";
 import { MisMascotas } from "./Chips/MisMascotas";
 
 export const Panel = (props) => {
@@ -38,13 +36,6 @@ export const Panel = (props) => {
   return (
     <div>
       <div className="flex h-screen bg-gray-100 z-">
-        {/* <!-- sidebar --> */}
-        <div className="hidden md:flex flex-col w-64 bg-purple-800">
-          <div className="flex items-center justify-center h-16 bg-purple-900">
-            <span className="text-white font-bold uppercase">Menu</span>
-          </div>
-          <Menu setPaginas={setPaginas} />
-        </div>
 
         {/* <!-- Main content --> */}
         <div className="flex flex-col flex-1 overflow-y-auto">
@@ -82,21 +73,9 @@ export const Panel = (props) => {
             </div>
           </div>
           <div className="">
-        {movil && !sidebarOpen ? (
-  <Menu
-    setPaginas={setPaginas}
-    setMovil={setMovil}
-    handleSidebarToggle={handleSidebarToggle}
-    setSidebarOpen={setSidebarOpen}
-    sidebarOpen={sidebarOpen}
-  />
-) : location.pathname === "/dashboard/usuarios" ?
-  <div className="mb-8">
-    <Usuarios/>
-  </div>
-  : location.pathname === "/activate/:id" || "/activate" ?
-  <MisMascotas set_hay_token={props.set_hay_token}/> : null
-}
+    
+  <MisMascotas set_hay_token={props.set_hay_token}/>
+
           </div>
         </div>
       </div>
