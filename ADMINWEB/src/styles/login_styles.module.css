@@ -1,0 +1,106 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(30deg, #3e52c4 0%, #3583db 100%);
+  animation: adjustHue 15s infinite;
+}
+
+@keyframes adjustHue {
+  50% {
+    filter: saturate(150%) hue-rotate(-35deg);
+  }
+}
+
+.form_container {
+        background-color: #15172b;
+        border-radius: 20px;
+        box-sizing: border-box;
+        height: 500px;
+        padding: 20px;
+        width: 320px;
+        box-shadow: 10px -8px rgb(88, 88, 109);
+  }
+
+.title {
+    display: flex;
+    justify-content: center;
+    color: #eee;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: center;
+    color: #eee;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+.input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 20px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 4px;
+    width: 100%;
+  }
+  
+  .form label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .form button:hover {
+    box-shadow: 2px 2px 12px white;
+  }
+
+  .labeltxt {
+    color: white;
+    display: flex;
+    margin-bottom: .7rem;
+  }
+
+  .input_cont01{
+    margin-top: 30px;
+  }
+
+  .input_cont02{
+    margin-top: 30px;
+  }
+
+  .button_login{
+    background-color: #3583db;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .button_login:hover {
+    background-color: rgb(40, 140, 221);
+  }
+
+  .button_login:active{
+    background-color: #303245;
+  }
+
+    .hr {
+    background: #f7f7f7;
+    margin: 1rem;
+  }
+  
