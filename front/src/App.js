@@ -4,12 +4,10 @@ import { Login } from "./Components/Login";
 import { Panel } from "./Components/Panel";
 import axios from "axios";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
-import { MisMascotas } from "./Components/Chips/MisMascotas";
 import { useEffect, useState } from "react";
-import { RenderMascota } from "./Components/Chips/RenderMascota";
 import { Mascota } from "./Components/Chips/Mascota";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://whopaws-production.up.railway.app";
 
 // axios.defaults.withCredentials = true;
 

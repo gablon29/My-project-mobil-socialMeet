@@ -7,7 +7,7 @@ export const Menu = ({ sidebarOpen, setSidebarOpen }) => {
   };
   return (
     <div className="flex flex-col flex-1 overflow-y-auto">
-      <nav className="flex-1 px-2 py-4 bg-purple-800">
+      {/* <nav className="flex-1 px-2 py-4 bg-purple-800">
         <Link
           to="/dashboard"
           className="flex items-center px-4 py-2 text-gray-100 hover:bg-purple-700"
@@ -94,7 +94,7 @@ export const Menu = ({ sidebarOpen, setSidebarOpen }) => {
           </svg>
           Chips
         </Link>
-      </nav>
+      </nav> */}
     </div>
   );
 };
