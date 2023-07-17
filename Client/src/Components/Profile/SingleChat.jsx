@@ -9,10 +9,6 @@ const SingleChat = ({route}) => {
     const {name} = route.params;
     const navigation = useNavigation();
     const [message, setMessage] = useState('');
-  
-    const handleTextChange = (text) => {
-      setMessage(text);
-    };
 
     return (
         <View className="w-screen h-full items-center bg-gris">
@@ -98,7 +94,7 @@ const SingleChat = ({route}) => {
             <View className="bg-naranja w-screen p-3 relative flex-row">
                 <TextInput 
                     value={message}
-                    onChangeText={handleTextChange}
+                    onChangeText={(text)=>setMessage(text)}
                     multiline
                     textAlignVertical="top"
                     placeholder='Escribir mensaje'
