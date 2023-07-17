@@ -1,15 +1,18 @@
 import axios from "axios";
 
-export const sendNotification = async ({ token, title, body, loading, success, error }) => {
-  const notification = {
-    to: token,
-    title: title,
-    body: body,
-  };
-
+export const saveToken = async ({ token, tokenSession, loading, success, error }) => {
   try {
+    const cleanedToken = token.replace('ExponentPushToken[', '').replace(']', '').toString("")
+    console.log(cleanedToken);
+    
     loading(true);
-    const response = await axios.post('api/send/send-notification', notification);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${tokenSession}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await axios.post('/api/user/saveDeviceToken', {token: cleanedToken}, config);
     success(response.data);
     console.log(response.data);
     loading(false);
