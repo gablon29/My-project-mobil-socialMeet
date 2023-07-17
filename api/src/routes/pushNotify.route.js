@@ -2,6 +2,7 @@ const {
   sendNotification,
   saveDeviceToken,
 } = require('../controllers/notificationController');
+const { sendNotifications } = require('../controllers/pushController');
 const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 
@@ -24,9 +25,10 @@ pushear: async (req, res) => {
 },
 
 sendear: async (req, res) => {
-  const { token, title, body } = req.body;
+  const { token, title, body, userId } = req.body;
   // Enviamos la notificación
-  await sendNotification(token, title, body);
+  let tokens = [token]
+  await sendNotifications(tokens, body, title, userId);
   response(
     res,
     200,

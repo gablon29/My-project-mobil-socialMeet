@@ -28,15 +28,17 @@ export default function Home() {
   const profile = useSelector((state) => state.ReducerAuth.profile);
   const CheckTokenDevice = async () => {
     const { status } = await Notifications.requestPermissionsAsync();
-  
+  console.log(profile)
     if (status === "granted") {
       const { data: token } = await Notifications.getExpoPushTokenAsync();
       await AsyncStorage.setItem("Notification-token", token);
       let tokenSession = await AsyncStorage.getItem("Token");
-      let checkToken = profile.deviceTokens.find((ele) => ele === token);
+      
+      let checkToken = profile.deviceTokens.filter((ele) => ele === token);
       if (!checkToken) {
         await saveToken({
           token,
+          tokenSession,
           loading: (isLoading) => {
             // Manejar estado de carga
           },
@@ -44,10 +46,10 @@ export default function Home() {
             console.log(response);
           },
           error: (err) => {
-            console.error(err)
+            console.log(err)
           },
         });
-      }
+      }else "el token del celular esta en el back "
     }
   };
   
