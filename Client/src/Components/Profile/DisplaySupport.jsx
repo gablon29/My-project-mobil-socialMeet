@@ -1,55 +1,58 @@
 import { View, Text, FlatList, ScrollView } from "react-native";
 import Button from "../Buttons/Button"
 import { useNavigation } from "@react-navigation/core";
+import { useEffect } from "react";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllTickets, setErrorTickets, setLoadingTickets } from "../../Redux/ReducerTickets";
+import { GetTicketsMethod } from "../../metodos/ticketsMetodos";
 
 const DisplaySupport = () => {
     const navigation = useNavigation();
+    /* const [tickets, setTickets] = useState([]); */
+    /* const [updateTickets, setUpdateTickets] = useState(false) */
+    const { userTickets } = useSelector((state)=>state.ReducerTickets);
+    const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        fetchData()
+    },[dispatch])
 
-    const data = [
-        {
-            title: "Prueba",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 2",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 3",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 4",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 4",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 4",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 4",
-            date: "01/02/23"
-        },
-        {
-            title: "Prueba 4",
-            date: "01/02/23"
-        },
-    ]
+    const fetchData = () => {
+        GetTicketsMethod({
+          loading: (v) => dispatch(setLoadingTickets(v)),
+          error: (msg) => dispatch(setErrorTickets(msg)),
+          success: (res) => dispatch(setAllTickets(res.payload)),
+        });
+      };
+    
+    /* const getTickets = async () => {
+        const token = await AsyncStorage.getItem('Token');
+        axios.get("/api/getuser-tickets", {headers: {Authorization: "Bearer " + token}})
+            .then(response => setTickets(response.data.payload))
+            .catch(error=>console.log(error))
+
+            setUpdateTickets(false)
+    }; */
+
+    /* updateTickets ? getTickets() : null; */
 
     const renderTicket = ({item, index}) => {
         const bgClass = index % 2 === 0 ? "bg-naranja" : "bg-black";
         const textColor = index % 2 === 0 ? "text-black" : "text-white";
         const classTicketContainer = `w-full h-146 mb-5 bg-naranja rounded-xl flex-row justify-between p-5 ${bgClass}`
         const classTextDate = `${textColor}`
+        const date = new Date(item.createdAt);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear().toString().slice(-2);
+        const formatDate = `${day}/${month}/${year}`;
         return (
         <View key={index} className={classTicketContainer}>
             <View>
-                <Text className="text-white font-poppins font-semibold text-xs">{item.title}</Text>
-                <Text className={classTextDate}>{item.date}</Text>
+                <Text className="text-white font-poppins font-semibold text-xs">{item.subject}</Text>
+                <Text className={classTextDate}>{formatDate}</Text>
             </View>
             <Button 
                 title="Ver Ticket"
@@ -77,7 +80,7 @@ const DisplaySupport = () => {
                     onPress={()=>{navigation.navigate("AddNewTicket")}}
                 />
                 <View className="w-10/12 mt-5">
-                    {data.map((item, index) => renderTicket({ item, index }))}
+                    {userTickets.map((item, index) => renderTicket({ item, index }))}
                 </View>
             </View>
         </ScrollView>
