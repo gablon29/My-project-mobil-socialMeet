@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { CreateTicketMethod } from "../../metodos/ticketsMetodos";
 import { addNewTicket, setErrorTickets, setLoadingTickets } from "../../Redux/ReducerTickets";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddNewTicket = ({ route }) => {
     const { refreshTickets } = route.params;
@@ -13,7 +13,7 @@ const AddNewTicket = ({ route }) => {
     const navigation = useNavigation();
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
-    
+
     const sendTicket = () => {
         if(subject === "" || message === "") {
             setAlert({subject: "El título es requerido", message: "La descripción es requerida"})

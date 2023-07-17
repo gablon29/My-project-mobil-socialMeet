@@ -5,7 +5,7 @@ const { ClientError } = require('../utils/errors');
 const User = require('../models/user.model');
 
 module.exports = {
-  sendTicket: async (req, res) => {
+  sendTicket: async (req, res) => { //funcionando
     const { subject, message } = req.body;
     const userId = req.user.userId;
     console.log(userId)
@@ -68,7 +68,7 @@ module.exports = {
     response(res, 200, tickets);
   },
 
-  // Obtener el historial de mensajes de un ticket específico
+  // Obtener el historial de mensajes de un ticket especÃ­fico
   openTicket: async (req, res) => {
     const { ticketId } = req.params;
 

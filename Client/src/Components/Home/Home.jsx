@@ -56,7 +56,7 @@ export default function Home() {
   
         await sendNotification({
           token,
-          title,
+          title: title,
           body: content,
           loading: (isLoading) => {
             // Manejar estado de carga

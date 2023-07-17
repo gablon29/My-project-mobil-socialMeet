@@ -38,6 +38,9 @@ const purchaseSchema = mongoose.Schema(
     pais: {
         type: String,
         required: true,
+    },
+    succesPayment: {
+      type: Boolean
     }
 
 

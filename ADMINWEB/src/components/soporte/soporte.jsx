@@ -8,21 +8,16 @@ export const Soporte = () => {
 
     const tickets = useSelector((state) => state.reducerUsuarios.tickets);
 const dispatch = useDispatch()
+const [getTickets, setGetTickets] = useState(false)
 useEffect(() => {
-    const allSuport = async () => {
-      try {
-        await getAllTickets({
+    if(!getTickets){
+         getAllTickets({
           loading: (v) => dispatch(authSetLoading(v)),
           error: (msg) => dispatch(authSetError(msg)),
-          success: async (res) => dispatch(setTickets(res)),
+          success: async (res) =>  res.length && dispatch(setTickets(res), setGetTickets(true)),
         });
-      } catch (error) {
-        // Manejar el error, si es necesario
       }
-    };
-  
-    allSuport();
-  }, [getAllTickets, authSetLoading, authSetError, setTickets, dispatch]);
+  }, []);
 
     return(
         <>
