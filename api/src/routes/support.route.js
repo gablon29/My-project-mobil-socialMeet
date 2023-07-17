@@ -60,8 +60,9 @@ module.exports = {
 
     response(res, 200, 'Respuesta enviada correctamente');
   },
+  
   getAllTickets: async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const tickets = await SupportTicket.find({ createdBy: userId });
     response(res, 200, tickets);
