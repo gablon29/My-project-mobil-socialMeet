@@ -3,6 +3,7 @@ const PetModel = require('../models/pet.model');
 const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 //const { deletePet } = require('../controllers/deletePet.js');
+const Purchase = require('../models/purchase.model');
 
 module.exports ={
 
@@ -92,7 +93,15 @@ remove_admin_powers: async (req, res) => {
         { tipo: 'User' }
       );
       response(res, 200, 'El admin ahora es usuario');
+      },
 
-},
 
-}
+      allSales: async (req, res) => {
+        try {
+          const purchases = await Purchase.find();
+          res.json(purchases);
+        } catch (error) {
+          res.status(500).json({ error: 'Error al obtener las compras' });
+        }
+      },
+    }

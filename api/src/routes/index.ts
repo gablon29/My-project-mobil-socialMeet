@@ -4,6 +4,7 @@ import user from './user.route'
 import pet from './pet.route'
 import admin from './admin.route'
 import notify from './pushNotify.route'
+import purchases from './purchases.route'
 
 import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
@@ -63,6 +64,8 @@ router.put('/api/admin/desbanear', /* isLoggedIn, */ catchedAsync(admin.unban_us
 router.put('/api/admin/addAmin', /* isLoggedIn, */ catchedAsync(admin.give_admin_powers));
 router.put('/api/admin/desAmin', /* isLoggedIn, */ catchedAsync(admin.remove_admin_powers));
 
+router.put('/api/admin/purchases', /* isLoggedIn, */ catchedAsync(admin.allSales));
+
 
 // ------------->  STRIPE  <-------------
 router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(stripeControllers.getApiKey));
@@ -78,18 +81,23 @@ router.get('/api/pet-info/:chipId', catchedAsync(chips.buscar_por_id));
 router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo));
 
 
+// ------------->  Compras  <-------------
+
+router.post('/api/new-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+
+
 // ------------->  SOPORTE CON EL ADMIN  <-------------
 //usuario abre un ticket
-router.put('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket));
+router.post('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket));
 //usuario responde al admin
-router.put('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
+router.post('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
 //usuario ve todos los tickets mapear en pantalla
-router.put('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTickets));
+router.get('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTickets));
 //usuario ve el ticket de el abierto para responder
-router.put('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket));
+router.get('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket));
 
 //admin
-router.put('/api/get-alltickets',  catchedAsync(support.getAllTickets));
-router.put('/api/resp-tickets',  catchedAsync(support.respondToTicket));
+router.get('/api/get-alltickets',  catchedAsync(support.getAllTickets));
+router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 
 module.exports = router;
