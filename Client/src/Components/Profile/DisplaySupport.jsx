@@ -9,23 +9,25 @@ import { GetTicketsMethod } from "../../metodos/ticketsMetodos";
 const DisplaySupport = () => {
     const navigation = useNavigation();
     const { userTickets } = useSelector((state)=>state.ReducerTickets);
-    const [refreshTickets, setRefreshTickets]= useState(false)
+    const reversedTickets = [...userTickets].reverse();
     const dispatch = useDispatch();
     
-    useEffect(()=>{
-        fetchData()
-    },[dispatch])
-
     const fetchData = () => {
         GetTicketsMethod({
           loading: (v) => dispatch(setLoadingTickets(v)),
           error: (msg) => dispatch(setErrorTickets(msg)),
           success: (res) => dispatch(setAllTickets(res.payload)),
         });
-        setRefreshTickets(false);
       };
 
-    refreshTickets ? fetchData() : null;
+    useEffect(()=>{
+        fetchData()
+    },[dispatch])
+
+    const refreshTickets = () => {
+        fetchData()
+    };
+
 
     const renderTicket = ({item, index}) => {
         
@@ -37,8 +39,7 @@ const DisplaySupport = () => {
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const year = date.getFullYear().toString().slice(-2);
-        const formatDate = `${day}/${month}/${year}`;
-
+        const formatDate = item.createdAt ? `${day}/${month}/${year}` : "";
         return (
            
         <View key={index} className={classTicketContainer}>
@@ -72,10 +73,10 @@ const DisplaySupport = () => {
                     alto="h-14"
                     margin="my-10"
                     rounded="rounded-xl"
-                    onPress={()=>{navigation.navigate("AddNewTicket", {setRefreshTickets})}}
+                    onPress={()=>{navigation.navigate("AddNewTicket", {refreshTickets})}}
                 />
                 <View className="w-10/12 mt-5">
-                    {userTickets?.map((item, index) => item.createdAt !== NaN && renderTicket({ item , index }))}
+                    {reversedTickets?.map((item, index) => renderTicket({ item, index }))}
                 </View>
             </View>
         </ScrollView>
