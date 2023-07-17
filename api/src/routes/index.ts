@@ -92,12 +92,12 @@ router.post('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket));
 //usuario responde al admin
 router.post('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
 //usuario ve todos los tickets mapear en pantalla
-router.get('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTickets));
+router.get('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTicketsUser));
 //usuario ve el ticket de el abierto para responder
 router.get('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket));
 
 //admin
-router.get('/api/get-alltickets', isLoggedIn, catchedAsync(support.getAllTicketsAdmin));
-router.post('/api/resp-tickets', isLoggedIn, catchedAsync(support.respondToTicket));
+router.get('/api/get-alltickets',  catchedAsync(support.getAllTicketsAdmin));
+router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 
 module.exports = router;

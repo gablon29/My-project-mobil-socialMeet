@@ -2,10 +2,13 @@ const UserModel = require('../models/user.model');
 const SupportTicket = require('../models/supportTicket.model');
 const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
+const User = require('../models/user.model');
 
 module.exports = {
   sendTicket: async (req, res) => {
     const { subject, message } = req.body;
+    const userId = req.user.userId;
+    console.log(userId)
     const supportTicket = new SupportTicket({
       subject,
       message,
@@ -19,11 +22,9 @@ module.exports = {
 
     response(res, 200, 'Mensaje enviado correctamente');
   },
-
-  getAllTicketsAdmin: async (req, res) => {
-    const tickets = await SupportTicket.find()
-    if(tickets) response(res, 200, tickets);
-    else throw new ClientError('No ahi tickets', 400);
+  getAllTickets: async (req, res) => {
+    const tickets = await SupportTicket.find();
+    response(res, 200, tickets);
   },
 
   respondToTicket: async (req, res) => {
@@ -61,9 +62,8 @@ module.exports = {
 
     response(res, 200, 'Respuesta enviada correctamente');
   },
-  getAllTickets: async (req, res) => {
-    const userId = req.user.id;
-
+  getAllTicketsUser: async (req, res) => {
+    const userId = req.user.userId;
     const tickets = await SupportTicket.find({ createdBy: userId });
     response(res, 200, tickets);
   },

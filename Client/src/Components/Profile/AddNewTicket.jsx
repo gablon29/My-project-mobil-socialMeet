@@ -6,19 +6,21 @@ import { CreateTicketMethod } from "../../metodos/ticketsMetodos";
 import { addNewTicket, setErrorTickets, setLoadingTickets } from "../../Redux/ReducerTickets";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddNewTicket = () => {
+const AddNewTicket = ({ route }) => {
+    const { setRefreshTickets } = route.params;
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
-    const sendTicket = async () => {
+    const sendTicket = () => {
         CreateTicketMethod({
             ticket: {subject, message},
             loading: (v) => dispatch(setLoadingTickets(v)),
             error: (msg) => dispatch(setErrorTickets(msg)),
             success: (res) => dispatch(addNewTicket(res.payload)),
         })
+        setRefreshTickets(true);
         navigation.goBack();
     }
     
