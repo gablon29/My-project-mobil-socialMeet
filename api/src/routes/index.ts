@@ -38,6 +38,7 @@ router.post('/api/user/sendemail',limit5cada30minutos ,catchedAsync(user.send_re
 router.post('/api/user/check-code', catchedAsync(user.check_code));
 router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
 router.put('/api/user/edit', isLoggedIn, catchedAsync(user.editUser));
+router.post('/api/user/saveDeviceToken', isLoggedIn, catchedAsync(user.saveDeviceToken));
 
 
 // ------------->  PET  <-------------
@@ -98,7 +99,7 @@ router.get('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTicket
 router.get('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket));
 
 //admin
-router.get('/api/get-alltickets',  catchedAsync(support.getAllTicketsAdmin));
+router.get('/api/get-alltickets', isLoggedIn, catchedAsync(support.getAllTicketsAdmin));
 router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 
 module.exports = router;

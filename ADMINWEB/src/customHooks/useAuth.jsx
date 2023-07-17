@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoginUserMethod } from '../../utils/metodos/metodosAuth';
 import { authSetError, authSetLoading, authSetUser } from '../redux/reducer/reducerAuth';
-import { getAllPets, getAllUsets } from '../../utils/metodos/adminMetodos';
-import { setPets, setUsuarios } from '@/redux/reducer/reducerUsuarios';
+import { getAllPets, getAllTickets, getAllUsets } from '../../utils/metodos/adminMetodos';
+import { setPets, setTickets, setUsuarios } from '@/redux/reducer/reducerUsuarios';
 
 export const useAuth = () => {
    const [email, setEmail] = useState('');
@@ -12,31 +12,32 @@ export const useAuth = () => {
    const dispatch = useDispatch();
 
    const handleSubmit = async (e) => {
-      e.preventDefault();
-      await LoginUserMethod({
-        email,
-        password,
-        loading: (v) => dispatch(authSetLoading(v)),
-        error: (msg) => dispatch(authSetError(msg)),
-        success: async (res) => {
-          dispatch(authSetUser(res.payload.user));
-          await getAllUsets({
-            loading: (v) => dispatch(authSetLoading(v)),
-            error: (msg) => dispatch(authSetError(msg)),
-            success: async (res) => dispatch(setUsuarios(res),   
-            ),
-          })
-          await getAllPets({
-            loading: (v) => dispatch(authSetLoading(v)),
-            error: (msg) => dispatch(authSetError(msg)),
-            success: async (res) => dispatch(setPets(res),   
-            ),
-            
-          })
-        },
-      });
-    };
-  
+    e.preventDefault();
+    await LoginUserMethod({
+      email,
+      password,
+      loading: (v) => dispatch(authSetLoading(v)),
+      error: (msg) => dispatch(authSetError(msg)),
+      success: async (res) => {
+        dispatch(authSetUser(res.payload.user));
+        await getAllUsets({
+          loading: (v) => dispatch(authSetLoading(v)),
+          error: (msg) => dispatch(authSetError(msg)),
+          success: async (res) => dispatch(setUsuarios(res)),
+        });
+        await getAllPets({
+          loading: (v) => dispatch(authSetLoading(v)),
+          error: (msg) => dispatch(authSetError(msg)),
+          success: async (res) => dispatch(setPets(res)),
+        });
+        await getAllTickets({
+          loading: (v) => dispatch(authSetLoading(v)),
+          error: (msg) => dispatch(authSetError(msg)),
+          success: async (res) => dispatch(setTickets(res)),
+        });
+      },
+    });
+  };
 
    return {
       handleSubmit,

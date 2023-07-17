@@ -9,13 +9,13 @@ import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import { SignOffMethod } from '../../metodos/authMetodos';
 import { setErrorAuth, setLoadingAuth, signOffAuth } from '../../Redux/ReducerAuth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
-import { sendNotification } from '../../metodos/notificationsMetodos';
+import { saveToken, sendNotification } from '../../metodos/notificationsMetodos';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home() {
@@ -25,47 +25,26 @@ export default function Home() {
   const [dev_menu, set_dev_menu] = useState(1);
 
 
-
-  const registerForPushNotifications = async () => {
-    let notificacionesToken = await AsyncStorage.getItem("Notification-token");
+  const profile = useSelector((state) => state.ReducerAuth.profile);
+  const CheckTokenDevice = async () => {
+    const { status } = await Notifications.requestPermissionsAsync();
   
-    if (notificacionesToken) {
-      await sendNotification({
-        token: notificacionesToken,
-        title,
-        body: content,
-        loading: (isLoading) => {
-          // Manejar estado de carga
-        },
-        success: (response) => {
-          // Manejar respuesta exitosa
-        },
-        error: (err) => {
-          // Manejar respuesta de error
-        },
-      });
-    } else {
-      const { status } = await Notifications.requestPermissionsAsync();
-  
-      if (status === "granted") {
-        const { data: token } = await Notifications.getExpoPushTokenAsync();
-        await AsyncStorage.setItem("Notification-token", token);
-  
-        let title = "¡Bienvenido a MyPets!";
-        let content = "Disfruta de tus mascotas";
-  
-        await sendNotification({
+    if (status === "granted") {
+      const { data: token } = await Notifications.getExpoPushTokenAsync();
+      await AsyncStorage.setItem("Notification-token", token);
+      let tokenSession = await AsyncStorage.getItem("Token");
+      let checkToken = profile.deviceTokens.find((ele) => ele === token);
+      if (!checkToken) {
+        await saveToken({
           token,
-          title: title,
-          body: content,
           loading: (isLoading) => {
             // Manejar estado de carga
           },
           success: (response) => {
-            // Manejar respuesta exitosa
+            console.log(response);
           },
           error: (err) => {
-            // Manejar respuesta de error
+            console.error(err)
           },
         });
       }
@@ -74,7 +53,7 @@ export default function Home() {
   
 
   useEffect(() => {
-    registerForPushNotifications()
+    CheckTokenDevice()
       .then((resp) => {
         // Handle response
       })
