@@ -28,14 +28,19 @@ export const getAllPets = async ({ loading, error, success }) => {
 
 export const getAllTickets = async ({ loading, error, success }) => {
    try {
-      loading(true);
-      const response = await axios.get('/api/get-alltickets', );
-      console.log(response.data)
-      success(response.data.payload);
-      loading(false);
+     loading(true);
+     let token = localStorage.getItem("Token");
+     const config = {
+       headers: {
+         Authorization: `Bearer ${token}`,
+       },
+     };
+     const response = await axios.get('/api/get-alltickets', config);
+     success(response.data.payload);
+     loading(false);
    } catch (err) {
-      console.log('GetUserLocalMethod', err);
-      error(err);
-      loading(false);
+     console.log('GetUserLocalMethod', err);
+     error(err);
+     loading(false);
    }
-};
+ };
