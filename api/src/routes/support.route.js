@@ -5,14 +5,14 @@ const { ClientError } = require('../utils/errors');
 const User = require('../models/user.model');
 
 module.exports = {
-  sendTicket: async (req, res) => {
+  sendTicket: async (req, res) => { //funcionando
     const { subject, message } = req.body;
     const userId = req.user.userId;
     console.log(userId)
     const supportTicket = new SupportTicket({
       subject,
       message,
-      createdBy:  req.user.userId,
+      createdBy: userId,
     });
     // Guardar el ticket de soporte
     await supportTicket.save();
@@ -22,7 +22,7 @@ module.exports = {
 
     response(res, 200, 'Mensaje enviado correctamente');
   },
-  getAllTickets: async (req, res) => {
+  getAllTicketsAdmin: async (req, res) => {
     const tickets = await SupportTicket.find();
     response(res, 200, tickets);
   },
@@ -68,7 +68,7 @@ module.exports = {
     response(res, 200, tickets);
   },
 
-  // Obtener el historial de mensajes de un ticket específico
+  // Obtener el historial de mensajes de un ticket especÃ­fico
   openTicket: async (req, res) => {
     const { ticketId } = req.params;
 

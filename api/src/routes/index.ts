@@ -88,7 +88,8 @@ router.post('/api/new-purchase', isLoggedIn, catchedAsync(purchases.purchase));
 
 // ------------->  SOPORTE CON EL ADMIN  <-------------
 //usuario abre un ticket
-router.post('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket));
+
+router.post('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket)); //funcionando
 //usuario responde al admin
 router.post('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
 //usuario ve todos los tickets mapear en pantalla
