@@ -7,8 +7,8 @@ import { addNewTicket, setErrorTickets, setLoadingTickets } from "../../Redux/Re
 import { useDispatch } from "react-redux";
 
 const AddNewTicket = ({ route }) => {
-    const { setRefreshTickets } = route.params;
-    const [alert, setAlert] = useState({subject: "El título es requerido", message: "La descripción es requerida"});
+    const { refreshTickets } = route.params;
+    const [alertInput, setAlert] = useState({subject: "", message: ""});
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [subject, setSubject] = useState("");
@@ -16,7 +16,7 @@ const AddNewTicket = ({ route }) => {
     
     const sendTicket = () => {
         if(subject === "" || message === "") {
-            console.log("STOP")
+            setAlert({subject: "El título es requerido", message: "La descripción es requerida"})
         } else {
             CreateTicketMethod({
                 ticket: {subject, message},
@@ -24,7 +24,8 @@ const AddNewTicket = ({ route }) => {
                 error: (msg) => dispatch(setErrorTickets(msg)),
                 success: (res) => dispatch(addNewTicket(res.payload)),
             })
-            setRefreshTickets(true);
+            setAlert({subject: "", message: ""})
+            refreshTickets();
             navigation.goBack();
         }
     }
@@ -39,6 +40,7 @@ const AddNewTicket = ({ route }) => {
                         className="bg-gris mb-5 px-5 text-base rounded-3xl w-full h-12 shadow-lg shadow-black"
                         onChangeText={(text)=>setSubject(text)}
                         defaultValue={subject}
+                        placeholder={alertInput.subject}
                     />
                     <Text className="left-5 mb-3 w-full font-semibold text-base">Descríbenos tu problema</Text>
                     <TextInput 
@@ -48,7 +50,7 @@ const AddNewTicket = ({ route }) => {
                         className="bg-gris rounded-[24px] text-base justify-start items-start p-4 w-full shadow-lg shadow-black"
                         onChangeText={(text)=>setMessage(text)}
                         defaultValue={message}
-                        
+                        placeholder={alertInput.message}
                     />
                     <Button 
                     title="Enviar Ticket"
