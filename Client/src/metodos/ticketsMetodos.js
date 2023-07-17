@@ -22,7 +22,11 @@ export const GetTicketsMethod = async ({ loading, error, success }) => {
 export const CreateTicketMethod = async ({ticket, loading, error, success}) => {
     try {
         const token = await AsyncStorage.getItem('Token');
-        const response = await axios.post("/api/open-ticket", ticket, {headers: {Authorization: "Bearer " + token}});
+        const response = await axios.post("/api/open-ticket", ticket, 
+        {headers: 
+            { 
+             "Content-Type": "application/json",
+                Authorization: "Bearer " + token}});
         success(response.data);
         loading(false);
     } catch (err) {

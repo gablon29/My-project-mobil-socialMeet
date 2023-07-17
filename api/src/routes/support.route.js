@@ -6,11 +6,10 @@ const { ClientError } = require('../utils/errors');
 module.exports = {
   sendTicket: async (req, res) => {
     const { subject, message } = req.body;
-    const userId = req.user.id;
     const supportTicket = new SupportTicket({
       subject,
       message,
-      createdBy: userId,
+      createdBy:  req.user.userId,
     });
     // Guardar el ticket de soporte
     await supportTicket.save();
@@ -20,9 +19,11 @@ module.exports = {
 
     response(res, 200, 'Mensaje enviado correctamente');
   },
-  getAllTickets: async (req, res) => {
-    const tickets = await SupportTicket.find();
-    response(res, 200, tickets);
+
+  getAllTicketsAdmin: async (req, res) => {
+    const tickets = await SupportTicket.find()
+    if(tickets) response(res, 200, tickets);
+    else throw new ClientError('No ahi tickets', 400);
   },
 
   respondToTicket: async (req, res) => {
