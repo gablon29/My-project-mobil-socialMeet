@@ -13,6 +13,7 @@ module.exports = {
     response(res, 200, user);
   },
 
+
   register_new: async (req, res, next) => {
     const { email, password, firstName, lastName, phone, country, province, zipcode } = req.body;
     if (!firstName) throw new ClientError('firstName is missing', 500);
@@ -81,4 +82,12 @@ module.exports = {
     }, res);
     response(res, 200, updateUser);
   },
+  saveDeviceToken: async (req, res) => {
+    const userId = req.user.userId;
+    const {token} = req.body
+    const usuario = await UserModel.findById(userId)
+    usuario.deviceTokens.push(token)
+    response(res, 200, "token de dispositivo agregado");
+
+  }
 };
