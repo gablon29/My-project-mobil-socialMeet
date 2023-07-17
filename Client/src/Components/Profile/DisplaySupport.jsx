@@ -13,8 +13,8 @@ const DisplaySupport = () => {
     const dispatch = useDispatch();
     
     useEffect(()=>{
-        refreshTickets ? fetchData() : null
-    },[refreshTickets])
+        fetchData()
+    },[dispatch])
 
     const fetchData = () => {
         GetTicketsMethod({
@@ -24,6 +24,8 @@ const DisplaySupport = () => {
         });
         setRefreshTickets(false);
       };
+
+    refreshTickets ? fetchData() : null;
 
     const renderTicket = ({item, index}) => {
         const bgClass = index % 2 === 0 ? "bg-naranja" : "bg-black";
