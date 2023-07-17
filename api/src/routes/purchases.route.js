@@ -18,7 +18,8 @@ purchase:  async (req, res) => {
         precioTotal,
         direccion,
         ciudad,
-        pais
+        pais,
+        succesPayment,
       } = req.body;
   
       const newPurchase = new Purchase({
@@ -30,7 +31,8 @@ purchase:  async (req, res) => {
         precioTotal,
         direccion,
         ciudad,
-        pais
+        pais,
+        succesPayment
       });
   
       const savedPurchase = await newPurchase.save();

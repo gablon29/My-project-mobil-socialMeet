@@ -30,7 +30,8 @@ const DisplaySupport = () => {
 
 
     const renderTicket = ({item, index}) => {
-        const bgClass = index % 2 === 0 ? "bg-naranja" : "bg-black";
+        
+        const bgClass =  index % 2 === 0 ? "bg-naranja" : "bg-black";
         const textColor = index % 2 === 0 ? "text-black" : "text-white";
         const classTicketContainer = `w-full h-146 mb-5 bg-naranja rounded-xl flex-row justify-between p-5 ${bgClass}`
         const classTextDate = `${textColor}`
@@ -40,11 +41,14 @@ const DisplaySupport = () => {
         const year = date.getFullYear().toString().slice(-2);
         const formatDate = item.createdAt ? `${day}/${month}/${year}` : "";
         return (
+           
         <View key={index} className={classTicketContainer}>
+             {userTickets &&
             <View>
-                <Text className="text-white font-poppins font-semibold text-xs">{item.subject}</Text>
-                <Text className={classTextDate}>{formatDate}</Text>
+                <Text className="text-white font-poppins font-semibold text-xs">{item?.subject}</Text>
+                <Text className={classTextDate && classTextDate}>{formatDate && formatDate}</Text>
             </View>
+                 }
             <Button 
                 title="Ver Ticket"
                 colorButton="bg-white"
@@ -53,6 +57,7 @@ const DisplaySupport = () => {
                 textSize="text-sm"
                 shadow="shadow-lg shadow-black"
             />
+        
         </View>)
     }
 

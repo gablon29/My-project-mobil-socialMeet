@@ -10,23 +10,17 @@ export const Checkout = () => {
   const navigation = useNavigation();
   const profile = useSelector((state) => state.ReducerAuth.profile);
 
-const finishBuy = () => {
+  const finishBuy = () => {};
 
-    
-}
+  return (
+    <>
+      {steps === 0 ? <SelectAdres setStepsetSteps={setSteps} cart={cart} /> : steps === 1 ? <Cart cart={cart} /> : null}
 
-  return (<>
-  {steps === 0 ? <SelectAdres setStepsetSteps={setSteps} cart={cart} /> : steps === 1 ? <Cart cart={cart} /> : null}
-          
-           <View className="mt-5">
-            <TouchableOpacity className="w-64 h-12 mx-auto rounded-xl bg-naranja justify-center items-center my-4" onPress={steps === 0 ? setSteps(1) : finishBuy()}>
-              <Text className="text-sm text-center text-white font-poppinsSemiBold">{steps === 0 ? "Siguiente" : "Comprar"}</Text>
-            </TouchableOpacity>
-          </View>
-  </>
-  
-  )
-  
-
-
+      <View className="mt-5">
+        <TouchableOpacity className="w-64 h-12 mx-auto rounded-xl bg-naranja justify-center items-center my-4" onPress={steps === 0 ? setSteps(1) : finishBuy()}>
+          <Text className="text-sm text-center text-white font-poppinsSemiBold">{steps === 0 ? 'Siguiente' : 'Comprar'}</Text>
+        </TouchableOpacity>
+      </View>
+    </>
+  );
 };
