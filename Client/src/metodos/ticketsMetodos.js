@@ -21,6 +21,7 @@ export const GetTicketsMethod = async ({ loading, error, success }) => {
 
 export const CreateTicketMethod = async ({ticket, loading, error, success}) => {
     try {
+        loading(true);
         const token = await AsyncStorage.getItem('Token');
         const response = await axios.post("/api/open-ticket", ticket, 
         {headers: 

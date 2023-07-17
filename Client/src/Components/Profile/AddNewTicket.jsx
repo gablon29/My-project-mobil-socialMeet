@@ -8,20 +8,25 @@ import { useDispatch, useSelector } from "react-redux";
 
 const AddNewTicket = ({ route }) => {
     const { setRefreshTickets } = route.params;
+    const [alert, setAlert] = useState({subject: "El título es requerido", message: "La descripción es requerida"});
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
     const sendTicket = () => {
-        CreateTicketMethod({
-            ticket: {subject, message},
-            loading: (v) => dispatch(setLoadingTickets(v)),
-            error: (msg) => dispatch(setErrorTickets(msg)),
-            success: (res) => dispatch(addNewTicket(res.payload)),
-        })
-        setRefreshTickets(true);
-        navigation.goBack();
+        if(subject === "" || message === "") {
+            console.log("STOP")
+        } else {
+            CreateTicketMethod({
+                ticket: {subject, message},
+                loading: (v) => dispatch(setLoadingTickets(v)),
+                error: (msg) => dispatch(setErrorTickets(msg)),
+                success: (res) => dispatch(addNewTicket(res.payload)),
+            })
+            setRefreshTickets(true);
+            navigation.goBack();
+        }
     }
     
 
@@ -33,7 +38,7 @@ const AddNewTicket = ({ route }) => {
                     <TextInput 
                         className="bg-gris mb-5 px-5 text-base rounded-3xl w-full h-12 shadow-lg shadow-black"
                         onChangeText={(text)=>setSubject(text)}
-                        defaultValue={subject} 
+                        defaultValue={subject}
                     />
                     <Text className="left-5 mb-3 w-full font-semibold text-base">Descríbenos tu problema</Text>
                     <TextInput 
