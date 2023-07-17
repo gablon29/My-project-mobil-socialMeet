@@ -16,7 +16,7 @@ export const ReducerTickets = createSlice({
         addNewTicket(state, action) {
           return {
             ...state,
-            userTickets: [...userTickets, action.payload]
+            userTickets: [...state.userTickets, action.payload]
           }
         },
         setAllTickets(state, action) {
