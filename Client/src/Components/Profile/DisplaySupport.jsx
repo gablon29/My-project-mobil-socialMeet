@@ -1,23 +1,20 @@
 import { View, Text, FlatList, ScrollView } from "react-native";
 import Button from "../Buttons/Button"
 import { useNavigation } from "@react-navigation/core";
-import { useEffect } from "react";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAllTickets, setErrorTickets, setLoadingTickets } from "../../Redux/ReducerTickets";
+import { setAllTickets, setErrorTickets, setLoadingTickets, GetTicketsThunk } from "../../Redux/ReducerTickets";
 import { GetTicketsMethod } from "../../metodos/ticketsMetodos";
 
 const DisplaySupport = () => {
     const navigation = useNavigation();
-    /* const [tickets, setTickets] = useState([]); */
-    /* const [updateTickets, setUpdateTickets] = useState(false) */
     const { userTickets } = useSelector((state)=>state.ReducerTickets);
+    const [refreshTickets, setRefreshTickets]= useState(false)
     const dispatch = useDispatch();
     
     useEffect(()=>{
-        fetchData()
-    },[dispatch])
+        refreshTickets ? fetchData() : null
+    },[refreshTickets])
 
     const fetchData = () => {
         GetTicketsMethod({
@@ -25,18 +22,8 @@ const DisplaySupport = () => {
           error: (msg) => dispatch(setErrorTickets(msg)),
           success: (res) => dispatch(setAllTickets(res.payload)),
         });
+        setRefreshTickets(false);
       };
-    
-    /* const getTickets = async () => {
-        const token = await AsyncStorage.getItem('Token');
-        axios.get("/api/getuser-tickets", {headers: {Authorization: "Bearer " + token}})
-            .then(response => setTickets(response.data.payload))
-            .catch(error=>console.log(error))
-
-            setUpdateTickets(false)
-    }; */
-
-    /* updateTickets ? getTickets() : null; */
 
     const renderTicket = ({item, index}) => {
         const bgClass = index % 2 === 0 ? "bg-naranja" : "bg-black";
@@ -77,7 +64,7 @@ const DisplaySupport = () => {
                     alto="h-14"
                     margin="my-10"
                     rounded="rounded-xl"
-                    onPress={()=>{navigation.navigate("AddNewTicket")}}
+                    onPress={()=>{navigation.navigate("AddNewTicket", {setRefreshTickets})}}
                 />
                 <View className="w-10/12 mt-5">
                     {userTickets.map((item, index) => renderTicket({ item, index }))}
