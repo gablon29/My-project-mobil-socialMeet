@@ -83,7 +83,6 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="OrderReceived" component={OrderReceived} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="OrderNotReceived" component={OrderNotReceived} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddNewTicket" component={AddNewTicket} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="Chats" component={DisplayChats} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="SingleChats" component={SingleChat} options={{ headerShown: false }} />
     </StackAuthTrue.Navigator>
   );

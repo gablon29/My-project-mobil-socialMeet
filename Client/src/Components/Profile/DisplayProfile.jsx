@@ -15,7 +15,7 @@ const DisplayProfile = () => {
   const profile = useSelector((state) => state.ReducerAuth.profile);
   const navigation = useNavigation();
   const { selImg, setProfile } = useSelectImagen();
-  console.log("sad", profile)
+  /* console.log("sad", profile) */
   return (
     <View className="w-screen h-full">
       <ScrollView>
