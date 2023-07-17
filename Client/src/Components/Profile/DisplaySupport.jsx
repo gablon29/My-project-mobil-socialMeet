@@ -52,6 +52,7 @@ const DisplaySupport = () => {
                 alto="h-8"
                 textSize="text-sm"
                 shadow="shadow-lg shadow-black"
+                onPress={()=>navigation.navigate("ChatTikect", {item})}
             />
         </View>)
     }
