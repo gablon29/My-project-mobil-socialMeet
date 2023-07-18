@@ -4,10 +4,9 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { CreateTicketMethod } from "../../metodos/ticketsMetodos";
 import { addNewTicket, setErrorTickets, setLoadingTickets } from "../../Redux/ReducerTickets";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const AddNewTicket = ({ route }) => {
-    const { refreshTickets } = route.params;
+const AddNewTicket = () => {
     const [alertInput, setAlert] = useState({subject: "", message: ""});
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -22,10 +21,11 @@ const AddNewTicket = ({ route }) => {
                 ticket: {subject, message},
                 loading: (v) => dispatch(setLoadingTickets(v)),
                 error: (msg) => dispatch(setErrorTickets(msg)),
-                success: (res) => dispatch(addNewTicket(res.payload)),
-            })
-            setAlert({subject: "", message: ""})
-            refreshTickets();
+                success: (res) => {
+                    dispatch(addNewTicket(res.payload));
+                },
+            });
+            setAlert({subject: "", message: ""});
             navigation.goBack();
         }
     }

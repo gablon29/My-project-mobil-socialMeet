@@ -101,7 +101,7 @@ router.put('/api/manage-purchase', isLoggedIn, catchedAsync(purchases.sellerMage
 
 router.post('/api/open-ticket', isLoggedIn, catchedAsync(support.sendTicket)); //funcionando
 //usuario responde al admin
-router.post('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
+router.put('/api/resp-ticket', isLoggedIn, catchedAsync(support.ResponderTicket));
 //usuario ve todos los tickets mapear en pantalla
 router.get('/api/getuser-tickets', isLoggedIn, catchedAsync(support.getAllTicketsUser));
 //usuario ve el ticket de el abierto para responder
