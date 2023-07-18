@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  authenticatedTiket: false,
     loadingTickets: false,
     errorTickets: '',
     successTickets: '',
@@ -25,7 +26,7 @@ export const ReducerTickets = createSlice({
                 userTickets: action.payload
             }
         },
-        setLoadingTickets(state, action) {
+          setLoadingTickets(state, action) {
             return {
               ...state,
               loadingTickets: action.payload,
@@ -37,9 +38,17 @@ export const ReducerTickets = createSlice({
               errorTickets: action.payload,
             };
           },
+          ticketsRefresh(state, action) {
+            return {
+               ...state,
+               authenticatedTiket: true,
+               userTickets: action.payload
+               
+            };
+         },
     }
 })
 
-export const { addNewTicket, setAllTickets, setLoadingTickets, setErrorTickets } = ReducerTickets.actions;
+export const { addNewTicket, setAllTickets, setLoadingTickets, setErrorTickets, ticketsRefresh } = ReducerTickets.actions;
 
 export default ReducerTickets.reducer;

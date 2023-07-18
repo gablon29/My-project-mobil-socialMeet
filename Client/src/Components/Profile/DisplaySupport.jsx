@@ -24,10 +24,6 @@ const DisplaySupport = () => {
         fetchData()
     },[dispatch])
 
-    const refreshTickets = () => {
-        fetchData()
-    };
-
 
     const renderTicket = ({item, index}) => {
         
@@ -74,7 +70,7 @@ const DisplaySupport = () => {
                     alto="h-14"
                     margin="my-10"
                     rounded="rounded-xl"
-                    onPress={()=>{navigation.navigate("AddNewTicket", {refreshTickets})}}
+                    onPress={()=>{navigation.navigate("AddNewTicket")}}
                 />
                 <View className="w-10/12 mt-5">
                     {reversedTickets?.map((item, index) => renderTicket({ item, index }))}

@@ -61,8 +61,8 @@ module.exports = {
   },
 
   ResponderTicket: async (req, res) => {
-    const { ticketId } = req.params;
-    const { message } = req.body;
+    /* const { ticketId } = req.params; */
+    const { message, ticketId } = req.body;
     const userId = req.user.userId;
         const supportTicket = await SupportTicket.findById(ticketId);
   
