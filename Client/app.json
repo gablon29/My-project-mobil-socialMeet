@@ -4,17 +4,17 @@
     "slug": "whopaws",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/favicon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
-        "ios": {
+    "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.tuempresa.client",
       "infoPlist": {
@@ -25,10 +25,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/favicon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE", "RECORD_AUDIO"],
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "RECORD_AUDIO"
+      ],
+      "notification": {
+        "icon": "./assets/notification-icon.png",
+        "color": "#ffffff"
+      },
       "config": {
         "googleMaps": {
           "apiKey": "tu-clave-de-API-de-Google-Maps"
@@ -38,10 +47,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "notification": {
-      "icon": "./assets/favicon.png",
-      "color": "#ffffff"
     },
     "plugins": [
       [

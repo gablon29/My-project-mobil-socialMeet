@@ -44,3 +44,26 @@ export const getAllTickets = async ({ loading, error, success }) => {
      loading(false);
    }
  };
+ export const sendAnswer = async ({ ticketId, message, loading, error, success }) => {
+   try {
+     loading(true);
+     let token = localStorage.getItem("Token");
+     const config = {
+       headers: {
+         "Content-Type": "application/json",
+         Authorization: `Bearer ${token}`,
+       },
+     };
+     const body = {
+       ticketId,
+       message,
+     };
+     const response = await axios.post('/api/resp-tickets', body, config);
+     success(response.data.payload);
+     loading(false);
+   } catch (err) {
+     console.log('sendAnswer', err);
+     error(err);
+     loading(false);
+   }
+ };

@@ -26,17 +26,18 @@ export default function Home() {
 
 
   const profile = useSelector((state) => state.ReducerAuth.profile);
-  const CheckTokenDevice = async () => {
-    const { status } = await Notifications.requestPermissionsAsync();
-  
-    if (status === "granted") {
-      const { data: token } = await Notifications.getExpoPushTokenAsync();
-      await AsyncStorage.setItem("Notification-token", token);
-      let tokenSession = await AsyncStorage.getItem("Token");
-      let checkToken = profile.deviceTokens.find((ele) => ele === token);
-      if (!checkToken) {
+
+useEffect(() => {
+  const registerForPushNotifications = async () => {
+    try {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status === "granted") {
+        const { data: token } = await Notifications.getExpoPushTokenAsync();
+        await AsyncStorage.setItem("Notification-token", token);
+        let tokenSession = await AsyncStorage.getItem("Token");
         await saveToken({
           token,
+          tokenSession,
           loading: (isLoading) => {
             // Manejar estado de carga
           },
@@ -44,23 +45,17 @@ export default function Home() {
             console.log(response);
           },
           error: (err) => {
-            console.error(err)
+            console.log(err);
           },
         });
       }
+    } catch (error) {
+      console.error("Notif: ", error.message);
     }
   };
-  
 
-  useEffect(() => {
-    CheckTokenDevice()
-      .then((resp) => {
-        // Handle response
-      })
-      .catch((err) => {
-        console.error('Notif: ', err.message);
-      });
-  }, []);
+  registerForPushNotifications();
+}, []);
 
   const productosDestacados = [
     {
