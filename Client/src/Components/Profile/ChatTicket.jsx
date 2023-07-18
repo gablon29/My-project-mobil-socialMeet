@@ -5,7 +5,7 @@ import Button from '../Buttons/ButtonCuston';
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
-import { GetTicketsMethod, ReplyTicketMethod } from "../../metodos/ticketsMetodos";
+import { ReplyTicketMethod } from "../../metodos/ticketsMetodos";
 import { setErrorTickets, setLoadingTickets, ticketsRefresh } from "../../Redux/ReducerTickets";
 
 const ChatTicket = ({ route }) => {
@@ -14,19 +14,7 @@ const ChatTicket = ({ route }) => {
   const profile = useSelector((state) => state.ReducerAuth.profile);
   const navigation = useNavigation();
   const [message, setMessage] = useState('');
-  const [refresh, setRefres] = useState(false)
   /* const [messages, setMessanges] = useState([]); */
-
-  useEffect(()=>{
-    GetTicketsMethod({
-      loading: (v) => dispatch(setLoadingTickets(v)),
-      error: (msg) => dispatch(setErrorTickets(msg)),
-      success: (res) => {
-        dispatch(ticketsRefresh(res.payload));
-      },
-    })
-    setRefres(false);
-  },[refresh])
 
   /* Funcion para agregar mensajes */
   const sendMessage = async (m) => {
@@ -44,7 +32,6 @@ const ChatTicket = ({ route }) => {
         },
       });
       /* setMessanges([...messages, newMessage]); */
-      setRefres(true)
       setMessage('');
     }
   };
