@@ -7,6 +7,9 @@ const purchaseSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    comprador: {
+      type: String,
+    },
     seller: {
         type: "String",
         default: "Whopaws"
@@ -41,6 +44,15 @@ const purchaseSchema = mongoose.Schema(
     },
     succesPayment: {
       type: Boolean
+    },
+    status:{
+      type: String,
+      enum:["pendiente", "enviado", "entregada"],
+      default: "pendiente"
+    },
+    trackingNumber:{
+      type: String,
+      default: "Recibira su tracking al enviar su compra"
     }
 
 

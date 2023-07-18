@@ -13,7 +13,9 @@ export const Soporte = () => {
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
   };
-console.log(tickets)
+
+  console.log(tickets);
+
   const handleSendMessage = async () => {
     try {
       await sendAnswer({
@@ -36,20 +38,20 @@ console.log(tickets)
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="flex-1 bg-gray-200 p-4 overflow-y-auto">
-        {tickets.map((ticket) => (
+    <>
+      <div className="flex-1 bg-gray-200 p-4">
+        {tickets?.map((ticket) => (
           <div
             key={ticket._id}
             className={`p-4 cursor-pointer ${
-              selectedTicket && selectedTicket._id === ticket._id
+              selectedTicket && selectedTicket?._id === ticket?._id
                 ? "bg-gray-300"
                 : ""
             }`}
             onClick={() => handleTicketClick(ticket)}
           >
             <h3 className="text-xl font-bold">{ticket.subject}</h3>
-            <p>{ticket.message}</p>
+            <p>{ticket?.messages && ticket.messages.length > 0 ? ticket.messages[ticket.messages.length - 1]?.text : ''}</p>
           </div>
         ))}
       </div>
@@ -60,8 +62,8 @@ console.log(tickets)
           </h3>
           <div className="space-y-4">
             {selectedTicket?.messages?.map((message) => (
-              <div key={message._id} className="bg-white p-4 rounded-md">
-                <p>{message.text}</p>
+              <div key={message?._id} className="bg-white p-4 rounded-md">
+                <p>{message?.text}</p>
               </div>
             ))}
           </div>
@@ -79,6 +81,6 @@ console.log(tickets)
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };

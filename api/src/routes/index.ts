@@ -89,6 +89,11 @@ router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo
 // ------------->  Compras  <-------------
 
 router.post('/api/new-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+router.get('/api/user-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+
+//ruta de admin obtener todas las compras
+router.get('/api/admin-all-purchases', isLoggedIn, catchedAsync(purchases.getAllPurchase));
+router.put('/api/manage-purchase', isLoggedIn, catchedAsync(purchases.sellerMager));
 
 
 // ------------->  SOPORTE CON EL ADMIN  <-------------
