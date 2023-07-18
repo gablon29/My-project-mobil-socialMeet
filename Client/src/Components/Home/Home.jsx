@@ -26,16 +26,15 @@ export default function Home() {
 
 
   const profile = useSelector((state) => state.ReducerAuth.profile);
-  const CheckTokenDevice = async () => {
-    const { status } = await Notifications.requestPermissionsAsync();
-  console.log(profile)
-    if (status === "granted") {
-      const { data: token } = await Notifications.getExpoPushTokenAsync();
-      await AsyncStorage.setItem("Notification-token", token);
-      let tokenSession = await AsyncStorage.getItem("Token");
-      
-      let checkToken = profile.deviceTokens.filter((ele) => ele === token);
-      if (!checkToken) {
+
+useEffect(() => {
+  const registerForPushNotifications = async () => {
+    try {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status === "granted") {
+        const { data: token } = await Notifications.getExpoPushTokenAsync();
+        await AsyncStorage.setItem("Notification-token", token);
+        let tokenSession = await AsyncStorage.getItem("Token");
         await saveToken({
           token,
           tokenSession,
@@ -46,23 +45,17 @@ export default function Home() {
             console.log(response);
           },
           error: (err) => {
-            console.log(err)
+            console.log(err);
           },
         });
-      }else "el token del celular esta en el back "
+      }
+    } catch (error) {
+      console.error("Notif: ", error.message);
     }
   };
-  
 
-  useEffect(() => {
-    CheckTokenDevice()
-      .then((resp) => {
-        // Handle response
-      })
-      .catch((err) => {
-        console.error('Notif: ', err.message);
-      });
-  }, []);
+  registerForPushNotifications();
+}, []);
 
   const productosDestacados = [
     {

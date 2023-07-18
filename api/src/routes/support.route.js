@@ -3,7 +3,8 @@ const SupportTicket = require('../models/supportTicket.model');
 const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 const User = require('../models/user.model');
-
+const { sendear } = require('./pushNotify.route');
+const {sendNotifications} = require("../controllers/pushController")
 module.exports = {
   sendTicket: async (req, res) => { //funcionando
     const { subject, message } = req.body;
@@ -36,7 +37,13 @@ module.exports = {
       return response(res, 404, 'Ticket de soporte no encontrado');
     }
 
-    // Actualizar el ticket de soporte con la respuesta del administrador
+    const user = await UserModel.findById(supportTicket.createdBy);
+    const tokens = user.deviceTokens;
+    const body = "Se ha respondido tu mensaje";
+    const title = "Un agente te ha respondido tu mensaje";
+    const userId = user.id;
+    await sendNotifications(tokens, body, title, userId);
+
     supportTicket.message = message;
     supportTicket.status = 'closed';
 
@@ -44,6 +51,10 @@ module.exports = {
 
     response(res, 200, 'Respuesta enviada correctamente');
   },
+
+
+
+
   ResponderTicket: async (req, res) => {
     const { ticketId } = req.params;
     const { message } = req.body;
