@@ -32,7 +32,10 @@ const Layout = ({ children }) => {
          ) : authenticatedAuth ? (
             <main className='flex w-screen h-screen'>
                <Sidebar />
+               <div className="w-[calc(100%-256px)] h-screen overflow-y-auto bg-orange-100">
+
                {children}
+               </div>
             </main>
          ) : (
             <Login />

@@ -4,25 +4,33 @@ const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 const User = require('../models/user.model');
 const { sendear } = require('./pushNotify.route');
-const {sendNotifications} = require("../controllers/pushController")
+const { sendNotifications } = require("../controllers/pushController");
+
 module.exports = {
-  sendTicket: async (req, res) => { //funcionando
+  sendTicket: async (req, res) => {
     const { subject, message } = req.body;
     const userId = req.user.userId;
-    console.log(userId)
-    const supportTicket = new SupportTicket({
-      subject,
-      message,
-      createdBy: userId,
-    });
-    // Guardar el ticket de soporte
-    await supportTicket.save();
 
-    // Agregar el ticket de soporte al usuario
-    await User.findByIdAndUpdate(userId, { $push: { supportTickets: supportTicket._id } });
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        return response(res, 404, 'Usuario no encontrado');
+      }
 
-    response(res, 200, 'Mensaje enviado correctamente');
+      const supportTicket = new SupportTicket({
+        subject,
+        messages: [{ text: message, sender: { id: user._id, name: user.firstName } }],
+        createdBy: userId,
+      });
+
+      await supportTicket.save();
+
+      await UserModel.findByIdAndUpdate(userId, { $push: { supportTickets: supportTicket._id } });
+
+      return response(res, 200, 'Mensaje enviado correctamente');
+    
   },
+
+
   getAllTicketsAdmin: async (req, res) => {
     const tickets = await SupportTicket.find();
     response(res, 200, tickets);
@@ -44,42 +52,43 @@ module.exports = {
     const userId = user.id;
     await sendNotifications(tokens, body, title, userId);
 
-    supportTicket.message = message;
+    supportTicket.messages.push({ text: message, sender: { id: user._id, name: user.firstName } });
     supportTicket.status = 'closed';
 
     await supportTicket.save();
 
     response(res, 200, 'Respuesta enviada correctamente');
   },
-
-
-
 
   ResponderTicket: async (req, res) => {
     const { ticketId } = req.params;
     const { message } = req.body;
+    const userId = req.user.userId;
+        const supportTicket = await SupportTicket.findById(ticketId);
+  
+      if (!supportTicket) {
+        return response(res, 404, 'Ticket de soporte no encontrado');
+      }
+  
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        return response(res, 404, 'Usuario no encontrado');
+      }
+  
+      supportTicket.messages.push({ text: message, sender: { id: userId, name: user.firstName } });
+      supportTicket.status = 'closed';
+  
+      await supportTicket.save();
+  
+      return response(res, 200, 'Respuesta enviada correctamente');
+    },
 
-    const supportTicket = await SupportTicket.findById(ticketId);
-
-    if (!supportTicket) {
-      return response(res, 404, 'Ticket de soporte no encontrado');
-    }
-
-    // Actualizar el ticket de soporte con la respuesta del administrador
-    supportTicket.message = message;
-    supportTicket.status = 'closed';
-
-    await supportTicket.save();
-
-    response(res, 200, 'Respuesta enviada correctamente');
-  },
   getAllTicketsUser: async (req, res) => {
     const userId = req.user.userId;
     const tickets = await SupportTicket.find({ createdBy: userId });
     response(res, 200, tickets);
   },
 
-  // Obtener el historial de mensajes de un ticket especÃ­fico
   openTicket: async (req, res) => {
     const { ticketId } = req.params;
 
