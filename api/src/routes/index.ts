@@ -25,7 +25,11 @@ const router = express.Router();
 // ------------->  NOTIFICTIONS  <-------------
 router.post('/api/save-device-token', catchedAsync(notificationController.saveDeviceToken));
 router.post('/api/send/push-notify', catchedAsync(notify.pushear));
-router.post('/api/send/send-notification', catchedAsync(notify.sendear));
+router.post('/api/send/send-notification', catchedAsync(notify.sendear)); //enviar notificaciones
+	//"title":"hola",
+	//"body": "probando",
+	//"token": "Zd4nb1N8w_eugGXqG8zLeX",
+	//"userId": "64a6164ba52364fa38c73153"
 router.post('/api/send/save-device-token', catchedAsync(notify.guardar_token));
 
 
@@ -85,6 +89,11 @@ router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo
 // ------------->  Compras  <-------------
 
 router.post('/api/new-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+router.get('/api/user-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+
+//ruta de admin obtener todas las compras
+router.get('/api/admin-all-purchases', isLoggedIn, catchedAsync(purchases.getAllPurchase));
+router.put('/api/manage-purchase', isLoggedIn, catchedAsync(purchases.sellerMager));
 
 
 // ------------->  SOPORTE CON EL ADMIN  <-------------

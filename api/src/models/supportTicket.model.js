@@ -10,10 +10,27 @@ const supportTicketSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    message: {
-      type: String,
-      required: true,
-    },
+    messages: [{
+      text: {
+        type: String,
+        required: true,
+      },
+      sender: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: 'User',
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
+    }],
     status: {
       type: String,
       enum: ['open', 'closed'],
@@ -33,7 +50,6 @@ const supportTicketSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
 const SupportTicket = mongoose.model('SupportTicket', supportTicketSchema);
 
 module.exports = SupportTicket;

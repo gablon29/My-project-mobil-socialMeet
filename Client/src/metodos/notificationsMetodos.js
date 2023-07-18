@@ -12,9 +12,8 @@ export const saveToken = async ({ token, tokenSession, loading, success, error }
         'Content-Type': 'application/json',
       },
     };
-    const response = await axios.post('/api/user/saveDeviceToken', {token: cleanedToken}, config);
+    const response = await axios.post('/api/user/saveDeviceToken', {token: cleanedToken}, config)
     success(response.data);
-    console.log(response.data);
     loading(false);
   } catch (err) {
     console.log(err);

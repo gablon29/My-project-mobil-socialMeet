@@ -87,6 +87,7 @@ module.exports = {
     const {token} = req.body
     const usuario = await UserModel.findById(userId)
     usuario.deviceTokens.push(token)
+    usuario.save()
     response(res, 200, "token de dispositivo agregado");
 
   }
