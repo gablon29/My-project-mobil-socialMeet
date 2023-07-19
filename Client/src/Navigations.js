@@ -27,6 +27,7 @@ import MascotaCreada from './Components/Pets/Create/MascotaCreada';
 import AddCard from './Components/Stripe/AddCard';
 import { Checkout } from './Components/Checkout/Checkout';
 import ChatTicket from './Components/Profile/ChatTicket';
+import AddNewAddress from './Components/Profile/AddNewAddress';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -86,6 +87,7 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="AddNewTicket" component={AddNewTicket} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="ChatTikect" component={ChatTicket} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="SingleChats" component={SingleChat} options={{ headerShown: false }} />
+      <StackAuthTrue.Screen name="AddNewAddress" component={AddNewAddress} options={{ headerShown: true }} />
     </StackAuthTrue.Navigator>
   );
 };

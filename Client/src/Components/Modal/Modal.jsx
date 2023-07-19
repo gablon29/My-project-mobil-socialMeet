@@ -1,7 +1,7 @@
 import { View, Text, Modal, Alert, Pressable } from 'react-native';
 import Button from "../Buttons/ButtonCuston";
 
-const ModalPrevent = ({modalVisible, setModalVisible, delPet, idDelete}) => {
+const ModalPrevent = ({modalVisible, setModalVisible, delFuntion, idDelete, message}) => {
     return (
             <Modal
                 animationType="fade"
@@ -13,7 +13,7 @@ const ModalPrevent = ({modalVisible, setModalVisible, delPet, idDelete}) => {
             }}>
                 <View className="w-screen items-center"> 
                     <View className="bg-black p-4 rounded-xl w-11/12 items-center h-40 absolute top-20">
-                        <Text className="text-white text-base text-center">Esto borrará su mascota de forma permanente</Text>
+                        <Text className="text-white text-base text-center">{message}</Text>
                         <View>
                             <Text className="text-white text-base font-semibold">¿Desea Continuar?</Text>
                             <View className="flex-row justify-around mt-2">
@@ -21,7 +21,7 @@ const ModalPrevent = ({modalVisible, setModalVisible, delPet, idDelete}) => {
                                 title="Si"
                                 buttonClass="bg-naranja rounded-full w-10 h-10 items-center justify-center"
                                 titleClass="text-base font-semibold text-white"
-                                onPress={()=>delPet(idDelete)}
+                                onPress={()=>delFuntion(idDelete)}
                             />
                             <Button 
                                 title="No"
