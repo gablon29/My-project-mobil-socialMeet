@@ -2,11 +2,9 @@ import { TouchableOpacity, Text } from 'react-native';
 import React from 'react';
 
 const Button = ({ buttonClass, onPress, title, component, titleClass }) => {
-  const buttonClasses = `${buttonClass}`;
-  const textClasses = `${titleClass}`
   return (
-    <TouchableOpacity className={buttonClasses} onPress={onPress}>
-      <Text className={textClasses}>{title}</Text>
+    <TouchableOpacity className={`${buttonClass}`} onPress={onPress}>
+      <Text className={`${titleClass ? titleClass : "hidden"}`}>{title}</Text>
       {component}
     </TouchableOpacity>
   );

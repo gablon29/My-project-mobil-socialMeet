@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, FlatList, ScrollView } from 'react-native';
+import Button from "../Buttons/ButtonCuston";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AddressSheet, AddressSheetError } from '@stripe/stripe-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import ModalPrevent from '../Modal/Modal';
 
 //referencia adress: { address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postalCode: '538', state: 'Madrid' }, isCheckboxSelected: false, name: 'Haahah', phone: '646464646' }
 const DisplayAddress = ({ navigation }) => {
-  const [addressAndContact, setAdressAndContact] = useState([]);
+/*   const [addressAndContact, setAdressAndContact] = useState([]);
   const [isAddingNew, setAddressSheetVisible] = useState(false);
 
   const addAddress = async (data) => {
@@ -124,9 +128,60 @@ const DisplayAddress = ({ navigation }) => {
         </>
       );
     }
+  } */
+  /* const navigation = useNavigation(); */
+  const [modalVisible, setModalVisible] = useState(false);
+  const [idDelete, setIdDelete] = useState(null);
+
+  const showModal = (id) => {
+    setModalVisible(true);
+    /* setIdDelete(id); */
+  };
+
+  const deleteAddress = () => {
+    /* Aqui va la logica para borrar un address */
+    setModalVisible(false);
+    setIdDelete(null);
   }
 
-  return <InternalDisplayAddress />;
+  const renderAddress = ({item, index}) => {
+    return (
+      <View key={index} className="h-28 bg-naranja rounded-3xl relative justify-center p-5">
+        <Text className="text-white text-sm">Calle y número de calle</Text>
+        <Text className="text-white text-sm">Ciudad y provincia</Text>
+        <Text className="text-white text-sm">Código postal</Text>
+        <Button
+          buttonClass="bg-black rounded-full w-11 h-11 absolute justify-center items-center -right-3 -top-3"
+          component={<Icon name="trash-can-outline" size={25} color="white" />}
+          onPress={() => showModal()}
+        />
+      </View>
+    )
+  }
+
+  return (
+    <View className=" w-screen h-screen mb-44 relative items-center">
+      <ModalPrevent delFuntion={deleteAddress} message="Esto borrará su dirección de forma permanente" setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+      <ScrollView>
+        <View className="items-center w-screen h-full mt-52">
+          <Text className="text-black font-bold text-xl p-5 mb-5">Mis Direcciones</Text>
+          <View className="w-11/12 gap-10 pb-32">
+            
+            {[1,2,3].map((item, index)=>renderAddress({item, index}))}
+            
+          </View>
+        </View>
+      </ScrollView>
+      <View className="bg-white h-20 w-full items-center justify-center absolute bottom-0">
+        <Button 
+          title="Agregar dirección"
+          buttonClass="rounded-full bg-black w-8/12 h-14  justify-center"
+          titleClass="text-white text-center text-base font-semibold"
+          className="absolute "
+        />
+      </View>
+    </View>
+  );
 };
 
 export default DisplayAddress;
