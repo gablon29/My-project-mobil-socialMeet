@@ -43,6 +43,8 @@ router.post('/api/user/check-code', catchedAsync(user.check_code));
 router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
 router.put('/api/user/edit', isLoggedIn, catchedAsync(user.editUser));
 router.post('/api/user/saveDeviceToken', isLoggedIn, catchedAsync(user.saveDeviceToken));
+router.post('/api/user/save-new-adress', isLoggedIn, catchedAsync(user.saveNewAdress));
+router.put('/api/user/delete-adress', isLoggedIn, catchedAsync(user.deleteAdress));
 
 
 // ------------->  PET  <-------------

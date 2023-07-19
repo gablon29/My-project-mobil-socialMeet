@@ -28,7 +28,7 @@ module.exports = {
     //if (!address ) throw new ClientError('address is missing', 500);
 
     const result = await registerUser(email, password, firstName, lastName, phone, country, province, zipcode);
-
+  
     response(res, 200, result);
   },
 
@@ -90,5 +90,21 @@ module.exports = {
     usuario.save()
     response(res, 200, "token de dispositivo agregado");
 
+  },
+  saveNewAdress: async (req, res) => {
+    const userId = req.user.userId;
+    const {newAdress} = req.body
+    const usuario = await UserModel.findById(userId)
+    usuario.addresses.push(newAdress)
+    usuario.save()
+    response(res, 200, usuario);
+  },
+  deleteAdress: async (req, res) => {
+    const userId = req.user.userId;
+    const {adress} = req.body
+    const usuario = await UserModel.findById(userId)
+    usuario.addresses.filter((ele) => ele.address === adress)
+    usuario.save()
+    response(res, 200, usuario);
   }
 };

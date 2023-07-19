@@ -148,6 +148,7 @@ export const SendEmailPassMethod = async ({ email, loading, error, success }) =>
 };
 
 export const editUser = async ({ profile, setUser, token, loading, error }) => {
+  
   try {
     const response = await axios.put(`/api/user/edit`, profile, {
       headers: {
@@ -159,5 +160,40 @@ export const editUser = async ({ profile, setUser, token, loading, error }) => {
     console.error('Error editing user:', error);
     error(error.message);
     throw error;
+  }
+};
+
+export const addAdress = async ({ newAdress,token ,succes, loading, error }) => {
+  try {
+    loading(true)
+    const response = await axios.post(`/api/user/save-new-adress`, newAdress, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+    });
+    succes(response.data.payload);
+    loading(false)
+  } catch (error) {
+    error(error.message);
+    loading(false)
+  }
+};
+
+
+export const deleteAdress = async ({ adress ,token ,succes, loading, error }) => {
+  try {
+    loading(true)
+    const response = await axios.post(`/api/user/delete-adress`, adress, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+    });
+    succes(response.data.payload);
+    loading(false)
+  } catch (error) {
+    error(error.message);
+    loading(false)
   }
 };
