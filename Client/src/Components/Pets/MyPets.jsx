@@ -58,7 +58,7 @@ export default function MyPets() {
     <>
       {userPets.length ? (
         <View className="flex w-full h-full relative">
-          <ModalPrevent idDelete={idDelete} delPet={delPet} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+          <ModalPrevent message="Esto borrará su mascota de forma permanente" idDelete={idDelete} delFuntion={delPet} modalVisible={modalVisible} setModalVisible={setModalVisible} />
           <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="m-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('AddPet')} />
           <ScrollView>
             <View className="flex flex-row flex-wrap mx-7 justify-center align-middle">
