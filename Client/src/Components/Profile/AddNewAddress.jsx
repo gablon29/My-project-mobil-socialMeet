@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 const AddNewAddress = () => {
+  const dispatch = useDispatch();
   const [addresses, setAddresses] = useState({
     address: "",
     number: "",
@@ -16,7 +17,7 @@ const AddNewAddress = () => {
     addressZipCode: "",
   });
 
-const navigation = useNavigation()
+  const navigation = useNavigation()
   const labels = [
     { label: "Calle", key: "address" },
     { label: "Número/Piso/Portal", key: "number" },
@@ -31,19 +32,17 @@ const navigation = useNavigation()
       [key]: value,
     }));
   };
-  
-const dispatch = useDispatch()
 
-const agregarDireccion = async() => {
-   let token = await  AsyncStorage.getItem("Token")
-    addAdress({
-        addresses,
-        token,
-        succes: (v) => {dispatch(userRefresh(v), navigation.navigate("Profile"))},
-        loading: (s) => {dispatch(setLoadingAuth(s))},
-        error: (e) => {dispatch(setErrorAuth(e))}
-    })
-}
+  const agregarDireccion = async(body) => {
+    let token = await  AsyncStorage.getItem("Token")
+    await addAdress({
+          newAdress: body,
+          token,
+          loading: (s) => {dispatch(setLoadingAuth(s))},
+          error: (e) => {dispatch(setErrorAuth(e))},
+          succes: (v) => {dispatch(userRefresh(v), navigation.navigate("Profile"))},
+      })
+  }
 
   const renderInputs = ({ input, index }) => {
     return (
@@ -66,7 +65,7 @@ const agregarDireccion = async() => {
           {labels.map((input, index) => renderInputs({ input, index }))}
         </View>
         <Button
-        onPress={agregarDireccion}
+          onPress={()=>agregarDireccion(addresses)}
           title="Agregar dirección"
           buttonClass="rounded-full bg-black w-8/12 h-14 my-3 justify-center"
           titleClass="text-white text-center text-base font-semibold"
