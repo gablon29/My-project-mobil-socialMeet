@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, TextInput, Text, ScrollView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Delete from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from '../Buttons/ButtonCuston';
-import ButtonIcon from '../Buttons/Button';
-import { suvirImagen, useImage, useSelectImagen } from '../../CustomHooks/useImage';
+import { useImage } from '../../CustomHooks/useImage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../CustomHooks/useAuth';
 import { ReloadAuthMethod, editUser } from '../../metodos/authMetodos';
@@ -12,15 +10,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setErrorAuth, setLoadingAuth, userRefresh } from '../../Redux/ReducerAuth';
 import countrys from '../../../extras/countrys.json';
 import { SelectList } from 'react-native-dropdown-select-list';
+import cruz from '../../../images/iconos/cruz.png';
 
 const EditInfoProfile = ({ navigation }) => {
-  const { selImg, setProfile, setSelImg } = useSelectImagen();
   const profile = useSelector((state) => state.ReducerAuth.profile);
   const [countryOptions, setCountryOptions] = useState([]);
   const [provinceOptions, setProvinceOptions] = useState([]);
-const {url, setUrl, uploadImage} = useImage()
+  const [currentProvinces, setCurrentProvinces] = useState([]);
+  const {url, setUrl, uploadImage} = useImage();
   const dispatch = useDispatch();
-
+  const [dissableBnt, setDissableBtn] = useState(true);
+  const [require, setRequire] = useState("");
   const { firstName, setFirstName, lastName, setLastName, phone, setPhone, email, setEmail, country, setCountry, province, setProvince, zipcode, setZipcode, editProfile } = useAuth();
 
   useEffect(() => {
@@ -43,19 +43,40 @@ const {url, setUrl, uploadImage} = useImage()
       if (selectedCountry) {
         const provinces = selectedCountry.provinces;
         setProvinceOptions(provinces);
+        setCurrentProvinces(provinces);
+        console.log(currentProvinces)
       }
     }
   }, [country]);
 
-  const handleEdit = async (firstName, lastName, phone, email, country, province, profilePic) => {
+  useEffect(()=>{
+    if (!firstName || !lastName || !phone || !email || !country || !province) {
+      setDissableBtn(false);
+      setRequire("Campo Requerido")
+    } else {
+      setDissableBtn(true)
+      setRequire("")
+    }
+  },[firstName, country, lastName, phone, email, country, province])
+
+  const handleEdit = async (firstName, lastName, phone, email, country, province) => {
     const profile = { firstName: firstName,
-         lastName: lastName,
-          phone: phone, 
-          email: email, 
-          country: country, 
-          province: province,
-           profilePic:  url };
+        lastName: lastName,
+        phone: phone, 
+        email: email, 
+        country: country, 
+        province: province,
+        profilePic:  url 
+      };
     const token = await AsyncStorage.getItem('Token');
+    if (!url) {
+      edit(profile, token)
+    } else {
+      edit(profile, token);
+    }
+  };
+
+  const edit = async (profile, token) => {
     await editUser({
       profile,
       token,
@@ -73,28 +94,32 @@ const {url, setUrl, uploadImage} = useImage()
       loading: (v) => dispatch(authSetLoading(v)),
       error: (msg) => dispatch(authSetError(msg)),
     });
-  };
+  }
 
   return (
     <ScrollView>
       <View className="w-screen h-full bg-white items-center pt-10 mb-5">
         <View className="bg-naranja w-40 h-40 rounded-full relative justify-center">
           <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-40 h-40" onPress={() => uploadImage()}>
-            <Image source={{ uri: url }} style={{ width: 160, height: 160 }} className="rounded-full" />
+            <Image source={url ? {uri: url} : cruz} style={url ? { width: 160, height: 160 } : {width: 50, height: 50 }} className="rounded-full" />
           </TouchableOpacity>
           <View className="absolute z-50 -right-4 -top-3 w-16 h-16 bg-black rounded-full justify-center">
-            <ButtonIcon title={<Delete name="trash-can-outline" size={32} color="white" />} />
+            <Button 
+              buttonClass="items-center justify-center" 
+              component={<Delete name="trash-can-outline" size={32} color="white" />} 
+              onPress={()=>setUrl("")}
+            />
           </View>
         </View>
         <View className="w-11/12 mt-5 mb-3">
           <Text className="w-full text-left font-bold text-lg">Nombre</Text>
-          <TextInput placeholder={profile?.firstName} value={firstName} onChangeText={(text) => setFirstName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={firstName} onChangeText={(text) => setFirstName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
           <Text className="w-full text-left font-bold text-lg">Apellidos</Text>
-          <TextInput placeholder={profile?.lastName} value={lastName} onChangeText={(text) => setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={lastName} onChangeText={(text) => setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
           <Text className="w-full text-left font-bold text-lg">Email</Text>
-          <TextInput placeholder={profile?.email} value={email} onChangeText={(text) => setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={email} onChangeText={(text) => setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
           <Text className="w-full text-left font-bold text-lg">Télefono</Text>
-          <TextInput placeholder={profile?.phone} value={phone} onChangeText={(text) => setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={phone} onChangeText={(text) => setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
           <Text className="w-full text-left font-bold text-lg">País</Text>
           <SelectList
             data={countryOptions}
@@ -102,6 +127,7 @@ const {url, setUrl, uploadImage} = useImage()
             placeholder="Seleccionar"
             defaultOption={{key: profile?.country, value:profile?.country}}
             search={false}
+            /* onSelect={console.log("mis provincias son ", currentProvinces)} */
             fontFamily="Poppins"
             boxStyles={{
               backgroundColor: '#DADADA',
@@ -112,13 +138,12 @@ const {url, setUrl, uploadImage} = useImage()
               backgroundColor: '#DADADA',
             }}
           />
-          {/* <TextInput placeholder={profile?.country} value={country} onChangeText={(text)=>setCountry(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/> */}
           <Text className="w-full text-left font-bold text-lg">Provincia</Text>
           <SelectList
             data={provinceOptions}
             setSelected={setProvince}
             placeholder="Seleccionar"
-            defaultOption={{key: profile?.province, value:profile?.province}}
+            defaultOption={country === profile?.country ? {key: profile?.province, value:profile?.province} : {key: currentProvinces[0], value: currentProvinces[0]} }
             search={false}
             fontFamily={'Poppins'}
             boxStyles={{
@@ -128,11 +153,14 @@ const {url, setUrl, uploadImage} = useImage()
             }}
             dropdownStyles={{ backgroundColor: '#DADADA' }}
           />
-          {/* <TextInput placeholder={profile?.province} value={province} onChangeText={(text)=>setProvince(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/> */}
-          {/* <Text className="w-full text-left font-bold text-lg">Código Postal</Text>
-                    <TextInput placeholder={profile?.zipcode} value={zipcode} onChangeText={(text)=>setZipcode(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris"/> */}
         </View>
-        <Button title="Guardar Información" buttonClass="bg-naranja rounded-3xl p-2 h-10 items-center w-7/12 shadow-xl shadow-black" titleClass="font-semibold text-white text-base" className="shadow- shadow-black" onPress={() => handleEdit(firstName, lastName, phone, email, country, province, selImg.profile)} />
+        <Button 
+          title="Guardar Información"
+          buttonClass="bg-naranja rounded-3xl p-2 h-10 items-center w-7/12 shadow-xl shadow-lg shadow-black" 
+          titleClass="font-semibold text-white text-base" 
+          onPress={() => handleEdit(firstName, lastName, phone, email, country, province)}
+          dissable={dissableBnt}
+        />
       </View>
     </ScrollView>
   );
