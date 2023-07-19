@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { InputRegister } from "../redux/actions";
-import { user_login } from "../utils/axiosHandlers";
+// import { InputRegister } from "../redux/actions";
+// import { user_login } from "../utils/axiosHandlers";
 
 
 export const useAuth = () => {
