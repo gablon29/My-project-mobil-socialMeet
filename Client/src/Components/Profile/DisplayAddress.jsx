@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import ModalPrevent from '../Modal/Modal';
 
 //referencia adress: { address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postalCode: '538', state: 'Madrid' }, isCheckboxSelected: false, name: 'Haahah', phone: '646464646' }
-const DisplayAddress = ({ navigation }) => {
+const DisplayAddress = () => {
 /*   const [addressAndContact, setAdressAndContact] = useState([]);
   const [isAddingNew, setAddressSheetVisible] = useState(false);
 
@@ -129,7 +129,7 @@ const DisplayAddress = ({ navigation }) => {
       );
     }
   } */
-  /* const navigation = useNavigation(); */
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [idDelete, setIdDelete] = useState(null);
 
@@ -177,7 +177,7 @@ const DisplayAddress = ({ navigation }) => {
           title="Agregar dirección"
           buttonClass="rounded-full bg-black w-8/12 h-14  justify-center"
           titleClass="text-white text-center text-base font-semibold"
-          className="absolute "
+          onPress={()=>navigation.navigate("AddNewAddress")}
         />
       </View>
     </View>
