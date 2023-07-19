@@ -27,35 +27,76 @@ export default function Home() {
 
   const profile = useSelector((state) => state.ReducerAuth.profile);
 
-useEffect(() => {
-  const registerForPushNotifications = async () => {
-    try {
-      const { status } = await Notifications.requestPermissionsAsync();
-      if (status === "granted") {
-        const { data: token } = await Notifications.getExpoPushTokenAsync();
-        await AsyncStorage.setItem("Notification-token", token);
-        let tokenSession = await AsyncStorage.getItem("Token");
-        await saveToken({
-          token,
-          tokenSession,
-          loading: (isLoading) => {
-            // Manejar estado de carga
-          },
-          success: (response) => {
-            console.log(response);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
+  // const registerForPushNotifications = async () => {
+  //   try {
+  //     const { status } = await Notifications.requestPermissionsAsync();
+  //     if (status === "granted") {
+  //       const { data: token } = await Notifications.getExpoPushTokenAsync();
+  //       await AsyncStorage.setItem("Notification-token", token);
+  //       let tokenSession = await AsyncStorage.getItem("Token");
+  //       await saveToken({
+  //         token,
+  //         tokenSession,
+  //         loading: (isLoading) => {
+  //           // Manejar estado de carga
+  //         },
+  //         success: (response) => {
+  //           console.log(response);
+  //         },
+  //         error: (err) => {
+  //           console.log(err);
+  //         },
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Notif: ", error.message);
+  //   }
+  // };
+  
+  useEffect(() => {
+    registerForPushNotificationsAsync()
+  }, []);
+  
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
       }
-    } catch (error) {
-      console.error("Notif: ", error.message);
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      await saveToken({
+        token,
+        tokenSession,
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      alert('Must use physical device for Push Notifications');
     }
-  };
-
-  registerForPushNotifications();
-}, []);
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  }
 
   const productosDestacados = [
     {

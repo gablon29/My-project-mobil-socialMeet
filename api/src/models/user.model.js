@@ -93,25 +93,9 @@ const userSchema = mongoose.Schema(
       phone: { type: String },
     },
     
-    addresses: [
-      {
-        address: {
-          type: String,
-        },
-        number: {
-          type: String,
-        },
-        addressProvince: {
-          type: String,
-        },
-        location: {
-          type: String,
-        },
-        addressZipCode: {
-          type: String,
-        },
-      },
-    ],
+    addresses:{
+      type: Array,
+    },
     tokens: [
       {
         token: {

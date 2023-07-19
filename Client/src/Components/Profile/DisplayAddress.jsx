@@ -6,6 +6,8 @@ import { AddressSheet, AddressSheetError } from '@stripe/stripe-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import ModalPrevent from '../Modal/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteAdress } from '../../metodos/authMetodos';
 
 //referencia adress: { address: { city: 'Madrid', country: 'ES', line1: 'Chingo', line2: 'Gorda', postalCode: '538', state: 'Madrid' }, isCheckboxSelected: false, name: 'Haahah', phone: '646464646' }
 const DisplayAddress = () => {
@@ -137,13 +139,23 @@ const DisplayAddress = () => {
     setModalVisible(true);
     /* setIdDelete(id); */
   };
-
-  const deleteAddress = () => {
+const dispatch = useDispatch()
+  const deleteAddress = async (adress) => { //solo la direccion
     /* Aqui va la logica para borrar un address */
     setModalVisible(false);
     setIdDelete(null);
+    let token = await  AsyncStorage.getItem("Token")
+    deleteAdress({
+      adress,
+        token,
+        succes: (v) => {dispatch(userRefresh(v), navigation.navigate("Profile"))},
+        loading: (s) => {dispatch(setLoadingAuth(s))},
+        error: (e) => {dispatch(setErrorAuth(e))}
+    })
   }
-
+  //en profile vienen las direcciones en un array con objetos
+  const profile = useSelector((state) => state.ReducerAuth.profile);
+console.log(profile)
   const renderAddress = ({item, index}) => {
     return (
       <View key={index} className="h-28 bg-naranja rounded-3xl relative justify-center p-5">
@@ -161,7 +173,7 @@ const DisplayAddress = () => {
 
   return (
     <View className=" w-screen h-screen mb-44 relative items-center">
-      <ModalPrevent delFuntion={deleteAddress} message="Esto borrará su dirección de forma permanente" setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+      <ModalPrevent delFuntion={() =>deleteAddress(direccion)} message="Esto borrará su dirección de forma permanente" setModalVisible={setModalVisible} modalVisible={modalVisible}/>
       <ScrollView>
         <View className="items-center w-screen h-full mt-52">
           <Text className="text-black font-bold text-xl p-5 mb-5">Mis Direcciones</Text>
