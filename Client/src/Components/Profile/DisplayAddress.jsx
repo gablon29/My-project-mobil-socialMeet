@@ -134,12 +134,13 @@ const DisplayAddress = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [idDelete, setIdDelete] = useState(null);
+  const [ address, setAddress ] = useState([]);
 
   const showModal = (id) => {
     setModalVisible(true);
     /* setIdDelete(id); */
   };
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const deleteAddress = async (adress) => { //solo la direccion
     /* Aqui va la logica para borrar un address */
     setModalVisible(false);
@@ -152,10 +153,14 @@ const dispatch = useDispatch()
         loading: (s) => {dispatch(setLoadingAuth(s))},
         error: (e) => {dispatch(setErrorAuth(e))}
     })
-  }
+  };
   //en profile vienen las direcciones en un array con objetos
   const profile = useSelector((state) => state.ReducerAuth.profile);
-console.log(profile)
+  
+  useEffect(()=>{
+    setAddress(profile?.addresses)
+  },[]);
+
   const renderAddress = ({item, index}) => {
     return (
       <View key={index} className="h-28 bg-naranja rounded-3xl relative justify-center p-5">
@@ -179,7 +184,7 @@ console.log(profile)
           <Text className="text-black font-bold text-xl p-5 mb-5">Mis Direcciones</Text>
           <View className="w-11/12 gap-10 pb-32">
             
-            {[1,2,3].map((item, index)=>renderAddress({item, index}))}
+            {address?.map((item, index)=>renderAddress({item, index}))}
             
           </View>
         </View>

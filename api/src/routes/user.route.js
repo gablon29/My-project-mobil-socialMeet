@@ -93,10 +93,10 @@ module.exports = {
   },
   saveNewAdress: async (req, res) => {
     const userId = req.user.userId;
-    const {newAdress} = req.body
-    const usuario = await UserModel.findById(userId)
-    usuario.addresses.push(newAdress)
-    usuario.save()
+    const {newAdress} = req.body;
+    const usuario = await UserModel.findById(userId);
+    usuario.addresses.push(newAdress);
+    usuario.save();
     response(res, 200, usuario);
   },
   deleteAdress: async (req, res) => {

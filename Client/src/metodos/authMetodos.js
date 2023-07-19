@@ -168,8 +168,8 @@ export const addAdress = async ({ newAdress,token ,succes, loading, error }) => 
     loading(true)
     const response = await axios.post(`/api/user/save-new-adress`, newAdress, {
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
       },
     });
     succes(response.data.payload);
