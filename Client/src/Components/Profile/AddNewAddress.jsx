@@ -33,16 +33,31 @@ const AddNewAddress = () => {
     }));
   };
 
-  const agregarDireccion = async(body) => {
-    let token = await  AsyncStorage.getItem("Token")
+  const agregarDireccion = async (addresses) => {
+    let token = await AsyncStorage.getItem("Token");
+  
+ let newAdress ={
+  address: addresses.address,
+  number: addresses.number,
+  addressProvince: addresses.addressProvince,
+  location: addresses.location,
+  addressZipCode: addresses.addressZipCode,
+    }
+
     await addAdress({
-          newAdress: body,
-          token,
-          loading: (s) => {dispatch(setLoadingAuth(s))},
-          error: (e) => {dispatch(setErrorAuth(e))},
-          succes: (v) => {dispatch(userRefresh(v), navigation.navigate("Profile"))},
-      })
-  }
+      newAdress, // Envía el objeto addresses con la clave "newAdress"
+      token,
+      loading: (s) => {
+        dispatch(setLoadingAuth(s));
+      },
+      error: (e) => {
+        dispatch(setErrorAuth(e));
+      },
+      succes: (v) => {
+        dispatch(userRefresh(v), navigation.navigate("Profile"));
+      },
+    });
+  };
 
   const renderInputs = ({ input, index }) => {
     return (
