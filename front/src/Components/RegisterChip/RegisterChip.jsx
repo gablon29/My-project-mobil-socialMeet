@@ -15,7 +15,7 @@ export const RegisterChip = () => {
     const [login, setLogin] = useState(false)
 
     console.log(chipId)
-    useEffect(() => {
+    /* useEffect(() => {
       buscar_chipId({
         chipId,
         succes: (v) => {
@@ -32,7 +32,7 @@ export const RegisterChip = () => {
       setNewChip(chipId);
 
 
-    }, [chipId]);  
+    }, [chipId]);  */ 
     
 let token = localStorage.getItem("token")
 

@@ -17,6 +17,10 @@ module.exports = {
         'svg-image': "url('/src/images/background.png')",
         'background-login': "url('/src/images/BackgroundLogin.png')",
         'background-landing': "url('/src/images/LandingBackground.png')"
+      },
+      colors: {
+        naranja: "#FB6726",
+        gris: "#EDEBEB"
       }
     },
   },
