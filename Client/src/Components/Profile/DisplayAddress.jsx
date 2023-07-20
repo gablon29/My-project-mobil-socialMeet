@@ -156,7 +156,7 @@ const DisplayAddress = () => {
   };
   //en profile vienen las direcciones en un array con objetos
   const profile = useSelector((state) => state.ReducerAuth.profile);
-  
+  console.log(profile)
   useEffect(()=>{
     setAddress(profile?.addresses)
   },[]);

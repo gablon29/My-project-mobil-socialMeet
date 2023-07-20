@@ -91,11 +91,11 @@ module.exports = {
     response(res, 200, "token de dispositivo agregado");
 
   },
-  saveNewAdress: async (req, res) => {
+    saveNewAdress: async (req, res) => {
     const userId = req.user.userId;
-    const {newAdress} = req.body;
+
     const usuario = await UserModel.findById(userId);
-    usuario.addresses.push(newAdress);
+    usuario.addresses.push(req.body);
     usuario.save();
     response(res, 200, usuario);
   },
