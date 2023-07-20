@@ -19,20 +19,24 @@ const chips = {
   },
   //PUT recibe body
   asignar_id_chip_nuevo: async (req, res) => {
-    const { chipId, petId } = req.body;
-    if (!chipId || !petId) throw new ClientError('Faltó enviar datos por body {chipId: "el id del chip", petId: "id de la mascota"}', 400);
+    const { chipData } = req.body;
+
+    const {petId, chipId, telefono, email, veterinaria, veterinariaAdress, information } = chipData;
     const pet = await PetModel.findById(petId);
-    if (!pet || pet.id !=petId) throw new ClientError('No se ha encontrado una mascota con esa id', 500);
-    const user =  await UserModel.findById(req.user.userId); //recordar que si está logeado, por req le llega el id en req.user.userId
-    if (pet.owner!= user._id)throw new ClientError('Esta mascota no le pertenece.', 500);
-    pet.chip = chipId;
+    if (!pet) {
+      throw new ClientError('No se ha encontrado una mascota con esa id', 500);
+    }
+  
+    pet.chip.id = chipId;
+    pet.chip.telefono = telefono;
+    pet.chip.email = email;
+    pet.chip.veterinaria = veterinaria;
+    pet.chip.veterinariaAdress = veterinariaAdress;
+    pet.chip.information = information;
+
     await pet.save();
     response(res, 200, { pet, user });
-  },
-
-  ruta_incorrecta: async (req, res) => {
-     throw new ClientError('Faltó enviar el id por params /api/pet-info/:chipId', 400);
-  },
-};
+  }
+}
 
 module.exports = chips;

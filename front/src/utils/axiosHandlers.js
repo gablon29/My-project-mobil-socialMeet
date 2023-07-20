@@ -21,25 +21,13 @@ export async function checkear_si_esta_logeado() {
   return response.data.payload
 }
 
-export const buscar_chipId = async ({chipId, succes, error, loading}) => {
-
-  try{
-    loading(true)
-    console.log(chipId)
+export const buscar_chipId = async (chipId) => {
   const response = await axios.get(`/api/pet-info/${chipId}`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
-  succes(response.data.payload)
-  loading(false)
-}
-catch(err) {
-  error(error)
-  console.log(err)
-  loading(false)
-
-}
+  return response.data.payload;
 };
 
 export const buscar_todas_mis_mascotas = async () => {
