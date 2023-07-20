@@ -163,7 +163,7 @@ const DisplayAddress = () => {
 
   const renderAddress = ({item, index}) => {
     return (
-      <View key={index} className="h-28 bg-naranja rounded-3xl relative justify-center p-5">
+      <View key={index} className="h-28 bg-orange-500 rounded-3x1 relative justify-center p-5">
         <Text className="text-white text-sm">Calle y número de calle</Text>
         <Text className="text-white text-sm">Ciudad y provincia</Text>
         <Text className="text-white text-sm">Código postal</Text>
