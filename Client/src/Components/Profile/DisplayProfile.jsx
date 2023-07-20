@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, ScrollView} from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Buttons/ButtonWithIcon';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Email from 'react-native-vector-icons/Fontisto';
@@ -9,8 +9,7 @@ import Location from 'react-native-vector-icons/EvilIcons';
 import Pencil from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
 
-const DisplayProfile = () => {
-  const profile = useSelector((state) => state.ReducerAuth.profile);
+const DisplayProfile = ({profile}) => {
   const navigation = useNavigation();
 
   return (
