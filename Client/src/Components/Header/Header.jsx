@@ -90,7 +90,7 @@ export default function Header() {
       </View>
       {showMenu && (
         <ScrollView>
-          <View className="flex flex-row flex-wrap gap-5 p-2 justify-center">
+          <View className="flex flex-row flex-wrap gap-5 p-2 justify-center mt-2">
             {logoOpciones.map((elem, _idx) => (
               <TouchableOpacity
                 key={_idx}

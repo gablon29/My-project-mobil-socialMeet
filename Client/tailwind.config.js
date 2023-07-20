@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}', "./node_modules/**/**/*.{js,jsx,ts,tsx","./node_modules/**/**/**/*.{js,jsx,ts,tsx", "./node_modules/**/*.{js,jsx,ts,tsx"],
   theme: {
     extend: {
       fontFamily: {
@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         naranja: '#FB6726',
         gris: '#DADADA',
+        new: "#FEC89A"
       },
       fontSize: {
         //no funca no sé pq

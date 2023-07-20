@@ -78,8 +78,8 @@ export const ConfigurateChip = ({ navigation }) => {
           <Text className="text-xl font-poppinsBold text-black mt-12 ml-15 mr-15 text-center px-2">Selecciona la mascota a la que va asociado este Chip</Text>
           <View className="flex flex-row flex-wrap justify-center my-4">
             {userPets.map((item, idx) => (
-              <TouchableOpacity key={idx} onPress={() => setPetSelect(item.id)} className="w-20 h-20 rounded-full">
-                <Image source={{ uri: item.coverImage }} style={{ height: 80, width: 80 }} resizeMode="contain" className="rounded-full" />
+              <TouchableOpacity key={idx} onPress={() => setPetSelect(item.id)} className="w-20 h-20 rounded-lg">
+                <Image source={{ uri: item.coverImage }} style={{ height: 80, width: 80 }} resizeMode="contain" className="rounded-lg" />
               </TouchableOpacity>
             ))}
           </View>
@@ -104,9 +104,9 @@ export const ConfigurateChip = ({ navigation }) => {
           </View>
           <View className="mx-2">
             <Text className="font-poppinsBold">Teléfono</Text>
-            <TextInput placeholder="" value={phone} onChangeText={(text) => setPhone(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
+            <TextInput placeholder="" value={phone} onChangeText={(text) => setPhone(text)} className=" w-full rounded-lg bg-gris h-8 px-4 mb-4 " />
             <Text className="font-poppinsBold">Email</Text>
-            <TextInput placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
+            <TextInput placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
           </View>
           <View className="ml-12 mr-12">
             <Text className="text-xl font-poppinsBold text-black  mr-26 text-center">¿Cuál es su centro veterinario habitual?</Text>
@@ -114,9 +114,9 @@ export const ConfigurateChip = ({ navigation }) => {
 
           <View className="mt-7  mx-2">
             <Text className="font-poppinsBold">Nombre de la clínica </Text>
-            <TextInput placeholder="" value={firstName} onChangeText={(text) => setFirstName(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
+            <TextInput placeholder="" value={firstName} onChangeText={(text) => setFirstName(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
             <Text className="font-poppinsBold">Dirección de la clínica</Text>
-            <TextInput placeholder="" value={address} onChangeText={(text) => setAddress(text)} className="w-full rounded-full bg-gris h-8 px-4 mb-4" />
+            <TextInput placeholder="" value={address} onChangeText={(text) => setAddress(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
             <View className="">
               <Text className="text-xl font-poppinsBold text-black mt-12 text-center">¿Alguna información importante a tener en cuenta?</Text>
               <Text className="text-md font-poppins  mt-2 ml-26 mr-26 text-center">Medicamentos, enfermedades, dolencias...</Text>
