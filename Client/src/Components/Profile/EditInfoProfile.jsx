@@ -112,13 +112,13 @@ const EditInfoProfile = ({ navigation }) => {
         </View>
         <View className="w-11/12 mt-5 mb-3">
           <Text className="w-full text-left font-bold text-lg">Nombre</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={firstName} onChangeText={(text) => setFirstName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={firstName} onChangeText={(text) => setFirstName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
           <Text className="w-full text-left font-bold text-lg">Apellidos</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={lastName} onChangeText={(text) => setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={lastName} onChangeText={(text) => setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
           <Text className="w-full text-left font-bold text-lg">Email</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={email} onChangeText={(text) => setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={email} onChangeText={(text) => setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
           <Text className="w-full text-left font-bold text-lg">Télefono</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={phone} onChangeText={(text) => setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-full bg-gris" />
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={phone} onChangeText={(text) => setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
           <Text className="w-full text-left font-bold text-lg">País</Text>
           <SelectList
             data={countryOptions}
@@ -127,14 +127,20 @@ const EditInfoProfile = ({ navigation }) => {
             defaultOption={{key: profile?.country, value:profile?.country}}
             search={false}
             /* onSelect={console.log("mis provincias son ", currentProvinces)} */
-            fontFamily="Poppins"
             boxStyles={{
               backgroundColor: '#DADADA',
-              borderRadius: 999,
+              borderRadius: 10,
               borderColor: '#DADADA',
+              
+            }}
+            inputStyles={{
+              fontSize: 12,
+              fontFamily:"Poppins"
+
             }}
             dropdownStyles={{
               backgroundColor: '#DADADA',
+            
             }}
           />
           <Text className="w-full text-left font-bold text-lg">Provincia</Text>
@@ -144,15 +150,19 @@ const EditInfoProfile = ({ navigation }) => {
             placeholder="Seleccionar"
             defaultOption={country === profile?.country ? {key: profile?.province, value:profile?.province} : {key: currentProvinces[0], value: currentProvinces[0]} }
             search={false}
-            fontFamily={'Poppins'}
             boxStyles={{
               backgroundColor: '#DADADA',
-              borderRadius: 999,
+              borderRadius: 10,
               borderColor: '#DADADA',
+              fontFamily:"Poppins"
+            }}
+            inputStyles={{
+              fontSize: 12
             }}
             dropdownStyles={{ backgroundColor: '#DADADA' }}
           />
         </View>
+        <View className="mt-2">
         <Button 
           title="Guardar Información"
           buttonClass="bg-naranja rounded-3xl p-2 h-10 items-center w-7/12 shadow-xl shadow-lg shadow-black" 
@@ -160,6 +170,7 @@ const EditInfoProfile = ({ navigation }) => {
           onPress={() => handleEdit(firstName, lastName, phone, email, country, province)}
           dissable={dissableBnt}
         />
+        </View>
       </View>
     </ScrollView>
   );
