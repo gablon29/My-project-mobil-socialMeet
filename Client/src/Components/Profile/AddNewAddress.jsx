@@ -42,6 +42,7 @@ const AddNewAddress = () => {
   addressProvince: addresses.addressProvince,
   location: addresses.location,
   addressZipCode: addresses.addressZipCode,
+  id: Date.now()
     }
 
     await addAdress({

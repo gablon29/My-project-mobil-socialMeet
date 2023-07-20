@@ -9,6 +9,7 @@ module.exports = {
     const { userId } = req.user;
     console.log(userId)
     const user = await UserModel.findById(userId);
+    console.log(user)
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     response(res, 200, user);
   },
@@ -101,9 +102,12 @@ module.exports = {
   },
   deleteAdress: async (req, res) => {
     const userId = req.user.userId;
-    const {adress} = req.body
+    const {id} = req.body
     const usuario = await UserModel.findById(userId)
-    usuario.addresses.filter((ele) => ele.address === adress)
+    const indexToDelete = usuario.addresses.findIndex((ele) => ele.id === id);
+    if (indexToDelete !== -1) {
+      usuario.addresses.splice(indexToDelete, 1);
+    }
     usuario.save()
     response(res, 200, usuario);
   }

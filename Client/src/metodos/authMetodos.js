@@ -181,19 +181,20 @@ export const addAdress = async ({ newAdress,token ,succes, loading, error }) => 
 };
 
 
-export const deleteAdress = async ({ adress ,token ,succes, loading, error }) => {
+export const deleteAdress = async ({ id ,token ,succes, loading, error }) => {
   try {
     loading(true)
-    const response = await axios.post(`/api/user/delete-adress`, adress, {
+    const response = await axios.put(`/api/user/delete-adress`, {id}, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
     });
+    console.log(response)
     succes(response.data.payload);
     loading(false)
   } catch (error) {
-    error(error.message);
+    console.error('deleteAdress:', error.message);
     loading(false)
   }
 };

@@ -85,7 +85,6 @@ const EditInfoProfile = ({ navigation }) => {
           loading: (v) => dispatch(setLoadingAuth(v)),
           error: (msg) => dispatch(setErrorAuth(msg)),
           success: (res) => {
-            console.log(res);
             dispatch(userRefresh(res.payload));
             navigation.navigate('Profile');
           },

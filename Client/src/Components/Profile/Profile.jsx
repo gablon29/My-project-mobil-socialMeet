@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert, FlatList } from 'react-native';
 
 import { AdressIcon, CardIcon, ChatIcon, InvoiceIcon, ProfileIcon, ReportIcon } from '../../icons/LowerMenuBarIcons';
@@ -9,9 +9,16 @@ import AddCard from '../Stripe/AddCard';
 import DisplaySupport from './DisplaySupport';
 import DisplayChats from './DisplayChats';
 import { UserInvoices } from './UserInvoices';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReloadAuthMethod } from '../../metodos/authMetodos';
+import { setErrorAuth, setLoadingAuth, userRefresh } from '../../Redux/ReducerAuth';
 
 const ProfileComponent = ({ navigation, props }) => {
   const [mounted, setMounted] = useState(1);
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.ReducerAuth.profile);
+  /* console.log("profile 😎",profile) */
+  
   const PlaceJolder = ({ name }) => (
     <View className="relative mb-2">
       <Text>{name}</Text>
@@ -41,12 +48,12 @@ const ProfileComponent = ({ navigation, props }) => {
 
   return (
     <View className="justify-center items-center relative h-full w-screen bg-white">
-      {mounted === 1 ? <DisplayProfile  navigation={navigation}/> : null}
-      {mounted === 2 ? <DisplayAddress /> : null}
-      {mounted === 3 ? <AddCard /> : null}
-      {mounted === 4 ? <UserInvoices  /> : null}
-      {mounted === 5 ? <DisplayChats /> : null}
-      {mounted === 6 ? <DisplaySupport /> : null}
+      {mounted === 1 ? <DisplayProfile profile={profile}  navigation={navigation}/> : null}
+      {mounted === 2 ? <DisplayAddress  profile={profile} /> : null}
+      {mounted === 3 ? <AddCard  profile={profile} /> : null}
+      {mounted === 4 ? <UserInvoices   profile={profile} /> : null}
+      {mounted === 5 ? <DisplayChats  profile={profile} /> : null}
+      {mounted === 6 ? <DisplaySupport  profile={profile} /> : null}
 
       <LowerBar />
       <View className="h-20"></View>
