@@ -1,4 +1,4 @@
-const { updatePet, filterByOwner, createPet, petByOwner, deletePetOwner } = require('../controllers/petController');
+const { updatePet, filterByOwner, createPet, petByOwner, deletePetOwner, filterByChip } = require('../controllers/petController');
 const { response } = require('../utils');
 
 module.exports = {
@@ -22,7 +22,11 @@ module.exports = {
     const pets = await filterByOwner(req.user.userId);
     response(res, 200, pets);
   },
-
+  all_pets_with_chip: async (req, res) => {
+    const pets = await filterByChip(req.user.userId);
+    response(res, 200, pets);
+  },
+  
   my_pet: async (req, res) => {
     const { id } = req.params;
     const { userId } = req.user;
@@ -37,3 +41,4 @@ module.exports = {
     response(res, 200, deletedPet);
   },
 };
+

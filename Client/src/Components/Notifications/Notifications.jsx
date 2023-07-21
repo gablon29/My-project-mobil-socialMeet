@@ -9,26 +9,28 @@ const Notifications = () => {
   const authenticatedAuth = useSelector((state) => state.ReducerAuth.authenticatedAuth);
   const profile = useSelector((state) => state.ReducerAuth.profile);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const token = await AsyncStorage.getItem('Token');
-        const response = await axios.get(`/api/user/notifications?email=${profile.email}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
+console.log(profile.Notifications)
 
-        if (response.error) throw new Error(data.message);
-        setNotifications(response.data.payload);
-      } catch (error) {
-        console.error('Error al obtener las notificaciones:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchNotifications = async () => {
+  //     try {
+  //       const token = await AsyncStorage.getItem('Token');
+  //       const response = await axios.get(`/api/user/notifications?email=${profile.email}`, {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
 
-    fetchNotifications();
-  }, []);
+  //       if (response.error) throw new Error(data.message);
+  //       setNotifications(response.data.payload);
+  //     } catch (error) {
+  //       console.error('Error al obtener las notificaciones:', error);
+  //     }
+  //   };
+
+  //   fetchNotifications();
+  // }, []);
 
   return (
     <View>
