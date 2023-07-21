@@ -1,49 +1,98 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from "react";
+import { Text } from "react-native";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 
-const Notifications = () => {
-  const [notifications, setNotifications] = React.useState([]);
-  const authenticatedAuth = useSelector((state) => state.ReducerAuth.authenticatedAuth);
-  const profile = useSelector((state) => state.ReducerAuth.profile);
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+    }),
+});
 
-console.log(profile.Notifications)
+const App = () => {
+    const [expoPushToken, setExpoPushToken] = React.useState("");
+    const [notification, setNotification] = React.useState(false);
 
-  // useEffect(() => {
-  //   const fetchNotifications = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem('Token');
-  //       const response = await axios.get(`/api/user/notifications?email=${profile.email}`, {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
+    const notificationListener = React.useRef();
+    const responseListener = React.useRef();
 
-  //       if (response.error) throw new Error(data.message);
-  //       setNotifications(response.data.payload);
-  //     } catch (error) {
-  //       console.error('Error al obtener las notificaciones:', error);
-  //     }
-  //   };
+    React.useEffect(() => {
+        registerForPushNotificationsAsync().then((token) => setExpoPushToken(token));
 
-  //   fetchNotifications();
-  // }, []);
+        // This listener is fired whenever a notification is received while the app is foregrounded
+        notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+            setNotification(notification);
+        });
 
-  return (
-    <View>
-      <Text>Lista de notificaciones:</Text>
+        // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+        responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+            const {
+                notification: {
+                    request: {
+                        content: {
+                            data: { screen },
+                        },
+                    },
+                },
+            } = response;
 
-      {notifications?.map((notification, _idx) => (
-        <View key={_idx}>
-          <Text>{notification}</Text>
-          {/* <Text>{notification.body}</Text> */}
-        </View>
-      ))}
-    </View>
-  );
+            // When the user taps on the notification, this line checks if they //are suppose to be taken to a particular screen
+            if (screen) {
+                props.navigation.navigate(screen);
+            }
+        });
+
+        return () => {
+            Notifications.removeNotificationSubscription(notificationListener.current);
+            Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, []);
+
+    return <Text>Push Notifications Test App</Text>;
 };
 
-export default Notifications;
+async function registerForPushNotificationsAsync() {
+    let token;
+
+    if (Device.isDevice) {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== "granted") {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+            console.log("existingStatus", existingStatus);
+        }
+
+        if (finalStatus !== "granted") {
+            alert("Failed to get push token for push notification!");
+            console.log("finalStatus", finalStatus);
+            return;
+        }
+
+        // Project ID can be found in app.json | app.config.js; extra > eas > projectId
+        // token = (await Notifications.getExpoPushTokenAsync({ projectId: "YOUR_PROJECT_ID" })).data;
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+
+        // The token should be sent to the server so that it can be used to send push notifications to the device
+        console.log(token);
+    } else {
+        alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+            name: "default",
+            showBadge: true,
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: "#FE9018",
+        });
+    }
+
+    return token;
+}
+
+export default App;
