@@ -14,8 +14,8 @@ export const RegisterChip = () => {
     const [newChip, setNewChip] = useState();
     const [login, setLogin] = useState(false)
 
-    console.log(chipId)
-    /* useEffect(() => {
+    /* console.log(chipId)
+    useEffect(() => {
       buscar_chipId({
         chipId,
         succes: (v) => {
@@ -32,21 +32,19 @@ export const RegisterChip = () => {
       setNewChip(chipId);
 
 
-    }, [chipId]);  */ 
+    }, [chipId]);   */
     
 let token = localStorage.getItem("token")
-
     return(
         <>
         {pet && owner ?
-     <p>mostrar info de la mascota</p>   
-    :
-token ? 
-<SelectPet chipId={chipId}/>
-:
-    <Login/>
-    }
-        
+          <p>mostrar info de la mascota</p>   
+          :
+          token ? 
+          <SelectPet chipId={chipId}/>
+          :
+          <Login/>
+        }      
         </>
     )
 }
