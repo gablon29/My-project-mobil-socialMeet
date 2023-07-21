@@ -58,7 +58,7 @@ export default function Header() {
     { working: false, logo: peluqueros, nombre: 'Peluqueros' },
     { working: false, logo: educadores, nombre: 'Educadores' },
     { working: false, logo: adopcion, nombre: 'Adopción' },
-    { working: false, logo: chipWhopaws, nombre: 'My Whopaws' },
+    { working: true, logo: chipWhopaws, nombre: 'My Whopaws', url: 'MyChips' },
     { working: false, logo: blog, nombre: 'Blog' },
     { working: false, logo: areaProfesional, nombre: 'Área profesional' },
     { working: false, logo: marketPlace, nombre: 'Marketplace' },
