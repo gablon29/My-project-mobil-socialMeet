@@ -19,7 +19,7 @@ const chips = {
   },
   //PUT recibe body
   asignar_id_chip_nuevo: async (req, res) => {
-    const { chipData } = req.body;
+    const chipData = req.body;
 
     const {petId, chipId, telefono, email, veterinaria, veterinariaAdress, information } = chipData;
     const pet = await PetModel.findById(petId);

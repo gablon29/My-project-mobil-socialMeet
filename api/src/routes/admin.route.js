@@ -4,9 +4,13 @@ const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 //const { deletePet } = require('../controllers/deletePet.js');
 const Purchase = require('../models/purchase.model');
+const { expoSendOneNotification } = require('../utils/expo-notif-handler');
 
 module.exports ={
-
+  sendOneNotification: async (req,res)=>{
+    expoSendOneNotification(req.query.to,req.query.title,req.query.body)
+     response(res,200,req.query)
+  },
 delete_by_id: async (req, res) => {
   if(!req.query || !req.query.id){throw new ClientError("No se ha enviado id por query", 400)}
   const deletedPet = await PetModel.findByIdAndDelete(req.body.id);
