@@ -1,6 +1,6 @@
 import { ScrollView, TextInput, View, Text } from "react-native";
 import Button from "../Buttons/ButtonCuston";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addAdress } from "../../metodos/authMetodos";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setErrorAuth, setLoadingAuth, userRefresh } from "../../Redux/ReducerAuth";
@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const AddNewAddress = () => {
   const dispatch = useDispatch();
+  const [required, setRequired] = useState(true)
   const [addresses, setAddresses] = useState({
     address: "",
     number: "",
@@ -16,6 +17,14 @@ const AddNewAddress = () => {
     location: "",
     addressZipCode: "",
   });
+
+  useEffect(()=>{
+    if(!addresses.address || !addresses.number || !addresses.addressProvince || !addresses.location || !addresses.addressZipCode){
+     setRequired(false) 
+    } else {
+      setRequired(true)
+    }
+  },[addresses])
 
   const navigation = useNavigation()
   const labels = [
@@ -73,6 +82,8 @@ const AddNewAddress = () => {
     );
   };
 
+
+
   return (
     <ScrollView className="bg-white">
       <View className="w-screen h-full items-center mt-10">
@@ -85,6 +96,7 @@ const AddNewAddress = () => {
           title="Agregar dirección"
           buttonClass="rounded-full bg-black w-8/12 h-14 my-3 justify-center"
           titleClass="text-white text-center text-base font-semibold"
+          dissable={required}
         />
       </View>
     </ScrollView>
