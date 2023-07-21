@@ -95,6 +95,7 @@ const userSchema = mongoose.Schema(
     
     addresses:{
       type: Array,
+      default: [],
     },
     tokens: [
       {
