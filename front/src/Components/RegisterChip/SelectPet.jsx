@@ -12,7 +12,7 @@ useEffect(() => {
         const token = localStorage.getItem("token");
         
         // Realizar la petición a la API con el token en los headers
-        const response = await axios.get("http://localhost:8080/api/pet/byowner", {
+        const response = await axios.get("https://whopaws-production.up.railway.app/api/pet/byowner", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
