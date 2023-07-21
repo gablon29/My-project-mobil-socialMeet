@@ -26,6 +26,15 @@ const filterByOwner = async (id) => {
   return ownerPets;
 };
 
+const filterByChip = async (id) => {
+  const petWithChips = await PetModel.find({
+    $or: [
+      { owner: id },
+      { "chip.id": { $exists: true } },
+    ],
+  });
+  return petWithChips
+}
 const petByOwner = async (idPet, userId) => {
   // const lookingOwner = await UserModel.find({_id: userId})
   const ownerPets = await PetModel.find({ owner: userId, _id: idPet });
@@ -43,5 +52,6 @@ module.exports = {
   updatePet,
   filterByOwner,
   petByOwner,
-  deletePetOwner
+  deletePetOwner,
+  filterByChip
 };

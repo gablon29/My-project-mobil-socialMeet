@@ -18,34 +18,8 @@ import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../Buttons/Button';
+import { useSelector } from 'react-redux';
 
-const ejemploNotificaciones = [
-  { type: '', title: 'Titulo de Ejemplo', body: 'A tu mascota blacky le toca una vacuna', date: 'Hace 2 minutos' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Tienes una cita mañana a las 7:30 PM.', date: 'Hace 23 minutos' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Tu pedido se a realizado correctamente', date: '08:20 PM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Has anadido una nueva mascotas!', date: '05:43 PM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Vacuna de la rabia', date: '11:45 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Tienes una cita veterinaria hoy a las 9:15 AM.', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion un9o dos tres cuatro cinco seis siete ocho nueve cies once doce trece catorse quince diesiseis diesiocho diesimiene veinte', date: '' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  {
-    type: '',
-    title: 'Titulo de Ejemplo',
-    body: 'Este es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdhEste es un ejemplo de notificacion jdhjkas asjdhjshd jashdjhas asjdhasdjhsd asjhdjasdh asjdhajsdh asjdhajshd asjdhjashd asjdhasjhd asjdhjas asjdhjashd asjdhajsdh asdjhasjdh asjdhasjdh',
-    date: '',
-  },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-  { type: '', title: 'Titulo de Ejemplo', body: 'Este es un ejemplo de notificacion', date: '09:15 AM' },
-];
 
 export default function Header() {
   const navigation = useNavigation();
@@ -69,6 +43,7 @@ export default function Header() {
 
   const [showMenu, setShowMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const profile = useSelector((state) => state.ReducerAuth.profile);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -76,6 +51,7 @@ export default function Header() {
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
+  console.log(profile.Notifications)
 
   return (
     <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'} bg-white`}>
@@ -117,16 +93,17 @@ export default function Header() {
         <View className="flex flex-1 m-4">
           <Button title="Ver mi calendario" colorText="text-white" alto="h-12" ancho="w-full" colorButton="bg-black" onPress={() => navigation.navigate('MiCalendario')} />
           <FlatList
-            data={ejemploNotificaciones}
+            data={profile.Notifications}
             ItemSeparatorComponent={() => <View className="h-px w-full bg-slate-400"></View>}
             renderItem={({ item, index }) => (
+              item?.cuerpo &&
               <View className="h-fit min-h-[100px] m-2 flex flex-row items-center">
                 <View className="mr-4 rounded-full bg-naranja w-12 h-12 justify-center items-center">
                   <Icon name="close" size={32} color="white" />
                 </View>
                 <View className="flex flex-1 my-4 mr-4">
-                  <Text className="text-black text-justify font-poppins text-sm">{item.body}</Text>
-                  <Text className="text-slate-600 font-poppins text-xs">{item.date}</Text>
+                  <Text className="text-black text-justify font-poppins text-sm">{item?.cuerpo}</Text>
+                  <Text className="text-slate-600 font-poppins text-xs">{item?.asunto}</Text>
                 </View>
               </View>
             )}
