@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export const Login = () => {
+export const Login = ({setLogin}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,6 +19,7 @@ export const Login = () => {
       );
       console.log(response.data);
       localStorage.setItem("token", response.data.payload.token);
+      setLogin(true)
       // Aquí puedes realizar alguna acción con la respuesta si es necesario
       
     } catch (err) {
