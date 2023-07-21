@@ -11,7 +11,8 @@ const chips = {
   buscar_por_id: async (req, res) => {
     const { chipId } = req.params;
     if (!chipId) throw new ClientError('Faltó enviar el id por params /:chipId', 400);
-    const pet = await PetModel.findOne({ chip: chipId });
+    const pet = await PetModel.findOne({"chip.id": chipId});
+    console.log(pet)
     if (!pet) return response(res, 200, { pet: false, owner: false, message: "el PET id no existe, id recibido: "+ chipId});
     let ownerInfo = {};
     if (pet.owner) ownerInfo = await UserModel.findById(pet.owner );
@@ -19,23 +20,23 @@ const chips = {
   },
   //PUT recibe body
   asignar_id_chip_nuevo: async (req, res) => {
-    const chipData = req.body;
+    const {chipData} = req.body;
+const {petId} = chipData
 
-    const {petId, chipId, telefono, email, veterinaria, veterinariaAdress, information } = chipData;
-    const pet = await PetModel.findById(petId);
+    const pet = await PetModel.findById(chipData.petId);
     if (!pet) {
       throw new ClientError('No se ha encontrado una mascota con esa id', 500);
     }
   
-    pet.chip.id = chipId;
-    pet.chip.telefono = telefono;
-    pet.chip.email = email;
-    pet.chip.veterinaria = veterinaria;
-    pet.chip.veterinariaAdress = veterinariaAdress;
-    pet.chip.information = information;
+    pet.chip.id = chipData.chipId;
+    pet.chip.telefono = chipData.telefono;
+    pet.chip.email = chipData.email;
+    pet.chip.veterinaria = chipData.veterinaria;
+    pet.chip.veterinariaAdress = chipData.veterinariaAdress;
+    pet.chip.information = chipData.information;
 
     await pet.save();
-    response(res, 200, { pet, user });
+    response(res, 200, { pet });
   }
 }
 

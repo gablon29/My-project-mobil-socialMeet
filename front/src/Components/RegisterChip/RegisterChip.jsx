@@ -1,50 +1,55 @@
-import React from "react";
-import { useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import { Login } from "./Login";
 import { SelectPet } from "./SelectPet";
-import { buscar_chipId } from "../../utils/axiosHandlers";
+import { Petinformation } from "./Petinformation";
 
 export const RegisterChip = () => {
+  const { chipId } = useParams();
+  const [loading, setLoading] = useState(false);
+  const [pet, setPet] = useState(null);
+  const [owner, setOwner] = useState(null);
+  const [newChip, setNewChip] = useState(null);
+  const [login, setLogin] = useState(false);
 
-    const [pet, setPet] = useState();
-    const [owner, setOwner] = useState();
-    const { chipId } = useParams();
-    const [newChip, setNewChip] = useState();
-    const [login, setLogin] = useState(false)
+  useEffect(() => {
+    const fetchPetInfo = async () => {
+      setLoading(true);
 
-    /* console.log(chipId)
-    useEffect(() => {
-      buscar_chipId({
-        chipId,
-        succes: (v) => {
-          setPet(v.pet);
-          setOwner(v.owner);
-        },
-        error: (v) => {
-          console.log(v);
-        },
-        loading: (v) => {
-          console.log(v);
-        },
-      });
-      setNewChip(chipId);
+      try {
+        const response = await axios.get(`http://localhost:8080/api/pet-info/${chipId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
+        const { pet, owner } = response.data.payload;
+        setPet(pet);
+        setOwner(owner);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching pet information:", error);
+        setLoading(false);
+      }
+    };
 
-    }, [chipId]);   */
-    
-let token = localStorage.getItem("token")
-    return(
-        <>
-        {pet && owner ?
-          <p>mostrar info de la mascota</p>   
-          :
-          token ? 
-          <SelectPet chipId={chipId}/>
-          :
-          <Login/>
-        }      
-        </>
-    )
-}
+    fetchPetInfo();
+  }, [chipId]);
+
+  let token = localStorage.getItem("token");
+
+  return (
+    <>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : pet && owner ? (
+        <Petinformation pet={pet} owner={owner} />
+      ) : login ? (
+        <SelectPet chipId={chipId} />
+      ) : (
+        <Login setLogin={setLogin} />
+      )}
+    </>
+  );
+};
