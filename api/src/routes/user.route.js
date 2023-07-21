@@ -83,8 +83,9 @@ module.exports = {
     }, res);
     response(res, 200, updateUser);
   },
+
   saveDeviceToken: async (req, res) => {
-    const userId = req.user.userId;
+    const {userId} = req.user
     const {token} = req.body
     const usuario = await UserModel.findById(userId)
     usuario.deviceTokens.push(token)
@@ -92,8 +93,9 @@ module.exports = {
     response(res, 200, "token de dispositivo agregado");
 
   },
+
     saveNewAdress: async (req, res) => {
-    const userId = req.user.userId;
+    const {userId} = req.user
 
     const usuario = await UserModel.findById(userId);
     usuario.addresses.push(req.body);

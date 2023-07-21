@@ -56,6 +56,7 @@ router.delete('/api/pet/delete', isLoggedIn, catchedAsync(pet.delete_my_pet));
 
 
 // ------------->  ADMIN  <-------------
+router.get('/api/admin/push', /* isLoggedIn, */ catchedAsync(admin.sendOneNotification));
 router.delete('/api/admin/deletepet', /* isLoggedIn, */ catchedAsync(admin.delete_by_id));
 router.get('/api/admin/pets', /* isLoggedIn, */ catchedAsync(admin.list_all_pets));
 router.get('/api/admin/users', /* isLoggedIn, */ catchedAsync(admin.list_all_users));
