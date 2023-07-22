@@ -22,7 +22,6 @@ export const SelectedPet = ({ pets, chipId }) => {
       information: info,
       petId: petSelected,
     };
-  
     const token = localStorage.getItem("token");
   
     try {
@@ -32,8 +31,9 @@ export const SelectedPet = ({ pets, chipId }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
       // Hacer algo con la respuesta si es necesario
+      localStorage.removeItem("token");
+      window.location.reload();
     } catch (error) {
       console.error("Error al activar el chip:", error);
     }
