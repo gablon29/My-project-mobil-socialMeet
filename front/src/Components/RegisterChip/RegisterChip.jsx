@@ -18,7 +18,7 @@ export const RegisterChip = () => {
       setLoading(true);
 
       try {
-        const response = await axios.get(`http://localhost:8080/api/pet-info/${chipId}`, {
+        const response = await axios.get(`https://whopaws-production.up.railway.app/api/pet-info/${chipId}`, {
           headers: {
             "Content-Type": "application/json",
           },
