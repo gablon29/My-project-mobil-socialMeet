@@ -26,7 +26,7 @@ export const SelectedPet = ({ pets, chipId }) => {
     const token = localStorage.getItem("token");
   
     try {
-      const response = await axios.put("http://localhost:8080/api/pet-info", {chipData: chipData}, {
+      const response = await axios.put("https://whopaws-production.up.railway.app/api/pet-info", {chipData: chipData}, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

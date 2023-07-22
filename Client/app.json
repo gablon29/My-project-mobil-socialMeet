@@ -55,12 +55,6 @@
           "merchantIdentifier": "null",
           "enableGooglePay": false
         }
-      ],
-      [
-        "expo-notifications",
-        {
-          "sounds": ["local/path/to/mySoundFile.wav"]
-        }
       ]
     ],
     "extra": {

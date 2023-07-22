@@ -9,7 +9,7 @@ export const Login = ({setLogin}) => {
   const loginAuthMethod = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/user/login',
+        'https://whopaws-production.up.railway.app/api/user/login',
         { email, password },
         {
           headers: {
