@@ -18,27 +18,27 @@ const DisplayProfile = ({profile}) => {
         <View 
         style={{
                 height: 500,
-          }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-28 mb-20 w-11/12">
+          }} className="relative mx-auto rounded-lg bg-black justify-center items-center mt-32 mb-20 w-9/12">
           <View className="bg-naranja w-32 h-32 rounded-full absolute -top-14">
             <Image source={!profile?.profilePic ? {uri: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} : { uri: profile?.profilePic }} className='w-[100%] h-[100%] rounded-full' /> 
           </View>
           <View className=" bg-black border-b border-white flex-row pb-3 mb-5 w-11/12">
-            <Icon name="idcard" size={32} color="white" className="pr-4" />
+            <Icon name="idcard" size={20} color="white" className="pr-4" />
             <Text className="text-white text-lg">{profile?.firstName + " " + profile?.lastName}</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
-            <Email name="email" size={32} color="white" className="pr-4" />
+            <Email name="email" size={20} color="white" className="pr-4" />
             <Text className="text-white text-lg">{profile?.email}</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
-            <Phone name="phone" size={32} color="white" className="pr-4" />
+            <Phone name="phone" size={20} color="white" className="pr-4" />
             <Text className="text-white text-lg">{profile?.phone}</Text>
           </View>
           <View className="border-b border-white flex-row pb-3 mb-5 w-11/12">
-            <Location name="location" size={42} color="white" className="pr-4" />
+            <Location name="location" size={20} color="white" className="pr-4" />
             <Text className="text-white text-lg">{profile?.country}</Text>
           </View>
-          <View className="bg-naranja w-64 h-14 rounded-3xl  justify-center flex-row items-center absolute -bottom-5">
+          <View className="bg-naranja w-60 h-12 rounded-3xl  justify-center flex-row items-center absolute -bottom-5">
             <Button ancho="w-full" alto="h-full" Component={<Pencil name="pencil" size={22} color="white" className="pl-4"/>} onPress={() => {navigation.navigate("EditProfile")}} title="Editar Información" colorText="text-white" textSize="text-base" flexDirection="flex-row"/>
           </View>
         </View>

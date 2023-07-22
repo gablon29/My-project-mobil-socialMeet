@@ -40,7 +40,7 @@ export default function EditPetProfile({ route }) {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView className="bg-white">
         <Text className="text-base font-poppinsBold mx-auto mt-4 mb-1">Imagen de perfil</Text>
         <View className="rounded-full w-[150px] h-[150px] mx-auto mb-2 bg-naranja">
           <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-[150px] h-[150px]" onPress={() => setProfile()}>

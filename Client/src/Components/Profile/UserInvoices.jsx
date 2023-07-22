@@ -66,10 +66,10 @@ export const UserInvoices = () => {
     return(
         <ScrollView className="bg-white">
             <View className="w-screen h-full items-center">
-                <View className="h-14 w-9/12 mt-10 relative justify-center bg-gris rounded-3xl shadow-md shadow-black">
+                <View className="h-12 w-10/12  mt-10 relative justify-center bg-gris rounded-3xl shadow-md shadow-black">
                         <TextInput 
                             placeholder='Buscar'
-                            className="h-full w-[85%] p-3 text-base"
+                            className="h-full w-[80%] p-3 text-base"
                             onChangeText={searchTextFilter}
                         />
                         <Search name="search1" size={32} className="absolute right-5"/>

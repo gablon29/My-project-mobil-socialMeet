@@ -124,7 +124,7 @@ export default function Home() {
 
   return (
     <ScrollView>
-      <View className="flex w-full h-full">
+      <View className="flex w-full h-full bg-white">
         <View className="flex h-36 w-fit mt-14 mx-4 rounded-lg bg-naranja">
           <View className="flex ml-4 mt-3">
             <Text className="text-sm font-poppinsBold text-white pr-24">Tu mascota siempre segura con Whopaws</Text>

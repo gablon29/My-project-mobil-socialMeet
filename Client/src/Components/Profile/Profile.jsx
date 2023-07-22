@@ -27,12 +27,13 @@ const ProfileComponent = ({ navigation, props }) => {
 
   const IconButtons = ({ iconComponent, newStep, rounder }) => (
     <TouchableOpacity className={`w-1/6 ${rounder}`} onPress={() => setMounted(newStep)}>
-      <View className={`w-fit h-full justify-center items-center ${rounder}`}>{React.createElement(iconComponent, { width: 36, height: 36, color: newStep == mounted ? '#000' : '#FFF' })}</View>
+      <View className={`w-fit h-full justify-center items-center ${rounder}`}>
+        {React.createElement(iconComponent, { width: 24, height: 24, color: newStep == mounted ? '#000' : '#FFF' })}
+      </View>
     </TouchableOpacity>
   );
-
   const LowerBar = (props) => (
-    <View className="absolute bottom-5 h-14 w-11/12 flex flex-row bg-naranja rounded-full">
+    <View className="absolute bottom-2 h-12 w-10/12 flex flex-row bg-naranja rounded-full">
       <IconButtons iconComponent={ProfileIcon} newStep={1} rounder="rounded-l-full" />
       <IconButtons iconComponent={AdressIcon} newStep={2} />
       <IconButtons iconComponent={CardIcon} newStep={3} />

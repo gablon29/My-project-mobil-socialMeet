@@ -45,11 +45,15 @@ export default function Header() {
   const [showNotifications, setShowNotifications] = useState(false);
   const profile = useSelector((state) => state.ReducerAuth.profile);
 
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+    setShowNotifications(false); // Cierra las notificaciones cuando se abre el menú
   };
+
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
+    setShowMenu(false); // Cierra el menú cuando se abren las notificaciones
   };
   console.log(profile.Notifications)
 

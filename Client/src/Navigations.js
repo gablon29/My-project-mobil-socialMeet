@@ -68,6 +68,7 @@ const NavigatorAuthTrue = () => {
 
   return (
     //
+
     <StackAuthTrue.Navigator screenOptions={{ header: (props) => (!sinHeader(props.route) ? null : showHeader(props.route) ? <Header /> : <HeaderBack />), headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />

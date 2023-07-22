@@ -6,7 +6,7 @@ const OrderReceived = () => {
     const navigation = useNavigation();
     return (
         <ScrollView>
-            <View className="w-screen h-full items-center">
+            <View className="w-screen h-full items-center bg-white">
                 <Image
                     source={require("../../../../images/catFlyBox.png")}
                     className="w-40 h-40 mt-24"
