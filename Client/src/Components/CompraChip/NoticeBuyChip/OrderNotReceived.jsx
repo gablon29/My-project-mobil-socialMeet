@@ -6,7 +6,7 @@ const OrderNotReceived = () => {
     const navigation = useNavigation();
     return (
         <ScrollView>
-            <View className="w-screen h-full items-center">
+            <View className="w-screen h-full items-center bg-white">
                 <Image
                     source={require("../../../../images/dogsad.png")}
                     className="mt-24 w-[163] h-[169]"

@@ -95,7 +95,7 @@ const DisplayChats = () => {
     return (
         <ScrollView className="bg-white">
             <View className="bg-white w-screen h-full items-center pt-14 pb-1">
-                <View className="h-14 w-9/12 relative justify-center bg-gris rounded-3xl shadow-md shadow-black">
+                <View className="h-12 w-10/12 relative justify-center bg-gris rounded-3xl shadow-md shadow-black">
                     <TextInput 
                         placeholder='Buscar'
                         className="h-full w-[85%] p-3 text-base"

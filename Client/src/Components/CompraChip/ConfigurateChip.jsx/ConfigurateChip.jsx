@@ -56,7 +56,7 @@ export const ConfigurateChip = ({ navigation }) => {
   if (!userPets.length) {
     return (
       <ScrollView>
-        <View className="flex items-center">
+        <View className="flex items-center bg-white">
           <View className="flex items-center">
             <Text className="text-xl font-poppinsBold text-black mt-12">¡Ups! Vemos que aún no tienes mascotas</Text>
             <Text className="text-xs font-poppins text-black mt-12 ml-4 mr-4">Agrega una mascota a tu cuenta para configurar tu chip</Text>
@@ -73,7 +73,7 @@ export const ConfigurateChip = ({ navigation }) => {
 
   return (
     <>
-      <View className="flex items-center">
+      <View className="flex items-center bg-white">
         <ScrollView>
           <Text className="text-xl font-poppinsBold text-black mt-12 ml-15 mr-15 text-center px-2">Selecciona la mascota a la que va asociado este Chip</Text>
           <View className="flex flex-row flex-wrap justify-center my-4">

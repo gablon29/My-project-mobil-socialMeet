@@ -12,7 +12,7 @@ export const ChipWhopaws = () => {
   const navigation = useNavigation();
   return (
     <ScrollView>
-      <View className="flex items-center">
+      <View className="flex items-center bg-white">
         <View className=" py-12">
           <Image className="object-fill" source={chiplanding} />
         </View>
