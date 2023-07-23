@@ -1,13 +1,33 @@
 import React from 'react';
 import { View, Text, PanResponder, StyleSheet } from 'react-native';
 
-
-
-
-
-
-
 const EdadMascota = ({ years, months, setAgeYears, setAgeMonths, setValida }) => {
+  let anosTimeout, mesesTimeout;
+
+  const delayedSetAgeYears = (years) => {
+    clearTimeout(anosTimeout);
+    anosTimeout = setTimeout(() => {
+      setAgeYears(years);
+      handleValidation(years, months);
+    }, 30); // 300 milisegundos de retraso antes de la actualización
+  };
+
+  const delayedSetAgeMonths = (months) => {
+    clearTimeout(mesesTimeout);
+    mesesTimeout = setTimeout(() => {
+      setAgeMonths(months);
+      handleValidation(years, months);
+    }, 30); // 300 milisegundos de retraso antes de la actualización
+  };
+
+  const handleValidation = (years, months) => {
+    if (years || months) {
+      setValida(false);
+    } else {
+      setValida(true);
+    }
+  };
+
   const panResponderAnos = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gestureState) => {
@@ -15,19 +35,9 @@ const EdadMascota = ({ years, months, setAgeYears, setAgeMonths, setValida }) =>
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
         if (dx > 0) {
-          setAgeYears(years + 1);
-          if (years + 1 || months) {
-            setValida(false);
-          } else {
-            setValida(true);
-          }
+          delayedSetAgeYears(years + 1);
         } else {
-          setAgeYears(Math.max(years - 1, 0));
-          if (years - 1 || months) {
-            setValida(false);
-          } else {
-            setValida(true);
-          }
+          delayedSetAgeYears(Math.max(years - 1, 0));
         }
       }
     },
@@ -40,19 +50,9 @@ const EdadMascota = ({ years, months, setAgeYears, setAgeMonths, setValida }) =>
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
         if (dx > 0) {
-          setAgeMonths(months + 1);
-          if (years || months + 1) {
-            setValida(false);
-          } else {
-            setValida(true);
-          }
+          delayedSetAgeMonths(months + 1);
         } else {
-          setAgeMonths(Math.max(months - 1, 0));
-          if (years || months - 1) {
-            setValida(false);
-          } else {
-            setValida(true);
-          }
+          delayedSetAgeMonths(Math.max(months - 1, 0));
         }
       }
     },

@@ -10,10 +10,9 @@ const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
         if (dx > 0) {
+          setValida(true)
           setKilos(kilos + 1);
-          setValida(false);
         } else {
-          setValida(true);
           if (kilos > 0) {
             setKilos(kilos - 1);
           }
@@ -30,12 +29,9 @@ const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
       if (isHorizontalSwipe) {
         if (dx > 0) {
           setGramos(gramos + 5);
-
-          setValida(false);
         } else {
-          setValida(true);          if (gramos > 0) {
+          if (gramos > 0) {
             setGramos(gramos - 5);
-
           }
         }
       }

@@ -102,7 +102,7 @@ export default function App() {
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
     //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
-  //  axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
+    //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
     // PRODUCCION
   
@@ -125,37 +125,46 @@ export default function App() {
 async function registerForPushNotificationsAsync() {
   let token;
 
-  if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-      console.log('existingStatus', existingStatus);
-    }
-
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      console.log('finalStatus', finalStatus);
-      return;
-    }
-
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-
-    console.log(token);
-  } else {
-    alert('Must use a physical device for Push Notifications');
-  }
-
   if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
+    Notifications.setNotificationChannelAsync('default', {
       name: 'default',
       showBadge: true,
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: '#FE9018',
     });
+  }
+
+  if (Platform.OS === 'android' && !Constants.isDevice) {
+    Alert.alert('Error', 'Must use physical device for push notifications');
+  } else {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      Alert.alert('Error', 'Failed to get push token for push notifications');
+    } else {
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+      await saveToken({
+        token: token,
+        tokenSession: await AsyncStorage.getItem('Token'),
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   return token;
