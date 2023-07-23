@@ -70,7 +70,7 @@ const AddPet = () => {
     if (r == 3) setValida(!pet.breed);
     if (r == 4) setValida(!pet.sex);
     if (r == 5) setValida(pet.age.years || pet.age.months ? false : true);
-    // if (r == 6) setValida(pet.weight.gramos ? false : true);
+    if (r == 6) setValida(pet.age.years || pet.age.months ? false : true);
     if (r == 7) setValida(pet.health.castrado === true || pet.health.castrado === false ? false : true);
     if (r == 8) setValida(pet.health.microchip === true || pet.health.microchip === false ? false : true);
     if (r == 9) setValida(pet.health.okWithDogs === true || pet.health.okWithDogs === false ? false : true);
@@ -112,9 +112,10 @@ const AddPet = () => {
               {render === 12 && <ImagenMascota profile={selImg.profile} setProfile={setProfile} setValida={setValida} />}
              
             </ScrollView>
-            <TouchableOpacity className={`w-64 h-12 mx-auto rounded-xl ${valida && render !== 6 ? 'bg-gray-400' : 'bg-naranja'} justify-center items-center mb-24`} onPress={NextPantalla} disabled={valida && render !== 6}>
+            {!valida  &&
+            <TouchableOpacity className={`w-64 h-12 mx-auto rounded-xl bg-naranja justify-center items-center mb-12`} onPress={NextPantalla}>
               <Text className="text-sm text-center text-white font-poppinsSemiBold">{render == 12  ? 'Finalizar' : 'Siguiente'}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> }
           </View>
         </View>
       )}

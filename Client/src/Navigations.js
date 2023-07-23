@@ -15,7 +15,7 @@ import Header from './Components/Header/Header';
 import MiCalendario from './Components/Screens/MiCalendario';
 import AddPet from './Components/Pets/Create/AddPet';
 import { ChipWhopaws } from './Components/CompraChip/LandingPage/ChipWhopaws';
-import { ConfigurateChip } from './Components/CompraChip/ConfigurateChip.jsx/ConfigurateChip';
+import { ConfigurateChip } from './Components/MyWhopaws/ConfigurateChip.jsx/ConfigurateChip';
 import EditInfoProfile from './Components/Profile/EditInfoProfile';
 import HeaderBack from './Components/Screens/HeaderBack';
 import OrderReceived from './Components/CompraChip/NoticeBuyChip/OrderReceived';

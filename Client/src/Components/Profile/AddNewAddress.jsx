@@ -74,7 +74,7 @@ const AddNewAddress = () => {
       <View key={index} className="mb-7">
         <Text className="text-base font-medium left-5">{input.label}</Text>
         <TextInput
-          className="bg-gris rounded-full p-3 shadow-xl shadow-black"
+          className="bg-gris rounded-xl p-2 shadow-xl shadow-black"
           value={addresses[input.key]} // Asigna el valor del estado local al input
           onChangeText={(value) => handleChange(input.key, value)} // Maneja el cambio de texto en el input
         />

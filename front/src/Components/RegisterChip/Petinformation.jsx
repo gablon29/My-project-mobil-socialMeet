@@ -32,7 +32,7 @@ export const Petinformation = ({pet, owner}) => {
         <div className="bg-naranja w-screen h-full flex flex-col items-center">
             <img src="/whopawsWhite.png" alt="Whopaws" width="231" height="56" className="mt-10"/>
             <section className="items-center flex flex-col mt-10">
-                <img src={pet.profilePic} alt="Foto perfil mascota" className="border rounded-full w-28 h-28 mb-5" width="120" height="120"/>
+                <img src={pet.profilePic} alt="Foto perfil mascota" className="rounded-full w-28 h-28 mb-5" width="120" height="120"/>
                 <p className="text-center text-[20px] font-semibold text-white mb-5">¡Hola! Me llamo <br />{pet.name}</p>
                 <ul className="w-screen sm:w-96 px-5">
                     <li className="mb-5">
