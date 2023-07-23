@@ -102,3 +102,20 @@ export const DelMyPetMethod = async ({ id, loading, error, success }) => {
     loading(false);
   }
 };
+
+export const editChip = async ({ chipData, loading, error, success }) => {
+try {
+  const token = await AsyncStorage.getItem('Token');
+
+  const response = await axios.put("/api/pet-info", {chipData: chipData}, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  // Hacer algo con la respuesta si es necesario
+  success("okey")
+} catch (error) {
+  console.error("Error al activar el chip:", error);
+}
+};

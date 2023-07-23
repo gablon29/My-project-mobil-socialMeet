@@ -26,7 +26,7 @@ const DisplayMyChips = () => {
                             return (
                                 <View key={index} className="bg-black justify-center items-center self-end p-3 w-40 h-52 rounded-xl m-2">
                                     <Button 
-                                        
+                                        onPress={() => navigation.navigate("ConfigurateChip",{id: item.id })}
                                         buttonClass="bg-naranja rounded-full w-24 h-24 justify-center items-center"
                                         component={
                                             <Image 

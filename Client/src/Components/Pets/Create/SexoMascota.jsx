@@ -14,7 +14,7 @@ const SexoMascota = ({ setSex, sex, setValida }) => {
   };
 
   return (
-    <View className="justify-center items-center my-7">
+    <View className="justify-center items-center ">
       <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Cuál es su sexo?</Text>
       <View className="flex flex-row">
         <ButtonImageRounder activado={sex === 'Macho' ? true : false} texto="Macho" onPress={() => onPress('Macho')}>

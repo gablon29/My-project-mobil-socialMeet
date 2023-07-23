@@ -48,22 +48,20 @@ export const SelectedPet = ({ pets, chipId }) => {
         <div className="flex flex-col justify-center items-center">
           <p className="font-semibold text-xl my-20">Selecciona una de tus mascotas</p>
           <div className="flex flex-row flex-wrap justify-center gap-4">
-            {pets.map((item, idx) => (
-              <div
-                key={idx}
-                onClick={() => setPetSelected(item.id)}
-                className={`w-20 h-20 rounded-xl cursor-pointer border bg-naranja ${
-                  petSelected === item.id ? "border-4 border-black" : ""
-                }`}
-              >
-                <img
-                  src={item.profilePic}
-                  alt={item.name}
-                  style={{ height: 80, width: 80 }}
-                  className="rounded-full object-cover"
-                />
-              </div>
-            ))}
+          {pets.map((item, idx) => (
+  <div
+    key={idx}
+    onClick={() => setPetSelected(item.id)}
+    className={`relative ${petSelected === item.id ? "border-1 border-black" : ""}`}
+  >
+    <img
+      className={`w-20 h-20 rounded-xl cursor-pointer ${petSelected === item.id ? "border-4 border-black" : ""}`}
+      src={item.profilePic}
+      alt={item.name}
+    />
+  </div>
+))}
+
           </div>
           <button className="bg-naranja shadow-md shadow-zinc-700 text-white font-semibold text-base p-2 rounded-full w-32 mt-20" onClick={() => setSteps(1)}>Siguiente</button>
         </div>

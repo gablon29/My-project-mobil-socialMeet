@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, PanResponder, StyleSheet } from 'react-native';
 
 const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
@@ -10,9 +10,10 @@ const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
         if (dx > 0) {
-          setValida(true)
           setKilos(kilos + 1);
+          setValida(false);
         } else {
+          setValida(true);
           if (kilos > 0) {
             setKilos(kilos - 1);
           }
@@ -29,9 +30,12 @@ const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
       if (isHorizontalSwipe) {
         if (dx > 0) {
           setGramos(gramos + 5);
+
+          setValida(false);
         } else {
-          if (gramos > 0) {
+          setValida(true);          if (gramos > 0) {
             setGramos(gramos - 5);
+
           }
         }
       }
