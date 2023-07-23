@@ -3,40 +3,67 @@ import { View, Text, FlatList, PanResponder, StyleSheet } from 'react-native';
 
 const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
 
-  const panResponderKilos = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gestureState) => {
-      const { dx, dy } = gestureState;
-      const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
-      if (isHorizontalSwipe) {
-        if (dx > 0) {
-          setValida(true)
-          setKilos(kilos + 1);
-        } else {
-          if (kilos > 0) {
-            setKilos(kilos - 1);
+    let kilosTimeout, gramosTimeout;
+  
+    const delayedSetKilos = (kilos) => {
+      clearTimeout(kilosTimeout);
+      kilosTimeout = setTimeout(() => {
+        setKilos(kilos);
+        handleValidation(kilos, gramos);
+      }, 30); // 300 milisegundos de retraso antes de la actualización
+    };
+  
+    const delayedSetGramos = (gramos) => {
+      clearTimeout(gramosTimeout);
+      gramosTimeout = setTimeout(() => {
+        setGramos(gramos);
+        handleValidation(kilos, gramos);
+      }, 30); // 300 milisegundos de retraso antes de la actualización
+    };
+  
+    const handleValidation = (kilos, gramos) => {
+      if (kilos || gramos) {
+        setValida(true);
+      } else {
+        setValida(false);
+      }
+    };
+  
+    const panResponderKilos = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (event, gestureState) => {
+        const { dx, dy } = gestureState;
+        const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
+        if (isHorizontalSwipe) {
+          if (dx > 0) {
+            setValida(true);
+            delayedSetKilos(kilos + 1);
+          } else {
+            if (kilos > 0) {
+              delayedSetKilos(kilos - 1);
+            }
           }
         }
-      }
-    },
-  });
-
-  const panResponderGramos = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (event, gestureState) => {
-      const { dx, dy } = gestureState;
-      const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
-      if (isHorizontalSwipe) {
-        if (dx > 0) {
-          setGramos(gramos + 5);
-        } else {
-          if (gramos > 0) {
-            setGramos(gramos - 5);
+      },
+    });
+  
+    const panResponderGramos = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (event, gestureState) => {
+        const { dx, dy } = gestureState;
+        const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
+        if (isHorizontalSwipe) {
+          if (dx > 0) {
+            delayedSetGramos(gramos + 5);
+          } else {
+            if (gramos > 0) {
+              delayedSetGramos(gramos - 5);
+            }
           }
         }
-      }
-    },
-  });
+      },
+    });
+  
 
   return (
     <View className="justify-center items-center my-7">

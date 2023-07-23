@@ -38,17 +38,19 @@ const ChatTicket = ({ route }) => {
 
   /* renderizacion de nuevo mensaje  */
   const renderMessage = (msg, index) => {
-    const dispoticion = msg.sender.id === profile.id ? 'flex-row' : 'flex-row-reverse';
+    const dispoticion = index / 2 === 0 ? 'flex-row' : 'flex-row-reverse';
+
+    
     return (
             <View key={index} className={`${dispoticion} relative`}>
-                <View className={`bg-${msg.sender.id === profile.id ? "naranja" : "black"} w-10/12 p-4`}
+                <View className={`bg-${dispoticion ? "naranja" : "black"} w-10/12 p-4`}
                 style={{
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
                     borderBottomLeftRadius: msg.sender.id === profile.id ? 10 : 0,
                     borderBottomRightRadius: msg.sender.id === profile.id ? 0 : 10,
                   }}>
-                    <Text className={`w-full text-${msg.sender.id === profile.id ? "right" : "left"} text-base text-white`}>
+                    <Text className={`w-full text-${dispoticion ? "right" : "left"} text-base text-white`}>
                         {msg.text}
                     </Text>
                 </View>
