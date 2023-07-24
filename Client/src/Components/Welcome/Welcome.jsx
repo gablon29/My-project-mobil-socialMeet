@@ -55,9 +55,9 @@ export default function Welcome() {
         <Image source={welcomeImage} className="mt-8" />
         <Image source={wuau} className="mt-8" />
         <View className="flex mt-16">
-          <Button title="Iniciar sesión" onPress={() => navigation.navigate('Login')} colorButton="bg-naranja" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="Iniciar sesión" onPress={() => navigation.navigate('Login')} colorButton="bg-celeste" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
           <View className="my-4" />
-          <Button title="Registrarme" onPress={() => navigation.navigate('Register')} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="Registrarme" onPress={() => navigation.navigate('Register')} borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja" ancho="w-72" alto="h-14" textSize="text-lg" />
         </View>
       </View>
     </ScrollView>

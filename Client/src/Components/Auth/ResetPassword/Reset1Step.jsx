@@ -29,13 +29,13 @@ export const Reset1Step = ({ email, setEmail, password, setPassword, steps, setS
       <View className="flex-1 items-center justify-start pt-5 bg-white w-screen h-screen">
         <Text className="text-center mb-6 px-8 font-poppins">Escribe el email asociado a tu cuenta y te enviaremos un código para recuperar tu cuenta</Text>
         <View className="w-full max-w-[400px] min-w-[200px] p-4">
-          <TextInput placeholder="Email" placeholderTextColor="white" inputMode="email" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-full bg-naranja px-4 h-14 font-poppinsBold text-white" />
+          <TextInput placeholder="Email" placeholderTextColor="white" inputMode="email" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-lg bg-rosa px-4 h-14 font-poppinsBold text-black" />
         </View>
         <View className="flex min-h-[64px] justify-center">
           <Text className="font-poppins text text-xs text-red-500">{errorAuth}</Text>
         </View>
         <View className="flex mt-4">
-          <Button title="Recuperar" onPress={() => sendEmail()} colorButton="bg-black" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
+          <Button title="Recuperar" onPress={() => sendEmail()} borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja" ancho="w-40" alto="h-11" textSize="text-base" />
         </View>
       </View>
     </ScrollView>

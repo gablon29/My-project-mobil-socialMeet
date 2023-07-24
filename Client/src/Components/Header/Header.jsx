@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'} bg-white`}>
-      <View className="flex flex-row justify-between items-end w-screen h-24 bg-black">
+      <View className="flex flex-row justify-between items-end w-screen h-24 bg-celeste">
         <TouchableOpacity onPress={toggleMenu} className="p-1 m-2 rounded-full">
           {showMenu ? <Icon name="close" size={36} color="white" /> : <Icon name="menu" size={36} color="white" />}
         </TouchableOpacity>
@@ -84,7 +84,7 @@ export default function Header() {
                   }
                 }}
               >
-                <View className={`w-20 h-20 ${elem.working ? 'bg-naranja' : 'bg-gris'} rounded-xl justify-center items-center shadow-lg`}>
+                <View className={`w-20 h-20 ${elem.working ? 'bg-rosa' : 'bg-gris'} rounded-xl justify-center items-center shadow-lg`}>
                   <Image source={elem.logo} className="h-16 w-16" resizeMode="contain" />
                 </View>
                 <Text className="text-xs font-poppins text-center pt-1">{elem.nombre}</Text>
@@ -95,14 +95,14 @@ export default function Header() {
       )}
       {showNotifications && (
         <View className="flex flex-1 m-4">
-          <Button title="Ver mi calendario" colorText="text-white" alto="h-12" ancho="w-full" colorButton="bg-black" onPress={() => navigation.navigate('MiCalendario')} />
+          <Button title="Ver mi calendario" rounded="rounded-lg" colorText="text-white" alto="h-14" ancho="w-full" colorButton="bg-naranja" onPress={() => navigation.navigate('MiCalendario')} />
           <FlatList
             data={profile.Notifications}
             ItemSeparatorComponent={() => <View className="h-px w-full bg-slate-400"></View>}
             renderItem={({ item, index }) => (
               item?.cuerpo &&
               <View className="h-fit min-h-[100px] m-2 flex flex-row items-center">
-                <View className="mr-4 rounded-full bg-naranja w-12 h-12 justify-center items-center">
+                <View className="mr-4 rounded-full bg-white w-12 h-12 justify-center items-center">
                   <Icon name="close" size={32} color="white" />
                 </View>
                 <View className="flex flex-1 my-4 mr-4">

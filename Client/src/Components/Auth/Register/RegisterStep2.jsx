@@ -38,15 +38,15 @@ export const RegisterStep2 = ({ password, setPassword, setRegisterSteps, handleR
         </View>
         <View className="w-4/5 ">
           <Text className="font-poppinsBold">Contraseña</Text>
-          <TextInput placeholder="" value={password} onChangeText={(text) => setPassword(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          <TextInput placeholder="" value={password} onChangeText={(text) => setPassword(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
         </View>
         <View className="w-4/5">
           <Text className="font-poppinsBold">Repetir contraseña</Text>
-          <TextInput placeholder="" value={checkPassword} onChangeText={(text) => setCheckPassword(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          <TextInput placeholder="" value={checkPassword} onChangeText={(text) => setCheckPassword(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
         </View>
         <View className="my-8" />
         <View className="flex items-center mt-2">
-          <Button title="Registrarme" onPress={nextRegistro} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
+          <Button title="Registrarme" onPress={nextRegistro} borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja" ancho="w-40" alto="h-11" textSize="text-base" />
         </View>
         <View className="my-5" />
         <View className="flex min-h-[64px] justify-center">

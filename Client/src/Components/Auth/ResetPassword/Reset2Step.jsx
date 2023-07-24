@@ -41,7 +41,7 @@ export const Reset2Step = ({ setSteps ,checkCode}) => {
         </View>
 
         <View className="flex mt-16">
-          <Button title="Verificar" onPress={changePassword} colorButton="bg-black" colorText="text-white" ancho="w-72" alto="h-14" textSize="text-lg" />
+          <Button title="Verificar" onPress={changePassword} borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja" ancho="w-72" alto="h-14" textSize="text-lg" />
         </View>
       </View>
     </>

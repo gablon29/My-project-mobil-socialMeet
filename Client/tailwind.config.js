@@ -12,7 +12,10 @@ module.exports = {
       colors: {
         naranja: '#FB6726',
         gris: '#DADADA',
-        new: "#FEC89A"
+        new: "#FEC89A",
+        rosa: "#FEC89A",
+        clarito: "#FFF1E5",
+        celeste: "#63C5C9"
       },
       fontSize: {
         //no funca no sé pq
