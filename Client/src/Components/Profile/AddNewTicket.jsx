@@ -37,7 +37,7 @@ const AddNewTicket = () => {
                 <View className="w-10/12 items-center">
                     <Text className="left-5 mb-3 w-full font-semibold text-base">Título del Ticket</Text>
                     <TextInput 
-                        className="bg-gris mb-5 px-5 text-base rounded-3xl w-full h-12 shadow-lg shadow-black"
+                        className="bg-new  mb-5 px-5 text-base rounded-3xl w-full h-12 shadow-lg shadow-black"
                         onChangeText={(text)=>setSubject(text)}
                         defaultValue={subject}
                         placeholder={alertInput.subject}
@@ -47,15 +47,15 @@ const AddNewTicket = () => {
                         multiline
                         textAlignVertical="top"
                         numberOfLines={12}
-                        className="bg-gris rounded-[24px] text-base justify-start items-start p-4 w-full shadow-lg shadow-black"
+                        className="bg-new rounded-[24px] text-base justify-start items-start p-4 w-full shadow-lg shadow-black"
                         onChangeText={(text)=>setMessage(text)}
                         defaultValue={message}
                         placeholder={alertInput.message}
                     />
                     <Button 
                     title="Enviar Ticket"
-                    buttonClass="h-14 w-8/12 my-[90px] bg-black items-center rounded-full justify-center"
-                    titleClass="text-white text-base"
+                    buttonClass="h-14 w-8/12 my-[90px] bg-naranja items-center rounded-xl justify-center"
+                    titleClass="text-white text-base font-bold"
                     onPress={sendTicket}
                 />
                 </View>

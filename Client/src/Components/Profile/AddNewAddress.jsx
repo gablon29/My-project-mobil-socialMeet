@@ -72,9 +72,9 @@ const AddNewAddress = () => {
   const renderInputs = ({ input, index }) => {
     return (
       <View key={index} className="mb-7">
-        <Text className="text-base font-medium left-5">{input.label}</Text>
+        <Text className="text-base font-semibold left-5">{input.label}</Text>
         <TextInput
-          className="bg-gris rounded-xl p-2 shadow-xl shadow-black"
+          className="bg-new rounded-xl p-2 shadow-xl shadow-black"
           value={addresses[input.key]} // Asigna el valor del estado local al input
           onChangeText={(value) => handleChange(input.key, value)} // Maneja el cambio de texto en el input
         />
@@ -94,8 +94,8 @@ const AddNewAddress = () => {
         <Button
           onPress={()=>agregarDireccion(addresses)}
           title="Agregar dirección"
-          buttonClass="rounded-full bg-black w-8/12 h-14 my-3 justify-center"
-          titleClass="text-white text-center text-base font-semibold"
+          buttonClass="rounded-full bg-white border-2 border-naranja w-8/12 h-14 my-4 justify-center shadow-lg shadow-black"
+          titleClass="text-naranja text-center text-base font-semibold"
           dissable={required}
         />
       </View>

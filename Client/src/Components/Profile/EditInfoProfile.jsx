@@ -98,11 +98,11 @@ const EditInfoProfile = ({ navigation }) => {
   return (
     <ScrollView>
       <View className="w-screen h-full bg-white items-center pt-10 mb-5">
-        <View className="bg-naranja w-40 h-40 rounded-full relative justify-center">
-          <TouchableOpacity className="flex justify-center items-center rounded-full bg-naranja w-40 h-40" onPress={() => uploadImage()}>
+        <View className="w-40 h-40 rounded-full relative justify-center">
+          <TouchableOpacity className="flex justify-center items-center rounded-full bg-new w-40 h-40" onPress={() => uploadImage()}>
             <Image source={url ? {uri: url} : cruz} style={url ? { width: 160, height: 160 } : {width: 50, height: 50 }} className="rounded-full" />
           </TouchableOpacity>
-          <View className="absolute z-50 -right-4 -top-3 w-16 h-16 bg-black rounded-full justify-center">
+          <View className="absolute z-50 -right-4 -top-3 w-16 h-16 bg-naranja rounded-full justify-center">
             <Button 
               buttonClass="items-center justify-center" 
               component={<Delete name="trash-can-outline" size={32} color="white" />} 
@@ -111,15 +111,15 @@ const EditInfoProfile = ({ navigation }) => {
           </View>
         </View>
         <View className="w-11/12 mt-5 mb-3">
-          <Text className="w-full text-left font-bold text-lg">Nombre</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={firstName} onChangeText={(text) => setFirstName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
-          <Text className="w-full text-left font-bold text-lg">Apellidos</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={lastName} onChangeText={(text) => setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
-          <Text className="w-full text-left font-bold text-lg">Email</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={email} onChangeText={(text) => setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
-          <Text className="w-full text-left font-bold text-lg">Télefono</Text>
-          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={phone} onChangeText={(text) => setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-gris" />
-          <Text className="w-full text-left font-bold text-lg">País</Text>
+          <Text className="w-full text-left font-semibold text-lg left-4">Nombre</Text>
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={firstName} onChangeText={(text) => setFirstName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-new" />
+          <Text className="w-full text-left font-semibold text-lg left-4">Apellidos</Text>
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={lastName} onChangeText={(text) => setLastName(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-new" />
+          <Text className="w-full text-left font-semibold text-lg left-4">Email</Text>
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={email} onChangeText={(text) => setEmail(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-new" />
+          <Text className="w-full text-left font-semibold text-lg left-4">Télefono</Text>
+          <TextInput placeholderTextColor={"#F00"} placeholder={require} value={phone} onChangeText={(text) => setPhone(text)} className="mb-5 shadow-lg shadow-black w-full h-10 pl-3 rounded-lg bg-new" />
+          <Text className="w-full text-left font-semibold text-lg left-4">País</Text>
           <SelectList
             data={countryOptions}
             setSelected={setCountry}
@@ -128,9 +128,9 @@ const EditInfoProfile = ({ navigation }) => {
             search={false}
             /* onSelect={console.log("mis provincias son ", currentProvinces)} */
             boxStyles={{
-              backgroundColor: '#DADADA',
+              backgroundColor: '#FEC89A',
               borderRadius: 10,
-              borderColor: '#DADADA',
+              borderColor: '#FEC89A',
               
             }}
             inputStyles={{
@@ -139,7 +139,7 @@ const EditInfoProfile = ({ navigation }) => {
 
             }}
             dropdownStyles={{
-              backgroundColor: '#DADADA',
+              backgroundColor: '#FEC89A',
             
             }}
           />
@@ -151,22 +151,22 @@ const EditInfoProfile = ({ navigation }) => {
             defaultOption={country === profile?.country ? {key: profile?.province, value:profile?.province} : {key: currentProvinces[0], value: currentProvinces[0]} }
             search={false}
             boxStyles={{
-              backgroundColor: '#DADADA',
+              backgroundColor: '#FEC89A',
               borderRadius: 10,
-              borderColor: '#DADADA',
+              borderColor: '#FEC89A',
               fontFamily:"Poppins"
             }}
             inputStyles={{
               fontSize: 12
             }}
-            dropdownStyles={{ backgroundColor: '#DADADA' }}
+            dropdownStyles={{ backgroundColor: '#FEC89A' }}
           />
         </View>
-        <View className="mt-2">
+        <View className="mt-2 w-7/12">
         <Button 
           title="Guardar Información"
-          buttonClass="bg-naranja rounded-3xl p-2 h-10 items-center w-7/12 shadow-xl shadow-lg shadow-black" 
-          titleClass="font-semibold text-white text-base" 
+          buttonClass="bg-white border-2 border-naranja rounded-3xl h-11 items-center shadow-xl shadow-lg shadow-black justify-center " 
+          titleClass="font-semibold text-naranja text-base" 
           onPress={() => handleEdit(firstName, lastName, phone, email, country, province)}
           dissable={dissableBnt}
         />

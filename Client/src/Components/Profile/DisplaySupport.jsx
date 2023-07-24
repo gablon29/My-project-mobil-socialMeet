@@ -1,5 +1,5 @@
 import { View, Text, FlatList, ScrollView } from "react-native";
-import Button from "../Buttons/Button"
+import Button from "../Buttons/ButtonCuston"
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +27,7 @@ const DisplaySupport = () => {
 
     const renderTicket = ({item, index}) => {
         
-        const bgClass =  index % 2 === 0 ? "bg-naranja" : "bg-black";
+        const bgClass =  index % 2 === 0 ? "bg-naranja" : "bg-new";
         const textColor = index % 2 === 0 ? "text-black" : "text-white";
         const classTicketContainer = `w-full h-146 mb-5 bg-naranja rounded-xl flex-row justify-between p-5 ${bgClass}`
         const classTextDate = `${textColor}`
@@ -47,11 +47,8 @@ const DisplaySupport = () => {
                  }
             <Button 
                 title="Ver Ticket"
-                colorButton="bg-white"
-                ancho="w-32"
-                alto="h-8"
-                textSize="text-sm"
-                shadow="shadow-lg shadow-black"
+                buttonClass="bg-white justify-center items-center rounded-xl w-32 h-8 shadow-lg shadow-black"
+                titleClass="text-sm font-semibold"
                 onPress={()=>navigation.navigate("ChatTikect", {item})}
             />
         
@@ -64,12 +61,8 @@ const DisplaySupport = () => {
                 <Text className="font-bold text-xl font-poppins">Tickets de soporte</Text>
                 <Button 
                     title="Abrir un nuevo Ticket"
-                    colorButton="bg-black"
-                    colorText="text-white"
-                    ancho="w-8/12"
-                    alto="h-14"
-                    margin="my-10"
-                    rounded="rounded-xl"
+                    buttonClass="rounded-xl border-2 border-naranja justify-center items-center bg-white w-8/12 h-14 my-10"
+                    titleClass="text-naranja font-bold"
                     onPress={()=>{navigation.navigate("AddNewTicket")}}
                 />
                 <View className="w-10/12 mt-5">

@@ -6,11 +6,11 @@ const ButtonSquareImageTextBorderBlack = ({ texto = 'Texto', imagen = img, activ
   return (
     <TouchableOpacity onPress={onPress}>
       {activado ? (
-        <View className={`w-20 h-20 mx-2 mt-2 bg-naranja rounded-xl shadow-xl justify-center items-center border-4`}>
+        <View className={`w-20 h-20 mx-2 mt-2 bg-new rounded-xl shadow-xl justify-center items-center border-4`}>
           <Image source={imagen} className="h-16 w-16" resizeMode="contain" />
         </View>
       ) : (
-        <View className={`w-20 h-20 mx-2 mt-2 bg-naranja rounded-xl shadow-xl justify-center items-center`}>
+        <View className={`w-20 h-20 mx-2 mt-2 bg-new rounded-xl shadow-xl justify-center items-center`}>
           <Image source={imagen} className="h-16 w-16" resizeMode="contain" />
         </View>
       )}

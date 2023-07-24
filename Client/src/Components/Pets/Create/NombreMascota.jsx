@@ -14,9 +14,9 @@ const NombreMascota = ({ setName, name, setValida }) => {
   };
 
   return (
-    <View className="justify-center items-center my-7">
-      <Text className="text-xl text-center font-poppinsBold w-44 mb-7">¿Como se llama tu mascota?</Text>
-      <TextInput placeholder="Escribe su nombre" value={name} onChangeText={change} className="w-full max-w-sm min-w-[250px] rounded-lg bg-gris h-12 px-4 mb-4" />
+    <View className="justify-center items-center my-5">
+      <Text className="text-2xl text-center font-poppinsBold mb-5">¿Como se llama {"\n"} tu mascota?</Text>
+      <TextInput placeholder="Escribe su nombre" placeholderTextColor="black" value={name} onChangeText={change} className="w-full max-w-sm min-w-[250px] rounded-lg bg-new h-12 px-4 mb-4" />
     </View>
   );
 };

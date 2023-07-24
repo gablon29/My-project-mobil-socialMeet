@@ -14,7 +14,7 @@ const CastradoMascota_2 = ({ microchip, setHealthMicrochip, setValida }) => {
 
   return (
     <View className="justify-center items-center my-7">
-      <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Tiene microchip?</Text>
+      <Text className="text-2xl text-center font-poppinsBold mb-5">¿Tiene microchip?</Text>
       <View className="flex flex-row">
         <ButtonTextRounder texto="Si" activado={microchip === true ? true : false} onPress={() => onPress(true)} />
         <ButtonTextRounder texto="No" activado={microchip === false ? true : false} onPress={() => onPress(false)} />

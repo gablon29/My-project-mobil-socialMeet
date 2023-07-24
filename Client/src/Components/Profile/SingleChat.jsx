@@ -14,7 +14,7 @@ const SingleChat = ({route}) => {
         <View className="w-screen h-full items-center bg-gris">
             <View className="flex-row w-screen items-center p-4 justify-between h-20 bg-white fixed top-0 z-50">
                 <Button 
-                    title={<RowBack name="arrowleft" size={32}/>}
+                    component={<RowBack name="arrowleft" size={32}/>}
                     onPress={()=>navigation.goBack()}
                 />
                 <View className="flex-row justify-end items-center w-60">
@@ -42,10 +42,10 @@ const SingleChat = ({route}) => {
 
             </View>
 
-            <ScrollView className="bg-gris">
-                <View className="relative w-screen items-center pt-10 bg-gris gap-4">
+            <ScrollView className="bg-new">
+                <View className="relative w-screen items-center pt-10 bg-new">
                         
-                        <View className="relative w-10/12 items-end">
+                        <View className="relative w-10/12 items-end my-3">
                             <View className="flex-row relative">
                                 <View
                                     className="bg-naranja w-10/12 p-4"
@@ -66,17 +66,17 @@ const SingleChat = ({route}) => {
                             </View>
                         </View>
                         
-                        <View className="relative w-10/12 items-end">
+                        <View className="relative w-10/12 items-end my-3">
                             <View className="flex-row-reverse relative flex">
                                 <View
-                                    className="bg-black w-10/12 p-4"
+                                    className="bg-white w-10/12 p-4"
                                     style={{
                                         borderTopLeftRadius: 10, 
                                         borderTopRightRadius: 10, 
                                         borderBottomRightRadius: 10,
                                     }}
                                 >
-                                    <Text className="w-full text-base text-white">
+                                    <Text className="w-full text-base text-black">
                                         Está mucho mejor. Gracias por preocuparte.🤗
                                     </Text>
                                 </View>
@@ -91,7 +91,7 @@ const SingleChat = ({route}) => {
                 </View>
             </ScrollView>
 
-            <View className="bg-naranja w-screen p-3 relative flex-row">
+            <View className="bg-celeste w-screen p-3 relative flex-row">
                 <TextInput 
                     value={message}
                     onChangeText={(text)=>setMessage(text)}
