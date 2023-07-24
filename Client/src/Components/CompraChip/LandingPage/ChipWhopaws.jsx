@@ -26,14 +26,13 @@ export const ChipWhopaws = () => {
 
       <View className="bg-white flex flex-row justify-center space-x-16 items-center h-24 ">
         <View className="flex items-center">
-          <View bg-white className=" h-20 w-20 bg-naranja rounded-xl flex justify-center items-center">
+          <View bg-white className=" h-20 w-20 bg-new rounded-full flex justify-center items-center">
             <Image source={batery} className="h-10 w-10" resizeMode="contain" />
           </View>
           <Text className="text-sm font-poppinsBold text-black ">Sin baterias</Text>
         </View>
-
         <View className="flex items-center bg-white">
-          <View className=" h-20 w-20 bg-naranja rounded-xl flex justify-center items-center">
+          <View className=" h-20 w-20 bg-new rounded-full flex justify-center items-center">
             <Image source={drop} className="h-10 w-10" resizeMode="contain" />
           </View>
           <Text className="text-sm font-poppinsBold text-black ">Resistente al agua</Text>
@@ -41,24 +40,25 @@ export const ChipWhopaws = () => {
       </View>
       <View className="flex flex-row justify-center bg-white space-x-16 items-center h-24  mt-8">
         <View className="flex items-center ">
-          <View className=" h-20 w-20 bg-naranja rounded-xl flex justify-center items-center ml-6">
-            <Image source={feather} className="h-10 w-10" resizeMode="contain" />
+          <View className=" h-20 w-20 bg-new rounded-full flex justify-center items-center ml-6">
+            <Image source={feather} className="h-10 w-10" resizeMode="contain"/>
           </View>
           <Text className="text-sm font-poppinsBold text-black text-center">Peso muy lijero</Text>
         </View>
         <View className="flex items-center ">
-          <View className=" h-20 w-20 bg-naranja rounded-xl flex justify-center items-center mr-4">
+          <View className=" h-20 w-20 bg-new rounded-full flex justify-center items-center mr-4">
             <Image source={smartphone} className="h-10 w-10" resizeMode="contain" />
           </View>
           <Text className="text-sm font-poppinsBold text-black text-center">Cualquier dispositivo</Text>
         </View>
       </View>
-      <View className="mt-12 justify-between rounded-xl bg-black p-4 mx-4 h-fit flex flex-row ml-8 mb-2">
-        <Text className="text-white text-3xl font-poppinsBol ml-4 mt-1">14,99€</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Cart')} className='bg-naranja rounded-xl py-2 px-4'>
-          <Text className="text-white text-xl font-poppinsBol">Comprar</Text>
+      <View className="mt-12 justify-between rounded-full bg-celeste p-4 mx-4 h-fit flex flex-row ml-8 mb-2">
+        <Text className="text-white text-3xl font-semibold font-poppinsBol ml-4 mt-1">14,99€</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')} className='bg-black rounded-full py-2 px-4 w-40'>
+          <Text className="text-white text-xl font-poppinsBol text-center">Comprar</Text>
         </TouchableOpacity>
       </View>
+
       <View className="p-5">
         <Text className="text-sm font-poppins text-black text-justify">Este chip es ligero y no necesita batería, lo que lo convierte en una solución práctica y duradera. Además, funciona con cualquier dispositivo móvil, ya sea Android o iPhone.</Text>
       </View>

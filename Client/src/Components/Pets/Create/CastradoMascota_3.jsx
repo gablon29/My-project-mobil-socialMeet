@@ -14,7 +14,7 @@ const CastradoMascota_3 = ({ okWithDogs, setHealthOkWithDogs, setValida }) => {
 
   return (
     <View className="justify-center items-center my-7">
-      <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Se lleva bien con perros?</Text>
+      <Text className="text-2xl text-center font-poppinsBold mb-7">¿Se lleva bien con {"\n"} perros?</Text>
       <View className="flex flex-row">
         <ButtonTextRounder texto="Si" activado={okWithDogs === true ? true : false} onPress={() => onPress(true)} />
         <ButtonTextRounder texto="No" activado={okWithDogs === false ? true : false} onPress={() => onPress(false)} />

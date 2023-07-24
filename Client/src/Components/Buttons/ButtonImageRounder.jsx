@@ -7,7 +7,7 @@ const ButtonImageRounder = ({ onPress = () => alert('no implementado'), children
       {activado ? (
         <View>
           <View className="w-24 h-24 bg-naranja rounded-full justify-center items-center">
-            <View className="w-[90px] h-[90px] bg-naranja rounded-full border-2 border-white justify-center items-center">{children}</View>
+            <View className="w-[90px] h-[90px] bg-new rounded-full border-2 border-white justify-center items-center">{children}</View>
           </View>
           <Text className="text-center font-poppins text-lg">{texto}</Text>
         </View>

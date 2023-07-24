@@ -14,7 +14,7 @@ const CastradoMascota_1 = ({ castrado, setHealthCastrado, setValida }) => {
 
   return (
     <View className="justify-center items-center my-7">
-      <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Está castrado o esterilizado?</Text>
+      <Text className="text-2xl text-center font-poppinsBold mb-5">¿Está castrado o {"\n"} esterilizado?</Text>
       <View className="flex flex-row">
         <ButtonTextRounder texto="Si" activado={castrado === true ? true : false} onPress={() => onPress(true)} />
         <ButtonTextRounder texto="No" activado={castrado === false ? true : false} onPress={() => onPress(false)} />

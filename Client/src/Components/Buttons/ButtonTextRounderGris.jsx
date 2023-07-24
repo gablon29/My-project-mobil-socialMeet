@@ -5,11 +5,11 @@ const ButtonTextRounderGris = ({ texto = 'Texto', activado = true, onPress = () 
   return (
     <TouchableOpacity onPress={onPress}>
       {activado ? (
-        <View className={`w-fit h-fit py-1 px-6 bg-gray-300 rounded-full shadow-xl justify-center items-center border-2`}>
+        <View className={`w-16 h-11 bg-new rounded-full shadow-xl justify-center items-center border-2`}>
           <Text className='text-black font-poppinsSemiBold'>{texto}</Text>
         </View>
       ) : (
-        <View className={`w-fit h-fit py-1 px-6 bg-gray-300 rounded-full shadow-xl justify-center items-center border-2 border-gray-300`}>
+        <View className={`w-16 h-11 bg-new rounded-full shadow-xl justify-center items-center`}>
           <Text className='text-black font-poppinsSemiBold'>{texto}</Text>
         </View>
       )}

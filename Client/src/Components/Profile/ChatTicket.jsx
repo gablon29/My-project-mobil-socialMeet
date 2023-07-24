@@ -43,14 +43,14 @@ const ChatTicket = ({ route }) => {
     
     return (
             <View key={index} className={`${dispoticion} relative`}>
-                <View className={`bg-${dispoticion ? "naranja" : "black"} w-10/12 p-4`}
+                <View className={`bg-${dispoticion ? "naranja" : "white"} w-10/12 p-4`}
                 style={{
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
                     borderBottomLeftRadius: msg.sender.id === profile.id ? 10 : 0,
                     borderBottomRightRadius: msg.sender.id === profile.id ? 0 : 10,
                   }}>
-                    <Text className={`w-full text-${dispoticion ? "right" : "left"} text-base text-white`}>
+                    <Text className={`w-full text-${dispoticion ? "right" : "left"} text-base text-${dispoticion ? "white" : "black"}`}>
                         {msg.text}
                     </Text>
                 </View>
@@ -63,17 +63,17 @@ const ChatTicket = ({ route }) => {
   };
 
   return (
-    <View className="w-screen h-full items-center bg-gris">
+    <View className="w-screen h-full items-center bg-new">
     <View className="flex-row w-screen items-center p-4 justify-between h-20 bg-white fixed top-0 z-50">
         <Button 
-            title={<RowBack name="arrowleft" size={32}/>}
+            component={<RowBack name="arrowleft" size={32}/>}
             onPress={()=>navigation.goBack()}
         />
         <Text>{item.subject}</Text>
     </View>
 
-    <ScrollView className="bg-gris">
-        <View className="relative w-screen items-center pt-10 bg-gris gap-4">
+    <ScrollView className="bg-new">
+        <View className="relative w-screen items-center pt-10 bg-new gap-4">
                 
                 <View className="relative w-10/12 items-end gap-4">
                     {item.messages?.map((msg, index) => renderMessage(msg, index))}
@@ -81,7 +81,7 @@ const ChatTicket = ({ route }) => {
         </View>
     </ScrollView>
 
-    <View className="bg-naranja w-screen p-3 relative flex-row">
+    <View className="bg-celeste w-screen p-3 relative flex-row">
         <TextInput 
             value={message}
             onChangeText={(text)=>setMessage(text)}
