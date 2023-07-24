@@ -67,9 +67,7 @@ const professionalsSchema = mongoose.Schema(
         default: false,
     },
     profilePic: {
-      type: String,
-      default: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
-     
+      type: String,     
     },
     pushToken: {
       type: Array, // Token de verificacion para notificaciones push
