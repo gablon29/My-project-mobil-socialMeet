@@ -52,10 +52,10 @@ export const SelectedPet = ({ pets, chipId }) => {
   <div
     key={idx}
     onClick={() => setPetSelected(item.id)}
-    className={`relative ${petSelected === item.id ? "border-1 border-black" : ""}`}
+    className={`relative ${petSelected === item.id ? "border-1 border-black bg-rosa rounded-2xl w-20 h-20" : "bg-rosa rounded-2xl w-20 h-20"}`}
   >
     <img
-      className={`w-20 h-20 rounded-xl cursor-pointer ${petSelected === item.id ? "border-4 border-black" : ""}`}
+      className={`w-full h-full rounded-2xl cursor-pointer ${petSelected === item.id ? "border-4 border-black" : "bg-rosa rounded-2xl w-20 h-20"}`}
       src={item.profilePic}
       alt={item.name}
     />
@@ -63,7 +63,7 @@ export const SelectedPet = ({ pets, chipId }) => {
 ))}
 
           </div>
-          <button className="bg-naranja shadow-md shadow-zinc-700 text-white font-semibold text-base p-2 rounded-full w-32 mt-20" onClick={() => setSteps(1)}>Siguiente</button>
+          <button className="bg-white border-2 border-naranja shadow-md shadow-zinc-700 text-naranja font-semibold text-base p-2 rounded-full w-32 mt-20" onClick={() => setSteps(1)}>Siguiente</button>
         </div>
       ) : null}
 
@@ -78,7 +78,7 @@ export const SelectedPet = ({ pets, chipId }) => {
               placeholder=""
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-11/12 rounded-full bg-gris h-8 px-4 mb-4"
+              className="w-11/12 rounded-2xl bg-rosa h-8 px-4 mb-4 outline-none"
               maxLength={30}
             />
             <p className="font-poppinsBold relative left-7 font-semibold w-full">Email</p>
@@ -86,11 +86,11 @@ export const SelectedPet = ({ pets, chipId }) => {
               placeholder=""
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-11/12 rounded-full bg-gris h-8 px-4 mb-4"
+              className="w-11/12 rounded-2xl bg-rosa h-8 px-4 mb-4 outline-none"
               type="email"
             />
           </div>
-          <button className="bg-naranja shadow-md shadow-zinc-700 text-white font-semibold text-base p-2 rounded-full w-32 mt-10" onClick={() => setSteps(2)}>Siguiente</button>
+          <button className="bg-white border-2 border-naranja shadow-md shadow-zinc-700 text-naranja font-semibold text-base p-2 rounded-full w-32 mt-10" onClick={() => setSteps(2)}>Siguiente</button>
         </div>
       ) : null}
 
@@ -105,17 +105,17 @@ export const SelectedPet = ({ pets, chipId }) => {
               placeholder=""
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-11/12 rounded-full bg-gris h-8 px-4 mb-4"
+              className="w-11/12 rounded-2xl h-8 px-4 mb-4 bg-rosa"
             />
             <p className="font-poppinsBold relative left-7 font-semibold w-full">Dirección de la clínica</p>
             <input
               placeholder=""
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-11/12 rounded-full bg-gris h-8 px-4 mb-4"
+              className="w-11/12 rounded-2xl bg-rosa h-8 px-4 mb-4"
             />
           </div>
-          <button className="bg-naranja shadow-md shadow-zinc-700 text-white font-semibold text-base p-2 rounded-full w-32 mt-10" onClick={() => setSteps(3)}>Siguiente</button>
+          <button className="bg-white border-2 border-naranja shadow-md shadow-zinc-700 text-naranja font-semibold text-base p-2 rounded-full w-32 mt-10" onClick={() => setSteps(3)}>Siguiente</button>
         </div>
       ) : null}
 
@@ -129,10 +129,10 @@ export const SelectedPet = ({ pets, chipId }) => {
             placeholder=""
             value={info}
             onChange={(e) => setInfo(e.target.value)}
-            className="rounded-lg bg-gris w-72 h-64 p-2 mb-4 mt-5 outline-none resize-none"
+            className="rounded-lg bg-rosa w-72 h-64 p-2 mb-4 mt-5 outline-none resize-none"
           > 
           </textarea>
-          <button className="bg-naranja shadow-md shadow-zinc-700 text-white font-semibold text-base p-2 rounded-full w-32 " onClick={() => activarChip()}>Activar chip</button>
+          <button className="bg-white border-2 border-naranja shadow-md shadow-zinc-700 text-naranja font-semibold text-base p-2 rounded-full w-32 " onClick={() => activarChip()}>Activar chip</button>
         </div>
       ) : null}
 
