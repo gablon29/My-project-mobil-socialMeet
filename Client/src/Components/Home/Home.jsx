@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Text, Platform, Alert } from 'react-native';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Button from '../Buttons/Button';
 import chip from '../../../images/chip.png';
+import { StyleSheet } from 'react-native';
+
 import juguetePerro from '../../../images/juguetePerro.jpg';
 import * as Notifications from 'expo-notifications';
 import axios from 'axios';
@@ -18,6 +23,14 @@ import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import { saveToken, sendNotification } from '../../metodos/notificationsMetodos';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 export default function Home() {
   // ESTADOS LOCALES y GLOBALES:
   const navigation = useNavigation();
@@ -26,77 +39,116 @@ export default function Home() {
 
 
   const profile = useSelector((state) => state.ReducerAuth.profile);
+const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
 
-  // const registerForPushNotifications = async () => {
-  //   try {
-  //     const { status } = await Notifications.requestPermissionsAsync();
-  //     if (status === "granted") {
-  //       const { data: token } = await Notifications.getExpoPushTokenAsync();
-  //       await AsyncStorage.setItem("Notification-token", token);
-  //       let tokenSession = await AsyncStorage.getItem("Token");
-  //       await saveToken({
-  //         token,
-  //         tokenSession,
-  //         loading: (isLoading) => {
-  //           // Manejar estado de carga
-  //         },
-  //         success: (response) => {
-  //           console.log(response);
-  //         },
-  //         error: (err) => {
-  //           console.log(err);
-  //         },
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Notif: ", error.message);
-  //   }
-  // };
-  
-  // useEffect(() => {
-  //   registerForPushNotificationsAsync()
-  // }, []);
-  
-  // async function registerForPushNotificationsAsync() {
-  //   let token;
-  //   if (Device.isDevice) {
-  //     const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  //     let finalStatus = existingStatus;
-  //     if (existingStatus !== 'granted') {
-  //       const { status } = await Notifications.requestPermissionsAsync();
-  //       finalStatus = status;
-  //     }
-  //     if (finalStatus !== 'granted') {
-  //       alert('Failed to get push token for push notification!');
-  //       return;
-  //     }
-  //     token = (await Notifications.getExpoPushTokenAsync()).data;
-  //     await saveToken({
-  //       token,
-  //       tokenSession,
-  //       loading: (isLoading) => {
-  //         // Manejar estado de carga
-  //       },
-  //       success: (response) => {
-  //         console.log(response);
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //       },
-  //     });
-  //   } else {
-  //     alert('Must use physical device for Push Notifications');
-  //   }
-  
-  //   if (Platform.OS === 'android') {
-  //     Notifications.setNotificationChannelAsync('default', {
-  //       name: 'default',
-  //       importance: Notifications.AndroidImportance.MAX,
-  //       vibrationPattern: [0, 250, 250, 250],
-  //       lightColor: '#FF231F7C',
-  //     });
-  //   }
-  // }
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(async (token) => {
+      setExpoPushToken(token);
+      alert(token)
+      await saveToken({
+        token: token,
+        tokenSession: await AsyncStorage.getItem('Token'),
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+
+    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      const {
+        notification: {
+          request: {
+            content: {
+              data: { screen },
+            },
+          },
+        },
+      } = response;
+
+      if (screen) {
+        // Navegar a la pantalla especificada en la notificación
+      }
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+  async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      showBadge: true,
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FE9018',
+    });
+  }
+
+  if (Platform.OS === 'android' && !Constants.isDevice) {
+    Alert.alert('Error', 'Must use physical device for push notifications');
+  } else {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      Alert.alert('Error', 'Failed to get push token for push notifications');
+    } else {
+      try {
+        if (Device.isDevice && !Device.isExpo) {
+          // Si estamos en un dispositivo físico (producción) y no en Expo, usamos getDevicePushTokenAsync para obtener el token de FCM
+          token = (await Notifications.getDevicePushTokenAsync()).data;
+        } else {
+          // Si estamos en Expo, usamos getExpoPushTokenAsync para obtener el token de notificación de Expo
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+        }
+        alert(token)
+
+      await saveToken({
+        token: token,
+        tokenSession: await AsyncStorage.getItem('Token'),
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+        // Aquí puedes guardar el token en tu base de datos o enviarlo al servidor, según tus necesidades.
+      } catch (error) {
+        console.error('Error al obtener el token de notificación:', error);
+      }
+    }
+  }
+
+  return token;
+}
+ 
 
   const productosDestacados = [
     {
@@ -135,33 +187,7 @@ export default function Home() {
               <Button
                 onPress={() => navigation.navigate("ChipWhopaws")}
                 title="Más información"
-                // onPress={() => {
-                //   /* alert("botón activado") */
-                //   Toast.show('Funcionalidad Pendiente', {
-                //     position: Toast.positions.BOTTOM,
-                //     shadow: true,
-                //     animation: true,
-                //     hideOnPress: false,
-                //     delay: 0,
-                //     onShow: () => {
-                //       // calls on toast\`s appear animation start
-                //     },
-                //     onShown: () => {
-                //       // calls on toast\`s appear animation end.
-                //     },
-                //     onHide: () => {
-                //       // calls on toast\`s hide animation start.
-                //     },
-                //     onHidden: () => {
-                //       // calls on toast\`s hide animation end.
-                //     },
-                //   });
-
-                //   // You can manually hide the Toast, or it will automatically disappear after a `duration` ms timeout.
-                //   // setTimeout(function () {
-                //   //   Toast.hide(toast);
-                //   // }, 10000);
-                // }}
+        
                 colorButton="bg-naranja"
                 colorText="text-white"
                 ancho="w-36"
