@@ -60,7 +60,7 @@ const EdadMascota = ({ years, months, setAgeYears, setAgeMonths, setValida }) =>
 
   return (
     <View className="justify-center items-center my-7">
-      <Text className="text-xl text-center font-poppinsBold w-48 mb-7">¿Qué edad tiene?</Text>
+      <Text className="text-2xl text-center font-poppinsBold mb-7">¿Qué edad tiene?</Text>
       <View style={styles.horizontalLine}></View>
       <View className="flex flex-row" {...panResponderAnos.panHandlers}>
         <View className="w-12 h-12 justify-center items-center">

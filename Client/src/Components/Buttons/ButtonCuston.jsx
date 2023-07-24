@@ -6,7 +6,9 @@ const Button = ({ buttonClass, onPress, title, component, titleClass, dissable }
   return (
     <>
     {dissable ? 
-      <TouchableOpacity className={`${buttonClass} opacity-1`} onPress={onPress}>
+      <TouchableOpacity className={`${buttonClass} opacity-1`} onPress={onPress}
+      style={{boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)"}}
+      >
         <Text className={`${titleClass ? titleClass : "hidden"}`}>{title}</Text>
         {component}
       </TouchableOpacity>

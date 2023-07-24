@@ -38,12 +38,12 @@ const DisplayAddress = ({profile}) => {
   const renderAddress = ({item, index}) => {
     console.log(item.id)
     return (
-      <View key={index} className="h-28 bg-naranja rounded-3xl relative justify-center p-5">
-        <Text className="text-white text-sm">{item.address.trim()} {item.number.trim()}</Text>
-        <Text className="text-white text-sm">{item.location.trim()}, {item.addressProvince.trim()}</Text>
-        <Text className="text-white text-sm">{item.addressZipCode.trim()}</Text>
+      <View key={index} className="h-28 bg-new rounded-3xl relative justify-center p-5">
+        <Text className="text-black text-sm font-medium">{item.address.trim()} {item.number.trim()}</Text>
+        <Text className="text-black text-sm font-medium">{item.location.trim()}, {item.addressProvince.trim()}</Text>
+        <Text className="text-black text-sm font-medium">{item.addressZipCode.trim()}</Text>
         <Button
-          buttonClass="bg-black rounded-full w-11 h-11 absolute justify-center items-center -right-3 -top-3"
+          buttonClass="bg-naranja rounded-full w-11 h-11 absolute justify-center items-center -right-3 -top-3"
           component={<Icon name="trash-can-outline" size={25} color="white" />}
           onPress={() => showModal(item)}
         />
@@ -67,8 +67,8 @@ const DisplayAddress = ({profile}) => {
       <View className="bg-white h-20 w-full items-center justify-center absolute bottom-0">
         <Button 
           title="Agregar dirección"
-          buttonClass="rounded-full bg-black w-8/12 h-14  justify-center"
-          titleClass="text-white text-center text-base font-semibold"
+          buttonClass="rounded-full bg-white border-2 border-naranja w-8/12 h-14  justify-center shadow-lg shadow-black"
+          titleClass="text-naranja text-center text-base font-semibold"
           onPress={()=>navigation.navigate("AddNewAddress")}
         />
       </View>

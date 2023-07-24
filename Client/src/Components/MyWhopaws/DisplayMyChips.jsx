@@ -17,14 +17,17 @@ const DisplayMyChips = () => {
                 <Button 
                   onPress={() => navigation.navigate("ChipWhopaws")}
                     title="Comprar un nuevo Chip Whopaws"
-                    buttonClass="bg-naranja w-52 h-14 rounded-lg w-10/12 mt-20 justify-center items-center shadow-xl shadow-black"
-                    titleClass="text-white font-bold text-base"
+                    buttonClass="bg-white border-2 border-naranja w-52 h-14 rounded-lg w-10/12 mt-20 justify-center items-center shadow-xl shadow-black"
+                    titleClass="text-naranja font-bold text-base"
                 />
-                <View className="w-11/12 my-20 flex-row flex-wrap justify-center">
+                {
+                    petWithChip.length > 0 ? <Text className="mt-10 w-screen text-center font-bold text-xl">Mis Chips</Text> : null
+                }
+                <View className="w-11/12 mt-10 mb-20 flex-row flex-wrap justify-center">
                     {
                         petWithChip.map((item, index)=>{
                             return (
-                                <View key={index} className="bg-black justify-center items-center self-end p-3 w-40 h-52 rounded-xl m-2">
+                                <View key={index} className="bg-new justify-center items-center self-end p-3 w-40 h-52 rounded-xl m-2">
                                     <Button 
                                         onPress={() => navigation.navigate("ConfigurateChip",{id: item.id })}
                                         buttonClass="bg-naranja rounded-full w-24 h-24 justify-center items-center"
@@ -35,7 +38,7 @@ const DisplayMyChips = () => {
                                             />
                                         }
                                     />
-                                    <Text className="text-white font-bold text-center m-3">Chip de:{'\n'}{item.name}</Text>
+                                    <Text className="text-black font-bold text-center m-3">Chip de:{'\n'}{item.name}</Text>
                                 </View>
                             )
                         })

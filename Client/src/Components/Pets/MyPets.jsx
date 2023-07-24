@@ -1,13 +1,13 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import cruz from '../../../images/iconos/cruz.png';
-import ButtonWithImage from '../Buttons/ButtonWithImage';
 import { useDispatch, useSelector } from 'react-redux';
 import { DelMyPetMethod, GetPetsMethod } from '../../metodos/petsMetodos';
 import { setAllPets, setLoadingPets, setErrorPets, setSuccessPets } from '../../Redux/ReducerPets'; //para despachar se trae la fx de redux/reducer
 import { NoPets } from './NoPets';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Button from '../Buttons/Button';
+import Plus from 'react-native-vector-icons/Entypo';
+import Button from '../Buttons/ButtonCuston';
 import { useNavigation } from '@react-navigation/native';
 import ModalPrevent from '../Modal/Modal';
 
@@ -52,36 +52,43 @@ export default function MyPets() {
     setIdDelete(null);
   };
 
-  
-
   return (
     <>
       {userPets.length ? (
-        <View className="flex w-full h-full relative bg-white">
+        <View className="flex w-full h-full relative bg-white items-center">
           <ModalPrevent message="Esto borrará su mascota de forma permanente" idDelete={idDelete} delFuntion={delPet} modalVisible={modalVisible} setModalVisible={setModalVisible} />
-          <ButtonWithImage title="Agregar nueva mascota" colorButton="bg-naranja" colorText="text-white" ancho="w-fit" alto="h-14" textSize="text-base" margins="m-4" image={cruz} imageClasses="w-6 h-6 ml-7" onPress={() => navigation.navigate('AddPet')} />
+          <Button
+            title="Agregar nueva mascota" 
+            onPress={() => navigation.navigate('AddPet')}
+            buttonClass="bg-white shadow-xl shadow-black w-10/12 h-14 m-4 border-2 border-naranja rounded-xl flex-row justify-around items-center"
+            titleClass="text-naranja text-base font-bold"
+            component={<Plus name="plus" size={40} color="#FB6726" />}
+          />
           <ScrollView>
-            <View className="flex flex-row flex-wrap mx-7 justify-center align-middle">
+            <View className="flex flex-row flex-wrap mx-7 mt-16 justify-center align-middle">
               {userPets.map((element, index) => (
-                <View key={index} className="h-fit w-full m-2 p-1 rounded-xl justify-center items-center">
-                  <Image
-                    source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
-                    style={{
-                      width: 100,
-                      height: 100,
-                    }}
-                    className="z-10 rounded-full -mb-12"
-                  />
-                  <View className="flex justify-center items-center bg-naranja h-40 w-full rounded-xl">
-                    <TouchableOpacity className="absolute z-10 rounded-full bg-black -top-4 -right-4 p-2" onPress={() => showModal(element.id)}>
-                      <Icon name="trash-can-outline" size={30} color="white" />
+                  <View key={index} className="m-2 p-1 justify-center items-center bg-new h-40 w-full rounded-xl">
+                    <Image
+                      source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
+                      style={{
+                        width: 100,
+                        height: 100,
+                      }}
+                      className="z-10 rounded-full -mb-12 absolute -top-16"
+                    />
+                    <TouchableOpacity className="absolute z-10 rounded-full bg-naranja -top-4 -right-1 p-2" onPress={() => showModal(element.id)}>
+                      <Icon name="trash-can-outline" size={28} color="white" />
                     </TouchableOpacity>
-                    <Text className="mt-7 mb-4 px-4 text-base text-white font-poppinsSemiBold text-center">
+                    <Text className="mt-7 mb-4 px-4 text-base text-black font-poppinsSemiBold text-center">
                       {element.name} | {element.specie} | {element.breed}
                     </Text>
-                    <Button title="Perfil Mascota" colorButton="bg-white" colorText="text-black" ancho="w-32" alto="h-7" textSize="text-xs" onPress={() => navigation.navigate('PetProfile', { element: element.id })} />
+                    <Button 
+                      title="Perfil Mascota" 
+                      buttonClass="w-36 h-7 bg-white rounded-full justify-center items-center shadow-md shadow-black"
+                      titleClass="text-black text-xs font-medium"
+                      onPress={() => navigation.navigate('PetProfile', { element: element.id })} 
+                    />
                   </View>
-                </View>
               ))}
             </View>
           </ScrollView>

@@ -33,7 +33,7 @@ const ProfileComponent = ({ navigation, props }) => {
     </TouchableOpacity>
   );
   const LowerBar = (props) => (
-    <View className="absolute bottom-2 h-12 w-10/12 flex flex-row bg-naranja rounded-full">
+    <View className="absolute bottom-2 h-12 w-10/12 flex flex-row bg-celeste rounded-full">
       <IconButtons iconComponent={ProfileIcon} newStep={1} rounder="rounded-l-full" />
       <IconButtons iconComponent={AdressIcon} newStep={2} />
       <IconButtons iconComponent={CardIcon} newStep={3} />

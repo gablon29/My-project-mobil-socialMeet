@@ -50,7 +50,7 @@ export const UserInvoices = () => {
     };
 
     const renderBilling = ({item, index}) => {
-        const bgClass = index % 2 === 0 ? "bg-naranja text-black" : "bg-black text-white";
+        const bgClass = index % 2 === 0 ? "bg-naranja text-black" : "bg-new text-white";
         const textClass = index % 2 === 0 ? "text-black" : "text-white";
         return (
             <View key={index} className={`h-20 m-3 rounded-xl flex-row justify-between items-center ${bgClass}`}>
@@ -66,9 +66,10 @@ export const UserInvoices = () => {
     return(
         <ScrollView className="bg-white">
             <View className="w-screen h-full items-center">
-                <View className="h-12 w-10/12  mt-10 relative justify-center bg-gris rounded-3xl shadow-md shadow-black">
+                <View className="h-12 w-10/12  mt-10 relative justify-center bg-new rounded-lg shadow-md  shadow-black">
                         <TextInput 
                             placeholder='Buscar'
+                            placeholderTextColor="black"
                             className="h-full w-[80%] p-3 text-base"
                             onChangeText={searchTextFilter}
                         />

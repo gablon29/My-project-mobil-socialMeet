@@ -21,7 +21,7 @@ const EspecieMascota = ({ setSpecie, specie, setValida }) => {
 
   return (
     <View className="justify-center items-center my-7">
-      <Text className="text-xl text-center font-poppinsBold w-56 mb-7">¿Cuál es su especie?</Text>
+      <Text className="text-2xl text-center font-poppinsBold mb-7">¿Cuál es su especie?</Text>
       <View className="flex flex-row">
         <ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={specie === 'Perro' ? true : false} onPress={() => onPress('Perro')} />
         <ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={specie === 'Gato' ? true : false} onPress={() => onPress('Gato')} />
