@@ -20,7 +20,8 @@ module.exports = {
       },
       colors: {
         naranja: "#FB6726",
-        gris: "#EDEBEB"
+        gris: "#EDEBEB",
+        rosa: "#FEC89A"
       }
     },
   },
