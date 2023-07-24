@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Text, Platform, Alert } from 'react-native';
+import { Text } from 'react-native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -17,9 +17,65 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
-
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function App() {
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(async (token) => {
+      setExpoPushToken(token);
+      await saveToken({
+        token: token,
+        tokenSession: await AsyncStorage.getItem('Token'),
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+  
+    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+      setNotification(notification);
+    });
+  
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      const {
+        notification: {
+          request: {
+            content: {
+              data: { screen },
+            },
+          },
+        },
+      } = response;
+  
+      if (screen) {
+        // Navegar a la pantalla especificada en la notificación
+        // props.navigation.navigate("");
+      }
+    });
+  
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
   
 
   const [fontsLoaded] = useFonts({
@@ -45,7 +101,7 @@ export default function App() {
   // axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
-  axios.defaults.baseURL = 'http://192.168.1.8:8080'; // Vini
+    //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
     //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
     // PRODUCCION
@@ -53,6 +109,8 @@ export default function App() {
       axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
      
   // PRODUCCION
+  // Agregar aquí la configuración de producción y la llamada a axios.defaults.baseURL
+  // ...
 
   return (
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
@@ -64,3 +122,50 @@ export default function App() {
   );
 }
 
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      showBadge: true,
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FE9018',
+    });
+  }
+
+  if (Platform.OS === 'android' && !Constants.isDevice) {
+    Alert.alert('Error', 'Must use physical device for push notifications');
+  } else {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      Alert.alert('Error', 'Failed to get push token for push notifications');
+    } else {
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+      await saveToken({
+        token: token,
+        tokenSession: await AsyncStorage.getItem('Token'),
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+  }
+
+  return token;
+}

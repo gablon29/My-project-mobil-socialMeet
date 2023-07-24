@@ -67,7 +67,7 @@ export default function MyPets() {
           <ScrollView>
             <View className="flex flex-row flex-wrap mx-7 mt-16 justify-center align-middle">
               {userPets.map((element, index) => (
-                  <View key={index} className="m-2 p-1 justify-center items-center bg-new h-40 w-full rounded-xl">
+                  <View key={index} className="m-2 p-1 mb-16 justify-center items-center bg-new h-40 w-full rounded-xl">
                     <Image
                       source={{ uri: element.profilePic ? element.profilePic : imagenDefault }}
                       style={{
