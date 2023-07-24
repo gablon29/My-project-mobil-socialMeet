@@ -57,7 +57,7 @@ export default function Login() {
             inputMode='email'
             textContentType='emailAddress'
             onChangeText={(text) => setEmail(text)}
-            className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+            className="w-full rounded-lg bg-rosa h-10 px-4 mb-4" //color custom
           />
           <Text className="font-poppins">Contraseña</Text>
           <TextInput
@@ -66,14 +66,14 @@ export default function Login() {
             textContentType='password'
             value={password}
             onChangeText={(text) => setPassword(text)}
-            className="w-full rounded-full bg-gris h-10 px-4 mb-4" //color custom
+            className="w-full rounded-lg bg-rosa h-10 px-4 mb-4" //color custom
           />
           <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
             <Text className="font-poppins underline text-xs">¿Has olvidado tu contraseña? Recupérala aquí</Text>
           </TouchableOpacity>
           <View className="my-4" />
           <View className="flex items-center">
-            <Button title="Entrar" onPress={login} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
+            <Button title="Entrar" onPress={login} borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja"ancho="w-40" alto="h-11" textSize="text-poppins" />
           </View>
         </View>
 

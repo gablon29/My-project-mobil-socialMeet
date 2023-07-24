@@ -14,7 +14,6 @@ export default function RegisterStep3() {
   const { authenticatedAuth, loadingAuth, errorAuth, profile, token, registro } = useSelector((state) => state.ReducerAuth);
 
   return (
-    <ScrollView>
       <View className="flex-1 items-center justify-center bg-white my-12">
         <Image source={logo} className="mb-32" />
         <View className="flex items-center mb-20">
@@ -37,8 +36,7 @@ export default function RegisterStep3() {
                 dispatch(setRegistroAuth(false));
                 navigation.navigate('Home');
               }}
-              colorButton="bg-naranja"
-              colorText="text-white"
+              borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja"
               ancho="w-40"
               alto="h-11"
               textSize="text-base"
@@ -46,6 +44,5 @@ export default function RegisterStep3() {
           </View>
         </View>
       </View>
-    </ScrollView>
   );
 }

@@ -57,27 +57,27 @@ export default function RegisterStep1(props) {
 
         <View className="w-4/5 mt-5">
           <Text className="font-poppins">Nombre</Text>
-          <TextInput placeholder="" value={firstName} onChangeText={(text) => setFirstName(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          <TextInput placeholder="" value={firstName} onChangeText={(text) => setFirstName(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Apellidos</Text>
-          <TextInput placeholder="" value={lastName} onChangeText={(text) => setLastName(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          <TextInput placeholder="" value={lastName} onChangeText={(text) => setLastName(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Email</Text>
           <TextInput 
               inputMode='email'
               textContentType='emailAddress'
           
-          placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          placeholder="" value={email} onChangeText={(text) => setEmail(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Repetir Email</Text>
           <TextInput
             inputMode='email'
             textContentType='emailAddress'
             
-          placeholder="" value={confirmEmail} onChangeText={(text) => setConfirmEmail(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          placeholder="" value={confirmEmail} onChangeText={(text) => setConfirmEmail(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
 
           <Text className="font-poppins">Teléfono</Text>
-          <TextInput placeholder="" value={phone} onChangeText={(text) => setPhone(text)} className="w-full rounded-lg bg-gris h-8 px-4 mb-4" />
+          <TextInput placeholder="" value={phone} onChangeText={(text) => setPhone(text)} className="w-full rounded-lg bg-rosa h-8 px-4 mb-4" />
           <Text className="font-poppins">País</Text>
           <SelectList
             data={countryOptions}
@@ -85,9 +85,9 @@ export default function RegisterStep1(props) {
             placeholder="Seleccionar"
             search={true}
             boxStyles={{
-              backgroundColor: '#DADADA',
+              backgroundColor: '#FEC89A',
               borderRadius: 10,
-              borderColor: '#DADADA',
+              borderColor: '#FEC89A',
               height: 40,
               padding: 10,
             }}
@@ -98,7 +98,7 @@ export default function RegisterStep1(props) {
 
             }}
             dropdownStyles={{
-              backgroundColor: '#DADADA',
+              backgroundColor: '#FEC89A',
             }}
           />
 
@@ -115,21 +115,21 @@ export default function RegisterStep1(props) {
                   fontSize: 12
                 }}
                 boxStyles={{
-                  backgroundColor: '#DADADA',
+                  backgroundColor: '#FEC89A',
                   borderRadius: 10,
-                  borderColor: '#DADADA',
+                  borderColor: '#FEC89A',
                 }}
-                dropdownStyles={{ backgroundColor: '#DADADA' }}
+                dropdownStyles={{ backgroundColor: '#FEC89A' }}
               />
             </View>
             <View className="flex-1 ml-2 mt-2">
               <Text className="font-poppins">Código Postal</Text>
-              <TextInput placeholder="" value={zipcode} onChangeText={(text) => setZipcode(text)} className="w-full rounded-lg bg-gris h-11 px-4 mb-4" />
+              <TextInput placeholder="" value={zipcode} onChangeText={(text) => setZipcode(text)} className="w-full rounded-lg bg-rosa h-11 px-4 mb-4" />
             </View>
           </View>
 
           <View className="flex items-center mt-2">
-            <Button title="Siguiente" onPress={nextRegistro} colorButton="bg-naranja" colorText="text-white" ancho="w-40" alto="h-11" textSize="text-base" />
+            <Button title="Siguiente" onPress={nextRegistro} borderColor={"border-naranja"} colorButton="bg-white" colorText="text-naranja" ancho="w-40" alto="h-11" textSize="text-base" />
           </View>
         </View>
         <View className="flex min-h-[64px] justify-center">

@@ -2,6 +2,31 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, PanResponder, StyleSheet } from 'react-native';
 
 const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
+  let kilosTimeout, gramosTimeout;
+
+  const delayedSetKilos = (kilos) => {
+    clearTimeout(kilosTimeout);
+    kilosTimeout = setTimeout(() => {
+      setKilos(kilos);
+      handleValidation(kilos, gramos);
+    }, 300); // 300 milisegundos de retraso antes de la actualización
+  };
+
+  const delayedSetGramos = (gramos) => {
+    clearTimeout(gramosTimeout);
+    gramosTimeout = setTimeout(() => {
+      setGramos(gramos);
+      handleValidation(kilos, gramos);
+    }, 300); // 300 milisegundos de retraso antes de la actualización
+  };
+
+  const handleValidation = (kilos, gramos) => {
+    if (kilos || gramos) {
+      setValida(false);
+    } else {
+      setValida(true);
+    }
+  };
 
   const panResponderKilos = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -10,11 +35,11 @@ const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
         if (dx > 0) {
-          setValida(true)
-          setKilos(kilos + 1);
+          setValida(true);
+          delayedSetKilos(kilos + 1);
         } else {
           if (kilos > 0) {
-            setKilos(kilos - 1);
+            delayedSetKilos(kilos - 1);
           }
         }
       }
@@ -28,10 +53,10 @@ const PesoMascota = ({ kilos, gramos, setKilos, setGramos, setValida }) => {
       const isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
       if (isHorizontalSwipe) {
         if (dx > 0) {
-          setGramos(gramos + 5);
+          delayedSetGramos(gramos + 5);
         } else {
           if (gramos > 0) {
-            setGramos(gramos - 5);
+            delayedSetGramos(gramos - 5);
           }
         }
       }
