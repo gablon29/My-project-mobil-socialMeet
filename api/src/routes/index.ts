@@ -74,6 +74,7 @@ router.put('/api/admin/addAmin', /* isLoggedIn, */ catchedAsync(admin.give_admin
 router.put('/api/admin/desAmin', /* isLoggedIn, */ catchedAsync(admin.remove_admin_powers));
 
 router.put('/api/admin/purchases', /* isLoggedIn, */ catchedAsync(admin.allSales));
+router.get('/api/admin/getUserById', /* isLoggedIn, */ catchedAsync(admin.get_by_id));
 
 
 // ------------->  STRIPE  <-------------
