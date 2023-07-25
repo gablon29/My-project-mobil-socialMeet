@@ -8,7 +8,7 @@ const professionalsSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Referencia al modelo de Usuario
+      ref: 'User',
       required: true,
     },
 
@@ -17,53 +17,67 @@ const professionalsSchema = mongoose.Schema(
         default: '',
         maxlength: 400,
       },
+
     fee: {
         type: Number
     },
+
     experience: {
     type: Date 
     },
+
     completed: {
         type: Number
     },
+
     reviews: {
         type: Array
     },
+
     state: {
         type: Boolean,
         default: false,
     },
+
     profilePic: {
       type: String,     
     },
+
     pushToken: {
       type: Array, // Token de verificacion para notificaciones push
       default: [],
     },
+
     Notifications: {
       type: Array,
       default: [],
     },
+
     deviceTokens: [
       {
         type: String,
       },
     ],
+
     country: {
       type: String,
       default: 'España',
     },
+
     province: {
       type: String,
     },
+
     zipcode: {
       type: String,
     },
+
     stripe:{
       customer: {type: String},
       creditCardTokens: [{type:String}]
 
     },
+
     shippingaddresss: {
       address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
       tracking_number : { type: String },
@@ -75,6 +89,7 @@ const professionalsSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    
     tokens: [
       {
         token: {
