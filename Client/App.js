@@ -31,7 +31,54 @@ export default function App() {
 
   const notificationListener = useRef();
   const responseListener = useRef();
-
+  
+  async function registerForPushNotificationsAsync() {
+    let token;
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        showBadge: true,
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FE9018',
+      });
+    }
+  
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      Alert.alert('Error', 'Must use physical device for push notifications');
+    } else {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+  
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+  
+      if (finalStatus !== 'granted') {
+        Alert.alert('Error', 'Failed to get push token for push notifications');
+      } else {
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log(token);
+        await saveToken({
+          token: token,
+          tokenSession: await AsyncStorage.getItem('Token'),
+          loading: (isLoading) => {
+            // Manejar estado de carga
+          },
+          success: (response) => {
+            console.log(response);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      }
+    }
+  
+    return token;
+  }
   useEffect(() => {
     registerForPushNotificationsAsync().then(async (token) => {
       setExpoPushToken(token);
@@ -122,50 +169,3 @@ export default function App() {
   );
 }
 
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      showBadge: true,
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FE9018',
-    });
-  }
-
-  if (Platform.OS === 'android' && !Constants.isDevice) {
-    Alert.alert('Error', 'Must use physical device for push notifications');
-  } else {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-
-    if (finalStatus !== 'granted') {
-      Alert.alert('Error', 'Failed to get push token for push notifications');
-    } else {
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
-      await saveToken({
-        token: token,
-        tokenSession: await AsyncStorage.getItem('Token'),
-        loading: (isLoading) => {
-          // Manejar estado de carga
-        },
-        success: (response) => {
-          console.log(response);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-  }
-
-  return token;
-}
