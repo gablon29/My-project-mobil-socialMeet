@@ -32,6 +32,7 @@ const EspecieMascota = ({ setSpecie, specie, setValida }) => {
         <ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={specie === 'Pez' ? true : false} onPress={() => onPress('Pez')} />
         <ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={specie === 'Roedor' ? true : false} onPress={() => onPress('Roedor')} />
       </View>
+      
     </View>
   );
 };

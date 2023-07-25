@@ -16,6 +16,11 @@ delete_by_id: async (req, res) => {
   const deletedPet = await PetModel.findByIdAndDelete(req.body.id);
   response(res, 200, deletedPet);
 }, 
+get_by_id: async (req, res) => {
+  if(!req.query){throw new ClientError("No se ha enviado id por query", 400)}
+  const lookingUser = await UserModel.findById(req.query.id);
+  response(res, 200, lookingUser);
+}, 
 
 list_damaged_pets: async (req, res) => {
   if(!req.query || !req.query.key || !req.query.value)throw new ClientError("Tienes que enviar por query key=propiedad value=valor",400)
