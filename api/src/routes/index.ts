@@ -121,7 +121,7 @@ router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 // ------------->  Professionals  <-------------
 router.post('/api/professional/register', catchedAsync(professionals.register));
 router.get('/api/professional/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionals));
-router.put('/api/professional/alow', isLoggedIn, catchedAsync(professionals.allowProfessional));
+router.put('/api/professional/allow', isLoggedIn, catchedAsync(professionals.allowProfessional));
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));

@@ -29,7 +29,7 @@ module.exports = {
   },
 
   allowProfessional: async (req, res) => {
-      const professionalId = req.params.id;
+      const professionalId = req.body.id;
 
       const professional = await ProfessionalModel.findById(professionalId);
       if (!professional) {
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   editProfessional: async (req, res) => {
-      const professionalId = req.params.id;
+      const professionalId = req.body.id;
 
       const professional = await ProfessionalModel.findById(professionalId);
       if (!professional) {
@@ -65,7 +65,7 @@ module.exports = {
   },
 
   getProfessionalData: async (req, res) => {
-      const professionalId = req.params.id;
+      const professionalId = req.body.id;
 
       const professional = await ProfessionalModel.findById(professionalId);
       if (!professional) {

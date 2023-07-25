@@ -2,53 +2,20 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON /* , paginate */ } = require('./plugins');
 const { ClientError } = require('../utils/errors');
+const User = require('./user.model'); 
+
 const professionalsSchema = mongoose.Schema(
   {
-    firstName: {
-      type: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Referencia al modelo de Usuario
       required: true,
+    },
 
-      minlength: 1,
-      maxlength: 30,
-    },
-    lastName: {
-      type: String,
-      required: true,
-
-      minlength: 1,
-      maxlength: 30,
-    },
-    email: {
-      type: String,
-      required: true,
-      // unique: true,
-      trim: true,
-      lowercase: true,
-      validate(value) {
-        if (!validator.isEmail(value)) {
-          throw new ClientError('Email no valido.', 400);
-        }
-      },
-    },
-    email_verified: {
-      type: Boolean,
-    },
-    latest_email_verification_code: {
-      type: String,
-    },
-    password: {
-      type: String,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
     description: {
         type: String,
-    //    required: true,
-  
-        minlength: 1,
-        maxlength: 300,
+        default: '',
+        maxlength: 400,
       },
     fee: {
         type: Number
