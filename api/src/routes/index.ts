@@ -9,6 +9,7 @@ import purchases from './purchases.route'
 import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
 import support from "../routes/support.route"
+import professionals from './professionals.route'
 
 import notificationController from '../controllers/notificationController'
 
@@ -115,5 +116,14 @@ router.get('/api/specific-ticket', isLoggedIn, catchedAsync(support.openTicket))
 //admin
 router.get('/api/get-alltickets', isLoggedIn, catchedAsync(support.getAllTicketsAdmin));
 router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
+
+
+// ------------->  Professionals  <-------------
+router.post('/api/professional/register', catchedAsync(professionals.register));
+router.get('/api/professional/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionals));
+router.put('/api/professional/alow', isLoggedIn, catchedAsync(professionals.allowProfessional));
+router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
+router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
+router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));
 
 module.exports = router;
