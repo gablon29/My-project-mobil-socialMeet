@@ -46,7 +46,7 @@ export const Login = ({setLogin}) => {
             value={email}
             name="email"
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-full bg-gris h-10 px-4 mb-4 outline-none"
+            className="w-full rounded-full bg-rosa h-10 px-4 mb-4 outline-none"
           />
           <label className="font-poppins font-semibold text-base relative left-4" htmlFor="password">Contraseña</label>
           <input
@@ -56,10 +56,10 @@ export const Login = ({setLogin}) => {
             value={password}
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-full bg-gris h-10 px-4 mb-4 outline-none"
+            className="w-full rounded-full bg-rosa h-10 px-4 mb-4 outline-none"
           />
           <div className="flex justify-center">
-              <button onClick={loginAuthMethod} className="bg-naranja text-white w-40 h-11 text-base rounded-full">Entrar</button>
+              <button onClick={loginAuthMethod} className="bg-white border-2 border-naranja text-naranja w-40 h-11 text-base rounded-full shadow-lg shadow-stone-900 mt-10">Entrar</button>
           </div>
           </div>
       </div>
