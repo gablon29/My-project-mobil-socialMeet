@@ -3,6 +3,7 @@ const validator = require('validator');
 const { toJSON /* , paginate */ } = require('./plugins');
 const { ClientError } = require('../utils/errors');
 const User = require('./user.model'); 
+const Service = require('./services.model'); 
 
 const professionalsSchema = mongoose.Schema(
   {
@@ -18,6 +19,34 @@ const professionalsSchema = mongoose.Schema(
         maxlength: 400,
       },
 
+    service: {
+      type: Array,
+      default: []
+    },
+
+    disponibilidad: {
+      lunes: {
+        horarios: []
+      },
+      martes: {
+        horarios: []
+      },
+      miercoles: {
+        horarios: []
+      },
+      jueves: {
+        horarios: []
+      },
+      viernes: {
+        horarios: []
+      },
+      sabado: {
+        horarios: []
+      },
+      domingo: {
+        horarios: []
+      },
+    },
     fee: {
         type: Number
     },
