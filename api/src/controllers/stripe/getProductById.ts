@@ -7,7 +7,7 @@ export default async function (req, res) {
   const price_id: string = req.body.price_id
 
   const result = await axios.post(
-    `https://dashboard.stripe.com/v1/products/${item_id}`,
+    `https://dashboard.stripe.com/v1/products/${item_id}`, //funciona
     {
       default_price: price_id,
     },
