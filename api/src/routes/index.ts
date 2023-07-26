@@ -84,7 +84,7 @@ router.get('/api/stripe/allproducts',isLoggedIn, catchedAsync(stripeControllers.
 router.get('/api/stripe/product/:productId',isLoggedIn, catchedAsync(stripeControllers.getProductById));
 router.post('/api/stripe/start-pay-process',isLoggedIn, catchedAsync(stripeControllers.postStartBuyProcess));
 router.post('/stripe/callback', express.raw({ type: 'application/json' }), catchedAsync(stripeControllers.postHandleStripeEvents));
-router.post('/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
+router.post('/api/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
 
 
 // ------------->  CHIPS  <-------------
