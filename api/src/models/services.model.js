@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { toJSON /* , paginate */ } = require('./plugins');
+const Professional = require('./professionals.model'); 
 
 const servicesSchema = mongoose.Schema(
   {
@@ -45,7 +46,11 @@ const servicesSchema = mongoose.Schema(
         default: [],
       },
     ],
-    userId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    professional: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Professional',
+      required: true,
+    },
   },
   {
     timestamps: {

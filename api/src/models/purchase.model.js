@@ -24,7 +24,6 @@ const purchaseSchema = mongoose.Schema(
       },
     cantidad: {
       type: Number,
-      required: true,
     },
     precioTotal: {
       type: Number,
@@ -53,8 +52,16 @@ const purchaseSchema = mongoose.Schema(
     trackingNumber:{
       type: String,
       default: "Recibira su tracking al enviar su compra"
-    }
+    },
 
+    stripeOrder: { 
+      type: Object
+    },
+
+    date: {
+      type: Date,
+      default: Date
+    }
 
   },
   {

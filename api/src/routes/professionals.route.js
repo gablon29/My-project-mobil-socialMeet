@@ -1,5 +1,7 @@
 const ProfessionalModel = require('../models/professionals.model')
 const { response } = require('../utils');
+const UserModel = require('../models/user.model')
+const { sendNotifications } = require('../controllers/pushController');
 
 module.exports = {
   register: async (req, res) => {
@@ -37,8 +39,10 @@ module.exports = {
       }
       professional.state = !professional.state;
       await professional.save();
+      const user = await UserModel.findById(professional.user)
+      const userToken = user.deviceTokens
+      await sendNotifications({tokens: userToken, body: 'Su cuenta como profesional ya ha sido habilitada.', title: 'Bienvenido Profesional!', userId: professional.user})
       return response(res, 200, { message: 'Estado del profesional actualizado', professional });
-
   },
 
   editProfessional: async (req, res) => {
