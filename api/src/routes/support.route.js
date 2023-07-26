@@ -47,10 +47,11 @@ module.exports = {
 
     const user = await UserModel.findById(supportTicket.createdBy);
     const tokens = user.deviceTokens;
+    const type = "support"
     const body = "Se ha respondido tu mensaje";
     const title = "Un agente te ha respondido tu mensaje";
     const userId = user.id;
-    await sendNotifications(tokens, body, title, userId);
+    await sendNotifications(tokens, body, title, type, userId);
 
     supportTicket.messages.push({ text: message, sender: { id: user._id, name: user.firstName } });
     supportTicket.status = 'closed';
