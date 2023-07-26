@@ -27,6 +27,9 @@ const Layout = ({ children }) => {
 
    return (
       <>
+         <head>
+            <title>Whopaws Admin</title>
+         </head>
          {loadingAuth ? (
             <Spinner className='h-20 w-20 mx-auto my-10' />
          ) : authenticatedAuth ? (
