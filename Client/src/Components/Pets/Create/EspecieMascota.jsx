@@ -6,6 +6,8 @@ import ave from '../../../../images/especies/ic_ave.png';
 import reptil from '../../../../images/especies/ic_reptil.png';
 import pez from '../../../../images/especies/ic_pez.png';
 import roedor from '../../../../images/especies/ic_roedor.png';
+import conejo from '../../../../images/especies/conejo.png';
+import ardilla from '../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTextBorderBlack';
 
 const EspecieMascota = ({ setSpecie, specie, setValida }) => {
@@ -32,7 +34,10 @@ const EspecieMascota = ({ setSpecie, specie, setValida }) => {
         <ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={specie === 'Pez' ? true : false} onPress={() => onPress('Pez')} />
         <ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={specie === 'Roedor' ? true : false} onPress={() => onPress('Roedor')} />
       </View>
-      
+      <View className="flex flex-row mt-4 flext items-center">
+        <ButtonSquareImageTextBorderBlack texto="Conejo" imagen={conejo} activado={specie === 'Conejo' ? true : false} onPress={() => onPress('Conejo')} />
+        <ButtonSquareImageTextBorderBlack texto="Hurón" imagen={ardilla} activado={specie === 'Hurón' ? true : false} onPress={() => onPress('Hurón')} />
+      </View>
     </View>
   );
 };

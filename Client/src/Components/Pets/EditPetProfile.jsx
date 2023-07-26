@@ -12,6 +12,8 @@ import gato from '../../../images/especies/ic_gato.png';
 import ave from '../../../images/especies/ic_ave.png';
 import reptil from '../../../images/especies/ic_reptil.png';
 import pez from '../../../images/especies/ic_pez.png';
+import conejo from '../../../images/especies/conejo.png';
+import ardilla from '../../../images/especies/ardilla.png';
 import roedor from '../../../images/especies/ic_roedor.png';
 import ButtonSquareImageTextBorderBlack from '../Buttons/ButtonSquareImageTextBorderBlack';
 import ButtonImageRounder from '../Buttons/ButtonImageRounder';
@@ -71,6 +73,10 @@ export default function EditPetProfile({ route }) {
             <ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={pet.specie === 'Pez' ? true : false} onPress={() => setSpecie('Pez')} />
             <ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={pet.specie === 'Roedor' ? true : false} onPress={() => setSpecie('Roedor')} />
           </View>
+          <View className="flex flex-row mt-4 flext items-center">
+        <ButtonSquareImageTextBorderBlack texto="Conejo" imagen={conejo} activado={pet.specie === 'Conejo' ? true : false} onPress={() => setSpecie('Conejo')} />
+        <ButtonSquareImageTextBorderBlack texto="Hurón" imagen={ardilla} activado={pet.specie === 'Hurón' ? true : false} onPress={() => setSpecie('Hurón')} />
+      </View>
         </View>
         <View className="justify-center items-center mx-4">
           <Text className="text-base text-center font-poppinsBold mt-6">¿Cómo se llama tu mascota?</Text>

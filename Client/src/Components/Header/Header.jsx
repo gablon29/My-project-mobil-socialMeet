@@ -59,7 +59,7 @@ export default function Header() {
 
   return (
     <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'} bg-white`}>
-      <View className="flex flex-row justify-between items-end w-screen h-22 bg-celeste">
+      <View className="flex flex-row justify-between items-end w-screen h-20 bg-celeste">
         <TouchableOpacity onPress={toggleMenu} className="p-1 m-2 rounded-full">
           {showMenu ? <Icon name="close" size={36} color="white" /> : <Icon name="menu" size={36} color="white" />}
         </TouchableOpacity>
