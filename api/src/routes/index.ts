@@ -10,6 +10,7 @@ import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
 import support from "../routes/support.route"
 import professionals from './professionals.route'
+import services from './services.route'
 
 import notificationController from '../controllers/notificationController'
 
@@ -126,5 +127,10 @@ router.put('/api/professional/allow', isLoggedIn, catchedAsync(professionals.all
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));
+
+// ------------->  Services  <-------------
+router.get('/api/service/all', catchedAsync(services.all));
+router.get('/api/service/byName', catchedAsync(services.byName));
+router.post('/api/service/add', catchedAsync(services.addService));
 
 module.exports = router;

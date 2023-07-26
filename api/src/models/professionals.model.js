@@ -26,29 +26,36 @@ const professionalsSchema = mongoose.Schema(
 
     disponibilidad: {
       lunes: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
       martes: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
       miercoles: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
       jueves: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
       viernes: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
       sabado: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
       domingo: {
-        horarios: []
+        horarios: [],
+        active: Boolean,
       },
     },
     fee: {
-        type: Number
+      type: Object
     },
 
     experience: {
