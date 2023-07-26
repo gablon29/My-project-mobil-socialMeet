@@ -21,8 +21,7 @@ const servicesSchema = mongoose.Schema(
         default: []
     },
     price: {
-        type: String,
-        required: true
+        type: Array
     },
     capacity: {
         type: Number,
