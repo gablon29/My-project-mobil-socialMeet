@@ -1,14 +1,16 @@
 import { Button } from '@material-tailwind/react';
-import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LogoutUserMethod } from '../../../utils/metodos/metodosAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSetError, authSetLoading, authSignOut } from '@/redux/reducer/reducerAuth';
+import { useRouter } from 'next/router';
 
 export const Sidebar = () => {
    const dispatch = useDispatch();
+   const router = useRouter();
    const { usuarioAuth, authenticatedAuth, loadingAuth, errorAuth, successAuth } = useSelector((state) => state.reducerAuth);
+   const [activeView, setActiveView] = useState(router.pathname)
 
    const cerrarSesion = () => {
       LogoutUserMethod({
@@ -18,6 +20,14 @@ export const Sidebar = () => {
             dispatch(authSignOut());
          },
       })
+   }
+
+   useEffect(()=>{
+      setActiveView(router.pathname)
+   }, [])
+
+   const activeOption = (set) => {
+      setActiveView(set)
    }
    
    return (
@@ -29,13 +39,13 @@ export const Sidebar = () => {
          <div className='flex flex-col justify-between flex-1 mt-6'>
             <nav className='-mx-3 space-y-6 '>
                <div className='space-y-3 '>
-                  <Link href='/' className='flex items-center px-3 py-2 text-white transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700'>
+                  <Link onClick={()=>activeOption('/')} href='/' className={`${activeView === '/' ? "bg-gray-100 text-gray-700" : "text-white"} flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700`}>
                      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-5 h-5'>
                         <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605' />
                      </svg>
                      <span className='mx-2 text-sm font-medium'>Inicio</span>
                   </Link>
-                  <Link href='/usuarios' className='flex items-center px-3 py-2 text-white transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700'>
+                  <Link onClick={()=>activeOption('/usuarios')} href='/usuarios' className={`${activeView == '/usuarios' ?  "bg-gray-100 text-gray-700" : "text-white"} flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700`}>
                      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-5 h-5'>
                         <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6' />
                      </svg>
@@ -46,7 +56,7 @@ export const Sidebar = () => {
 
                <div className='space-y-3 '>
 
-                  <Link href='/mascotas' className='flex items-center px-3 py-2 text-white transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700'>
+                  <Link onClick={()=>activeOption('/mascotas')} href='/mascotas' className={`${activeView == '/mascotas' ?  "bg-gray-100 text-gray-700" : "text-white"} flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700`}>
                      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-5 h-5'>
                         <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z' />
                      </svg>
@@ -54,7 +64,7 @@ export const Sidebar = () => {
                      <span className='mx-2 text-sm font-medium'>mascotas</span>
                   </Link>
 
-                  <Link href='/soporte' className='flex items-center px-3 py-2 text-white transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700'>
+                  <Link onClick={()=>activeOption('/soporte')} href='/soporte' className={`${activeView == '/soporte' ?  "bg-gray-100 text-gray-700" : "text-white"} flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700`}>
                      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-5 h-5'>
                         <path
                            strokeLinecap='round'
@@ -66,7 +76,7 @@ export const Sidebar = () => {
                      <span className='mx-2 text-sm font-medium'>Soporte</span>
                   </Link>
 
-                  <Link href='/pedidos' className='flex items-center px-3 py-2 text-white transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700'>
+                  <Link onClick={()=>activeOption('/pedidos')} href='/pedidos' className={`${activeView == '/pedidos' ?  "bg-gray-100 text-gray-700" : "text-white"} flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700`}>
                      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-5 h-5'>
                         <path
                            strokeLinecap='round'
