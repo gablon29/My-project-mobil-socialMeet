@@ -161,9 +161,10 @@ export default function App() {
     //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
     //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
-    // PRODUCCION
-  
-      axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
+    // DESARROLLO
+      axios.defaults.baseURL = 'http://16.170.19.54:8080'
+    //PRODUCCIÓN
+      //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
      
   // PRODUCCION
   // Agregar aquí la configuración de producción y la llamada a axios.defaults.baseURL
@@ -172,7 +173,7 @@ export default function App() {
   return (
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
     <Provider store={store}>
-      <StripeProvider publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
+      <StripeProvider publishableKey="pk_test_51NFk5oK2GsED70TU1eFSkUtgzvs03Up0s6zxOPyJsgTVuNXk3CZ6r1SnuEh25yGCIuqo5Vsh5jtS00gVgRt71b4300fd0LMniG" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
         <Navigations />
       </StripeProvider>
     </Provider>
