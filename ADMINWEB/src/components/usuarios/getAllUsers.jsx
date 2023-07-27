@@ -2,20 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import HeaderAdmin from "../all/HeaderAdmin";
 import { FilterAndSearch } from "../all/FilterAndSearch";
+import { useFilter } from "@/customHooks/useFilter";
 
 export const GetAllUsers = () => {
   const usuarios = useSelector((state) => state.reducerUsuarios.usuarios);
   const profile = useSelector((state) => state.reducerAuth.usuarioAuth);
 
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredUsuarios = usuarios.filter((usuario) =>
-    usuario.firstName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+const   {searchTerm, setSearchTerm, handleSearch, filteredUsuarios} = useFilter(usuarios)
 
   return (
     <>
