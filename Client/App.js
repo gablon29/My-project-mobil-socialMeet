@@ -27,6 +27,7 @@ export default function App() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
@@ -43,6 +44,7 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
   async function registerForPushNotificationsAsync() {
     let token;
   
@@ -89,6 +91,7 @@ export default function App() {
     }
   alert(token)
   }
+  
   useEffect(() => {
     registerForPushNotificationsAsync().then(async (token) => {
       setExpoPushToken(token);
