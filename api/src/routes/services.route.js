@@ -1,51 +1,73 @@
 const ProfessionalModel = require('../models/professionals.model')
 const { response } = require('../utils');
 const ServiceModel = require('../models/services.model')
-const createProducts = require('../controllers/stripe/createProducts')
+const { default: createProducts } = require('../controllers/stripe/createProducts');
+const { default: createPrice } = require('../controllers/stripe/createPrice');
 
 module.exports = {
 
     addService: async (req, res) => {
-            const { name, description, place, price, capacity, country, province, addresses, gallery, metadata } = req.body;
-            const professionalId = req.params.professionalId;
-      
-            const professional = await ProfessionalModel.findById(professionalId);
-            if (!professional) {
-              return res.status(404).json(response(false, 'Profesional no encontrado'));
-            }
-            const stripeProduct = await createProducts(name, metadata, price)
-            const newService = new ServiceModel({
-              name,
-              description,
-              place,
-              price: [price, stripeProduct.id],
-              capacity,
-              country,
-              province,
-              addresses,
-              gallery,
-              professional: professionalId, 
-            });
-      
-            const savedService = await newService.save();
-      
-            professional.services.push(savedService._id);
-            await professional.save();
-      
-            response(200, 'Servicio creado exitosamente', savedService)
-          
+        const { 
+            name, description, place, price, capacity, country, province, addresses, gallery, //Service Data
+            metadata, professionalId, //Stripe Product Data
+            interval, interval_count //Stripe Price Data
+        } = req.body;
+
+        const professional = await ProfessionalModel.findById(professionalId);
+        if (!professional) {
+          return response(res, 500, 'Profesional no encontrado');
+        }
+    
+        const stripeProductData = {
+          name: name,
+          metadata: metadata,
+          price: price,
+        };
+
+        const stripeProduct = await createProducts(stripeProductData);
+
+        const stripePriceData = {
+            interval,
+            interval_count,
+            productId: stripeProduct.id
+        }
+
+        const stripePrice = await createPrice(stripePriceData)
+    
+        const newService = new ServiceModel({
+          name,
+          description,
+          place,
+          price: [price, stripePrice.id, stripeProduct.id],
+          capacity,
+          country,
+          province,
+          addresses,
+          gallery,
+          professional: professionalId,
+        });
+    
+        const savedService = await newService.save();
+    
+        if (!professional.services) {
+          professional.services = [];
+        }
+        professional.services.push(savedService._id);
+        await professional.save();
+        console.log(savedService)
+        response(res, 200, 'Servicio creado exitosamente', savedService);
     },
 
     all: async (req, res) => {
         const services = await ServiceModel.find()
         if (!services) response(404, 'No se han encontrado servicios en la base de datos')
-        response(200, services)
+        response(res ,200, services)
     },
 
     byName: async(req, res) => {
         const { name } = req.body
         const services = await ServiceModel.find({name: name})
-        if (!services) response(404, 'No se han encontrado servicios con este nombre')
-        response(200, services)
+        if (!services) response(res, 404, 'No se han encontrado servicios con este nombre')
+        response(res ,200, services)
     }
 }

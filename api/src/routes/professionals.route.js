@@ -5,21 +5,13 @@ const { sendNotifications } = require('../controllers/pushController');
 
 module.exports = {
   register: async (req, res) => {
-      const { firstName, lastName, email, phone, description, fee, experience, completed } = req.body;
+      const { description, fee, experience, userId } = req.body;
 
-      const isEmailTaken = await ProfessionalModel.isEmailTaken(email);
-      if (isEmailTaken) {
-        return response(res, 409, { message: 'El email ya está registrado' });
-      }
       const newProfessional = new ProfessionalModel({
-        firstName,
-        lastName,
-        email,
-        phone,
-        description,
-        fee,
-        experience,
-        completed,
+        user: userId,
+        description: description,
+        fee: fee,
+        experience: experience,
       });
       await newProfessional.save();
       return response(res, 201, { message: 'Registro exitoso', professional: newProfessional });
@@ -52,16 +44,11 @@ module.exports = {
       if (!professional) {
         return response(res, 404, { error: 'Profesional no encontrado' });
       }
-      const { firstName, lastName, email, phone, description, fee, experience, completed } = req.body;
+      const { description, fee, experience } = req.body;
 
-      professional.firstName = firstName || professional.firstName;
-      professional.lastName = lastName || professional.lastName;
-      professional.email = email || professional.email;
-      professional.phone = phone || professional.phone;
       professional.description = description || professional.description;
       professional.fee = fee || professional.fee;
       professional.experience = experience || professional.experience;
-      professional.completed = completed || professional.completed;
 
       await professional.save();
 

@@ -19,7 +19,7 @@ const professionalsSchema = mongoose.Schema(
         maxlength: 400,
       },
 
-    service: {
+    services: {
       type: Array,
       default: []
     },
