@@ -33,11 +33,10 @@ const Layout = ({ children }) => {
          {loadingAuth ? (
             <Spinner className='h-20 w-20 mx-auto my-10' />
          ) : authenticatedAuth ? (
-            <main className='flex w-screen h-screen'>
+            <main className='grid grid-cols-[256px_1fr] grid-rows-[35vh_65vh]'>
                <Sidebar />
-               <div className="w-[calc(100%-256px)] h-screen overflow-y-auto bg-orange-100">
-
-               {children}
+               <div className="grid col-start-2 col-end-3 row-start-1 row-end-3 grid-rows-[35vh_65vh] h-screen overflow-y-auto bg-orange-100">
+                  {children}
                </div>
             </main>
          ) : (

@@ -31,8 +31,9 @@ export const Sidebar = () => {
    }
    
    return (
-      <aside className='flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-black border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 z-50'>
-         <Link href='/'>
+      <aside className='grid col-start-1 row-start-1 row-end-2'>
+        <div className='flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-black border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 z-50'>
+        <Link href='/'>
             <img src='https://i.ibb.co/gSZCMVw/Logo-transparente-3.png' alt='Logo' width='100' height='40' />
          </Link>
 
@@ -95,6 +96,7 @@ export const Sidebar = () => {
                </div>
             </nav>
          </div>
+        </div>
       </aside>
    );
 };
