@@ -125,6 +125,13 @@ const professionalsSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    documento: {
+      type: String
+    },
+    fotoDoc: {
+      type: String
+
+    },
     
     tokens: [
       {
