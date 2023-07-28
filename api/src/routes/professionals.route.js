@@ -2,7 +2,9 @@ const ProfessionalModel = require('../models/professionals.model')
 const { response } = require('../utils');
 const UserModel = require('../models/user.model')
 const { sendNotifications } = require('../controllers/pushController');
-const { default: editPrice } = require('../controllers/stripe/createPrice');
+const { default: editPrice } = require('../controllers/stripe/editPrice');
+const { default: createProducts } = require('../controllers/stripe/createProducts')
+const { default: createPrice } = require('../controllers/stripe/createPrice')
 
 
 module.exports = {
