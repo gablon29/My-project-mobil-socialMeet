@@ -114,5 +114,62 @@ module.exports = {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
     return response( res, 200, professional.services)
+  },
+
+  addAvailability: async (req, res) => {
+    const { professionalId, date, horarios, active } = req.body;
+
+    const professional = await ProfessionalModel.findById(professionalId);
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+
+    professional.disponibilidad[date] = {
+      horarios: horarios ? horarios : professional.disponibilidad[date].horarios,
+      active: active ? active : professional.disponibilidad[date].active,
+    };
+
+    await professional.save();
+
+    return response(res, 200, { message: 'Disponibilidad agregada', professional });
+  },
+
+  getAvailability: async (req, res) => {
+    const { professionalId, date } = req.params;
+
+    const professional = await ProfessionalModel.findById(professionalId);
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+
+    const availability = professional.disponibilidad[date];
+    if (!availability) {
+      return response(res, 404, { error: 'Disponibilidad no encontrada para la fecha proporcionada' });
+    }
+
+    return response(res, 200, availability);
+  },
+
+  editAvailability: async (req, res) => {
+    const { professionalId, date } = req.params;
+
+    const professional = await ProfessionalModel.findById(professionalId);
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+
+    const { horarios, active } = req.body;
+
+    const availability = professional.disponibilidad[date];
+    if (!availability) {
+      return response(res, 404, { error: 'Disponibilidad no encontrada para la fecha proporcionada' });
+    }
+
+    availability.horarios = horarios || availability.horarios;
+    availability.active = active || availability.active;
+
+    await professional.save();
+
+    return response(res, 200, { message: 'Disponibilidad actualizada', professional });
   }
 }
