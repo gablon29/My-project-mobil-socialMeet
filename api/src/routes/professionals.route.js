@@ -2,18 +2,39 @@ const ProfessionalModel = require('../models/professionals.model')
 const { response } = require('../utils');
 const UserModel = require('../models/user.model')
 const { sendNotifications } = require('../controllers/pushController');
+const { default: createProducts } = require('../controllers/stripe/createProducts');
+const { default: createPrice } = require('../controllers/stripe/createPrice');
 
 module.exports = {
   register: async (req, res) => {
       const { description, fee, experience, userId } = req.body;
 
+      const stripeProductData = {
+        name: 'FEE',
+        metadata: 'fee'
+      };
+
+      const stripeProduct = await createProducts(stripeProductData);
+
+      const separadorCentavos = fee.includes(',') ? ',' : '.';
+
+      const feeInCents = parseInt(parseFloat(fee.replace(separadorCentavos, '')) * 100);
+
+      const stripePriceData = {
+          productId: stripeProduct.id,
+          unit_amount: feeInCents 
+      }
+
+      const stripePrice = await createPrice(stripePriceData)
+
       const newProfessional = new ProfessionalModel({
         user: userId,
         description: description,
-        fee: fee,
+        fee: [stripePrice.id, stripeProduct.id, fee, stripeProductData.name],
         experience: experience,
       });
       await newProfessional.save();
+
       return response(res, 201, { message: 'Registro exitoso', professional: newProfessional });
     },
 
