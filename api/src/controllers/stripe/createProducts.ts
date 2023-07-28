@@ -26,15 +26,12 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
 // BEST_PRICE.product = BEST
 export default async function (req, res) {
 
-    const { name, metadata, price } = req.body
+    const { name, metadata } = req.body || req
 
-    console.log(req.params)
     const product = await stripe.products.create({
       "name": name,
       "active": true,
       "metadata": metadata,
-      "default_price": price
     })
-    console.log(product)
     return product
 };

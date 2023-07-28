@@ -19,7 +19,7 @@ const professionalsSchema = mongoose.Schema(
         maxlength: 400,
       },
 
-    service: {
+    services: {
       type: Array,
       default: []
     },
@@ -124,6 +124,13 @@ const professionalsSchema = mongoose.Schema(
     addresses:{
       type: Array,
       default: [],
+    },
+    documento: {
+      type: String
+    },
+    fotoDoc: {
+      type: String
+
     },
     
     tokens: [

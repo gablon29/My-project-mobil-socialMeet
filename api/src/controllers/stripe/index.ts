@@ -4,6 +4,7 @@ import getApiKey from "./getApiKey"
 import postStartBuyProcess from "./postStartBuyProcess"
 import postHandleStripeEvents from "./postHandleStripeEvents"
 import createProducts from "./createProducts"
+import createPrice from './createPrice'
 
 const stripeControllers =
 {
@@ -12,7 +13,8 @@ const stripeControllers =
     postHandleStripeEvents,
     getApiKey,
     postStartBuyProcess,
-    createProducts
+    createProducts,
+    createPrice
 }
 
 export default stripeControllers

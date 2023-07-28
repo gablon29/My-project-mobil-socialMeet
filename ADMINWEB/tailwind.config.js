@@ -7,6 +7,7 @@ module.exports = withMT({
          colors: {
             naranja: '#FB6726',
             gris: '#DADADA',
+            celeste: "#63C5C9"
          }
       },
    },

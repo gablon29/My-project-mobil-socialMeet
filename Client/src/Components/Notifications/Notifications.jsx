@@ -11,10 +11,10 @@ Notifications.setNotificationHandler({
     }),
 });
 
-const App = () => {
+const Notifications = () => {
     const [expoPushToken, setExpoPushToken] = React.useState("");
     const [notification, setNotification] = React.useState(false);
-
+console.log(expoPushToken)
     const notificationListener = React.useRef();
     const responseListener = React.useRef();
 
@@ -95,4 +95,4 @@ async function registerForPushNotificationsAsync() {
     return token;
 }
 
-export default App;
+export default Notifications;

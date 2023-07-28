@@ -13,33 +13,25 @@ export const Mascotas = () => {
 
 
   return (
-    <div>
-      <div className="bg-white fixed w-screen right-0 pl-[256px] z-10">
+    <div className="grid col-start-1 col-end-2 row-start-1 row-end-3 grid-cols-[256px_1fr] grid-rows-[35vh_65vh] bg-white">
+      <div className="grid col-start-1 col-end-3 row-start-1 row-end-2">
         <HeaderAdmin />
-        <FilterAndSearch handleSearch={handleSearch} searchTerm={searchTerm} />
-      </div>
-      <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">Mascotas</h1>
-        <input
-          type="text"
-          placeholder="Buscar"
-          className="p-2 rounded-md"
-          value={searchTerm}
-          onChange={handleSearch}
+        <FilterAndSearch 
+          handleSearch={handleSearch} 
+          searchTerm={searchTerm} 
+          placeholder={"Buscar mascotas, id, especie, dueño..."}
+          del={true}
         />
       </div>
-      <div
-        style={{ paddingBottom: "250px" }}
-        className="h-full bg-white fixed overflow-x-auto w-screen mt-[240px] right-0 pl-[256px] z-10"
-      >
-        <div className="bg-white text-black flex justify-evenly fixed pb-5 w-screen right-0 pl-[256px] z-10 border-b-[1px] border-gray-500">
-          <input className="relative left-3" type="checkbox" />
+      <div className="z-10 grid row-start-2 row-end-3 col-start-1 col-end-3 grid-rows-[60px_1fr] overflow-x-auto border-b-2">
+        <div className="bg-white border-b-[1px] z-10 border-gray-500 text-black grid col-start-1 col-end-2 row-start-1 row-end-2 sticky top-0 grid-cols-[50px_1fr_1fr_1fr_1fr]">
+          <input className="relative left-3 w-4 h-4" type="checkbox" />
           <span className="block w-full text-center text-xl font-semibold">Nombre</span>
           <span className="block w-full text-center text-xl font-semibold">ID</span>
           <span className="block w-full text-center text-xl font-semibold">especie</span>
           <span className="block w-full text-center text-xl font-semibold">Editar</span>
         </div>
-        <div className="bg-white text-white w-full flex flex-col pt-14">
+        <div className="bg-white text-white grid col-start-1 col-end-2 row-start-2 row-end-3">
           {filteredUsuarios.map((usuario) => {
             return (
               <div key={usuario.id} className="w-full text-black bg-white flex justify-evenly items-center py-1">

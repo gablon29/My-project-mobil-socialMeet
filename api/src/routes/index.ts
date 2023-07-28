@@ -127,10 +127,12 @@ router.put('/api/professional/allow', isLoggedIn, catchedAsync(professionals.all
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));
+router.get('/api/professional/services', catchedAsync(professionals.getServices))
 
 // ------------->  Services  <-------------
 router.get('/api/service/all', catchedAsync(services.all));
 router.get('/api/service/byName', catchedAsync(services.byName));
+router.get('/api/service/byId', catchedAsync(services.byId))
 router.post('/api/service/add', catchedAsync(services.addService));
 
 module.exports = router;

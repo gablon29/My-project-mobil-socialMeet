@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
+import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import Constants from "expo-constants"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
 import store from './src/Redux/Store';
@@ -18,17 +20,54 @@ const Stack = createNativeStackNavigator();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
   }),
 });
+
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (
+      await Notifications.getExpoPushTokenAsync({
+        projectId: Constants.expoConfig.extra.eas.projectId,
+      }))
+      console.log(token)
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+console.log(token)
+  return token;
+}
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+
   const [isLoadingNotif, setIsLoadingNotif] = useState(false)
+
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -149,6 +188,7 @@ export default function App() {
   // axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
+
   //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
   //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
@@ -156,6 +196,7 @@ export default function App() {
   axios.defaults.baseURL = 'http://16.170.19.54:8080'
   //PRODUCCIÓN
   //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
+
 
   // PRODUCCION
   // Agregar aquí la configuración de producción y la llamada a axios.defaults.baseURL
