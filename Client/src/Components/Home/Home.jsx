@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import veterinarios from '../../../images/dropDownMenu/veterinarios.png';
 import cuidadores from '../../../images/dropDownMenu/cuidadores.png';
 import paseadores from '../../../images/dropDownMenu/paseadores.png';
+import noImplementado from '../../metodos/noImplementado';
 
 
 export default function Home() {
@@ -78,13 +79,13 @@ export default function Home() {
           {/* View container de Servicios Destacados */}
           <View className="flex flex-row justify-between">
             <Text className="text-sm font-poppinsBold">Servicios destacados</Text>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <Text className="text-sm font-poppins text-naranja">Ver Más</Text>
             </TouchableOpacity>
           </View>
 
           <View className="flex flex-row gap-3 flex-wrap justify-center items-center mt-5">
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <View>
                 <View className="w-20 h-20 bg-rosa rounded-xl justify-center items-center shadow-lg mr-4">
                   <Image source={veterinarios} className="h-16 w-16" resizeMode="contain" />
@@ -92,7 +93,7 @@ export default function Home() {
                 <Text className="text-xs font-poppins text-center pt-1">Veterinarios</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <View>
                 <View className="w-20 h-20 bg-rosa rounded-xl justify-center items-center shadow-lg mr-4">
                   <Image source={cuidadores} className="h-16 w-16" resizeMode="contain" />
@@ -100,7 +101,7 @@ export default function Home() {
                 <Text className="text-xs font-poppins text-center pt-1">Cuidadores</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <View>
                 <View className="w-20 h-20 bg-rosa rounded-xl justify-center items-center shadow-lg mr-4">
                   <Image source={paseadores} className="h-16 w-16" resizeMode="contain" />
@@ -115,7 +116,7 @@ export default function Home() {
           {/* View container de Productos destacados */}
           <View className="flex flex-row justify-between">
             <Text className="text-sm font-poppinsBold">Productos destacados</Text>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <Text className="text-sm font-poppins text-naranja">Ver Más</Text>
             </TouchableOpacity>
           </View>
@@ -128,7 +129,7 @@ export default function Home() {
                   {producto.nombre}. {producto.descripcion}
                 </Text>
                 <Text className="mx-1 text-sm font-poppinsBold text-white mt-5 mr-4">{producto.precio}</Text>
-                <TouchableOpacity className="absolute z-10 rounded-full bg-white bottom-0 right-0 m-2" onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+                <TouchableOpacity className="absolute z-10 rounded-full bg-white bottom-0 right-0 m-2" onPress={noImplementado}>
                   <Icon name="plus" size={24} color="black" />
                 </TouchableOpacity>
               </View>
@@ -139,23 +140,23 @@ export default function Home() {
           {/* View container de Tiendas destacados */}
           <View className="flex flex-row justify-between">
             <Text className="text-sm font-poppinsBold">Tiendas destacadas</Text>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <Text className="text-sm font-poppins text-naranja">Ver Más</Text>
             </TouchableOpacity>
           </View>
 
           <View className="flex flex-row gap-2 flex-wrap justify-center items-center mt-5">
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <View className="w-24 h-12 rounded-lg shadow-lg justify-center items-center bg-naranja">
                 <Text className="text-xs text-white font-poppinsBold">LOGO</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <View className="w-24 h-12 rounded-lg shadow-lg justify-center items-center bg-naranja">
                 <Text className="text-xs text-white  font-poppinsBold">LOGO</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => alert('FUNCIONALIDAD PENDIENTE')}>
+            <TouchableOpacity onPress={noImplementado}>
               <View className="w-24 h-12 rounded-lg shadow-lg justify-center items-center bg-naranja">
                 <Text className="text-xs text-white font-poppinsBold">LOGO</Text>
               </View>

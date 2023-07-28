@@ -13,6 +13,7 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 import Navigations from './src/Navigations';
 import { saveToken } from './src/metodos/notificationsMetodos';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert, Platform } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,26 +66,15 @@ export default function App() {
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+  const [isLoadingNotif, setIsLoadingNotif] = useState(false)
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
   async function registerForPushNotificationsAsync() {
     let token;
-  
-    if (Platform.OS === 'android') {
+
+    if (Platform.OS !== 'android') {
+      Alert.alert('Error Must use physical device for push notifications');
+    } else {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
         showBadge: true,
@@ -92,21 +82,17 @@ export default function App() {
         vibrationPattern: [0, 250, 250, 250],
         lightColor: '#FE9018',
       });
-    }
-  
-    if (Platform.OS === 'android') {
-      Alert.alert('Error', 'Must use physical device for push notifications');
-    } else {
+
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
-  
+
       if (existingStatus !== 'granted') {
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
-  
+
       if (finalStatus !== 'granted') {
-        Alert.alert('Error', 'Failed to get push token for push notifications');
+        Alert.alert('Error No ha brindado los permisos de notificación');
       } else {
         token = (await Notifications.getExpoPushTokenAsync()).data;
         console.log(token);
@@ -115,6 +101,7 @@ export default function App() {
           tokenSession: await AsyncStorage.getItem('Token'),
           loading: (isLoading) => {
             // Manejar estado de carga
+            setIsLoadingNotif(isLoading);
           },
           success: (response) => {
             console.log(response);
@@ -124,9 +111,10 @@ export default function App() {
           },
         });
       }
+    alert("Notif Token: "+token)
     }
-  alert(token)
   }
+
   useEffect(() => {
     registerForPushNotificationsAsync().then(async (token) => {
       setExpoPushToken(token);
@@ -143,12 +131,16 @@ export default function App() {
           console.log(err);
         },
       });
-    });
-  
+    }).catch(e => {
+      console.log("Error al ejecutar registerForPushNotificationsAsync()", e.message)
+    })
+
+
+    //Escuchadores de Eventos:
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
       setNotification(notification);
     });
-  
+
     responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
       const {
         notification: {
@@ -159,19 +151,19 @@ export default function App() {
           },
         },
       } = response;
-  
+
       if (screen) {
         // Navegar a la pantalla especificada en la notificación
         // props.navigation.navigate("");
       }
     });
-  
+
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-  
+
 
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),
@@ -196,14 +188,15 @@ export default function App() {
   // axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
-    axios.defaults.baseURL = 'http://192.168.1.2:8080'; // Vini
-    //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
-    // DESARROLLO
-    //  axios.defaults.baseURL = 'http://16.170.19.54:8080'
-    //PRODUCCIÓN
-      //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
-     
+  // axios.defaults.baseURL = 'http://192.168.1.2:8080'; // Vini
+  //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
+
+  // DESARROLLO
+  axios.defaults.baseURL = 'http://16.170.19.54:8080'
+  //PRODUCCIÓN
+  //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
+
   // PRODUCCION
   // Agregar aquí la configuración de producción y la llamada a axios.defaults.baseURL
   // ...
