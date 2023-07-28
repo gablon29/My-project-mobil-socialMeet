@@ -52,7 +52,7 @@ module.exports = {
         if (!professional.services) {
           professional.services = [];
         }
-        professional.services.push(savedService._id);
+        professional.services.push(savedService._id, savedService.price, savedService.name);
         await professional.save();
         console.log(savedService)
         response(res, 200, 'Servicio creado exitosamente', savedService);
@@ -69,5 +69,12 @@ module.exports = {
         const services = await ServiceModel.find({name: name})
         if (!services) response(res, 404, 'No se han encontrado servicios con este nombre')
         response(res ,200, services)
+    },
+
+    byId: async(req, res) => {
+      const { id } = req.body
+      const service = await ServiceModel.findById(id)
+      if (!service) response(res, 404, 'No se han encontrado servicios')
+      response(res, 200, service)
     }
 }
