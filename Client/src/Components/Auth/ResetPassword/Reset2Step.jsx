@@ -22,7 +22,7 @@ export const Reset2Step = ({ setSteps ,checkCode}) => {
       setSteps(2);
     })
     .catch(e=>{
-      Alert.alert(e.message)
+      Alert.alert("Reset: "+e.message)
     })
 
   };

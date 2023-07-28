@@ -76,7 +76,7 @@ export default function Checkout() {
     const data = response.data.payload;
     const { clientSecret, ephemeralKey, customer } = data;
 console.log(data)
-    if (data.error) return Alert.alert(data.message);
+    if (data.error) return Alert.alert("Check: "+data.message);
 
     //Aqui le decimos a striple que nos genere una plantilla de pago asociada al ClientSecret generado en el backend:
     // aqui el front firma el papelito enviandoselo a stripe, y stripe revisa a ver si esta todo bien nos devuelve un formulario o algo aasi
@@ -86,7 +86,7 @@ console.log(data)
       customerId: customer,
     });
 
-    if (initSheet.error) return Alert.alert(initSheet.error.message);
+    if (initSheet.error) return Alert.alert("initSheet 2: "+initSheet.error.message);
     //if(initSheet.paymentOption==undefined) return Alert.alert("Falta agregar en el .env del server las API keys de STRIPE")
 
     //Aqui renderizamos el componente de react, de stripe
@@ -95,7 +95,7 @@ console.log(data)
     });
 
     if (presentSheet.error) {
-      return Alert.alert('Ops: ', presentSheet.error.message);
+      return Alert.alert('Ops: '+ presentSheet.error.message);
     }
     Alert.alert('Donated successfully! Thank you for the donation.');
   };
@@ -182,7 +182,7 @@ console.log(data)
               if (err.code) {
                 extra_message += '\r\n' + err.code;
               }
-              Alert.alert(err.message);
+              Alert.alert("Checkout.jsx"+err.message);
             });
         }}
       />

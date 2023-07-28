@@ -55,7 +55,7 @@ loading(true)
 
     const data = response.data.payload;
     const { clientSecret, ephemeralKey, customer } = data;
-    if (data.error) return Alert.alert(data.message);
+    if (data.error) return Alert.alert("usePay: "+data.message);
 
     // Se utiliza stripe.initPaymentSheet para generar una plantilla de pago asociada al clientSecret obtenido 
     //del backend. 
@@ -68,7 +68,7 @@ loading(true)
       defaultShippingDetails: shippingAdress
     });
 
-    if (initSheet.error) return Alert.alert(initSheet.error.message);
+    if (initSheet.error) return Alert.alert("InitSheet: "+initSheet.error.message);
     //if(initSheet.paymentOption==undefined) return Alert.alert("Falta agregar en el .env del server las API keys de STRIPE")
 
     //Aqui renderizamos el componente de react, de stripe
@@ -77,7 +77,7 @@ loading(true)
     });
 
     if (presentSheet.error) {
-      return Alert.alert('Ops: ', presentSheet.error.message);
+      return Alert.alert('Ops: '+ presentSheet.error.message);
       loading(false)
 
     }
