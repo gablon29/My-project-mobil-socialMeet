@@ -65,34 +65,6 @@ export default function App() {
   const notificationListener = useRef();
   const responseListener = useRef();
 
-
-  useEffect(() => {
-    // Define an inner asynchronous function to use await
-    const saveTokenData = async () => {
-      try {
-        const tokenSession = await AsyncStorage.getItem('Token');
-  
-        saveToken({
-          token: expoPushToken.data,
-          tokenSession,
-          loading: (isLoading) => {
-          },
-          success: (response) => {
-            console.log(response);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-      } catch (error) {
-        console.log('Error while getting token from AsyncStorage:', error);
-      }
-    };
-  
-    saveTokenData();
-  }, [expoPushToken]);
-
-
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
@@ -109,7 +81,96 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
+  async function registerForPushNotificationsAsync() {
+    let token;
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        showBadge: true,
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FE9018',
+      });
+    }
+  
+    if (Platform.OS === 'android') {
+      Alert.alert('Error', 'Must use physical device for push notifications');
+    } else {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+  
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+  
+      if (finalStatus !== 'granted') {
+        Alert.alert('Error', 'Failed to get push token for push notifications');
+      } else {
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log(token);
+        await saveToken({
+          token: token,
+          tokenSession: await AsyncStorage.getItem('Token'),
+          loading: (isLoading) => {
+            // Manejar estado de carga
+          },
+          success: (response) => {
+            console.log(response);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      }
+    }
+  alert(token)
+  }
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(async (token) => {
+      setExpoPushToken(token);
+      await saveToken({
+        token: token,
+        tokenSession: await AsyncStorage.getItem('Token'),
+        loading: (isLoading) => {
+          // Manejar estado de carga
+        },
+        success: (response) => {
+          console.log(response);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    });
+  
+    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+      setNotification(notification);
+    });
+  
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      const {
+        notification: {
+          request: {
+            content: {
+              data: { screen },
+            },
+          },
+        },
+      } = response;
+  
+      if (screen) {
+        // Navegar a la pantalla especificada en la notificación
+        // props.navigation.navigate("");
+      }
+    });
+  
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
   
 
   const [fontsLoaded] = useFonts({
@@ -138,9 +199,10 @@ export default function App() {
     //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
     //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
-    // PRODUCCION
-  
-      axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
+    // DESARROLLO
+      axios.defaults.baseURL = 'http://16.170.19.54:8080'
+    //PRODUCCIÓN
+      //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
      
   // PRODUCCION
   // Agregar aquí la configuración de producción y la llamada a axios.defaults.baseURL
@@ -149,7 +211,7 @@ export default function App() {
   return (
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
     <Provider store={store}>
-      <StripeProvider publishableKey="pk_test_51NNLCpD6q36zl0IbOK1XimHKkX0UZDNfaynRibRe2giRgPosRrlF7EgKrRR9M0yxbn1RWCFLH4KZrBDueekZx2oA00hRChKSeS" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
+      <StripeProvider publishableKey="pk_test_51NFk5oK2GsED70TU1eFSkUtgzvs03Up0s6zxOPyJsgTVuNXk3CZ6r1SnuEh25yGCIuqo5Vsh5jtS00gVgRt71b4300fd0LMniG" merchantIdentifier="merchant.com.stripe.react.native" urlScheme="go-back-to-whopaws" setUrlSchemeOnAndroid={true}>
         <Navigations />
       </StripeProvider>
     </Provider>
