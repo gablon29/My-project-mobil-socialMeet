@@ -68,5 +68,14 @@ module.exports = {
   getAllProfessionals: async (req, res) => {
     const allProfessionals = await ProfessionalModel.find();
     return response(res, 200, { professionals: allProfessionals });
+  },
+
+  getServices: async (req, res) => {
+    const { professionalId } = req.body
+    const professional = await ProfessionalModel.findById(professionalId)
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+    return response( res, 200, professional.services)
   }
 }
