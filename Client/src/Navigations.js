@@ -29,6 +29,10 @@ import { Checkout } from './Components/Checkout/Checkout';
 import ChatTicket from './Components/Profile/ChatTicket';
 import AddNewAddress from './Components/Profile/AddNewAddress';
 import DisplayMyChips from './Components/MyWhopaws/DisplayMyChips';
+import DisplayVet from './Components/Veterinary/DisplayVet';
+import SelectSpice from './Components/Veterinary/SelectSpice';
+import HomeVet from './Components/Veterinary/HomeVet';
+import ClinicVet from './Components/Veterinary/ClinicVet';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -92,6 +96,9 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="AddNewAddress" component={AddNewAddress} options={{ headerShown: true }} />
 
       <StackAuthTrue.Screen name="MyChips" component={DisplayMyChips} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="Veterinary" component={DisplayVet} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="HomeVet" component={HomeVet} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="ClinicVet" component={ClinicVet} options={{ headerShown: true }}/>
     </StackAuthTrue.Navigator>
   );
 };
