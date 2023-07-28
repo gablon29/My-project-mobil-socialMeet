@@ -19,6 +19,7 @@ import paseadores from '../../../images/dropDownMenu/paseadores.png';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../Buttons/Button';
 import { useSelector } from 'react-redux';
+import noImplementado from '../../metodos/noImplementado';
 
 
 export default function Header() {
@@ -80,7 +81,7 @@ export default function Header() {
                     setShowMenu(!showMenu);
                     navigation.navigate(elem.url);
                   } else {
-                    Alert.alert('Aun no implementdao');
+                    noImplementado()
                   }
                 }}
               >
