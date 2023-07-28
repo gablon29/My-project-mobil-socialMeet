@@ -42,7 +42,7 @@ const AddCard = () => {
       Alert.alert('Tarjeta añadida exitosamente');
     } catch (error) {
       // Manejar errores, por ejemplo, mostrar un mensaje de error
-      Alert.alert('Error al añadir la tarjeta'+ error.message);
+      Alert.alert('Error al añadir la tarjeta', error.message);
     }
 };
   return (

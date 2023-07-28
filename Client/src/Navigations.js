@@ -21,8 +21,10 @@ import HeaderBack from './Components/Screens/HeaderBack';
 import OrderReceived from './Components/CompraChip/NoticeBuyChip/OrderReceived';
 import OrderNotReceived from './Components/CompraChip/NoticeBuyChip/OrderNotReceived';
 import AddNewTicket from './Components/Profile/AddNewTicket';
+import DisplayChats from './Components/Profile/DisplayChats';
 import SingleChat from './Components/Profile/SingleChat';
 import MascotaCreada from './Components/Pets/Create/MascotaCreada';
+import AddCard from './Components/Stripe/AddCard';
 import { Checkout } from './Components/Checkout/Checkout';
 import ChatTicket from './Components/Profile/ChatTicket';
 import AddNewAddress from './Components/Profile/AddNewAddress';
@@ -99,6 +101,7 @@ const Navigations = () => {
 
   return (
     <>
+      {/* {console.log(userPet)} */}
       {authenticatedAuth ? (
         registro ? (
           <NavigationContainer>
