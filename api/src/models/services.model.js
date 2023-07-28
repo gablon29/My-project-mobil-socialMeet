@@ -25,7 +25,6 @@ const servicesSchema = mongoose.Schema(
     },
     capacity: {
         type: Number,
-        required: true
     },
     country: {
         type: String,
