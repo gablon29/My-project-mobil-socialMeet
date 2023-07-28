@@ -10,7 +10,7 @@ import conejo from '../../../../images/especies/conejo.png';
 import ardilla from '../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTextBorderBlack';
 
-const EspecieMascota = ({ setSpecie, specie, setValida }) => {
+const EspecieMascota = ({ setSpecie, specie, setValida, title}) => {
 
   const onPress = (v) => {
     if(v){
@@ -22,8 +22,8 @@ const EspecieMascota = ({ setSpecie, specie, setValida }) => {
   }
 
   return (
-    <View className="justify-center items-center my-7">
-      <Text className="text-2xl text-center font-poppinsBold mb-7">¿Cuál es su especie?</Text>
+    <View className="justify-center items-center my-7 bg-white">
+      <Text className="text-2xl text-center font-poppinsBold mb-7">{title}</Text>
       <View className="flex flex-row">
         <ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={specie === 'Perro' ? true : false} onPress={() => onPress('Perro')} />
         <ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={specie === 'Gato' ? true : false} onPress={() => onPress('Gato')} />

@@ -13,7 +13,7 @@ const Button = ({ buttonClass, onPress, title, component, titleClass, dissable }
         {component}
       </TouchableOpacity>
     : 
-      <View className={`${buttonClass} opacity-80`}>
+      <View className={`${buttonClass} opacity-0`}>
         <Text className={`${titleClass ? titleClass : "hidden"}`}>{title}</Text>
         {component}
       </View>

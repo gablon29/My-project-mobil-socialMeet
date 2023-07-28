@@ -27,7 +27,7 @@ export default function Header() {
   const logoOpciones = [
     { working: true, logo: inicio, nombre: 'Inicio', url: 'Home' },
     { working: false, logo: socialPaws, nombre: 'Socialpaws' },
-    { working: false, logo: veterinarios, nombre: 'Veterinarios' },
+    { working: true, logo: veterinarios, nombre: 'Veterinarios', url: "Veterinary" },
     { working: false, logo: cuidadores, nombre: 'Cuidadores' },
     { working: false, logo: paseadores, nombre: 'Paseadores' },
     { working: false, logo: peluqueros, nombre: 'Peluqueros' },
