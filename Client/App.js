@@ -197,10 +197,10 @@ export default function App() {
   //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
   //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
     //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
-    //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
+    axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
 
     // DESARROLLO
-      axios.defaults.baseURL = 'http://16.170.19.54:8080'
+    //  axios.defaults.baseURL = 'http://16.170.19.54:8080'
     //PRODUCCIÓN
       //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
      
