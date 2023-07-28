@@ -20,16 +20,20 @@ module.exports = {
     
         const stripeProductData = {
           name: name,
-          metadata: metadata,
-          price: price,
+          metadata: metadata
         };
 
         const stripeProduct = await createProducts(stripeProductData);
 
+        const separadorCentavos = fee.includes(',') ? ',' : '.';
+
+        const feeInCents = parseInt(parseFloat(fee.replace(separadorCentavos, '')) * 100);
+  
         const stripePriceData = {
             interval,
             interval_count,
-            productId: stripeProduct.id
+            productId: stripeProduct.id,
+            unit_amount: feeInCents 
         }
 
         const stripePrice = await createPrice(stripePriceData)
