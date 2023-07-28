@@ -14,7 +14,7 @@ export default async function (req, res) {
   });
 
   const allPrices = prices.data
-  const formattedPrices = allPrices.map((price) => {
+  const formattedPrices = allPrices.map((price:any) => {
     return {
       active: price.active || true,
       currency: price.currency || '',
@@ -35,12 +35,8 @@ export default async function (req, res) {
     };
   });
 
-  const products_and_prices = await products.findOneAndUpdate({ type: 'solo_para_no_sobrecrgar_db' }, { $set: { prices: formattedPrices } }, { upsert: true, new: true });
-  res.status(200).json({ success: true, payload: products_and_prices });
-} catch (error) {
-  res.status(400).json({ success: false, message: error.message });
-}
-
+  //const products_and_prices = await products.findOneAndUpdate({ type: 'solo_para_no_sobrecrgar_db' }, { $set: { prices: formattedPrices } }, { upsert: true, new: true });
+  //res.status(200).json({ success: true, payload: products_and_prices });
 
 
 const result = await axios.post(
