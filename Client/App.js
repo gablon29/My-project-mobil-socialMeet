@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
+import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import Constants from "expo-constants"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
 import store from './src/Redux/Store';
@@ -17,16 +19,80 @@ const Stack = createNativeStackNavigator();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
   }),
 });
+
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (
+      await Notifications.getExpoPushTokenAsync({
+        projectId: Constants.expoConfig.extra.eas.projectId,
+      }))
+      console.log(token)
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+console.log(token)
+  return token;
+}
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+
+
+  useEffect(() => {
+    // Define an inner asynchronous function to use await
+    const saveTokenData = async () => {
+      try {
+        const tokenSession = await AsyncStorage.getItem('Token');
+  
+        saveToken({
+          token: expoPushToken.data,
+          tokenSession,
+          loading: (isLoading) => {
+          },
+          success: (response) => {
+            console.log(response);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      } catch (error) {
+        console.log('Error while getting token from AsyncStorage:', error);
+      }
+    };
+  
+    saveTokenData();
+  }, [expoPushToken]);
+
+
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
@@ -43,96 +109,7 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-  async function registerForPushNotificationsAsync() {
-    let token;
-  
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
-        showBadge: true,
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FE9018',
-      });
-    }
-  
-    if (Platform.OS === 'android') {
-      Alert.alert('Error', 'Must use physical device for push notifications');
-    } else {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-  
-      if (existingStatus !== 'granted') {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-  
-      if (finalStatus !== 'granted') {
-        Alert.alert('Error', 'Failed to get push token for push notifications');
-      } else {
-        token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log(token);
-        await saveToken({
-          token: token,
-          tokenSession: await AsyncStorage.getItem('Token'),
-          loading: (isLoading) => {
-            // Manejar estado de carga
-          },
-          success: (response) => {
-            console.log(response);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-      }
-    }
-  alert(token)
-  }
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(async (token) => {
-      setExpoPushToken(token);
-      await saveToken({
-        token: token,
-        tokenSession: await AsyncStorage.getItem('Token'),
-        loading: (isLoading) => {
-          // Manejar estado de carga
-        },
-        success: (response) => {
-          console.log(response);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    });
-  
-    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-      setNotification(notification);
-    });
-  
-    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-      const {
-        notification: {
-          request: {
-            content: {
-              data: { screen },
-            },
-          },
-        },
-      } = response;
-  
-      if (screen) {
-        // Navegar a la pantalla especificada en la notificación
-        // props.navigation.navigate("");
-      }
-    });
-  
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
+
   
 
   const [fontsLoaded] = useFonts({

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "394283200197",
+    "project_id": "whopaws-f3e4b",
+    "storage_bucket": "whopaws-f3e4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394283200197:android:7d99be0d304cc8d2eacaac",
+        "android_client_info": {
+          "package_name": "whoapws_app.s"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394283200197-4bufd18b3r1t1fje8u7dd2ee227m2bbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhJhueqTrWSNkh9694FdONX9ybNhHUbWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394283200197-4bufd18b3r1t1fje8u7dd2ee227m2bbi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
