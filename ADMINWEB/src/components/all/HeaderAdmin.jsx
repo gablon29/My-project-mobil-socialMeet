@@ -5,7 +5,7 @@ const HeaderAdmin = () => {
 const profile = useSelector(state => state.reducerAuth.usuarioAuth)
 
     return (
-        <header className="w-full bg-transparent p-5 flex justify-end">
+        <header className="bg-transparent p-5 flex justify-end">
             <div className="bg-naranja rounded-full w-16 h-16 mr-4">
 
             </div>
