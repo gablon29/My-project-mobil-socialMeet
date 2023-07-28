@@ -6,7 +6,7 @@ const { ClientError } = require('../utils/errors');
 
 module.exports = {
   get_my_data: async (req, res) => {
-    const { userId } = req.user;
+    const { userId } = req.body;
     console.log(userId)
     const user = await UserModel.findById(userId);
     console.log(user)
