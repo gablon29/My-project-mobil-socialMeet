@@ -99,7 +99,7 @@ const AddPet = () => {
           <View className="flex flex-1 h-3 mx-4 mt-20">
             <ScrollView>
               {render === 1 && <NombreMascota setName={setName} name={pet.name} setValida={setValida} />}
-              {render === 2 && <EspecieMascota setSpecie={setSpecie} specie={pet.specie} setValida={setValida} />}
+              {render === 2 && <EspecieMascota setSpecie={setSpecie} specie={pet.specie} setValida={setValida} title={"¿Cuál es su especie?"}/>}
               {render === 3 && <RazaMascota setBreed={setBreed} breed={pet.breed} setValida={setValida} />}
               {render === 4 && <SexoMascota setSex={setSex} sex={pet.sex} setValida={setValida} />}
               {render === 5 && <EdadMascota years={pet.age.years} months={pet.age.months} setAgeYears={setAgeYears} setAgeMonths={setAgeMonths} setValida={setValida} />}

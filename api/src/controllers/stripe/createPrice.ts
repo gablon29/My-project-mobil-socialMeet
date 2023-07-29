@@ -3,10 +3,10 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 export default async function (req, res) {
 
-    const { productId, interval, interval_count } = req.body || req
+    const { productId, interval, interval_count, unit_amount } = req.body || req
 
     const price = await stripe.prices.create({
-        unit_amount: 99999,
+        unit_amount: unit_amount,
         currency: 'eur',
         product: productId,
       });

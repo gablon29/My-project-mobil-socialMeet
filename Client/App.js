@@ -14,6 +14,8 @@ import Navigations from './src/Navigations';
 import { saveToken } from './src/metodos/notificationsMetodos';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert, Platform } from 'react-native';
+import { BACK_URL } from './src/config/env';
+import noImplementado from './src/metodos/noImplementado';
 
 const Stack = createNativeStackNavigator();
 
@@ -111,7 +113,7 @@ export default function App() {
           },
         });
       }
-    alert("Notif Token: "+token)
+    noImplementado("Notif Token: "+token)
     }
   }
 
@@ -175,32 +177,8 @@ export default function App() {
     return null;
   }
 
-  // Configuración de axios y otros códigos de la app
-  // ...
+  axios.defaults.baseURL = BACK_URL  //CTRL+CLICK PARA CAMBIAR IP
 
-  // DESARROLLO
-  // Agregar aquí la configuración de desarrollo y la llamada a axios.defaults.baseURL
-  // ...
-  // DESARROLLO
-
-  // axios.defaults.baseURL = 'http://192.168.100.60:8080'; // LUIS CASA
-  //  axios.defaults.baseURL = "http://192.168.18.6:8080"; // LUIS LOCAL
-  // axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
-  //axios.defaults.baseURL = 'http://192.168.1.84:8080'; // IP IGNA
-  //  axios.defaults.baseURL = 'http://192.168.0.12:8080'; // Rodri
-
-  //axios.defaults.baseURL = 'http://192.168.1.5:8080'; // Vini
-  //axios.defaults.baseURL = 'http://192.168.178.211:8080'; // santiago
-
-  // DESARROLLO
-  axios.defaults.baseURL = 'http://16.170.19.54:8080'
-  //PRODUCCIÓN
-  //axios.defaults.baseURL = 'https://whopaws-production.up.railway.app';
-
-
-  // PRODUCCION
-  // Agregar aquí la configuración de producción y la llamada a axios.defaults.baseURL
-  // ...
 
   return (
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación

@@ -128,6 +128,11 @@ router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.edit
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));
 router.get('/api/professional/services', catchedAsync(professionals.getServices))
+//----- Date Routes --------
+router.post('/api/professional/disponibilidad', catchedAsync(professionals.addAvailability));
+router.get('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.getAvailability));
+router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.editAvailability));
+
 
 // ------------->  Services  <-------------
 router.get('/api/service/all', catchedAsync(services.all));
