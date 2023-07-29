@@ -110,4 +110,10 @@ main().catch((error) => {
   process.exit(1); // Exit the application if an error occurs during initialization
 });
 
+//--------SOCKET IO START--------------
+import noImportaElNombre from './socket.io/minimalWorking'
+noImportaElNombre.listen(8081, function(){
+  console.log('listening on *:8081');
+});
+//--------SOCKET IO FINISH--------------
 module.exports = app;

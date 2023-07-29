@@ -4,11 +4,17 @@ import RowBack from 'react-native-vector-icons/AntDesign';
 import Send from 'react-native-vector-icons/Feather';
 import Button from '../Buttons/ButtonCuston';
 import { useState } from 'react';
+import useChatSocket from '../../CustomHooks/useChatSocket';
 
 const SingleChat = ({route}) => {
     const {name} = route.params;
     const navigation = useNavigation();
     const [message, setMessage] = useState('');
+
+    //chat 1-1
+    const [token, setToken] = useState(null); // Step 2: Use token state
+    const { connected, messages, onSendMessageButtonPress } = useChatSocket(token); // Step 3: Pass the token
+
 
     return (
         <View className="w-screen h-full items-center bg-gris">
