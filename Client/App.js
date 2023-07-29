@@ -176,7 +176,9 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   axios.defaults.baseURL = BACK_URL  //CTRL+CLICK PARA CAMBIAR IP
+
 
   return (
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
