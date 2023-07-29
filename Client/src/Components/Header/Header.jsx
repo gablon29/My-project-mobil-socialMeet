@@ -27,7 +27,7 @@ export default function Header() {
   const logoOpciones = [
     { working: true, logo: inicio, nombre: 'Inicio', url: 'Home' },
     { working: false, logo: socialPaws, nombre: 'Socialpaws' },
-    { working: false, logo: veterinarios, nombre: 'Veterinarios' },
+    { working: true, logo: veterinarios, nombre: 'Veterinarios', url: "Veterinary" },
     { working: false, logo: cuidadores, nombre: 'Cuidadores' },
     { working: false, logo: paseadores, nombre: 'Paseadores' },
     { working: false, logo: peluqueros, nombre: 'Peluqueros' },
@@ -35,7 +35,7 @@ export default function Header() {
     { working: false, logo: adopcion, nombre: 'Adopción' },
     { working: true, logo: chipWhopaws, nombre: 'My Whopaws', url: 'MyChips' },
     { working: false, logo: blog, nombre: 'Blog' },
-    { working: false, logo: areaProfesional, nombre: 'Área profesional' },
+    { working: true, logo: areaProfesional, nombre: 'Área profesional', url:"ProfessionalArea" },
     { working: false, logo: marketPlace, nombre: 'Marketplace' },
     { working: true, logo: misMascotas, nombre: 'Mis mascotas', url: 'MyPets' },
     { working: true, logo: miPerfil, nombre: 'Mi perfil', url: 'Profile' },
