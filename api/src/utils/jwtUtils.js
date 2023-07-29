@@ -24,6 +24,25 @@ const checkJwt = (req, res, next) => {
     throw new ClientError('Token falló al decodificarse!', 400);
   }
 };
+const socketAuthMiddleware = (socket, next) => {
+  const token = socket.handshake.auth.token;
+
+  if (!token) {
+    return next(new Error('Authentication error: No token provided.'));
+  }
+
+  jwt.verify(token, jwtSecretKey, (err, decoded) => {
+    if (err) {
+      return next(new Error('Authentication error: Invalid token.'));
+    }
+
+    // Attach the decoded data to the socket object so you can use it in the socket event handlers
+    socket.user = decoded;
+    next();
+  });
+}
+
+
 
 const checkAdmin = async (req, res, next) => {
   const { email } = req.user; // Assuming the user's email is present in the decoded token
@@ -38,4 +57,5 @@ module.exports = {
   verifyToken,
   checkJwt,
   checkAdmin,
+  socketAuthMiddleware,
 };
