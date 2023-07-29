@@ -71,6 +71,7 @@ export default function App() {
   const [isLoadingNotif, setIsLoadingNotif] = useState(false)
 
 
+
   async function registerForPushNotificationsAsync() {
     let token;
 
@@ -96,6 +97,7 @@ export default function App() {
       if (finalStatus !== 'granted') {
         Alert.alert('Error No ha brindado los permisos de notificación');
       } else {
+
         token = (await Notifications.getExpoPushTokenAsync()).data;
         console.log(token);
         await saveToken({
