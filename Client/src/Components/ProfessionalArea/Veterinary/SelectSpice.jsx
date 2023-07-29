@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 const SelectSpice = ( ) => {
     const navigate = useNavigation();
 
-    const { pet, setSpecie } = usePets();
+    const { pet, setSpecie } = usePets(); //debe llegar por props para que lo admita el crear editar mascota etc
     const [valida, setValida] = useState(true);
 
     console.log(pet)

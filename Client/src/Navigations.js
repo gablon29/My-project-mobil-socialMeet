@@ -30,9 +30,8 @@ import ChatTicket from './Components/Profile/ChatTicket';
 import AddNewAddress from './Components/Profile/AddNewAddress';
 import DisplayMyChips from './Components/MyWhopaws/DisplayMyChips';
 import DisplayVet from './Components/Veterinary/DisplayVet';
-import SelectSpice from './Components/Veterinary/SelectSpice';
-import HomeVet from './Components/Veterinary/HomeVet';
-import ClinicVet from './Components/Veterinary/ClinicVet';
+import HomeVet from './Components/ProfessionalArea/Veterinary/HomeVet';
+import ClinicVet from './Components/ProfessionalArea/Veterinary/ClinicVet';
 import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfessionalArea';
 
 const StackAuthFalse = createNativeStackNavigator();
