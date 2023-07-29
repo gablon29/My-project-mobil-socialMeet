@@ -1,10 +1,10 @@
 import { View } from "react-native";
 import { useSelector } from "react-redux";
-import EspecieMascota from "../Pets/Create/EspecieMascota";
-import { usePets } from "../../CustomHooks/usePets";
 import { useState } from "react";
-import Button from "../Buttons/ButtonCuston";
 import { useNavigation } from "@react-navigation/native";
+import Button from "../../Buttons/ButtonCuston";
+import EspecieMascota from "../../Pets/Create/EspecieMascota";
+import { usePets } from "../../../CustomHooks/usePets";
 
 const SelectSpice = ( ) => {
     const navigate = useNavigation();
@@ -17,7 +17,7 @@ const SelectSpice = ( ) => {
     return (
         <View className="w-screen h-full bg-white items-center">
             <EspecieMascota setSpecie={setSpecie} specie={pet.specie} setValida={setValida} title={"Selecciona una especie"}/>
-            <Button 
+            <Button
                     buttonClass={"mt-5 bg-naranja w-56 h-12 rounded-2xl items-center justify-center"}
                     title={"Siguiente"}
                     titleClass={"text-white font-semibold text-base"}

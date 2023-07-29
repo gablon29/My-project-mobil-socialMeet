@@ -1,7 +1,7 @@
 import { ScrollView, View, Text, Image } from "react-native";
-import Button from "../Buttons/ButtonCuston";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import Button from "../../Buttons/ButtonCuston";
 
 const DisplayVet = () => {
     const navigate = useNavigation();
@@ -21,7 +21,7 @@ const DisplayVet = () => {
                         <Text className="mt-5 text-center font-semibold text-xl">Veterinario a {"\n"} domicilio</Text>
                     </View>
                     <View className="items-center">
-                        <Button 
+                        <Button
                             buttonClass={`h-24 w-20 rounded-2xl items-center justify-center ${select === "ClinicVet" ? "border-2 border-black bg-new" : "bg-gris"}`}
                             component={<Image className="w-full h-full rounded-2xl"/>}
                             onPress={()=>setSelect("ClinicVet")}

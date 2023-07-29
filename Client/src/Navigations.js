@@ -29,7 +29,7 @@ import { Checkout } from './Components/Checkout/Checkout';
 import ChatTicket from './Components/Profile/ChatTicket';
 import AddNewAddress from './Components/Profile/AddNewAddress';
 import DisplayMyChips from './Components/MyWhopaws/DisplayMyChips';
-import DisplayVet from './Components/Veterinary/DisplayVet';
+import DisplayVet from './Components/ProfessionalArea/Veterinary/DisplayVet';
 import HomeVet from './Components/ProfessionalArea/Veterinary/HomeVet';
 import ClinicVet from './Components/ProfessionalArea/Veterinary/ClinicVet';
 import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfessionalArea';
