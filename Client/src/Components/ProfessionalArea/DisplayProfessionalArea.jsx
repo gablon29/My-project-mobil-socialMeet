@@ -1,8 +1,12 @@
 import { View, Text, Image } from "react-native";
 import panda from "../../../images/dropDownMenu/pandaMoney.png";
 import Button from "../Buttons/ButtonCuston";
+import { useNavigation } from "@react-navigation/native";
 
 const DisplayProfessionalArea = () => {
+
+    const navigate = useNavigation()
+
     return (
         <View className="items-center pt-10 bg-white h-full">
             <View className="w-scree items-center">
@@ -18,11 +22,13 @@ const DisplayProfessionalArea = () => {
                 title={"Acceder"}
                 titleClass={"text-naranja font-bold text-base"}
                 buttonClass={"bg-white border-2 border-naranja mb-10 w-64 h-14 rounded-2xl items-center justify-center"}
+                onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, text: `Accede a tu área${"\n"}profesional`})}
             />
             <Button 
                 title={"Comenzar"}
                 titleClass={"text-white font-bold text-base"}
                 buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
+                onPress={()=>navigate.navigate("RegisterProfessional", {register: true, text: `Selecciona un área${"\n"}profesional`})}
             />
         </View>
     );
