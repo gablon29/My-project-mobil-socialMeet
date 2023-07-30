@@ -34,6 +34,8 @@ import SelectSpice from './Components/Veterinary/SelectSpice';
 import HomeVet from './Components/Veterinary/HomeVet';
 import ClinicVet from './Components/Veterinary/ClinicVet';
 import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfessionalArea';
+import RegisterProfessional from './Components/ProfessionalArea/Register/RegisterProfessional';
+import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -101,6 +103,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="HomeVet" component={HomeVet} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="ClinicVet" component={ClinicVet} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="ProfessionalArea" component={DisplayProfessionalArea} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="RegisterProfessional" component={RegisterProfessional} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="AccessProfessionalArea" component={AccessProfessionalArea} options={{ headerShown: true }}/>
     </StackAuthTrue.Navigator>
   );
 };
