@@ -50,7 +50,8 @@ module.exports = {
     },
 
   getPendingProfessionals: async (req, res) => {
-      const pendingProfessionals = await ProfessionalModel.find({ state: false });
+      const { profession } = req.body
+      const pendingProfessionals = await ProfessionalModel.find({ [`professions.${profession}.allowed`]: false });
       return response(res, 200, { professionals: pendingProfessionals });
   },
 
@@ -61,7 +62,7 @@ module.exports = {
       if (!professional) {
         return response(res, 404, { error: 'Profesional no encontrado' });
       }
-      professional.professions[profession] = !professional.professions[profession].allowed;
+      professional.professions[profession].allowed = !professional.professions[profession].allowed;
       await professional.save();
       const user = await UserModel.findById(professional.user)
       const userToken = user.deviceTokens
