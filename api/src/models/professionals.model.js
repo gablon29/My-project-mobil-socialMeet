@@ -13,6 +13,104 @@ const professionalsSchema = mongoose.Schema(
       required: true,
     },
 
+    name: {
+      type: String,
+      required: true,
+    },
+
+    country: {
+      type: String,
+      required: true,
+    },
+
+    province: {
+      type: String,
+      required: true,
+    },
+
+    city: {
+      type: String,
+      required: true,
+    },
+
+    address: {
+      type: String,
+    },
+
+    phone: {
+      type: String,
+      required: true,
+    },
+
+    documento: {
+      type: String,
+      required: true,
+    },
+
+    fotoDoc: {
+      type: String,
+      required: true,
+    },
+
+    mascotasCuidar: {
+      type: [String],
+    },
+
+    fechaNacimiento: {
+      type: Date,
+    },
+
+    modalidadNoVet: {
+      type: [String],
+    },
+
+    description: {
+      type: String,
+      default: '',
+      maxlength: 400,
+    },
+
+    profilePic: {
+      type: String,
+    },
+
+    pushToken: {
+      type: [String],
+      default: [],
+    },
+
+    Notifications: {
+      type: [Object],
+      default: [],
+    },
+
+    deviceTokens: [
+      {
+        type: String,
+      },
+    ],
+
+    zipcode: {
+      type: String,
+    },
+
+    stripe: {
+      customer: { type: String },
+      creditCardTokens: [{ type: String }],
+    },
+
+    shippingaddresss: {
+      address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
+      tracking_number : { type: String },
+      name: { type: String },
+      phone: { type: String },
+    },
+
+    addresses: {
+      type: [Object],
+      default: [],
+    },
+
     professions: {
       educador: {
         // <------------- EDUCADOR ----------------->
@@ -89,7 +187,6 @@ const professionalsSchema = mongoose.Schema(
         modalidad: {
           type: String,
           enum: ['clinica', 'autonomo'],
-          required: true,
         },
 
         disponibilidad: {
@@ -325,101 +422,6 @@ const professionalsSchema = mongoose.Schema(
           type: [Object],
         },
       },
-    },
-
-    nombre: {
-      type: String,
-      required: true,
-    },
-
-    country: {
-      type: String,
-      default: 'España',
-    },
-
-    province: {
-      type: String,
-    },
-
-    city: {
-      type: String,
-    },
-
-    address: {
-      type: String,
-    },
-
-    phone: {
-      type: String,
-    },
-
-    documento: {
-      type: String,
-      required: true,
-    },
-
-    fotoDoc: {
-      type: String,
-      required: true,
-    },
-
-    mascotasCuidar: {
-      type: [String],
-    },
-
-    fechaNacimiento: {
-      type: Date,
-    },
-
-    modalidadNoVet: {
-      type: [String],
-    },
-
-    description: {
-      type: String,
-      default: '',
-      maxlength: 400,
-    },
-
-    profilePic: {
-      type: String,
-    },
-
-    pushToken: {
-      type: [String],
-      default: [],
-    },
-
-    Notifications: {
-      type: [Object],
-      default: [],
-    },
-
-    deviceTokens: [
-      {
-        type: String,
-      },
-    ],
-
-    zipcode: {
-      type: String,
-    },
-
-    stripe: {
-      customer: { type: String },
-      creditCardTokens: [{ type: String }],
-    },
-
-    shippingaddresss: {
-      address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
-      tracking_number : { type: String },
-      name: { type: String },
-      phone: { type: String },
-    },
-
-    addresses: {
-      type: [Object],
-      default: [],
     },
 
     tokens: [

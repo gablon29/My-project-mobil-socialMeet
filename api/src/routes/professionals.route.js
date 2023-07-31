@@ -9,31 +9,40 @@ const { default: createPrice } = require('../controllers/stripe/createPrice')
 
 module.exports = {
   register: async (req, res) => {
-    const { description, fee, experience, userId } = req.body;
-
-    const stripeProductData = {
-      name: 'FEE',
-      metadata: 'fee'
-    };
-
-    const stripeProduct = await createProducts(stripeProductData);
-
-    const separadorCentavos = fee.includes(',') ? ',' : '.';
-
-    const feeInCents = parseInt(parseFloat(fee.replace(separadorCentavos, '')) * 100);
-
-    const stripePriceData = {
-        productId: stripeProduct.id,
-        unit_amount: feeInCents 
-    }
-
-    const stripePrice = await createPrice(stripePriceData)
+    const { 
+      userId, 
+      name,
+      country,
+      province,
+      city,
+      address,
+      phone,
+      documento,
+      fotoDoc,
+      fechaNacimiento,
+      description,
+      profilePic,
+      zipcode,
+      shippingaddresss,
+      addresses,
+      } = req.body;
 
     const newProfessional = new ProfessionalModel({
       user: userId,
-      description: description,
-      fee: [{price_id: stripePrice.id, product_id: stripeProduct.id, fee: fee, productName: stripeProductData.name}],
-      experience: experience,
+      name: name,
+      country: country,
+      province: province,
+      city: city,
+      address: address || '',
+      phone: phone,
+      documento: documento,
+      fotoDoc: fotoDoc,
+      fechaNacimiento: fechaNacimiento,
+      description: description || '',
+      profilePic: profilePic || '',
+      zipcode: zipcode || '',
+      shippingaddresss: shippingaddresss || {},
+      addresses: addresses,
     });
     await newProfessional.save();
 
@@ -46,13 +55,13 @@ module.exports = {
   },
 
   allowProfessional: async (req, res) => {
-      const professionalId = req.body.id;
+      const { professionalId, profession } = req.body;
 
       const professional = await ProfessionalModel.findById(professionalId);
       if (!professional) {
         return response(res, 404, { error: 'Profesional no encontrado' });
       }
-      professional.state = !professional.state;
+      professional.professions[profession] = !professional.professions[profession].allowed;
       await professional.save();
       const user = await UserModel.findById(professional.user)
       const userToken = user.deviceTokens
