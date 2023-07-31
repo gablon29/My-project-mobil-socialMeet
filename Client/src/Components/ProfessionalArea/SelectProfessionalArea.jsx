@@ -9,7 +9,7 @@ import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useState } from "react";
 
-const SelectProfessionalArea = ({register, text, setRender, render}) => {
+const SelectProfessionalArea = ({register, text, setRender, render, setData, data}) => {
     
     const areas = [{name:"Educadores", img: educador}, {name: "Veterinario", img: veterinario}, {name: "Tienda", img: tienda}, {name:"Cuidador", img: cuidadores}, {name: "Paseador", img: paseadores}, {name: "Peluquero", img: peluqueros}]
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
@@ -17,7 +17,7 @@ const SelectProfessionalArea = ({register, text, setRender, render}) => {
     const handleBtnActive = (index) => {
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
-        console.log(areas[index].name); //De esta manera se accede a la opción que eligio
+        setData(areas[index].name); //De esta manera guarda en un obj la opción escojida
     }
 
     return (
