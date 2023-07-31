@@ -57,7 +57,11 @@ const professionalsSchema = mongoose.Schema(
   educador: {
     valido: {
       type: Boolean,
-      defaul: false
+      default: false
+    },
+    activate: {
+      tipo: Boolean,
+      default: false
     },
     services: {
       type: [String],
@@ -69,9 +73,7 @@ const professionalsSchema = mongoose.Schema(
       default: '',
       maxlength: 400,
     },
-  activate: {
-    tipo: Boolean
-  },
+
   disponibilidad: {
     lunes: {
       horarios: [],
@@ -109,7 +111,12 @@ const professionalsSchema = mongoose.Schema(
 clinica: {
   valido: {
     type: Boolean,
-    defaul: false
+    default: false
+  },
+  activate: {
+    tipo: Boolean,
+    default: false
+
   },
   services: {
     type: [String],
@@ -128,9 +135,7 @@ clinica: {
     default: '',
     maxlength: 400,
   },
-activate: {
-  tipo: Boolean
-},
+
 disponibilidad: {
   lunes: {
     horarios: [],
