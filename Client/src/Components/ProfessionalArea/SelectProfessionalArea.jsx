@@ -9,12 +9,15 @@ import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useState } from "react";
 
-const SelectProfessionalArea = ({register, text, setRender, render}) => {
+const SelectProfessionalArea = ({navigation,register, text, setRender, render}) => {
     
     const areas = [{name:"Educadores", img: educador}, {name: "Veterinario", img: veterinario}, {name: "Tienda", img: tienda}, {name:"Cuidador", img: cuidadores}, {name: "Paseador", img: paseadores}, {name: "Peluquero", img: peluqueros}]
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     console.log(btnActive)
     const handleBtnActive = (index) => {
+			if(!register){
+				navigation.navigate('ProfessionalProfile', {profession: areas[index].name})
+			}
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
         console.log(areas[index].name); //De esta manera se accede a la opción que eligio

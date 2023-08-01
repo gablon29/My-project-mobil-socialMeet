@@ -1,9 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import SelectProfessionalArea from "../SelectProfessionalArea";
-
 const AccessProfessionalArea = ({route}) => {
     const {register, text} = route.params;
+		const navigation = useNavigation()
     return (
-        <SelectProfessionalArea register={register} text={text}/>
+        <SelectProfessionalArea navigation = {navigation} register={register} text={text}/>
     );
 }
  
