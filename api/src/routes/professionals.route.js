@@ -1,6 +1,7 @@
 const ProfessionalModel = require('../models/professionals.model')
 const { response } = require('../utils');
 const UserModel = require('../models/user.model')
+const PurchasesModel = require('../models/purchase.model')
 const { sendNotifications } = require('../controllers/pushController');
 const { default: editPrice } = require('../controllers/stripe/editPrice');
 const { default: createProducts } = require('../controllers/stripe/createProducts')
@@ -244,6 +245,18 @@ module.exports = {
     await professional.save();
 
     return response(res, 200, { message: 'Disponibilidad actualizada', professional });
+  },
+
+  getPurchasesProfesional: async (req, res) => {
+    const { filter, professionalId } = req.body
+    if (filter) {
+      const fliterPurchases = await PurchasesModel.find({status: filter, vendedor: professionalId})
+      fliterPurchases ? response(res, 200, fliterPurchases) 
+      : response(res, 404, {message: `No se han encontrado ventas con el estado ${filter}`})
+    } else {
+      const purchases = await PurchasesModel.find({vendedor: professionalId})
+      purchases ? response(res, 200, purchases) : response(res, 404, {message: 'No se han encontrado ventas'})
+    }
   }
 }
 
