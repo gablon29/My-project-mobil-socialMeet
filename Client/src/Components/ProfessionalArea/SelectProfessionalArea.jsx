@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import educador from "../../../images/dropDownMenu/educadores.png";
 import veterinario from "../../../images/dropDownMenu/veterinarios.png";
 import tienda from "../../../images/dropDownMenu/marketPlace.png";
@@ -21,7 +21,8 @@ const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) =>
     }
 
     return (
-        <View className="bg-white items-center h-full">
+        <ScrollView className="bg-white">
+            <View className="bg-white items-center h-full pb-10">
             <Text className="my-10 text-2xl font-semibold text-center">{text}</Text>
             <View className="mt-10 w-11/12 gap-5 flex-wrap flex-row justify-center">
                 {
@@ -48,7 +49,9 @@ const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) =>
                     onPress={()=>setRender(render + 1)}
                 />
             }
-        </View>
+            </View>
+        </ScrollView>
+        
     );
 }
  

@@ -8,7 +8,7 @@ const AddPicture = ({setRender}) => {
     const {url, setUrl, uploadImage} = useImage();
 
     return (
-        <View className="h-full bg-white items-center pt-20">
+        <View className="h-full bg-white items-center py-10">
             <Text className="text-2xl font-bold mb-5">Añáde una imagen de perfil</Text>
             <Text className="font-bold text-center">Esto ayudará a los usuarios a {"\n"} conocerte mejor y darles confianza</Text>
             <TouchableOpacity className="my-10 flex justify-center items-center rounded-full bg-new w-40 h-40" onPress={() => uploadImage()}>
