@@ -18,10 +18,14 @@ const checkJwt = (req, res, next) => {
     throw new ClientError('Missing token! Authorization=undefined', 400);
   try {
     const decodedToken = verifyToken(token);
+    if(!("userType" in decodedToken) || !("email" in decodedToken)){
+      throw new ClientError('Debe actualizar su token, vuelva a logearse', 400);
+    }
     req.user = decodedToken;
     next();
+   
   } catch (error) {
-    throw new ClientError('Token falló al decodificarse!', 400);
+    throw new ClientError('Debe volver a logearse.', 400);
   }
 };
 const socketAuthMiddleware = (socket, next) => {
@@ -48,7 +52,6 @@ const socketAuthMiddleware = (socket, next) => {
 
 const checkAdmin = async (req, res, next) => {
   const isAdmin = req.user.userType === 'admin'
-  console.log(isAdmin,req.user);
   if (!isAdmin) return next(new ClientError('You are not an admin!', 400))
   next();
 };
