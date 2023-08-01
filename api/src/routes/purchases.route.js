@@ -53,6 +53,16 @@ module.exports = {
 
     return response(res, 200, purchases);
   },
+  getPurchasesById: async (req, res) => {
+    const purchaseId = req.body;
+
+    const purchase = await Purchase.findById(purchaseId);
+    if (!purchase) {
+      return response(res, 404, 'Compra no encontrada');
+    }
+
+    return response(res, 200, purchase);
+  },
   getAllPurchase: async (req, res) => {
     //admin falta validacion
     const purchases = await Purchase.find();
