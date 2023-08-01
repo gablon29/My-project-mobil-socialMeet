@@ -7,7 +7,7 @@ import cruz from '../../../../images/iconos/cruz.png';
 import { useImage } from "../../../CustomHooks/useImage";
 
 
-const FormRegister = ({modalidad, country, setCountry, setProvince, setRender}) => {
+const FormRegister = ({modalidad, country, setCountry, setProvince, setRender, tipo, info}) => {
 
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
@@ -31,15 +31,24 @@ const FormRegister = ({modalidad, country, setCountry, setProvince, setRender}) 
         }
     }, [country]);
 
+    const nextStep = () => {
+        if (tipo === "Veterinario") {
+            setRender(5)
+        } else {
+           setRender(7)
+        }
+    };
+
     const Label =  (title,set, value, text) => (<Text className="font-semibold text-base left-4 mt-5">{title} {set === value ? text : null}</Text>);
     const Input = () => (<TextInput className="w-full shadow-lg shadow-black h-10 pl-3 rounded-lg bg-new"/>);
 
     return (
-        <View className="h-full w-screen border items-center">
-            <Text className="text-2xl font-bold my-10">{modalidad}</Text>
+        <View className="h-full w-screen items-center pt-10">
+            <Text className={`text-2xl font-bold my-5`}>{modalidad}</Text>
+            <Text className="text-center font-semibold text-base">{info}</Text>
             <View className="w-10/12">
-                {Label("Nombre ", modalidad, "Clínica Veterinaria", "de la clínica")}
-                {Input()}
+                {tipo === "Veterinario" && Label("Nombre ", modalidad, "Clínica Veterinaria", "de la clínica")}
+                {tipo === "Veterinario" && Input()}
                 { modalidad === "Veterinario Autónomo" && <>{Label("Apellidos")}{Input()}</> }
                 {Label("País")}
                 <SelectList
@@ -81,12 +90,12 @@ const FormRegister = ({modalidad, country, setCountry, setProvince, setRender}) 
                 />
                 {Label("Localidad")}
                 {Input()}
-                {modalidad === "Clínica Veterinaria" ? <>{Label("Calle y número")}{Input()}</> : null}
-                {modalidad === "Clínica Veterinaria" ? <>{Label("CIF / Num Identificación Fiscal")}{Input()}</> : null}
-                {Label("Teléfono")}
-                {Input()}
-                {Label("Email")}
-                {Input()}
+                {tipo === "Veterinario" && modalidad === "Clínica Veterinaria" ? <>{Label("Calle y número")}{Input()}</> : null}
+                {tipo === "Veterinario" && modalidad === "Clínica Veterinaria" ? <>{Label("CIF / Num Identificación Fiscal")}{Input()}</> : null}
+                {tipo === "Veterinario" && Label("Teléfono")}
+                {tipo === "Veterinario" && Input()}
+                {tipo === "Veterinario" && Label("Email")}
+                {tipo === "Veterinario" && Input()}
                 {modalidad === "Veterinario Autónomo" ? <>{Label("Selecciona documento de identidad")}{Input()}</> : null}
                 {modalidad === "Veterinario Autónomo" ? 
                 <>{Label("Adjunta imagen de el documento")}
@@ -100,7 +109,7 @@ const FormRegister = ({modalidad, country, setCountry, setProvince, setRender}) 
                     title={"Siguiente"}
                     titleClass={"text-naranja font-bold text-base"}
                     buttonClass={"my-10 bg-white border-2 border-naranja w-64 h-14 rounded-2xl items-center justify-center"}
-                    onPress={()=>setRender(5)}
+                    onPress={()=>nextStep()}
                 />
         </View>
     );
