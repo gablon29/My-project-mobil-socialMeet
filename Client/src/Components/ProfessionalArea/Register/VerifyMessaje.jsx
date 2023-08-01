@@ -6,8 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 const VerificationMessage = ({setRender}) => {
     const navigate = useNavigation();
     return (
-        <View className="h-full items-center">
-            <Text className="text-center text-2xl font-bold mt-10">Su cuenta está siendo {"\n"} verificada. Recibirás una {"\n"} notificación con el resultado.</Text>
+        <View className="h-full items-center py-10">
+            <Text className="text-center text-2xl font-bold">Su cuenta está siendo {"\n"} verificada. Recibirás una {"\n"} notificación con el resultado.</Text>
             <Image source={dog} className="w-[253px] h-[178px] my-16"/>
             <Button 
                 title={"Volver a inicio"}

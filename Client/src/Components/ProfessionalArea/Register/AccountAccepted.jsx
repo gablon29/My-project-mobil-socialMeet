@@ -6,8 +6,8 @@ import dog from "../../../../images/dropDownMenu/happyDog.png";
 const AccountAccepted = () => {
     const navigate = useNavigation();
     return (
-        <View className="h-full items-center">
-            <Text className="text-center text-2xl font-bold mt-10">Su cuenta está siendo {"\n"} verificada. Recibirás una {"\n"} notificación con el resultado.</Text>
+        <View className="h-full items-center py-10">
+            <Text className="text-center text-2xl font-bold">Su cuenta está siendo {"\n"} verificada. Recibirás una {"\n"} notificación con el resultado.</Text>
             <Image source={dog} className="w-[161px] h-[145px] my-10"/>
             <Text className="text-base mb-4">Accede con tu PC a la siguiente web:</Text>
             <Button title={"vet.whopaws.com"} titleClass={"text-base font-semibold"}/>

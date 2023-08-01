@@ -9,7 +9,7 @@ const DisplayProfessionalArea = () => {
 
     return (
         <ScrollView className="bg-white">
-            <View className="items-center pt-10 bg-white h-full">
+            <View className="items-center py-10 bg-white h-full">
                 <View className="w-scree items-center">
                     <Text className="uppercase font-semibold text-2xl mb-5">Área profesional</Text>
                     <Text className="text-base font-semibold">Registra hoy tus servicios y comienza a</Text>
