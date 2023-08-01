@@ -8,7 +8,7 @@ const Politics = ({setRender, tipo}) => {
         if (tipo === "Veterinario") {
             setRender(3)
         } else {
-            setRender(5)
+            setRender(6)
         }
     };
 
