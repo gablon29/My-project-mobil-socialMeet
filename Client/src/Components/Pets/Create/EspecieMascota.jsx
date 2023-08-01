@@ -6,8 +6,8 @@ import ave from '../../../../images/especies/ic_ave.png';
 import reptil from '../../../../images/especies/ic_reptil.png';
 import pez from '../../../../images/especies/ic_pez.png';
 import roedor from '../../../../images/especies/ic_roedor.png';
-import conejo from '../../../../images/especies/conejo.png';
-import ardilla from '../../../../images/especies/ardilla.png';
+import ardilla from '../../../../images/especies/conejo.png';
+import conejo from '../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTextBorderBlack';
 
 const EspecieMascota = ({ setSpecie, specie, setValida, title, text, multiple}) => {

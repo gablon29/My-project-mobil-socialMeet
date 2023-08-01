@@ -6,7 +6,7 @@ import Button from "../../Buttons/ButtonCuston";
 import EspecieMascota from "../../Pets/Create/EspecieMascota";
 import { usePets } from "../../../CustomHooks/usePets";
 
-const SelectSpice = ({title, text, multiple}) => {
+const SelectSpice = ({title, text, multiple, setRender}) => {
     const navigate = useNavigation();
 
     const { pet, setSpecie } = usePets(); //debe llegar por props para que lo admita el crear editar mascota etc
@@ -19,7 +19,7 @@ const SelectSpice = ({title, text, multiple}) => {
                     buttonClass={"mt-5 bg-naranja w-56 h-12 rounded-2xl items-center justify-center"}
                     title={"Siguiente"}
                     titleClass={"text-white font-semibold text-base"}
-                    onPress={()=>navigate.navigate("Home")}
+                    onPress={()=>setRender(8)}
                     dissable={multiple ? valida : pet.specie === "" ? false : true}
                 />}
         </View>
