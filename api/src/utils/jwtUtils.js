@@ -43,12 +43,13 @@ const socketAuthMiddleware = (socket, next) => {
 }
 
 
+//userType
+//if (!isAdmin) throw new ClientError('You are not an admin!', 400);
 
 const checkAdmin = async (req, res, next) => {
-  const { email } = req.user; // Assuming the user's email is present in the decoded token
-  // Check if the user has admin privileges based on your custom logic
-  //const isAdmin = true; // Replace this with your admin check logic
-  if (!isAdmin) throw new ClientError('You are not an admin!', 400);
+  const isAdmin = req.user.userType === 'admin'
+  console.log(isAdmin,req.user);
+  if (!isAdmin) return next(new ClientError('You are not an admin!', 400))
   next();
 };
 
