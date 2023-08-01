@@ -8,6 +8,8 @@ import { useProfesional } from "../../../CustomHooks/useProfesional";
 import VerificationMessage from "./VerifyMessaje";
 import EspecieMascota from "../../Pets/Create/EspecieMascota";
 import SelectSpice from "../Veterinary/SelectSpice";
+import AddPicture from "./AddPicture";
+import Calender from "./Calender";
 
 const RegisterProfessional = ({route}) => {
     const {register, text} = route.params;
@@ -24,7 +26,9 @@ const RegisterProfessional = ({route}) => {
                 {render === 4 && <FormRegister tipo={tipo} modalidad={modalidad} setRender={setRender} country={country} setCountry={setCountry} setProvince={setProvince} province={province}/>}
                 {render === 5 && <VerificationMessage setRender={setRender}/>}
                 {render === 6 && <FormRegister setRender={setRender} tipo={tipo} modalidad={"¿Dónde vives?"} info={`Esta información será pública en tu ${"\n"} perfil como cuidador/a`}/>}
-                {render === 7 && <SelectSpice multiple={true} title="¿Qué mascotas quieres cuidar?" text={`Selecciona una o varias mascotas ${"\n"} que puedes cuidar.`}/>}
+                {render === 7 && <SelectSpice multiple={true} title="¿Qué mascotas quieres cuidar?" text={`Selecciona una o varias mascotas ${"\n"} que puedes cuidar.`} setRender={setRender}/>}
+                {render === 8 && <AddPicture setRender={setRender}/>}
+                {render === 9 && <Calender setRender={setRender}/>}
             </View>
         </ScrollView>
     );

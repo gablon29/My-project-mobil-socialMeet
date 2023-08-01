@@ -13,7 +13,7 @@ const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) =>
     
     const areas = [{name:"Educadores", img: educador}, {name: "Veterinario", img: veterinario}, {name: "Tienda", img: tienda}, {name:"Cuidador", img: cuidadores}, {name: "Paseador", img: paseadores}, {name: "Peluquero", img: peluqueros}]
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
-    console.log(btnActive)
+    
     const handleBtnActive = (index) => {
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
