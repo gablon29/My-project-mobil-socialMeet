@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import educador from "../../../images/dropDownMenu/educadores.png";
 import veterinario from "../../../images/dropDownMenu/veterinarios.png";
 import tienda from "../../../images/dropDownMenu/marketPlace.png";
@@ -9,19 +9,20 @@ import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useState } from "react";
 
-const SelectProfessionalArea = ({register, text, setRender, render, setData, data}) => {
+const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) => {
     
     const areas = [{name:"Educadores", img: educador}, {name: "Veterinario", img: veterinario}, {name: "Tienda", img: tienda}, {name:"Cuidador", img: cuidadores}, {name: "Paseador", img: paseadores}, {name: "Peluquero", img: peluqueros}]
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
-    console.log(btnActive)
+    
     const handleBtnActive = (index) => {
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
-        setData(areas[index].name); //De esta manera guarda en un obj la opción escojida
+        setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
     }
 
     return (
-        <View className="bg-white items-center h-full">
+        <ScrollView className="bg-white">
+            <View className="bg-white items-center h-full pb-10">
             <Text className="my-10 text-2xl font-semibold text-center">{text}</Text>
             <View className="mt-10 w-11/12 gap-5 flex-wrap flex-row justify-center">
                 {
@@ -48,7 +49,9 @@ const SelectProfessionalArea = ({register, text, setRender, render, setData, dat
                     onPress={()=>setRender(render + 1)}
                 />
             }
-        </View>
+            </View>
+        </ScrollView>
+        
     );
 }
  

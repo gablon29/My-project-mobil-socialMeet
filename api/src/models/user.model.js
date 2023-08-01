@@ -86,6 +86,11 @@ const userSchema = mongoose.Schema(
       creditCardTokens: [{type:String}]
 
     },
+    
+    wallet: {
+      type: Number
+    },
+
     shippingaddresss: {
       address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
       tracking_number : { type: String },

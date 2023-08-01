@@ -2,9 +2,14 @@ import { Text, View, Image } from "react-native";
 import Btn from "../../Buttons/ButtonCuston"
 import { useState } from "react";
 
-const RecordMode = () => {
+const RecordMode = ({setModalidad, setRender}) => {
 
     const [btnActive, setBtnActive] = useState("")
+
+    const activeBtn = (mode) => {
+        setBtnActive(mode);
+        mode === "clinic" ? setModalidad("Clínica Veterinaria") : setModalidad("Veterinario Autónomo");
+    };
 
     return (
         <View className="h-full w-screen items-center mt-20 ">
@@ -14,13 +19,13 @@ const RecordMode = () => {
                     title={`Clínica ${"\n"} veterinaria`}
                     titleClass={"font-bold text-center text-xs"}
                     buttonClass={`${btnActive == "clinic" ? "border-2 border-balck" : ""} rounded-full bg-new w-24 h-24 items-center justify-center`}
-                    onPress={()=>setBtnActive("clinic")}
+                    onPress={()=>activeBtn("clinic")}
                 />
                 <Btn 
                     title={`Veterinario ${"\n"} autónomo`}
                     titleClass={"font-bold text-center text-xs"}
                     buttonClass={`${btnActive == "autonomo" ? "border-2 border-balck" : ""} rounded-full bg-new w-24 h-24 items-center justify-center`}
-                    onPress={()=>setBtnActive("autonomo")}
+                    onPress={()=>activeBtn("autonomo")}
                 />
             </View>
             <Btn 
@@ -28,7 +33,7 @@ const RecordMode = () => {
                 titleClass={"text-naranja font-bold text-base"}
                 buttonClass={"mt-32 bg-white border-2 border-naranja w-64 h-14 rounded-2xl items-center justify-center"}
                 dissable={btnActive != ""}
-                /* onPress={()=>setRender(render + 1)} */
+                onPress={()=>setRender(4)}
             />
         </View>
     );
