@@ -9,7 +9,7 @@ module.exports = {
     addService: async (req, res) => {
         const { 
             name, description, place, price, capacity, country, province, addresses, gallery, //Service Data
-            metadata, professionalId, //Stripe Product Data
+            metadata, professionalId, profession,//Stripe Product Data
             interval, interval_count //Stripe Price Data
         } = req.body;
 
@@ -27,13 +27,13 @@ module.exports = {
 
         const separadorCentavos = fee.includes(',') ? ',' : '.';
 
-        const feeInCents = parseInt(parseFloat(fee.replace(separadorCentavos, '')) * 100);
+        const priceInCents = parseInt(parseFloat(fee.replace(separadorCentavos, '')) * 100);
   
         const stripePriceData = {
             interval,
             interval_count,
             productId: stripeProduct.id,
-            unit_amount: feeInCents 
+            unit_amount: priceInCents 
         }
 
         const stripePrice = await createPrice(stripePriceData)
@@ -53,12 +53,16 @@ module.exports = {
     
         const savedService = await newService.save();
     
-        if (!professional.services) {
-          professional.services = [];
+        if (!professional.professions[profession].services) {
+          professional.professions[profession].services = [];
         }
-        professional.services.push(savedService._id, savedService.price, savedService.name);
+        const service = {
+          idService: savedService._id,
+          price: savedService.price,
+          name: savedService.name,
+        };
+        professional.professions[profession].services.push(service);
         await professional.save();
-        console.log(savedService)
         response(res, 200, 'Servicio creado exitosamente', savedService);
     },
 

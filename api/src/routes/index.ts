@@ -132,7 +132,7 @@ router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsyn
 //----- Professions --------
 router.get('/api/professional/profession/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
 router.put('/api/professional/profession/allow', isLoggedIn, catchedAsync(professionals.allowProfessionalProfession));
-router.post('/api/professional/profession/register', isLoggedIn, catchedAsync(professionals.registerProfession));
+router.post('/api/professional/profession/add', isLoggedIn, catchedAsync(professionals.registerProfession));
 router.put('/api/professional/profession/edit', isLoggedIn, catchedAsync(professionals.editProfession));
 router.get('/api/professional/profession/services', catchedAsync(professionals.getServices))
 
