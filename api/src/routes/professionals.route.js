@@ -25,8 +25,11 @@ module.exports = {
       zipcode,
       shippingaddresss,
       addresses,
+      tipo,
+      mascotasCuidar,
+      lugarAtencion,
+      modalidad
       } = req.body;
-
     const newProfessional = new ProfessionalModel({
       user: userId,
       name: name,
@@ -44,8 +47,39 @@ module.exports = {
       shippingaddresss: shippingaddresss || {},
       addresses: addresses,
     });
-    await newProfessional.save();
+    if(tipo === "educador") {
+    newProfessional.professions.educador.isRegister = true
 
+    await newProfessional.save();
+  }
+  if(tipo === "veterinario") {
+    newProfessional.professions.veterinario.isRegister = true
+    newProfessional.professions.veterinario.modalidad = modalidad
+
+    await newProfessional.save();
+  }  
+    if(tipo === "tienda") {
+    newProfessional.professions.educador.isRegister = true
+
+    await newProfessional.save();
+  }    
+    if(tipo === "cuidador") {
+    newProfessional.professions.cuidador.isRegister = true
+    newProfessional.professions.cuidador.mascotasAcuidar = mascotasCuidar
+    newProfessional.professions.cuidador.lugarAtencion = lugarAtencion
+
+    await newProfessional.save();
+  }
+  if(tipo === "paseador") {
+    newProfessional.professions.paseador.isRegister = true
+    newProfessional.professions.paseador.species = mascotasCuidar
+    await newProfessional.save();
+  }
+  if(tipo === "peluquero") {
+    newProfessional.professions.peluquero.isRegister = true
+    newProfessional.professions.peluquero.lugarAtencion = lugarAtencion 
+    await newProfessional.save();
+  }
     return response(res, 201, { message: 'Registro exitoso', professional: newProfessional });
     },
 

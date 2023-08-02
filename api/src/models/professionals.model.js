@@ -379,6 +379,9 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
+        lugarAtencion: {
+          type: Array, 
+        },
         disponibilidad: {
           lunes: {
             horarios: [],
