@@ -29,6 +29,7 @@ const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtenci
 
     const nextStep = () => {
         if(tipo === "Cuidador") {
+          setLugarAtencion([{lugar:selectOp}])
           setRender(11)
         } else if (tipo === "Peluquero") {
           if(render === 12) { // elije si es a domicilio o en casa, o ambas.

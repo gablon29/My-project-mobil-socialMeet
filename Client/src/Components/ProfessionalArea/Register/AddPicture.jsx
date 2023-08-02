@@ -9,11 +9,12 @@ const AddPicture = ({tipo, setRender, setFo, fotoDoc, mascotasCuidar}) => {
 
     const nextStep = (url) => {
         setFo(url);
-        if(tipo === "Cuidador") {
+        setRender(9)
+        /* if(tipo === "Cuidador") {
             setRender(9)
         } else if(tipo === "Peluquero") {
             setRender(19);
-        }
+        } */
     }
 
     return (
