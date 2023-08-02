@@ -14,11 +14,12 @@ const SelectSpice = ({title, text, multiple, setRender, setMascotaCuidar, lugarA
     
     const nextStep = () => {
         setMascotaCuidar(pet.specie);
-        if(tipo === "Cuidador") {
+        setRender(8)
+        /* if(tipo === "Cuidador") {
             setRender(8);
         } else if(tipo === "Peluquero") {
             setRender(18);
-        }
+        } */
     }
 
     return (

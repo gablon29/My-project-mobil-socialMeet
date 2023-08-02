@@ -3,8 +3,10 @@ import { Image, Text, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 import dog from "../../../../images/dropDownMenu/happyDog.png";
 
-const AccountAccepted = ({tipo, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description}) => {
-    const body = JSON.stringify({tipo, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description});
+const AccountAccepted = ({tipo, nombre, modalidad, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description, country, province, city}) => {
+    const address = tipo != "Peluquero" ? {country, province, city} : null;
+    const mode = tipo != "Veterinario" ? {modalidad} : null;
+    const body = JSON.stringify({nombre, tipo, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description, address, mode});
     console.log(body);
     
     const navigate = useNavigation();

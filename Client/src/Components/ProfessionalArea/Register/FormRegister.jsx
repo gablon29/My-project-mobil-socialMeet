@@ -7,8 +7,8 @@ import cruz from '../../../../images/iconos/cruz.png';
 import { useImage } from "../../../CustomHooks/useImage";
 
 
-const FormRegister = ({render, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
-    console.log(render)
+const FormRegister = ({render, nombre, apellido, address, documento, phone, email, fotoDoc, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
+    console.log(modalidad)
     
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
@@ -33,9 +33,8 @@ const FormRegister = ({render, modalidad, country, setCountry, setProvince, setR
     }, [country]);
 
     const nextStep = () => {
-        
         if (tipo === "Veterinario") {
-            setRender(5)
+            setRender(5);
         } else if (tipo === "Cuidador") {
            setRender(7)
         } else if (tipo === "Peluquero") {
@@ -61,27 +60,48 @@ const FormRegister = ({render, modalidad, country, setCountry, setProvince, setR
 
     const dissableBtn = () => {
         if(tipo === "Veterinario") {
-            return true
-        } else if(render === 13) {
-            if(country==="" || province==="" || city==="") {
-                return false
-            } else {
-                return true
+            if(modalidad === "Clínica Veterinaria") {
+                if(nombre==="" || country==="" || province==="" || address==="" || city==="" || documento==="" || phone==="" || email==="" ) {
+                    return false
+                } else {
+                    return true
+                }
+            } else if(modalidad === "Veterinario Autónomo") {
+                setFo(url)
+                if(nombre==="" || apellido==="" || country==="" || province==="" || city==="" || documento==="" || phone==="" || email==="" || fotoDoc==="" ) {
+                    return false
+                } else {
+                    return true
+                }
             }
-        } else if(render === 15) {
-            if(country==="" || province==="") {
-                return false
-            } else {
-                return true
+        } else if( tipo === "Peluquero") {
+            if(render === 13) {
+                if(country==="" || province==="" || city==="") {
+                    return false
+                } else {
+                    return true
+                }
+            } else if(render === 15) {
+                if(country==="" || province==="") {
+                    return false
+                } else {
+                    return true
+                }
+            } else if (render === 16) {
+                if(country==="" || province==="" || city==="") {
+                    return false
+                } else {
+                    return true
+                }
             }
-        } else if (render === 16) {
-            if(country==="" || province==="" || city==="") {
-                return false
-            } else {
-                return true
-            }
+        } else if(tipo === "Cuidador") {
+                if(country==="" || province==="" || city==="") {
+                    return false
+                } else {
+                    return true
+                }
         }
-    }
+    };
 
     const Label =  (title,set, value, text) => (<Text className="font-semibold text-base left-4 mt-5">{title} {set === value ? text : null}</Text>);
     const Input = (getValue) => (
@@ -147,8 +167,8 @@ const FormRegister = ({render, modalidad, country, setCountry, setProvince, setR
                 {modalidad === "Veterinario Autónomo" ? <>{Label("Selecciona documento de identidad")}{Input(setDocumento)}</> : null}
                 {modalidad === "Veterinario Autónomo" ? 
                 <>{Label("Adjunta imagen de el documento")}
-                <TouchableOpacity className="flex justify-center items-center w-full h-32 bg-new rounded-lg" onPress={() => uploadImage()}>
-                    <Image source={url ? {uri: url} : cruz} style={url ? { width: 160, height: 160 } : {width: 50, height: 50 }} className="rounded-full" />
+                <TouchableOpacity className="flex justify-center items-center w-full h-32 bg-new rounded-lg" onPress={() => {uploadImage()}}>
+                    <Image source={url ? {uri: url} : cruz} style={url ? "" : {width: 50, height: 50 }} className="w-full h-full" />
                 </TouchableOpacity>
                 </> 
                 : null}
