@@ -122,17 +122,19 @@ router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 
 // ------------->  Professionals  <-------------
 router.post('/api/professional/register', catchedAsync(professionals.register));
-router.get('/api/professional/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionals));
-router.put('/api/professional/allow', isLoggedIn, catchedAsync(professionals.allowProfessional));
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));
-router.get('/api/professional/services', catchedAsync(professionals.getServices))
 //----- Date Routes --------
 router.post('/api/professional/disponibilidad', catchedAsync(professionals.addAvailability));
 router.get('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.getAvailability));
 router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.editAvailability));
-
+//----- Professions --------
+router.get('/api/professional/profession/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
+router.put('/api/professional/profession/allow', isLoggedIn, catchedAsync(professionals.allowProfessionalProfession));
+router.post('/api/professional/profession/add', isLoggedIn, catchedAsync(professionals.registerProfession));
+router.put('/api/professional/profession/edit', isLoggedIn, catchedAsync(professionals.editProfession));
+router.get('/api/professional/profession/services', catchedAsync(professionals.getServices))
 
 // ------------->  Services  <-------------
 router.get('/api/service/all', catchedAsync(services.all));

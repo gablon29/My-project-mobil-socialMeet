@@ -44,6 +44,7 @@ function NavigatorAuthFalse() {
   return (
     <StackAuthFalse.Navigator>
       <StackAuthFalse.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+      <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: false, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
