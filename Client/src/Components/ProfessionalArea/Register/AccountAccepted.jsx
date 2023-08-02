@@ -3,21 +3,39 @@ import { Image, Text, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 import dog from "../../../../images/dropDownMenu/happyDog.png";
 
-const AccountAccepted = () => {
+const AccountAccepted = ({tipo}) => {
+    
     const navigate = useNavigation();
+    console.log(tipo)
     return (
         <View className="h-full items-center py-10">
-            <Text className="text-center text-2xl font-bold">Su cuenta está siendo {"\n"} verificada. Recibirás una {"\n"} notificación con el resultado.</Text>
-            <Image source={dog} className="w-[161px] h-[145px] my-10"/>
-            <Text className="text-base mb-4">Accede con tu PC a la siguiente web:</Text>
-            <Button title={"vet.whopaws.com"} titleClass={"text-base font-semibold"}/>
-            <Text className="text-center my-5">Inicia sesión con tus credenciales y {"\n"} continúa configurando y gestionando {"\n"} tu cuenta de profesional.</Text>
+            <Text className="text-center text-2xl font-bold">{`¡Tu cuenta como ${"\n"} ${tipo} a sido aceptada!`}</Text>
+            <Image source={dog} className="w-[161px] h-[145px] my-5"/>
+            {tipo === "Veterinario" && <Text className="text-base mb-4">Accede con tu PC a la siguiente web:</Text>}
+            {tipo === "Veterinario" && <Button title={"vet.whopaws.com"} titleClass={"text-base font-semibold"}/>}
+            <Text className="text-center my-5">
+                {
+                    tipo === "Veterinario" ?
+                    `Inicia sesión con tus credenciales y ${"\n"} continúa configurando y gestionando ${"\n"} tu cuenta de profesional.`
+                    :
+                    `Accede a tu perfil profesional y sigue ${"\n"} configurando aspectos importantes ${"\n"} como precios, características de tu ${"\n"} servicio y mucho más.`
+                }
+            </Text>
             <Button
                 title={"Volver a Inicio"}
                 titleClass={"text-naranja font-bold text-base"}
                 buttonClass={"bg-white border-2 border-naranja mb-10 w-64 h-14 rounded-2xl items-center justify-center"}
                 onPress={()=>navigate.navigate("Home")}
             />
+            {
+                tipo != "Veterinario" &&
+                <Button
+                title={"Acceder a mi perfil"}
+                titleClass={"text-white font-bold text-base"}
+                buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
+                onPress={()=>navigate.navigate("Home")}
+            />
+            }
         </View>
     );
 }

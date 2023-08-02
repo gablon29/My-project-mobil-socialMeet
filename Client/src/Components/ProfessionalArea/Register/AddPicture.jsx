@@ -3,7 +3,7 @@ import cruz from '../../../../images/iconos/cruz.png';
 import { useImage } from "../../../CustomHooks/useImage";
 import Btn from "../../Buttons/ButtonCuston";
 
-const AddPicture = ({setRender}) => {
+const AddPicture = ({setRender, setFo}) => {
 
     const {url, setUrl, uploadImage} = useImage();
 

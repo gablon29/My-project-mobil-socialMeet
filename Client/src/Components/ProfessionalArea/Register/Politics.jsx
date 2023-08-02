@@ -7,8 +7,10 @@ const Politics = ({setRender, tipo}) => {
     const nextStep = () => {
         if (tipo === "Veterinario") {
             setRender(3)
-        } else {
+        } else if (tipo === "Cuidador") {
             setRender(6)
+        } else if (tipo === "Peluquero") {
+            setRender(12)
         }
     };
 
