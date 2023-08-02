@@ -64,6 +64,57 @@ const professionalsSchema = mongoose.Schema(
       type: [String],
     },
 
+    caracter: {
+      jardin: {
+        type: Boolean,
+      },
+      niños: {
+        type: Boolean,
+      },
+      mascotas: {
+        type: Boolean,
+      },
+      p_auxilios: {
+        type: Boolean,
+      },
+      m_orales: {
+        type: Boolean,
+      },
+      m_inyectables: {
+        type: Boolean,
+      },
+      e_mascotas_mayores: {
+        type: Boolean,
+      },
+      atencion_domicilio: {
+        type: Boolean,
+      },
+      centro_fisico: {
+        type: Boolean,
+      },
+      titulacion_peluquería: {
+        type: Boolean,
+      },
+      instrumentación_necesaria: {
+        type: Boolean,
+      },
+      conocimiento_veterinario: {
+        type: Boolean,
+      },
+      e_paseador: {
+        type: Boolean,
+      },
+      ttitulacon_adiestrador: {
+        type: Boolean,
+      },
+      experiencia_2a: {
+        type: Boolean,
+      },
+      e_perros_dif: {
+        type: Boolean,
+      }
+    },
+
     description: {
       type: String,
       default: '',
@@ -111,6 +162,37 @@ const professionalsSchema = mongoose.Schema(
       default: [],
     },
 
+    disponibilidad: {
+      lunes: {
+        horarios: [],
+        active: Boolean,
+      },
+      martes: {
+        horarios: [],
+        active: Boolean,
+      },
+      miercoles: {
+        horarios: [],
+        active: Boolean,
+      },
+      jueves: {
+        horarios: [],
+        active: Boolean,
+      },
+      viernes: {
+        horarios: [],
+        active: Boolean,
+      },
+      sabado: {
+        horarios: [],
+        active: Boolean,
+      },
+      domingo: {
+        horarios: [],
+        active: Boolean,
+      },
+    },
+
     professions: {
       educador: {
         // <------------- EDUCADOR ----------------->
@@ -125,36 +207,6 @@ const professionalsSchema = mongoose.Schema(
         services: {
           type: [String],
           default: [],
-        },
-        disponibilidad: {
-          lunes: {
-            horarios: [],
-            active: Boolean,
-          },
-          martes: {
-            horarios: [],
-            active: Boolean,
-          },
-          miercoles: {
-            horarios: [],
-            active: Boolean,
-          },
-          jueves: {
-            horarios: [],
-            active: Boolean,
-          },
-          viernes: {
-            horarios: [],
-            active: Boolean,
-          },
-          sabado: {
-            horarios: [],
-            active: Boolean,
-          },
-          domingo: {
-            horarios: [],
-            active: Boolean,
-          },
         },
 
         experience: {
@@ -187,37 +239,6 @@ const professionalsSchema = mongoose.Schema(
         modalidad: {
           type: String,
           enum: ['clinica', 'autonomo'],
-        },
-
-        disponibilidad: {
-          lunes: {
-            horarios: [],
-            active: Boolean,
-          },
-          martes: {
-            horarios: [],
-            active: Boolean,
-          },
-          miercoles: {
-            horarios: [],
-            active: Boolean,
-          },
-          jueves: {
-            horarios: [],
-            active: Boolean,
-          },
-          viernes: {
-            horarios: [],
-            active: Boolean,
-          },
-          sabado: {
-            horarios: [],
-            active: Boolean,
-          },
-          domingo: {
-            horarios: [],
-            active: Boolean,
-          },
         },
 
         experience: {
@@ -321,36 +342,6 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
-        disponibilidad: {
-          lunes: {
-            horarios: [],
-            active: Boolean,
-          },
-          martes: {
-            horarios: [],
-            active: Boolean,
-          },
-          miercoles: {
-            horarios: [],
-            active: Boolean,
-          },
-          jueves: {
-            horarios: [],
-            active: Boolean,
-          },
-          viernes: {
-            horarios: [],
-            active: Boolean,
-          },
-          sabado: {
-            horarios: [],
-            active: Boolean,
-          },
-          domingo: {
-            horarios: [],
-            active: Boolean,
-          },
-        },
 
         experience: {
           type: Date,
@@ -381,36 +372,6 @@ const professionalsSchema = mongoose.Schema(
         },
         lugarAtencion: {
           type: Array, 
-        },
-        disponibilidad: {
-          lunes: {
-            horarios: [],
-            active: Boolean,
-          },
-          martes: {
-            horarios: [],
-            active: Boolean,
-          },
-          miercoles: {
-            horarios: [],
-            active: Boolean,
-          },
-          jueves: {
-            horarios: [],
-            active: Boolean,
-          },
-          viernes: {
-            horarios: [],
-            active: Boolean,
-          },
-          sabado: {
-            horarios: [],
-            active: Boolean,
-          },
-          domingo: {
-            horarios: [],
-            active: Boolean,
-          },
         },
 
         experience: {
