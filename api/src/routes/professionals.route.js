@@ -29,7 +29,8 @@ module.exports = {
       tipo,
       mascotasCuidar,
       lugarAtencion,
-      modalidad
+      modalidad,
+      caracter
       } = req.body;
     const newProfessional = new ProfessionalModel({
       user: userId,
@@ -47,9 +48,10 @@ module.exports = {
       zipcode: zipcode || '',
       shippingaddresss: shippingaddresss || {},
       addresses: addresses,
+      caracter: caracter
     });
     if(tipo === "educador") {
-    newProfessional.professions.educador.isRegister = true
+      await registerProfession(req.body)
 
     await newProfessional.save();
   }
@@ -60,7 +62,7 @@ module.exports = {
     await newProfessional.save();
   }  
     if(tipo === "tienda") {
-    newProfessional.professions.educador.isRegister = true
+      await registerProfession(req.body)
 
     await newProfessional.save();
   }    
@@ -183,18 +185,22 @@ module.exports = {
   },
 
   registerProfession: async (req, res) => {
-    const { professionalId, professionName, services, disponibilidad } = req.body;
+    const { professionalId, professionName, services, disponibilidad, experience } = req.body;
 
     const professional = await ProfessionalModel.findById(professionalId);
     if (!professional) {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
 
+    if (!professional.professions[professionName]) {
+      return response(res, 400, { error: 'Profesión no válida' });
+    }
+
     professional.professions[professionName] = {
       isRegister: true,
       services: services || [],
       disponibilidad: disponibilidad || {},
-      experience: experience || ''
+      experience: experience || null, 
     };
 
     await professional.save();

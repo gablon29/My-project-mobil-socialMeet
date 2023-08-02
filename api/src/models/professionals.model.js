@@ -64,57 +64,6 @@ const professionalsSchema = mongoose.Schema(
       type: [String],
     },
 
-    caracter: {
-      jardin: {
-        type: Boolean,
-      },
-      niños: {
-        type: Boolean,
-      },
-      mascotas: {
-        type: Boolean,
-      },
-      p_auxilios: {
-        type: Boolean,
-      },
-      m_orales: {
-        type: Boolean,
-      },
-      m_inyectables: {
-        type: Boolean,
-      },
-      e_mascotas_mayores: {
-        type: Boolean,
-      },
-      atencion_domicilio: {
-        type: Boolean,
-      },
-      centro_fisico: {
-        type: Boolean,
-      },
-      titulacion_peluquería: {
-        type: Boolean,
-      },
-      instrumentación_necesaria: {
-        type: Boolean,
-      },
-      conocimiento_veterinario: {
-        type: Boolean,
-      },
-      e_paseador: {
-        type: Boolean,
-      },
-      ttitulacon_adiestrador: {
-        type: Boolean,
-      },
-      experiencia_2a: {
-        type: Boolean,
-      },
-      e_perros_dif: {
-        type: Boolean,
-      }
-    },
-
     description: {
       type: String,
       default: '',
@@ -212,6 +161,17 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
+        caracter: {
+          titulacon_adiestrador: {
+            type: Boolean,
+          },
+          experiencia_2a: {
+            type: Boolean,
+          },
+          e_perros_dif: {
+            type: Boolean,
+          }
+        },
 
         experience: {
           type: Date,
@@ -288,6 +248,29 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
+        caracter: {
+          jardin: {
+            type: Boolean,
+          },
+          niños: {
+            type: Boolean,
+          },
+          mascotas: {
+            type: Boolean,
+          },
+          p_auxilios: {
+            type: Boolean,
+          },
+          m_orales: {
+            type: Boolean,
+          },
+          m_inyectables: {
+            type: Boolean,
+          },
+          e_mascotas_mayores: {
+            type: Boolean,
+          }
+        },
         disponibilidad: {
           lunes: {
             horarios: [],
@@ -350,7 +333,17 @@ const professionalsSchema = mongoose.Schema(
         experience: {
           type: Date,
         },
-
+        caracter: {
+          p_auxilios: {
+            type:Boolean
+          },
+          conocimiento_veterinario: {
+            type: Boolean,
+          },
+          e_paseador: {
+            type: Boolean,
+          },
+        },
         completed: {
           type: Number,
         },
@@ -378,6 +371,23 @@ const professionalsSchema = mongoose.Schema(
           type: Array, 
         },
 
+        caracter: {
+          atencion_domicilio: {
+            type: Boolean,
+          },
+          centro_fisico: {
+            type: Boolean,
+          },
+          titulacion_peluquería: {
+            type: Boolean,
+          },
+          instrumentación_necesaria: {
+            type: Boolean,
+          },
+          mascotas: {
+            type: Boolean,
+          }
+        },
         experience: {
           type: Date,
         },
