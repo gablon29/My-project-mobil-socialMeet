@@ -3,10 +3,11 @@ import { Image, Text, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 import dog from "../../../../images/dropDownMenu/happyDog.png";
 
-const AccountAccepted = ({tipo}) => {
+const AccountAccepted = ({tipo, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description}) => {
+    const body = JSON.stringify({tipo, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description});
+    console.log(body);
     
     const navigate = useNavigation();
-    console.log(tipo)
     return (
         <View className="h-full items-center py-10">
             <Text className="text-center text-2xl font-bold">{`¡Tu cuenta como ${"\n"} ${tipo} a sido aceptada!`}</Text>

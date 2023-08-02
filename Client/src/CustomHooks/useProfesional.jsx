@@ -26,7 +26,7 @@ console.log("Agregar funcion al back")
 return{
     tipo, setTipo, modalidad, setModalidad, setNombre, nombre, apellido, setApellido, country, setCountry,
     province, setProvince, city, setCity, address, setAddress, phone, setPhone, email, setEmail, documento, setDocumento, 
-    fotoDoc, setFo, mascotasCuidar, setMascotaCuidar, fechaNacimiento, setFechaNacimiento, 
+    fotoDoc, setFo, mascotasCuidar, setMascotaCuidar, fechaNacimiento, setFechaNacimiento, lugarAtencion, setLugarAtencion, 
     modalidadNoVet, setModalidadNoVet,
     description, setDescription, onSubmit
 }
