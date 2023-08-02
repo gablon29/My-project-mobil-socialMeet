@@ -35,9 +35,9 @@ const RegisterProfessional = ({route}) => {
                 {render === 9 && <BirthDay setFechaNacimiento={setFechaNacimiento} setRender={setRender}/>}
                 {render === 10  && <TwoOptions op1={"Cuido mascotas a domicilio"} op2={"Cuido mascotas a domicilio"} tipo={tipo} setRender={setRender} title={"Selecciona una o varias opciones"}/>}
                 {render === 11 && <Description setDescription={setDescription} setRender={setRender}/>}
-                {render === 12 && <TwoOptions setModalidadNoVet={setModalidadNoVet} op1={"Lo hago en un centro"} op2={"Lo hago a domicilio"} tipo={tipo} setRender={setRender} title={"¿Dónde das tus servicios de peluquería?"} text={"Selecciona una o varias opciones"}/>}
+                {render === 12 && <TwoOptions render={render} setModalidadNoVet={setModalidadNoVet} op1={"Lo hago en un centro"} op2={"Lo hago a domicilio"} tipo={tipo} setRender={setRender} title={"¿Dónde das tus servicios de peluquería?"} text={"Selecciona una o varias opciones"}/>}
                 {render === 13 && <FormRegister setRender={setRender} tipo={tipo} setCountry={setCountry} setProvince={setProvince} setCity={setCity} modalidadNoVet={modalidadNoVet} modalidad={`¿Dónde esta la dirección de tu ${"\n"} centro de peluquería?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
-                {render === 14 && <TwoOptions setRender={setRender} modalidadNoVet={modalidadNoVet} op1={"Si, en toda la provincia"} op2={"No, solo en un localidad en concreto"} tipo={tipo} text={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`} title={`¿En tus servicios a domicilio te ${"\n"} puedes desplazar por toda tu provincia?`}/>}
+                {render === 14 && <TwoOptions render={render} setModalidadNoVet={setModalidadNoVet} setRender={setRender} modalidadNoVet={modalidadNoVet} op1={"Si, en toda la provincia"} op2={"No, solo en un localidad en concreto"} tipo={tipo} text={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`} title={`¿En tus servicios a domicilio te ${"\n"} puedes desplazar por toda tu provincia?`}/>}
                 {render === 15 && <AccountAccepted tipo={tipo}/>}
             </View>
         </ScrollView>
