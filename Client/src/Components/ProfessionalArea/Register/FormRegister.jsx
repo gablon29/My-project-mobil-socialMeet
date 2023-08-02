@@ -7,7 +7,7 @@ import cruz from '../../../../images/iconos/cruz.png';
 import { useImage } from "../../../CustomHooks/useImage";
 
 
-const FormRegister = ({modalidad, country, setCountry, setProvince, setRender, tipo, info}) => {
+const FormRegister = ({modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, modalidadNoVet}) => {
 
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
@@ -32,24 +32,31 @@ const FormRegister = ({modalidad, country, setCountry, setProvince, setRender, t
     }, [country]);
 
     const nextStep = () => {
+        
         if (tipo === "Veterinario") {
             setRender(5)
-        } else {
+        } else if (tipo === "Cuidador") {
            setRender(7)
+        } else if (tipo === "Peluquero") {
+            setRender(14)
         }
     };
 
     const Label =  (title,set, value, text) => (<Text className="font-semibold text-base left-4 mt-5">{title} {set === value ? text : null}</Text>);
-    const Input = () => (<TextInput className="w-full shadow-lg shadow-black h-10 pl-3 rounded-lg bg-new"/>);
+    const Input = (getValue) => (
+    <TextInput
+        onChangeText={(text)=>getValue(text)}
+        className="w-full shadow-lg shadow-black h-10 pl-3 rounded-lg bg-new"/>
+    );
 
     return (
         <View className="h-full w-screen items-center pt-10">
-            <Text className={`text-2xl font-bold my-5`}>{modalidad}</Text>
+            <Text className={`text-2xl font-bold my-5 text-center`}>{modalidad}</Text>
             <Text className="text-center font-semibold text-base">{info}</Text>
             <View className="w-10/12">
                 {tipo === "Veterinario" && Label("Nombre ", modalidad, "Clínica Veterinaria", "de la clínica")}
-                {tipo === "Veterinario" && Input()}
-                { modalidad === "Veterinario Autónomo" && <>{Label("Apellidos")}{Input()}</> }
+                {tipo === "Veterinario" && Input(setNombre)}
+                { modalidad === "Veterinario Autónomo" && <>{Label("Apellidos")}{Input(setApellido)}</> }
                 {Label("País")}
                 <SelectList
                     data={countryOptions}
@@ -89,14 +96,14 @@ const FormRegister = ({modalidad, country, setCountry, setProvince, setRender, t
                     dropdownStyles={{ backgroundColor: '#FEC89A' }}
                 />
                 {Label("Localidad")}
-                {Input()}
-                {tipo === "Veterinario" && modalidad === "Clínica Veterinaria" ? <>{Label("Calle y número")}{Input()}</> : null}
-                {tipo === "Veterinario" && modalidad === "Clínica Veterinaria" ? <>{Label("CIF / Num Identificación Fiscal")}{Input()}</> : null}
+                {Input(setCity)}
+                {tipo === "Veterinario" && modalidad === "Clínica Veterinaria" ? <>{Label("Calle y número")}{Input(setAddress)}</> : null}
+                {tipo === "Veterinario" && modalidad === "Clínica Veterinaria" ? <>{Label("CIF / Num Identificación Fiscal")}{Input(setDocumento)}</> : null}
                 {tipo === "Veterinario" && Label("Teléfono")}
-                {tipo === "Veterinario" && Input()}
+                {tipo === "Veterinario" && Input(setPhone)}
                 {tipo === "Veterinario" && Label("Email")}
-                {tipo === "Veterinario" && Input()}
-                {modalidad === "Veterinario Autónomo" ? <>{Label("Selecciona documento de identidad")}{Input()}</> : null}
+                {tipo === "Veterinario" && Input(setEmail)}
+                {modalidad === "Veterinario Autónomo" ? <>{Label("Selecciona documento de identidad")}{Input(setDocumento)}</> : null}
                 {modalidad === "Veterinario Autónomo" ? 
                 <>{Label("Adjunta imagen de el documento")}
                 <TouchableOpacity className="flex justify-center items-center w-full h-32 bg-new rounded-lg" onPress={() => uploadImage()}>
