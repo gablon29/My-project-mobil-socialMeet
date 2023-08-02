@@ -231,11 +231,18 @@ module.exports = {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
 
-    professional.professions[profession].disponibilidad[date] = {
-      horarios: horarios ? horarios : professional.professions[profession].disponibilidad[date].horarios,
-      active: active ? active : professional.professions[profession].disponibilidad[date].active,
-    };
-
+    if (profession) {
+      professional.professions[profession].disponibilidad[date] = {
+        horarios: horarios ? horarios : professional.professions[profession].disponibilidad[date].horarios,
+        active: active ? active : professional.professions[profession].disponibilidad[date].active,
+      };
+    } else {
+      professional.disponibilidad[date] = {
+        horarios: horarios ? horarios : professional.disponibilidad[date].horarios,
+        active: active ? active : professional.disponibilidad[date].active,
+      }
+    }
+ 
     await professional.save();
 
     return response(res, 200, { message: 'Disponibilidad agregada', professional });
@@ -249,7 +256,11 @@ module.exports = {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
 
-    const availability = professional.professions[profession].disponibilidad[date];
+      const availability = profession ? 
+      professional.professions[profession].disponibilidad[date]
+      :
+      professional.disponibilidad[date];
+
     if (!availability) {
       return response(res, 404, { error: 'Disponibilidad no encontrada para la fecha proporcionada' });
     }
@@ -267,7 +278,10 @@ module.exports = {
 
     const { horarios, active } = req.body;
 
-    const availability = professional.professions[profession].disponibilidad[date];
+    const availability = profession ? 
+    professional.professions[profession].disponibilidad[date] 
+    : 
+    professional.disponibilidad[date]
     if (!availability) {
       return response(res, 404, { error: 'Disponibilidad no encontrada para la fecha proporcionada' });
     }
