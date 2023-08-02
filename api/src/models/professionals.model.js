@@ -111,6 +111,10 @@ const professionalsSchema = mongoose.Schema(
       default: [],
     },
 
+    purchases:{
+      default: {}
+    },
+
     professions: {
       educador: {
         // <------------- EDUCADOR ----------------->

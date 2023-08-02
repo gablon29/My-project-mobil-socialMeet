@@ -1,5 +1,5 @@
 const UserModel = require('../models/user.model');
-const PetModel = require('../models/pet.model');
+const ProfessionalModel = require('../models/professionals.model');
 const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 //const { deletePet } = require('../controllers/deletePet.js');
@@ -32,6 +32,11 @@ module.exports = {
     // Agregar la compra al usuario
     await UserModel.findByIdAndUpdate(user, {
       $push: { purchases: savedPurchase._id },
+      $inc: { wallet: Number(precioTotal) }
+    });
+
+    await ProfessionalModel.findByIdAndUpdate(professional, {
+      $push: { purchases: savedPurchase._id },
     });
 
     return response(res, 201, savedPurchase);
@@ -47,6 +52,16 @@ module.exports = {
     const purchases = await Purchase.find({ user: userId });
 
     return response(res, 200, purchases);
+  },
+  getPurchasesById: async (req, res) => {
+    const purchaseId = req.body;
+
+    const purchase = await Purchase.findById(purchaseId);
+    if (!purchase) {
+      return response(res, 404, 'Compra no encontrada');
+    }
+
+    return response(res, 200, purchase);
   },
   getAllPurchase: async (req, res) => {
     //admin falta validacion
