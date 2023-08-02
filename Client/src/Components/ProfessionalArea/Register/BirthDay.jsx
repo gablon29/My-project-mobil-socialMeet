@@ -4,13 +4,21 @@ import Btn from "../../Buttons/ButtonCuston";
 import CalendarPicker from 'react-native-calendar-picker';
 
 
-const BirthDay = ({setRender, setFechaNacimiento}) => {
+const BirthDay = ({tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
         setFechaNacimiento(date);
       };
+    
+    const nextStep = () => {
+        if(tipo === "Cuidador") {
+            setRender(10)
+        } else if(tipo === "Peluquero") {
+           setRender(20)
+        }
+    }
 
     return (
         <View className="w-screen items-center py-10">
@@ -28,7 +36,8 @@ const BirthDay = ({setRender, setFechaNacimiento}) => {
                 title={"Siguiente"}
                 titleClass={"text-naranja font-bold text-base"}
                 buttonClass={"bg-white mt-10 border-2 border-naranja mb-10 w-64 h-14 rounded-2xl items-center justify-center"}
-                onPress={()=>setRender(10)}
+                onPress={()=>nextStep()}
+                dissable={fechaNacimiento == "" ? false : true}
             />
         </View>
     );
