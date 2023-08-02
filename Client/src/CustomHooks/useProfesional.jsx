@@ -18,7 +18,7 @@ const [mascotasCuidar, setMascotaCuidar] = useState([]) //array de string con no
 const [fechaNacimiento, setFechaNacimiento] = useState("")
 const [modalidadNoVet, setModalidadNoVet] = useState([])
 const [description, setDescription] = useState("")
-
+const [lugarAtencion, setLugarAtencion] = useState([])
 
 const onSubmit = () => {
 console.log("Agregar funcion al back")
