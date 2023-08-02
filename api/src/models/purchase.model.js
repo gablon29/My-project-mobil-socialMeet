@@ -10,8 +10,13 @@ const purchaseSchema = mongoose.Schema(
     comprador: {
       type: String,
     },
+    vendedor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Professional',
+      required: true
+    },
     seller: {
-        type: "String",
+        type: String,
         default: "Whopaws"
     },
     producto: {

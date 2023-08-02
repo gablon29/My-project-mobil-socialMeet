@@ -192,6 +192,10 @@ const professionalsSchema = mongoose.Schema(
         active: Boolean,
       },
     },
+    
+      purchases:{
+      default: {}
+      }
 
     professions: {
       educador: {

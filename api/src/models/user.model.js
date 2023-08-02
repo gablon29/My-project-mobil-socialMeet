@@ -97,6 +97,10 @@ const userSchema = mongoose.Schema(
       name: { type: String },
       phone: { type: String },
     },
+
+    purchases:{
+      default: {}
+    },
     
     addresses:{
       type: Array,

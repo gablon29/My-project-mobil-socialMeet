@@ -98,6 +98,7 @@ router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo
 
 router.post('/api/new-purchase', isLoggedIn, catchedAsync(purchases.purchase));
 router.get('/api/user-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+router.get('/api/purchase-data', isLoggedIn, catchedAsync(purchases.getPurchasesById))
 
 //ruta de admin obtener todas las compras
 router.get('/api/admin-all-purchases', isLoggedIn, catchedAsync(purchases.getAllPurchase));
@@ -135,6 +136,9 @@ router.put('/api/professional/profession/allow', isLoggedIn, catchedAsync(profes
 router.post('/api/professional/profession/add', isLoggedIn, catchedAsync(professionals.registerProfession));
 router.put('/api/professional/profession/edit', isLoggedIn, catchedAsync(professionals.editProfession));
 router.get('/api/professional/profession/services', catchedAsync(professionals.getServices))
+//----- Professions --------
+router.get('/api/professional/purchases', catchedAsync(professionals.getPurchasesProfesional)) //si se le pasa un estado como filter por body también se encarga de hacer el filtrado
+
 
 // ------------->  Services  <-------------
 router.get('/api/service/all', catchedAsync(services.all));
