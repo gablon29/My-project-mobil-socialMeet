@@ -29,7 +29,7 @@ const DisplayProfessionalArea = () => {
                     title={"Comenzar"}
                     titleClass={"text-white font-bold text-base"}
                     buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
-                    onPress={()=>navigate.navigate("RegisterProfessional", {register: true, text: `Selecciona un área${"\n"}profesional`})}
+                    onPress={()=>navigate.navigate("RegisterProfessional", {register: true})}
                 />
             </View>
         </ScrollView>

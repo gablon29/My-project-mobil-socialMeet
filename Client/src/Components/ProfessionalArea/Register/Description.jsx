@@ -2,15 +2,11 @@ import { Text, TextInput, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 
 
-const Description = ({description, tipo, setRender, setDescription}) => {
+const Description = ({description, tipo, setRender, setDescription, registerProfessional}) => {
     
     const nextStep = () => {
+        registerProfessional()
         setRender(21)
-        /* if(tipo === "Cuidador") {
-            setRender(21)
-        } else if(tipo === "Peluquero") {
-            setRender(21)
-        } */
     }
 
     return (

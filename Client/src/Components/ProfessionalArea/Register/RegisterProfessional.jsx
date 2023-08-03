@@ -13,18 +13,31 @@ import BirthDay from "./BirthDay";
 import TwoOptions from "./TwoOptions";
 import Description from "./Description";
 import AccountAccepted from "./AccountAccepted";
+import { CreateProfessionalMethod } from "../../../metodos/professionalMetodos";
 
 
 const RegisterProfessional = ({route}) => {
-    const {register, text} = route.params;
+    const {register} = route.params;
     const [render, setRender] = useState(1);
     const {tipo, setTipo, modalidad, setModalidad, setNombre, nombre, apellido, setApellido, country, setCountry, province, setProvince, city, setCity, address, setAddress, phone, setPhone, email, setEmail, documento, setDocumento, fotoDoc, setFo, mascotasCuidar, setMascotaCuidar, fechaNacimiento, setFechaNacimiento, modalidadNoVet, setModalidadNoVet, description, setDescription, lugarAtencion, setLugarAtencion, onSubmit
     } = useProfesional();
 
+    const registerProfessional = () => {
+        const professional = {
+            tipo, modalidad, name: nombre ? nombre : "Pedro", apellido, country:country ? country : "", city:city ? city : "", province, lugarAtencion, address, phone:phone ? phone : "2222", email, documento, profilePic:fotoDoc, fotoDoc, mascotasCuidar, fechaNacimiento, description
+        }
+        CreateProfessionalMethod({
+            professional, 
+            loading: (v) => {console.log(v)},
+            error: (msg) => {console.log(msg)},
+            success: (res) => {console.log(res)}
+        });
+    }
+
     return (
         <ScrollView className="bg-white">
             <View className="h-full">
-                {render === 1 && <SelectProfessionalArea tipo={tipo} title={"Selecciona una especie"} setTipo={setTipo} register={register} text={text} setRender={setRender} render={render}/>}
+                {render === 1 && <SelectProfessionalArea tipo={tipo} title={"Selecciona una especie"} setTipo={setTipo} register={register} text={`Selecciona un área${"\n"}profesional`} setRender={setRender} render={render}/>}
                 {render === 2 && <Politics tipo={tipo} setRender={setRender} render={render}/>}
                 {/* Veterinarios clinicas/autonomos */}
                 {render === 3 && <RecordMode setModalidad={setModalidad} setRender={setRender}/>}
@@ -36,7 +49,7 @@ const RegisterProfessional = ({route}) => {
                 {render === 8 && <AddPicture tipo={tipo} fotoDoc={fotoDoc} setFo={setFo} setRender={setRender}/>}
                 {render === 9 && <BirthDay fechaNacimiento={fechaNacimiento} tipo={tipo} setFechaNacimiento={setFechaNacimiento} setRender={setRender}/>}
                 {render === 10 && <TwoOptions setLugarAtencion={setLugarAtencion} op1={"Cuido mascotas a domicilio"} op2={"Cuido mascotas en mi casa"} tipo={tipo} setRender={setRender} title={"Selecciona una o varias opciones"}/>}
-                {render === 11 && <Description description={description} tipo={tipo} setDescription={setDescription} setRender={setRender}/>}
+                {render === 11 && <Description description={description} tipo={tipo} setDescription={setDescription} setRender={setRender} registerProfessional={registerProfessional}/>}
                 {/* Peluquero */}
                 {render === 12 && <TwoOptions setLugarAtencion={setLugarAtencion} render={render} op1={"Lo hago en un centro"} op2={"Lo hago a domicilio"} tipo={tipo} setRender={setRender} title={"¿Dónde das tus servicios de peluquería?"} text={"Selecciona una o varias opciones"}/>}
                 {render === 13 && <FormRegister render={render} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} setRender={setRender} tipo={tipo} setCountry={setCountry} country={country} province={province} city={city} setProvince={setProvince} setCity={setCity} modalidadNoVet={modalidadNoVet} modalidad={`¿Dónde esta la dirección de tu ${"\n"} centro de peluquería?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
