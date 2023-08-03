@@ -39,12 +39,6 @@ const servicesSchema = mongoose.Schema(
         type: Array,
         required: true
       },
-    gallery: [ //cuidador service?
-      {
-        type: String,
-        default: [],
-      },
-    ],
     professional: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Professional',

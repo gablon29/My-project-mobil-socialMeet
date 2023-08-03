@@ -52,16 +52,8 @@ const professionalsSchema = mongoose.Schema(
       required: true,
     },
 
-    mascotasCuidar: {
-      type: [String],
-    },
-
     fechaNacimiento: {
       type: Date,
-    },
-
-    modalidadNoVet: {
-      type: [String],
     },
 
     description: {
@@ -251,6 +243,12 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
+        gallery: [ //cuidador service?
+        {
+          type: String,
+          default: [],
+        },
+      ],
         caracter: {
           jardin: {
             type: Boolean,
