@@ -3,13 +3,14 @@ import Button from "../../Buttons/ButtonCuston";
 
 
 const Description = ({description, tipo, setRender, setDescription}) => {
-    console.log(tipo)
+    
     const nextStep = () => {
-        if(tipo === "Cuidador") {
+        setRender(21)
+        /* if(tipo === "Cuidador") {
             setRender(21)
         } else if(tipo === "Peluquero") {
             setRender(21)
-        }
+        } */
     }
 
     return (

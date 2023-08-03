@@ -15,8 +15,8 @@ const BirthDay = ({tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
     const nextStep = () => {
         if(tipo === "Cuidador") {
             setRender(10)
-        } else if(tipo === "Peluquero") {
-           setRender(20)
+        } else {
+           setRender(11)
         }
     }
 

@@ -44,6 +44,9 @@ const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtenci
             setCity("")
             selectOp.op1 != "" ? setRender(15) : setRender(16)
           }
+        } else if (tipo === "Educadores"){
+          setLugarAtencion([{lugar:selectOp}])
+          setRender(23)
         }
       }
       
@@ -51,7 +54,7 @@ const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtenci
     return (
         <View className="w-screen items-center py-10">
             <Text className="text-2xl font-bold text-center mb-10">{title}</Text>
-            {tipo === "Peluquero" ? <Text className="mb-10 text-base font-semibold text-center">{text}</Text> : null}
+            {tipo !== "Cuidador" ? <Text className="mb-10 text-base font-semibold text-center">{text}</Text> : null}
             <Button 
                 title={op1}
                 titleClass={"font-bold text-base"}
