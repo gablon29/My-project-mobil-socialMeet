@@ -8,8 +8,15 @@ const BirthDay = ({tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
-        setFechaNacimiento(date);
+        const currentDate = new Date();
+        const objDate = new Date(date);
+        /* const formatDate = objDate.toLocaleDateString('es-ES');
+        setSelectedDate(date) */
+        if( objDate.getFullYear() <= currentDate.getFullYear() - 18) {
+            setFechaNacimiento(objDate)
+        } else if(objDate.getFullYear() >= currentDate.getFullYear() || objDate.getFullYear() <= currentDate.getFullYear()) {
+            setFechaNacimiento("");
+        }
       };
     
     const nextStep = () => {

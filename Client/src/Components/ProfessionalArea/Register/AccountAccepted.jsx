@@ -3,11 +3,7 @@ import { Image, Text, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 import dog from "../../../../images/dropDownMenu/happyDog.png";
 
-const AccountAccepted = ({tipo, nombre, modalidad, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description, country, province, city}) => {
-    const address = tipo != "Peluquero" ? {country, province, city} : null;
-    const mode = tipo != "Veterinario" ? {modalidad} : null;
-    const body = JSON.stringify({nombre, tipo, lugarAtencion, mascotasCuidar, fotoDoc, fechaNacimiento, description, address, mode});
-    console.log(body);
+const AccountAccepted = ({tipo, profile}) => {
     
     const navigate = useNavigation();
     return (
@@ -36,7 +32,7 @@ const AccountAccepted = ({tipo, nombre, modalidad, lugarAtencion, mascotasCuidar
                 title={"Acceder a mi perfil"}
                 titleClass={"text-white font-bold text-base"}
                 buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
-                onPress={()=>navigate.navigate("Home")}
+                onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, profile})}
             />
             }
         </View>

@@ -2,10 +2,15 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import cruz from '../../../../images/iconos/cruz.png';
 import { useImage } from "../../../CustomHooks/useImage";
 import Btn from "../../Buttons/ButtonCuston";
+import { useEffect } from "react";
 
-const AddPicture = ({tipo, setRender, setFo, fotoDoc, mascotasCuidar}) => {
+const AddPicture = ({profile, setRender, setFo, fotoDoc, mascotasCuidar}) => {
     console.log(mascotasCuidar)
     const {url, setUrl, uploadImage} = useImage();
+
+    useEffect(()=>{
+        setUrl(profile.profilePic)
+    })
 
     const nextStep = (url) => {
         url === undefined ? null : setFo(url);
@@ -26,7 +31,7 @@ const AddPicture = ({tipo, setRender, setFo, fotoDoc, mascotasCuidar}) => {
             </TouchableOpacity>
             <Btn 
                 title={"Ahora no, saltar este paso"} titleClass={"mb-20 text-base underline font-semibold"}
-                onPress={()=>nextStep("")}
+                onPress={()=>nextStep(profile.profilePic)}
             />
             <Btn 
                 title={"Siguiente"}
