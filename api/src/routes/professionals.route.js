@@ -29,7 +29,8 @@ module.exports = {
       tipo,
       mascotasCuidar,
       lugarAtencion,
-      modalidad
+      modalidad,
+      caracter
       } = req.body;
     const newProfessional = new ProfessionalModel({
       user: userId,
@@ -47,9 +48,10 @@ module.exports = {
       zipcode: zipcode || '',
       shippingaddresss: shippingaddresss || {},
       addresses: addresses,
+      caracter: caracter
     });
     if(tipo === "educador") {
-    newProfessional.professions.educador.isRegister = true
+      await registerProfession(req.body)
 
     await newProfessional.save();
   }
@@ -60,7 +62,7 @@ module.exports = {
     await newProfessional.save();
   }  
     if(tipo === "tienda") {
-    newProfessional.professions.educador.isRegister = true
+      await registerProfession(req.body)
 
     await newProfessional.save();
   }    
@@ -183,18 +185,22 @@ module.exports = {
   },
 
   registerProfession: async (req, res) => {
-    const { professionalId, professionName, services, disponibilidad } = req.body;
+    const { professionalId, professionName, services, disponibilidad, experience } = req.body;
 
     const professional = await ProfessionalModel.findById(professionalId);
     if (!professional) {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
 
+    if (!professional.professions[professionName]) {
+      return response(res, 400, { error: 'Profesión no válida' });
+    }
+
     professional.professions[professionName] = {
       isRegister: true,
       services: services || [],
       disponibilidad: disponibilidad || {},
-      experience: experience || ''
+      experience: experience || null, 
     };
 
     await professional.save();
@@ -232,11 +238,18 @@ module.exports = {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
 
-    professional.professions[profession].disponibilidad[date] = {
-      horarios: horarios ? horarios : professional.professions[profession].disponibilidad[date].horarios,
-      active: active ? active : professional.professions[profession].disponibilidad[date].active,
-    };
-
+    if (profession) {
+      professional.professions[profession].disponibilidad[date] = {
+        horarios: horarios ? horarios : professional.professions[profession].disponibilidad[date].horarios,
+        active: active ? active : professional.professions[profession].disponibilidad[date].active,
+      };
+    } else {
+      professional.disponibilidad[date] = {
+        horarios: horarios ? horarios : professional.disponibilidad[date].horarios,
+        active: active ? active : professional.disponibilidad[date].active,
+      }
+    }
+ 
     await professional.save();
 
     return response(res, 200, { message: 'Disponibilidad agregada', professional });
@@ -250,7 +263,11 @@ module.exports = {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
 
-    const availability = professional.professions[profession].disponibilidad[date];
+      const availability = profession ? 
+      professional.professions[profession].disponibilidad[date]
+      :
+      professional.disponibilidad[date];
+
     if (!availability) {
       return response(res, 404, { error: 'Disponibilidad no encontrada para la fecha proporcionada' });
     }
@@ -268,7 +285,10 @@ module.exports = {
 
     const { horarios, active } = req.body;
 
-    const availability = professional.professions[profession].disponibilidad[date];
+    const availability = profession ? 
+    professional.professions[profession].disponibilidad[date] 
+    : 
+    professional.disponibilidad[date]
     if (!availability) {
       return response(res, 404, { error: 'Disponibilidad no encontrada para la fecha proporcionada' });
     }
@@ -291,6 +311,22 @@ module.exports = {
       const purchases = await PurchasesModel.find({vendedor: professionalId})
       purchases ? response(res, 200, purchases) : response(res, 404, {message: 'No se han encontrado ventas'})
     }
+  },
+  editCaracter: async (req, res) => {
+    const { professionalId, profession, caracterUpdates } = req.body
+    const professional = await ProfessionalModel.findById(professionalId)
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+    if (caracterUpdates && Object.keys(caracterUpdates).length > 0) {
+      for (const key in caracterUpdates) {
+        if (caracterUpdates.hasOwnProperty(key)) {
+          professional.professions[profession].caracter[key] = caracterUpdates[key];
+        }
+      }  
+    }
+    await professional.save();
+    return response(res, 200, { message: 'Caracter del profesional actualizado exitosamente', professional });
   }
 }
 
