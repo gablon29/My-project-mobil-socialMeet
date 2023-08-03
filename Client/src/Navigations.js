@@ -36,6 +36,8 @@ import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfes
 import RegisterProfessional from './Components/ProfessionalArea/Register/RegisterProfessional';
 import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
 import ProfessionalProfile from './Components/ProfessionalArea/Profile/ProfessionalProfile';
+import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
+import EditProfessionalProfile from './Components/ProfessionalArea/Profile/EditProfessionalProfile/EditProfessionalProfile';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -79,7 +81,7 @@ const NavigatorAuthTrue = () => {
     <StackAuthTrue.Navigator screenOptions={{ header: (props) => (!sinHeader(props.route) ? null : showHeader(props.route) ? <Header /> : <HeaderBack />), headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
-      {/* <StackAuthTrue.Screen name="Profile" component={ProfessionalProfile} options={{ headerShown: true }} /> */}
+      {/* <StackAuthTrue.Screen name="Profile" component={DisplayProfessionalProfile} options={{ headerShown: true }} /> */}
       <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />
@@ -106,7 +108,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="ProfessionalArea" component={DisplayProfessionalArea} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="RegisterProfessional" component={RegisterProfessional} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="AccessProfessionalArea" component={AccessProfessionalArea} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="ProfessionalProfile" component={ProfessionalProfile} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="ProfessionalProfile" component={DisplayProfessionalProfile} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="EditProfessionalProfile" component={EditProfessionalProfile} options={{ headerShown: true }}/>
     </StackAuthTrue.Navigator>
   );
 };
