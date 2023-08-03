@@ -15,7 +15,7 @@ const Politics = ({setRender, tipo}) => {
     };
 
     return (
-        <View className="items-center h-full bg-white mt-20">
+        <View className="items-center h-full bg-white py-5">
             <Text className="my-10 text-2xl font-bold text-center">Políticas de uso</Text>
             <Text className="text-center w-8/12 leading-8 text-base mb-10">Antes de comenzar tu registro como profesional, debes aceptar nuestras políticas de uso para tener un buen entorno entre profesionales y clientes.</Text>
             <View className="flex-row items-baseline">
