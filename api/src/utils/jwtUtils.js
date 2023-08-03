@@ -18,10 +18,14 @@ const checkJwt = (req, res, next) => {
     throw new ClientError('Missing token! Authorization=undefined', 400);
   try {
     const decodedToken = verifyToken(token);
+    if(!("userType" in decodedToken) || !("email" in decodedToken)){
+      throw new ClientError('Debe actualizar su token, vuelva a logearse', 400);
+    }
     req.user = decodedToken;
     next();
+   
   } catch (error) {
-    throw new ClientError('Token falló al decodificarse!', 400);
+    throw new ClientError('Debe volver a logearse.', 400);
   }
 };
 const socketAuthMiddleware = (socket, next) => {
@@ -43,12 +47,12 @@ const socketAuthMiddleware = (socket, next) => {
 }
 
 
+//userType
+//if (!isAdmin) throw new ClientError('You are not an admin!', 400);
 
 const checkAdmin = async (req, res, next) => {
-  const { email } = req.user; // Assuming the user's email is present in the decoded token
-  // Check if the user has admin privileges based on your custom logic
-  //const isAdmin = true; // Replace this with your admin check logic
-  if (!isAdmin) throw new ClientError('You are not an admin!', 400);
+  const isAdmin = req.user.userType === 'admin'
+  if (!isAdmin) return next(new ClientError('You are not an admin!', 400))
   next();
 };
 

@@ -5,15 +5,15 @@ import { useState } from "react";
 const Politics = ({setRender, tipo}) => {
     
     const nextStep = () => {
-        if (tipo === "Veterinario") {
-            setRender(3)
-        } else {
-            setRender(6)
-        }
+        if (tipo === "Veterinario") {setRender(3)} 
+        else if(tipo === "Cuidador") {setRender(6)} 
+        else if(tipo === "Peluquero") {setRender(12)}
+        else if(tipo === "Educadores") {setRender(22)}
+        else if(tipo === "Paseador") {setRender(24)}
     };
 
     return (
-        <View className="items-center h-full bg-white mt-20">
+        <View className="items-center h-full bg-white py-5">
             <Text className="my-10 text-2xl font-bold text-center">Políticas de uso</Text>
             <Text className="text-center w-8/12 leading-8 text-base mb-10">Antes de comenzar tu registro como profesional, debes aceptar nuestras políticas de uso para tener un buen entorno entre profesionales y clientes.</Text>
             <View className="flex-row items-baseline">

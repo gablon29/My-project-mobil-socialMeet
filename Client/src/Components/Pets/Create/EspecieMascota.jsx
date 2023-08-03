@@ -6,11 +6,11 @@ import ave from '../../../../images/especies/ic_ave.png';
 import reptil from '../../../../images/especies/ic_reptil.png';
 import pez from '../../../../images/especies/ic_pez.png';
 import roedor from '../../../../images/especies/ic_roedor.png';
-import conejo from '../../../../images/especies/conejo.png';
-import ardilla from '../../../../images/especies/ardilla.png';
+import ardilla from '../../../../images/especies/conejo.png';
+import conejo from '../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTextBorderBlack';
 
-const EspecieMascota = ({ setSpecie, specie, setValida, title, text, multiple}) => {
+const EspecieMascota = ({ tipo, setSpecie, specie, setValida, title, text, multiple}) => {
 
   const onPress = (v) => {
     if(v){
@@ -26,6 +26,10 @@ const EspecieMascota = ({ setSpecie, specie, setValida, title, text, multiple}) 
     {text:"Pez", img: pez},{text:"Roedor", img: roedor}, {text:"Conejo", img: conejo}, {text:"Hurón",img: ardilla}
   ];
 
+  const especiesFiltradas = especies.filter((especie) =>
+  ["Perro", "Gato", "Conejo", "Hurón"].includes(especie.text)
+  );
+
   const [btnActive, setBtnActive] = useState(especies.map(() => ""));
 
   const handleBtnActive = (index) => {
@@ -40,11 +44,21 @@ const EspecieMascota = ({ setSpecie, specie, setValida, title, text, multiple}) 
 };
 
   return (
-    <View className={`justify-center items-center bg-white w-screen ${title && "my-7"}`}>
-      {title && <Text className="text-2xl text-center font-poppinsBold mb-5">{title}</Text>}
+    <View className={`justify-center items-center bg-white w-screen`}>
+      {title && <Text className={`${tipo === "Peluquero" ? "text-xl" : "text-2xl"} text-center font-poppinsBold mb-5`}>{title}</Text>}
       {text && <Text className="font-semibold text-center text-base mb-5">{text}</Text>}
-      <View className="flex-row flex-wrap w-11/12 justify-center">
-        {
+      <View className={`flex-row flex-wrap w-11/12 justify-center`}>
+        { tipo === "Peluquero" ?
+          especiesFiltradas.map((item, index)=>(
+            <ButtonSquareImageTextBorderBlack 
+              key={index}
+              texto={item.text} imagen={item.img}
+              activado={multiple ? btnActive[index] : specie === item.text ? true : false}
+              onPress={()=>{multiple ? handleBtnActive(index, item.text) : onPress(item.text)}}
+              touchClass={"m-4"}
+            />
+          ))
+          :
           especies.map((item,index)=>(
             <ButtonSquareImageTextBorderBlack 
               key={index}

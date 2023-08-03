@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON /* , paginate */ } = require('./plugins');
 const { ClientError } = require('../utils/errors');
-const User = require('./user.model'); 
-const Service = require('./services.model'); 
+const User = require('./user.model');
+const Service = require('./services.model');
 
 const professionalsSchema = mongoose.Schema(
   {
@@ -12,60 +12,48 @@ const professionalsSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    nombre: {
+
+    name: {
       type: String,
       required: true,
     },
+
     country: {
       type: String,
-      default: 'España',
+      required: true,
     },
+
     province: {
       type: String,
+      required: true,
     },
+
     city: {
       type: String,
+      required: true,
     },
+
     address: {
       type: String,
     },
+
     phone: {
       type: String,
+      required: true,
     },
+
     documento: {
       type: String,
       required: true,
     },
+
     fotoDoc: {
       type: String,
       required: true,
     },
 
-    mascotasCuidar: {
-      type: [String],
-    },
-
     fechaNacimiento: {
       type: Date,
-    },
-    tipo: {
-      type: String,
-      enum: ['educador', 'veterinario', 'tienda', 'cuidador', 'paseador', 'peluquero'],
-      required: true,
-    },
-    
-  educador: {
-    valido: {
-      type: Boolean,
-      default: false
-    },
-    activate: {
-      tipo: Boolean,
-      default: false
-    },
-    services: {
-      type: [String],
-      default: [],
     },
 
     description: {
@@ -74,124 +62,12 @@ const professionalsSchema = mongoose.Schema(
       maxlength: 400,
     },
 
-  disponibilidad: {
-    lunes: {
-      horarios: [],
-      active: Boolean,
-    },
-    martes: {
-      horarios: [],
-      active: Boolean,
-    },
-    miercoles: {
-      horarios: [],
-      active: Boolean,
-    },
-    jueves: {
-      horarios: [],
-      active: Boolean,
-    },
-    viernes: {
-      horarios: [],
-      active: Boolean,
-    },
-    sabado: {
-      horarios: [],
-      active: Boolean,
-    },
-    domingo: {
-      horarios: [],
-      active: Boolean,
-    },
-  },
-  reviews: {
-    type: [Object],
-  },
-},
-clinica: {
-  valido: {
-    type: Boolean,
-    default: false
-  },
-  activate: {
-    tipo: Boolean,
-    default: false
-
-  },
-  services: {
-    type: [String],
-    default: [],
-  },
-  modalidad: {
-    type: String,
-    enum: ['clinica', 'autonomo'],
-    required: true,
-  },
-  modalidadNoVet: {
-    type: [String],
-  },
-  description: {
-    type: String,
-    default: '',
-    maxlength: 400,
-  },
-
-disponibilidad: {
-  lunes: {
-    horarios: [],
-    active: Boolean,
-  },
-  martes: {
-    horarios: [],
-    active: Boolean,
-  },
-  miercoles: {
-    horarios: [],
-    active: Boolean,
-  },
-  jueves: {
-    horarios: [],
-    active: Boolean,
-  },
-  viernes: {
-    horarios: [],
-    active: Boolean,
-  },
-  sabado: {
-    horarios: [],
-    active: Boolean,
-  },
-  domingo: {
-    horarios: [],
-    active: Boolean,
-  },
-},
-reviews: {
-  type: [Object],
-},
-},
-
-    experience: {
-      type: Date,
-    },
-
-    completed: {
-      type: Number,
-    },
-
-
-
-    state: {
-      type: Boolean,
-      default: false,
-    },
-
     profilePic: {
       type: String,
     },
 
     pushToken: {
-      type: [String], // Token de verificacion para notificaciones push
+      type: [String],
       default: [],
     },
 
@@ -227,6 +103,330 @@ reviews: {
       default: [],
     },
 
+    disponibilidad: {
+      lunes: {
+        horarios: [],
+        active: Boolean,
+      },
+      martes: {
+        horarios: [],
+        active: Boolean,
+      },
+      miercoles: {
+        horarios: [],
+        active: Boolean,
+      },
+      jueves: {
+        horarios: [],
+        active: Boolean,
+      },
+      viernes: {
+        horarios: [],
+        active: Boolean,
+      },
+      sabado: {
+        horarios: [],
+        active: Boolean,
+      },
+      domingo: {
+        horarios: [],
+        active: Boolean,
+      },
+    },
+    
+      purchases:{
+      default: {}
+      },
+
+    professions: {
+      educador: {
+        // <------------- EDUCADOR ----------------->
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        caracter: {
+          titulacon_adiestrador: {
+            type: Boolean,
+            default: false
+          },
+          experiencia_2a: {
+            type: Boolean,
+            default: false
+          },
+          e_perros_dif: {
+            type: Boolean,
+            default: false
+          }
+        },
+
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      veterinario: {
+        // <------------- VETERINARIO ----------------->
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        modalidad: {
+          type: String,
+          enum: ['clinica', 'autonomo'],
+        },
+
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      // <------------- TIENDA ----------------->
+      tienda: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+      },
+
+      // <------------- CUIDADOR ----------------->
+      cuidador: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        mascotasAcuidar: {
+          type: Array,
+        },
+        lugarAtencion: {
+          type: Array,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        gallery: [ //cuidador service?
+        {
+          type: String,
+          default: [],
+        },
+      ],
+        caracter: {
+          jardin: {
+            type: Boolean,
+            default: false
+          },
+          niños: {
+            type: Boolean,
+            default: false
+          },
+          mascotas: {
+            type: Boolean,
+            default: false
+          },
+          p_auxilios: {
+            type: Boolean,
+            default: false
+          },
+          m_orales: {
+            type: Boolean,
+            default: false
+          },
+          m_inyectables: {
+            type: Boolean,
+            default: false
+          },
+          e_mascotas_mayores: {
+            type: Boolean,
+            default: false
+          }
+        },
+        disponibilidad: {
+          lunes: {
+            horarios: [],
+            active: Boolean,
+          },
+          martes: {
+            horarios: [],
+            active: Boolean,
+          },
+          miercoles: {
+            horarios: [],
+            active: Boolean,
+          },
+          jueves: {
+            horarios: [],
+            active: Boolean,
+          },
+          viernes: {
+            horarios: [],
+            active: Boolean,
+          },
+          sabado: {
+            horarios: [],
+            active: Boolean,
+          },
+          domingo: {
+            horarios: [],
+            active: Boolean,
+          },
+        },
+
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      // <------------- PASEADOR ----------------->
+      paseador: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        species: {
+          type: Array
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+
+        experience: {
+          type: Date,
+        },
+        caracter: {
+          p_auxilios: {
+            type:Boolean,
+            default: false
+          },
+          conocimiento_veterinario: {
+            type: Boolean,
+            default: false
+          },
+          e_paseador: {
+            type: Boolean,
+            default: false
+          },
+        },
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      // <------------- PELUQUERO ----------------->
+      peluquero: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        lugarAtencion: {
+          type: Array, 
+        },
+
+        caracter: {
+          atencion_domicilio: {
+            type: Boolean,
+            default: false
+          },
+          centro_fisico: {
+            type: Boolean,
+            default: false
+          },
+          titulacion_peluquería: {
+            type: Boolean,
+            default: false
+          },
+          instrumentación_necesaria: {
+            type: Boolean,
+            default: false
+          },
+          mascotas: {
+            type: Boolean,
+            default: false
+          }
+        },
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+    },
+
     tokens: [
       {
         token: {
@@ -238,8 +438,8 @@ reviews: {
   },
   {
     timestamps: {
-      createdAt: 'created_at', // Use created_at to store the created date
-      updatedAt: 'updated_at', // and updated_at to store the last updated date
+      createdAt: 'created_at', // Use `created_at` to store the created date
+      updatedAt: 'updated_at', // and `updated_at` to store the last updated date
     },
   }
 );
