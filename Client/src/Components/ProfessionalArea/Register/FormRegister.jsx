@@ -8,7 +8,6 @@ import { useImage } from "../../../CustomHooks/useImage";
 
 
 const FormRegister = ({render, nombre, apellido, address, documento, phone, email, fotoDoc, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
-    console.log(modalidad)
     
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
@@ -55,6 +54,8 @@ const FormRegister = ({render, nombre, apellido, address, documento, phone, emai
                 setLugarAtencion([updateObjet])
                 setRender(17)
             }
+        } else {
+            setRender(8)
         }
     };
 
@@ -75,7 +76,7 @@ const FormRegister = ({render, nombre, apellido, address, documento, phone, emai
                 }
             }
         } else if( tipo === "Peluquero") {
-            if(render === 13) {
+            if(render === 13 || render === 16) {
                 if(country==="" || province==="" || city==="") {
                     return false
                 } else {
@@ -87,14 +88,8 @@ const FormRegister = ({render, nombre, apellido, address, documento, phone, emai
                 } else {
                     return true
                 }
-            } else if (render === 16) {
-                if(country==="" || province==="" || city==="") {
-                    return false
-                } else {
-                    return true
-                }
             }
-        } else if(tipo === "Cuidador") {
+        } else {
                 if(country==="" || province==="" || city==="") {
                     return false
                 } else {
