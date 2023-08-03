@@ -311,6 +311,22 @@ module.exports = {
       const purchases = await PurchasesModel.find({vendedor: professionalId})
       purchases ? response(res, 200, purchases) : response(res, 404, {message: 'No se han encontrado ventas'})
     }
+  },
+  editCaracter: async (req, res) => {
+    const { professionalId, profession, caracterUpdates } = req.body
+    const professional = await ProfessionalModel.findById(professionalId)
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+    if (caracterUpdates && Object.keys(caracterUpdates).length > 0) {
+      for (const key in caracterUpdates) {
+        if (caracterUpdates.hasOwnProperty(key)) {
+          professional.professions[profession].caracter[key] = caracterUpdates[key];
+        }
+      }  
+    }
+    await professional.save();
+    return response(res, 200, { message: 'Caracter del profesional actualizado exitosamente', professional });
   }
 }
 

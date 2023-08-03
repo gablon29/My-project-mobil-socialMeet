@@ -164,12 +164,15 @@ const professionalsSchema = mongoose.Schema(
         caracter: {
           titulacon_adiestrador: {
             type: Boolean,
+            default: false
           },
           experiencia_2a: {
             type: Boolean,
+            default: false
           },
           e_perros_dif: {
             type: Boolean,
+            default: false
           }
         },
 
@@ -251,24 +254,31 @@ const professionalsSchema = mongoose.Schema(
         caracter: {
           jardin: {
             type: Boolean,
+            default: false
           },
           niños: {
             type: Boolean,
+            default: false
           },
           mascotas: {
             type: Boolean,
+            default: false
           },
           p_auxilios: {
             type: Boolean,
+            default: false
           },
           m_orales: {
             type: Boolean,
+            default: false
           },
           m_inyectables: {
             type: Boolean,
+            default: false
           },
           e_mascotas_mayores: {
             type: Boolean,
+            default: false
           }
         },
         disponibilidad: {
@@ -335,13 +345,16 @@ const professionalsSchema = mongoose.Schema(
         },
         caracter: {
           p_auxilios: {
-            type:Boolean
+            type:Boolean,
+            default: false
           },
           conocimiento_veterinario: {
             type: Boolean,
+            default: false
           },
           e_paseador: {
             type: Boolean,
+            default: false
           },
         },
         completed: {
@@ -374,18 +387,23 @@ const professionalsSchema = mongoose.Schema(
         caracter: {
           atencion_domicilio: {
             type: Boolean,
+            default: false
           },
           centro_fisico: {
             type: Boolean,
+            default: false
           },
           titulacion_peluquería: {
             type: Boolean,
+            default: false
           },
           instrumentación_necesaria: {
             type: Boolean,
+            default: false
           },
           mascotas: {
             type: Boolean,
+            default: false
           }
         },
         experience: {
