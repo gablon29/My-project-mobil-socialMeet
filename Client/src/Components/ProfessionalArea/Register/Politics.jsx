@@ -5,13 +5,11 @@ import { useState } from "react";
 const Politics = ({setRender, tipo}) => {
     
     const nextStep = () => {
-        if (tipo === "Veterinario") {
-            setRender(3)
-        } else if (tipo === "Cuidador") {
-            setRender(6)
-        } else if (tipo === "Peluquero") {
-            setRender(12)
-        }
+        if (tipo === "Veterinario") {setRender(3)} 
+        else if(tipo === "Cuidador") {setRender(6)} 
+        else if(tipo === "Peluquero") {setRender(12)}
+        else if(tipo === "Educadores") {setRender(22)}
+        else if(tipo === "Paseador") {setRender(24)}
     };
 
     return (
