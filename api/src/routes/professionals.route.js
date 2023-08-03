@@ -10,8 +10,8 @@ const { default: createPrice } = require('../controllers/stripe/createPrice')
 
 module.exports = {
   register: async (req, res) => {
+    const userId = req.user.userId;
     const { 
-      userId, 
       name,
       country,
       province,
