@@ -259,6 +259,12 @@ const professionalsSchema = mongoose.Schema(
           type: Boolean,
           default: false,
         },
+        mascotasAcuidar: {
+          type: Array,
+        },
+        lugarAtencion: {
+          type: Array,
+        },
         services: {
           type: [String],
           default: [],
@@ -316,6 +322,9 @@ const professionalsSchema = mongoose.Schema(
         isRegister: {
           type: Boolean,
           default: false,
+        },
+        species: {
+          type: Array
         },
         services: {
           type: [String],
