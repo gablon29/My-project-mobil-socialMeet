@@ -8,14 +8,17 @@ import peluqueros from "../../../images/dropDownMenu/peluqueros.png";
 import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const SelectProfessionalArea = ({register, text, setRender, render, setTipo, professionals, profileId}) => {
-    /* const u = "cuidador"
-    console.log(professionals[0].professions[u]) */
+		const navigation = useNavigation()
     const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     
     const handleBtnActive = (index) => {
+			if(!register){
+				navigation.navigate('ProfessionalProfile', {profession: areas[index].name})
+			}
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
         setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida

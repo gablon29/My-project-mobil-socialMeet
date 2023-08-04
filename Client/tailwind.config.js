@@ -13,6 +13,7 @@ module.exports = {
         naranja: '#FB6726',
         gris: '#DADADA',
         new: "#FEC89A",
+        lightnew: "#FEE4CE",
         rosa: "#FEC89A",
         clarito: "#FFF1E5",
         celeste: "#63C5C9"

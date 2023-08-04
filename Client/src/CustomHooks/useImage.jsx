@@ -3,7 +3,9 @@ import { launchImageLibraryAsync } from 'expo-image-picker';
 
 export const useSelectImagen = (profilePic) => {
   const [selImg, setSelImg] = useState({ profile: profilePic ? profilePic : '', portada: '' });
+	const [homeImages, setHomeImages] = useState([])
 
+	
   // const SelectedImage = async () => {
   //   try {
   //     const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
@@ -14,43 +16,71 @@ export const useSelectImagen = (profilePic) => {
   //     console.error('Error selected image:', error.message);
   //   }
   // };
-
+	
   const setProfile = async () => {
-    try {
-      const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
-
+		try {
+			const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+			
       const { uri } = resp.assets[0];
       setSelImg({ ...selImg, profile: uri });
     } catch (error) {
-      console.error('Error selected image:', error.message);
+			console.error('Error selected image:', error.message);
     }
   };
-
+	
   const setPortada = async () => {
-    try {
-      const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
-
+		try {
+			const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+			
       const { uri } = resp.assets[0];
       setSelImg({ ...selImg, portada: uri });
     } catch (error) {
-      console.error('Error selected image:', error.message);
+			console.error('Error selected image:', error.message);
     }
   };
-
+	
   const setImgProfile = (v) => setSelImg({ ...selImg, profile: v });
+	
+	const saveHomeImage = async () => {
+		try {
+			const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
+	
+			const { uri } = resp.assets[0];
+			console.log(uri);
+			setHomeImages([...homeImages, uri])
 
+		} catch (error) {
+			console.error('Error selected image:', error.message);
+		}
+	}
+
+	const deleteHomeImage = (i) => {
+		const newImages = homeImages.filter((image, index)=> index !== i)
+		console.log(newImages);
+		setHomeImages([...newImages])
+	}
+
+	const deleteSelImg = () => {
+		setSelImg({ profile: '', portada: '' })
+	}
+	
   return {
-    selImg,
+		selImg,
     setProfile,
     setPortada,
     setImgProfile,
     setSelImg,
+		deleteSelImg,
+		
+		homeImages,
+		saveHomeImage,
+		deleteHomeImage
   };
 };
 
 export const suvirImagen = async (uri) => {
-
-  try {
+	
+	try {
     const formData = new FormData();
     formData.append('file', {
       uri,
