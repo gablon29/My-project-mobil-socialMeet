@@ -7,18 +7,32 @@ import paseadores from "../../../images/dropDownMenu/paseadores.png";
 import peluqueros from "../../../images/dropDownMenu/peluqueros.png";
 import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) => {
-    
-    const areas = [{name:"Educadores", img: educador}, {name: "Veterinario", img: veterinario}, {name: "Tienda", img: tienda}, {name:"Cuidador", img: cuidadores}, {name: "Paseador", img: paseadores}, {name: "Peluquero", img: peluqueros}]
+const SelectProfessionalArea = ({register, text, setRender, render, setTipo, professionals, profileId}) => {
+    /* const u = "cuidador"
+    console.log(professionals[0].professions[u]) */
+    const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     
     const handleBtnActive = (index) => {
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
         setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
-    }
+    };
+
+      useEffect(()=>{
+        for (const professional of professionals) {
+            if (profileId === professional.user) {
+              const updatedAreas = areas.map((area) => {
+                const u = area.name.toLowerCase();
+                return { ...area, isRegister: professional.professions[u]?.isRegister || false };
+              });
+        
+              setAreas(updatedAreas);
+            }
+          }
+      },[])
 
     return (
         <ScrollView className="bg-white">
@@ -34,6 +48,8 @@ const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) =>
                            textClass={"font-semibold text-sm text-center mt-1"}
                            activado={btnActive[index]}
                            onPress={()=>handleBtnActive(index)}
+                           register={register}
+                           isRegister={area.isRegister}
                         />
                         </View>
                     ))

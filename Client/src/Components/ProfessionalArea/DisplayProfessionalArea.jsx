@@ -8,6 +8,7 @@ const DisplayProfessionalArea = () => {
 
     const navigate = useNavigation();
     const profile = useSelector((state) => state.ReducerAuth.profile);
+    const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals);
     
     return (
         <ScrollView className="bg-white">
@@ -25,13 +26,13 @@ const DisplayProfessionalArea = () => {
                     title={"Acceder"}
                     titleClass={"text-naranja font-bold text-base"}
                     buttonClass={"bg-white border-2 border-naranja mb-10 w-64 h-14 rounded-2xl items-center justify-center"}
-                    onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, profile})}
+                    onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, profile, professionals: professionals.professionals})}
                 />
                 <Button 
                     title={"Comenzar"}
                     titleClass={"text-white font-bold text-base"}
                     buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
-                    onPress={()=>navigate.navigate("RegisterProfessional", {register: true, profile})}
+                    onPress={()=>navigate.navigate("RegisterProfessional", {register: true, profile, professionals: professionals.professionals })}
                 />
             </View>
         </ScrollView>

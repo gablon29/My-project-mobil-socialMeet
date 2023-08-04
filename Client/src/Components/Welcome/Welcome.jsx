@@ -11,6 +11,8 @@ import { userRefresh, setErrorAuth, setLoadingAuth } from '../../Redux/ReducerAu
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { setAllPets, setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { GetPetsMethod } from '../../metodos/petsMetodos';
+import { GetDataAllProfessional } from '../../metodos/professionalMetodos';
+import { setLoadingProffesional, setErrorProfessional, setAllProfessionals } from '../../Redux/ReducerProffesional';
 
 export default function Welcome() {
   const navigation = useNavigation();
@@ -27,10 +29,10 @@ export default function Welcome() {
         loading: (v) => dispatch(setLoadingAuth(v)),
         error: (msg) => dispatch(setErrorAuth(msg)),
         success: (res) => {
-          console.log(res)
+          /* console.log(res) */
           dispatch(userRefresh(res.payload));
           navigation.navigate('Home');
-          console.log('TOKEN WELCOME', value);
+          /* console.log('TOKEN WELCOME', value); */
         },
         
       });
@@ -38,6 +40,11 @@ export default function Welcome() {
         loading: (v) => dispatch(setLoadingPets(v)),
         error: (msg) => dispatch(setErrorPets(msg)),
         success: (res) => dispatch(setAllPets(res.payload)),
+      });
+      await GetDataAllProfessional({
+        loading: (v) => dispatch(setLoadingProffesional(v)),
+        error: (msg) => dispatch(setErrorProfessional(msg)),
+        success: (res) => {dispatch(setAllProfessionals(res.payload))}
       });
     }
   };
