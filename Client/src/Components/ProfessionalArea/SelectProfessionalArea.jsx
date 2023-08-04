@@ -9,9 +9,8 @@ import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useEffect, useState } from "react";
 
-const SelectProfessionalArea = ({register, text, setRender, render, setTipo, professionals, profileId}) => {
-    /* const u = "cuidador"
-    console.log(professionals[0].professions[u]) */
+const SelectProfessionalArea = ({tipo, register, text, setRender, render, setTipo, professionals, profileId}) => {
+   
     const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     

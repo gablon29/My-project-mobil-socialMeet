@@ -2,8 +2,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Image, Text, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 import dog from "../../../../images/dropDownMenu/happyDog.png";
+import { useEffect } from "react";
 
-const AccountAccepted = ({tipo, profile}) => {
+const AccountAccepted = ({tipo, profile, professionals}) => {
     
     const navigate = useNavigation();
     return (
@@ -32,7 +33,7 @@ const AccountAccepted = ({tipo, profile}) => {
                 title={"Acceder a mi perfil"}
                 titleClass={"text-white font-bold text-base"}
                 buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
-                onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, profile})}
+                onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, profile, professionals})}
             />
             }
         </View>

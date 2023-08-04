@@ -5,7 +5,7 @@ import Btn from "../../Buttons/ButtonCuston";
 import { useEffect } from "react";
 
 const AddPicture = ({profile, setRender, setFo, fotoDoc, mascotasCuidar}) => {
-    console.log(mascotasCuidar)
+  
     const {url, setUrl, uploadImage} = useImage();
 
     useEffect(()=>{

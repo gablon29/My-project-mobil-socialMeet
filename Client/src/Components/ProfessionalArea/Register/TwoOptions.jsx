@@ -3,7 +3,7 @@ import Button from "../../Buttons/ButtonCuston";
 import { useState } from "react";
 
 const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtencion, setLugarAtencion, setCountry, setProvince, setCity}) => {
-    console.log(lugarAtencion)
+    
     const [selectOp, setSelectOp ] = useState({op1: "", op2: ""});
     
     const select = (option, title) => {
