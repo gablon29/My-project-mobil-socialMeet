@@ -29,7 +29,7 @@ const registerUser = async (email, password, firstName, lastName, phone, country
 
   await newUser.save();
   const jwtSecretKey = 'MySuperSecretKey123!@';
-  const token = jwt.sign({ userId: newUser._id, email }, jwtSecretKey, {
+  const token = jwt.sign({ userId: newUser._id, email: newUser.email,userType:newUser.userType }, jwtSecretKey, {
     expiresIn: '3000h',
   });
 
@@ -61,7 +61,7 @@ const loginUser = async (emailParam, password) => {
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) throw new ClientError('Contraseña incorrecta', 500);
   const jwtSecretKey = 'MySuperSecretKey123!@';
-  const token = jwt.sign({ userId: user._id }, jwtSecretKey, {
+  const token = jwt.sign({ userId: user._id, email: user.email,userType:user.userType }, jwtSecretKey, {
     expiresIn: '3000h',
   });
   if (user.tokens && user.tokens.length == 0) {
@@ -120,7 +120,7 @@ const recoverPassword = async (email: string, password, code) => {
   user.password = hashedPassword;
   user.latest_email_verification_code = 'already used'
   await user.save();
-  const token = jwt.sign({ userId: user._id }, JWT_RANDOM_PASSWORD, {
+  const token = jwt.sign({ userId: user._id, email: user.email,userType:user.userType }, JWT_RANDOM_PASSWORD, {
     expiresIn: '300h',
   });
   user["_doc"].password = undefined //Para no enviar password al user

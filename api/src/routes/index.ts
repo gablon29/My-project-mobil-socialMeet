@@ -98,6 +98,7 @@ router.put('/api/pet-info', isLoggedIn, catchedAsync(chips.asignar_id_chip_nuevo
 
 router.post('/api/new-purchase', isLoggedIn, catchedAsync(purchases.purchase));
 router.get('/api/user-purchase', isLoggedIn, catchedAsync(purchases.purchase));
+router.get('/api/purchase-data', isLoggedIn, catchedAsync(purchases.getPurchasesById))
 
 //ruta de admin obtener todas las compras
 router.get('/api/admin-all-purchases', isLoggedIn, catchedAsync(purchases.getAllPurchase));
@@ -121,23 +122,30 @@ router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 
 
 // ------------->  Professionals  <-------------
-router.post('/api/professional/register', catchedAsync(professionals.register));
-router.get('/api/professional/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionals));
-router.put('/api/professional/allow', isLoggedIn, catchedAsync(professionals.allowProfessional));
+router.post('/api/professional/register', isLoggedIn, catchedAsync(professionals.register));
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
-router.get('/api/professional/all', catchedAsync(professionals.getAllProfessionals));
-router.get('/api/professional/services', catchedAsync(professionals.getServices))
+router.get('/api/professional/all', isLoggedIn, catchedAsync(professionals.getAllProfessionals));
+router.put('/api/professional/caracter',isLoggedIn, catchedAsync(professionals.editCaracter))
 //----- Date Routes --------
-router.post('/api/professional/disponibilidad', catchedAsync(professionals.addAvailability));
-router.get('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.getAvailability));
-router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.editAvailability));
+router.post('/api/professional/disponibilidad', isLoggedIn, catchedAsync(professionals.addAvailability));
+router.get('/api/professional/disponibilidad/:professionalId/:date', isLoggedIn, catchedAsync(professionals.getAvailability));
+router.put('/api/professional/disponibilidad/:professionalId/:date', isLoggedIn, catchedAsync(professionals.editAvailability));
+//----- Professions --------
+router.get('/api/professional/profession/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
+router.put('/api/professional/profession/allow', isLoggedIn, catchedAsync(professionals.allowProfessionalProfession));
+router.post('/api/professional/profession/add', isLoggedIn, catchedAsync(professionals.registerProfession));
+router.put('/api/professional/profession/edit', isLoggedIn, catchedAsync(professionals.editProfession));
+router.get('/api/professional/profession/services', isLoggedIn, catchedAsync(professionals.getServices))
+
+//----- Professions --------
+router.get('/api/professional/purchases', isLoggedIn, catchedAsync(professionals.getPurchasesProfesional)) //si se le pasa un estado como filter por body también se encarga de hacer el filtrado
 
 
 // ------------->  Services  <-------------
-router.get('/api/service/all', catchedAsync(services.all));
-router.get('/api/service/byName', catchedAsync(services.byName));
-router.get('/api/service/byId', catchedAsync(services.byId))
-router.post('/api/service/add', catchedAsync(services.addService));
+router.get('/api/service/all', isLoggedIn, catchedAsync(services.all));
+router.get('/api/service/byName', isLoggedIn, catchedAsync(services.byName));
+router.get('/api/service/byId', isLoggedIn, catchedAsync(services.byId))
+router.post('/api/service/add', isLoggedIn, catchedAsync(services.addService));
 
 module.exports = router;

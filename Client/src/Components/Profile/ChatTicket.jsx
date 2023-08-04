@@ -7,22 +7,42 @@ import { useNavigation } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { ReplyTicketMethod } from "../../metodos/ticketsMetodos";
 import { setErrorTickets, setLoadingTickets, ticketsRefresh } from "../../Redux/ReducerTickets";
+import useChatSocket from "../../CustomHooks/useChatSocket";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ChatTicket = ({ route }) => {
   const { item } = route.params;
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.ReducerAuth.profile);
+  const [token, setToken] = useState(null); // Step 2: Use token state
+  const { connected, messages, onSendMessageButtonPress } = useChatSocket(token); // Step 3: Pass the token
+
   const navigation = useNavigation();
   const [message, setMessage] = useState('');
-  /* const [messages, setMessanges] = useState([]); */
+  /* const [messages, setMessanges] = useState([ ]); */
 
   /* Funcion para agregar mensajes */
+
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem('Token');
+        setToken(token);
+      } catch (error) {
+        console.log('Error retrieving token:', error);
+      }
+    };
+    getToken();
+  }, []);
+
+  
   const sendMessage = async (m) => {
     if (m.trim() !== '') {
       const body = {
         message: m,
         ticketId: item["_id"]
       };
+      onSendMessageButtonPress(m,token)
       await ReplyTicketMethod({
         body,
         loading: (v) => dispatch(setLoadingTickets(v)),
@@ -57,6 +77,8 @@ const ChatTicket = ({ route }) => {
                 <TouchableOpacity className="absolute right-0 bottom-1 flex justify-center items-center rounded-full bg-black w-11 h-11">
                     {false ? <Image source={require("../../../images/dog1.png")} className='rounded-full w-11 h-11' /> : ""}
                 </TouchableOpacity>
+                <Text style={{ fontSize: 8 }}>{connected ? 'Connected' : 'Disconnected'}</Text>
+
                 <View className="w-14"></View>
             </View>
     );
@@ -78,6 +100,12 @@ const ChatTicket = ({ route }) => {
                 <View className="relative w-10/12 items-end gap-4">
                     {item.messages?.map((msg, index) => renderMessage(msg, index))}
                 </View>
+                {/* Render the received messages */}
+      {messages.map((message, index) => (
+        <View key={index}>
+          <Text>{message.sender}: {message.content}</Text>
+        </View>
+      ))}
         </View>
     </ScrollView>
 
@@ -101,5 +129,6 @@ const ChatTicket = ({ route }) => {
 </View>
 );
 }
+
 
 export default ChatTicket;

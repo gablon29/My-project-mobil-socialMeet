@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import perro from '../../../../images/especies/ic_perro.png';
 import gato from '../../../../images/especies/ic_gato.png';
@@ -6,11 +6,11 @@ import ave from '../../../../images/especies/ic_ave.png';
 import reptil from '../../../../images/especies/ic_reptil.png';
 import pez from '../../../../images/especies/ic_pez.png';
 import roedor from '../../../../images/especies/ic_roedor.png';
-import conejo from '../../../../images/especies/conejo.png';
-import ardilla from '../../../../images/especies/ardilla.png';
+import ardilla from '../../../../images/especies/conejo.png';
+import conejo from '../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../Buttons/ButtonSquareImageTextBorderBlack';
 
-const EspecieMascota = ({ setSpecie, specie, setValida, title}) => {
+const EspecieMascota = ({ tipo, setSpecie, specie, setValida, title, text, multiple}) => {
 
   const onPress = (v) => {
     if(v){
@@ -19,24 +19,55 @@ const EspecieMascota = ({ setSpecie, specie, setValida, title}) => {
       setValida(true)
     }
     setSpecie(v)
-  }
+  };
+
+  const especies = [
+    {text:"Perro", img: perro},{text:"Gato", img: gato}, {text: "Ave", img: ave}, {text: "Reptil", img: reptil},
+    {text:"Pez", img: pez},{text:"Roedor", img: roedor}, {text:"Conejo", img: conejo}, {text:"Hurón",img: ardilla}
+  ];
+
+  const especiesFiltradas = especies.filter((especie) =>
+  ["Perro", "Gato", "Conejo", "Hurón"].includes(especie.text)
+  );
+
+  const [btnActive, setBtnActive] = useState(especies.map(() => ""));
+
+  const handleBtnActive = (index) => {
+    const updatedBtnActive = [...btnActive];
+    updatedBtnActive[index] = updatedBtnActive[index] ? 0 : 1;
+    setBtnActive(updatedBtnActive);
+    const selectedAreas = especies
+      .filter((especies, i) => updatedBtnActive[i] === 1)
+      .map((especies) => especies.text);
+    setSpecie(selectedAreas);
+    setValida(selectedAreas.length != [])
+};
 
   return (
-    <View className="justify-center items-center my-7 bg-white">
-      <Text className="text-2xl text-center font-poppinsBold mb-7">{title}</Text>
-      <View className="flex flex-row">
-        <ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={specie === 'Perro' ? true : false} onPress={() => onPress('Perro')} />
-        <ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={specie === 'Gato' ? true : false} onPress={() => onPress('Gato')} />
-        <ButtonSquareImageTextBorderBlack texto="Ave" imagen={ave} activado={specie === 'Ave' ? true : false} onPress={() => onPress('Ave')} />
-      </View>
-      <View className="flex flex-row mt-4">
-        <ButtonSquareImageTextBorderBlack texto="Reptil" imagen={reptil} activado={specie === 'Reptil' ? true : false} onPress={() => onPress('Reptil')} />
-        <ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={specie === 'Pez' ? true : false} onPress={() => onPress('Pez')} />
-        <ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={specie === 'Roedor' ? true : false} onPress={() => onPress('Roedor')} />
-      </View>
-      <View className="flex flex-row mt-4 flext items-center">
-        <ButtonSquareImageTextBorderBlack texto="Conejo" imagen={conejo} activado={specie === 'Conejo' ? true : false} onPress={() => onPress('Conejo')} />
-        <ButtonSquareImageTextBorderBlack texto="Hurón" imagen={ardilla} activado={specie === 'Hurón' ? true : false} onPress={() => onPress('Hurón')} />
+    <View className={`justify-center items-center bg-white w-screen`}>
+      {title && <Text className={`${tipo === "Peluquero" ? "text-xl" : "text-2xl"} text-center font-poppinsBold mb-5`}>{title}</Text>}
+      {text && <Text className="font-semibold text-center text-base mb-5">{text}</Text>}
+      <View className={`flex-row flex-wrap w-11/12 justify-center`}>
+        { tipo === "Peluquero" ?
+          especiesFiltradas.map((item, index)=>(
+            <ButtonSquareImageTextBorderBlack 
+              key={index}
+              texto={item.text} imagen={item.img}
+              activado={multiple ? btnActive[index] : specie === item.text ? true : false}
+              onPress={()=>{multiple ? handleBtnActive(index, item.text) : onPress(item.text)}}
+              touchClass={"m-4"}
+            />
+          ))
+          :
+          especies.map((item,index)=>(
+            <ButtonSquareImageTextBorderBlack 
+              key={index}
+              texto={item.text} imagen={item.img}
+              activado={multiple ? btnActive[index] : specie === item.text ? true : false}
+              onPress={()=>{multiple ? handleBtnActive(index, item.text) : onPress(item.text)}}
+            />
+          ))
+        }
       </View>
     </View>
   );

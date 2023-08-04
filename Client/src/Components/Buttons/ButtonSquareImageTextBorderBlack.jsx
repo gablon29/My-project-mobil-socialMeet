@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import img from '../../../images/ic_default.png';
 
-const ButtonSquareImageTextBorderBlack = ({ texto = 'Texto', textClass, imagen = img, activado = true, onPress = () => alert('no implementado') }) => {
+const ButtonSquareImageTextBorderBlack = ({ touchClass, texto = 'Texto', textClass, imagen = img, activado = true, onPress = () => alert('no implementado') }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} className={touchClass}>
       {activado ? (
         <View className={`w-20 h-20 mx-2 mt-2 bg-new rounded-xl shadow-xl justify-center items-center border-4`}>
           <Image source={imagen} className="h-16 w-16" resizeMode="contain" />

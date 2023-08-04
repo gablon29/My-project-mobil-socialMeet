@@ -68,12 +68,12 @@ module.exports = {
         const supportTicket = await SupportTicket.findById(ticketId);
   
       if (!supportTicket) {
-        return response(res, 404, 'Ticket de soporte no encontrado');
+        return response(res, 400, 'Ticket de soporte no encontrado');
       }
   
       const user = await UserModel.findById(userId);
       if (!user) {
-        return response(res, 404, 'Usuario no encontrado');
+        return response(res, 500, 'Usuario no encontrado');
       }
   
       supportTicket.messages.push({ text: message, sender: { id: userId, name: user.firstName } });
@@ -96,7 +96,7 @@ module.exports = {
     const ticket = await SupportTicket.findOne({ _id: ticketId });
 
     if (!ticket) {
-      return response(res, 404, 'Ticket de soporte no encontrado');
+      return response(res, 500, 'Ticket de soporte no encontrado');
     }
 
     response(res, 200, ticket);

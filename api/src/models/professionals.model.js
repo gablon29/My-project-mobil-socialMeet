@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON /* , paginate */ } = require('./plugins');
 const { ClientError } = require('../utils/errors');
-const User = require('./user.model'); 
-const Service = require('./services.model'); 
+const User = require('./user.model');
+const Service = require('./services.model');
 
 const professionalsSchema = mongoose.Schema(
   {
@@ -13,15 +13,92 @@ const professionalsSchema = mongoose.Schema(
       required: true,
     },
 
-    description: {
-        type: String,
-        default: '',
-        maxlength: 400,
-      },
+    name: {
+      type: String,
+      required: true,
+    },
 
-    services: {
-      type: Array,
-      default: []
+    country: {
+      type: String,
+      required: true,
+    },
+
+    province: {
+      type: String,
+      required: true,
+    },
+
+    city: {
+      type: String,
+      required: true,
+    },
+
+    address: {
+      type: String,
+    },
+
+    phone: {
+      type: String,
+      required: true,
+    },
+
+    documento: {
+      type: String,
+    },
+
+    fotoDoc: {
+      type: String,
+    },
+
+    fechaNacimiento: {
+      type: Date,
+    },
+
+    description: {
+      type: String,
+      default: '',
+      maxlength: 400,
+    },
+
+    profilePic: {
+      type: String,
+    },
+
+    pushToken: {
+      type: [String],
+      default: [],
+    },
+
+    Notifications: {
+      type: [Object],
+      default: [],
+    },
+
+    deviceTokens: [
+      {
+        type: String,
+      },
+    ],
+
+    zipcode: {
+      type: String,
+    },
+
+    stripe: {
+      customer: { type: String },
+      creditCardTokens: [{ type: String }],
+    },
+
+    shippingaddresss: {
+      address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
+      tracking_number : { type: String },
+      name: { type: String },
+      phone: { type: String },
+    },
+
+    addresses: {
+      type: [Object],
+      default: [],
     },
 
     disponibilidad: {
@@ -54,85 +131,300 @@ const professionalsSchema = mongoose.Schema(
         active: Boolean,
       },
     },
-    fee: {
-      type: Object
-    },
-
-    experience: {
-    type: Date 
-    },
-
-    completed: {
-        type: Number
-    },
-
-    reviews: {
-        type: Array
-    },
-
-    state: {
-        type: Boolean,
-        default: false,
-    },
-
-    profilePic: {
-      type: String,     
-    },
-
-    pushToken: {
-      type: Array, // Token de verificacion para notificaciones push
-      default: [],
-    },
-
-    Notifications: {
-      type: Array,
-      default: [],
-    },
-
-    deviceTokens: [
-      {
-        type: String,
+    
+      purchases:{
+      default: {}
       },
-    ],
 
-    country: {
-      type: String,
-      default: 'España',
+    professions: {
+      educador: {
+        // <------------- EDUCADOR ----------------->
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        caracter: {
+          titulacon_adiestrador: {
+            type: Boolean,
+            default: false
+          },
+          experiencia_2a: {
+            type: Boolean,
+            default: false
+          },
+          e_perros_dif: {
+            type: Boolean,
+            default: false
+          }
+        },
+
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      veterinario: {
+        // <------------- VETERINARIO ----------------->
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        modalidad: {
+          type: String,
+          enum: ['clinica', 'autonomo'],
+        },
+
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      // <------------- TIENDA ----------------->
+      tienda: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+      },
+
+      // <------------- CUIDADOR ----------------->
+      cuidador: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        mascotasAcuidar: {
+          type: Array,
+        },
+        lugarAtencion: {
+          type: Array,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        gallery: [ //cuidador service?
+        {
+          type: String,
+          default: [],
+        },
+      ],
+        caracter: {
+          jardin: {
+            type: Boolean,
+            default: false
+          },
+          niños: {
+            type: Boolean,
+            default: false
+          },
+          mascotas: {
+            type: Boolean,
+            default: false
+          },
+          p_auxilios: {
+            type: Boolean,
+            default: false
+          },
+          m_orales: {
+            type: Boolean,
+            default: false
+          },
+          m_inyectables: {
+            type: Boolean,
+            default: false
+          },
+          e_mascotas_mayores: {
+            type: Boolean,
+            default: false
+          }
+        },
+        disponibilidad: {
+          lunes: {
+            horarios: [],
+            active: Boolean,
+          },
+          martes: {
+            horarios: [],
+            active: Boolean,
+          },
+          miercoles: {
+            horarios: [],
+            active: Boolean,
+          },
+          jueves: {
+            horarios: [],
+            active: Boolean,
+          },
+          viernes: {
+            horarios: [],
+            active: Boolean,
+          },
+          sabado: {
+            horarios: [],
+            active: Boolean,
+          },
+          domingo: {
+            horarios: [],
+            active: Boolean,
+          },
+        },
+
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      // <------------- PASEADOR ----------------->
+      paseador: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        species: {
+          type: Array
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+
+        experience: {
+          type: Date,
+        },
+        caracter: {
+          p_auxilios: {
+            type:Boolean,
+            default: false
+          },
+          conocimiento_veterinario: {
+            type: Boolean,
+            default: false
+          },
+          e_paseador: {
+            type: Boolean,
+            default: false
+          },
+        },
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
+
+      // <------------- PELUQUERO ----------------->
+      peluquero: {
+        allowed: {
+          type: Boolean,
+          default: false,
+        },
+        isRegister: {
+          type: Boolean,
+          default: false,
+        },
+        services: {
+          type: [String],
+          default: [],
+        },
+        lugarAtencion: {
+          type: Array, 
+        },
+
+        caracter: {
+          atencion_domicilio: {
+            type: Boolean,
+            default: false
+          },
+          centro_fisico: {
+            type: Boolean,
+            default: false
+          },
+          titulacion_peluquería: {
+            type: Boolean,
+            default: false
+          },
+          instrumentación_necesaria: {
+            type: Boolean,
+            default: false
+          },
+          mascotas: {
+            type: Boolean,
+            default: false
+          }
+        },
+        experience: {
+          type: Date,
+        },
+
+        completed: {
+          type: Number,
+        },
+
+        reviews: {
+          type: [Object],
+        },
+      },
     },
 
-    province: {
-      type: String,
-    },
-
-    zipcode: {
-      type: String,
-    },
-
-    stripe:{
-      customer: {type: String},
-      creditCardTokens: [{type:String}]
-
-    },
-
-    shippingaddresss: {
-      address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
-      tracking_number : { type: String },
-      name: { type: String },
-      phone: { type: String },
-    },
-    
-    addresses:{
-      type: Array,
-      default: [],
-    },
-    documento: {
-      type: String
-    },
-    fotoDoc: {
-      type: String
-
-    },
-    
     tokens: [
       {
         token: {
@@ -149,7 +441,6 @@ const professionalsSchema = mongoose.Schema(
     },
   }
 );
-//professionalsSchema.index({Location: '2dsphere' });
 
 professionalsSchema.plugin(toJSON);
 //professionalsSchema.plugin(paginate);

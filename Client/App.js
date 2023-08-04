@@ -45,7 +45,7 @@ async function registerForPushNotificationsAsync() {
       await Notifications.getExpoPushTokenAsync({
         projectId: Constants.expoConfig.extra.eas.projectId,
       }))
-      console.log(token)
+      console.log("cl48",token)
   } else {
     alert('Must use physical device for Push Notifications');
   }
@@ -58,7 +58,7 @@ async function registerForPushNotificationsAsync() {
       lightColor: '#FF231F7C',
     });
   }
-console.log(token)
+console.log("cl61",token)
   return token;
 }
 
@@ -99,7 +99,7 @@ export default function App() {
       } else {
 
         token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log(token);
+        console.log("cl102",token);
         await saveToken({
           token: token,
           tokenSession: await AsyncStorage.getItem('Token'),
@@ -108,10 +108,10 @@ export default function App() {
             setIsLoadingNotif(isLoading);
           },
           success: (response) => {
-            console.log(response);
+            console.log("cl111",response);
           },
           error: (err) => {
-            console.log(err);
+            console.log("cl114Error",err);
           },
         });
       }
@@ -129,10 +129,10 @@ export default function App() {
           // Manejar estado de carga
         },
         success: (response) => {
-          console.log(response);
+          console.log("cl132",response);
         },
         error: (err) => {
-          console.log(err);
+          console.log("cl135Error",err);
         },
       });
     }).catch(e => {
