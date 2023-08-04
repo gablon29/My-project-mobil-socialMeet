@@ -50,8 +50,8 @@ module.exports = {
       addresses: addresses,
       caracter: caracter
     });
-    if(tipo === "Educador") {
-      await registerProfession(req.body)
+    if(tipo === "Educadores") {
+      newProfessional.professions.educador.isRegister = true
 
     await newProfessional.save();
   }
@@ -62,7 +62,7 @@ module.exports = {
     await newProfessional.save();
   }  
     if(tipo === "Tienda") {
-      await registerProfession(req.body)
+      newProfessional.professions.tienda.isRegister = true
 
     await newProfessional.save();
   }    
