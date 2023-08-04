@@ -2,14 +2,37 @@ import { View, Text, Image, ScrollView } from "react-native";
 import panda from "../../../images/dropDownMenu/pandaMoney.png";
 import Button from "../Buttons/ButtonCuston";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { GetDataAllProfessional } from '../../metodos/professionalMetodos';
+import { setLoadingProffesional, setErrorProfessional, setAllProfessionals } from '../../Redux/ReducerProffesional';
+import { ReloadAuthMethod } from "../../metodos/authMetodos";
+import { setErrorAuth, setLoadingAuth, userRefresh } from "../../Redux/ReducerAuth";
 
 const DisplayProfessionalArea = () => {
 
     const navigate = useNavigation();
+    const dispatch = useDispatch();
     const profile = useSelector((state) => state.ReducerAuth.profile);
     const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals);
-    
+    useEffect(()=>{
+        const data = async() => {
+            await ReloadAuthMethod({
+                loading: (v) => dispatch(setLoadingAuth(v)),
+                error: (msg) => dispatch(setErrorAuth(msg)),
+                success: (res) => {
+                  dispatch(userRefresh(res.payload));
+                },
+                
+              });
+            await GetDataAllProfessional({
+                loading: (v) => dispatch(setLoadingProffesional(v)),
+                error: (msg) => dispatch(setErrorProfessional(msg)),
+                success: (res) => {dispatch(setAllProfessionals(res.payload))}
+              });
+        }
+        data()
+    },[])
     return (
         <ScrollView className="bg-white">
             <View className="items-center py-10 bg-white h-full">
