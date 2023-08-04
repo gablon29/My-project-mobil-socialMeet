@@ -1,15 +1,10 @@
 import React,{ useState } from 'react'
 import { Image,Text,TouchableOpacity,View,TextInput } from 'react-native';
+import ServicioCuidador from './ServicioCuidador';
 
-const CaredPets = ({ pet }) => {
-	const [numericValue,setNumericValue] = useState(null)
+const CaredPets = ({ pet,activeServices,setActiveServices }) => {
 	const [petPerNight,setPetPerNight] = useState(null)
-	const handleNumericChange = (text) => {
-		const numericRegex = /^[0-9]*$/;
-		if (numericRegex.test(text)) {
-			setNumericValue(text);
-		}
-	};
+	
 
 	return (
 		<View className="flex flex-col items-center rounded-[10px] mt-20 px-5 pt-20 bg-lightnew pb-5">
@@ -33,30 +28,7 @@ const CaredPets = ({ pet }) => {
 			<Text className="font-poppins text-center text-sm">A continuación selecciona que características aceptas y tu precio en cada una</Text>
 
 			{pet.categories.map((category,i) => (
-				<View key={i} className="bg-white w-full rounded-[10px] my-3">
-					<View className="flex flex-row justify-between items-center px-4 py-3">
-						<Text className="font-poppinsBold text-base">{category}</Text>
-						<View className="flex  flex-row w-20 h-9 bg-new rounded-2xl items-center justify-evenly">
-							<TouchableOpacity onPress={() => { }} className={`${1 && "bg-white rounded-full"}  flex flex-row items-center justify-center w-7 h-7`}><Text style={{ textAlignVertical: "bottom" }} className="font-poppinsSemiBold   text-center ">Si</Text></TouchableOpacity>
-							<TouchableOpacity onPress={() => { }} className={`${!1 && "bg-white rounded-full"} flex flex-row items-center justify-center w-7 h-7`}><Text style={{ textAlignVertical: "bottom" }} className="font-poppinsSemiBold   text-center ">No</Text></TouchableOpacity>
-						</View>
-					</View>
-					<Text className="text-sm text-center">¿Cuál es el precio por noche?</Text>
-					<View className="flex flex-row items-center justify-center my-4 ">
-						<TextInput
-							className="bg-celeste w-3/5 text-white font-poppins text-center text-xl rounded-[10px]"
-
-							value={numericValue}
-							onChangeText={handleNumericChange}
-							keyboardType="numeric"
-							placeholder='-'
-							placeholderTextColor="white"
-						/>
-						<View className="absolute right-16">
-							<Text className="text-xl text-white font-poppins">€</Text>
-						</View>
-					</View>
-				</View>
+				<ServicioCuidador key={i} petName={pet.name} category={category} activeServices={activeServices} setActiveServices={setActiveServices}/>
 			))}
 		</View>
 	)

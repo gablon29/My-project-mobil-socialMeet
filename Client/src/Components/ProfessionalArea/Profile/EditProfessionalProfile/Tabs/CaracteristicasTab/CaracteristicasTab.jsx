@@ -7,21 +7,51 @@ import Question from './Question'
 import Button from '../../../../../Buttons/ButtonCuston'
 import FotoCasa from './FotoCasa'
 import { suvirImagen,useSelectImagen } from '../../../../../../CustomHooks/useImage'
+import { EditProfessionalCaracterMethod } from '../../../../../../metodos/professionalMetodos'
 
-const CaracteristicasTab = () => {
-	const questions = ["¿Tienes jardín?","¿Tienes niños?","¿Tienes mascotas?","¿Tienes conocimientos en primeros auxilios?","¿Puedes administrar medicamentos orales?","¿Puedes administrar medicamentos inyectables?","¿Tienes experiencia con mascotas mayores?"]
+const CaracteristicasTab = ({ profession }) => {
+
+	const [caracterUpdates, setCaracterUpdates] = useState({
+		jardin:false,
+		niños:false,
+		mascotas:false,
+		p_auxilios:false,
+		m_orales:false,
+		m_inyectables:false,
+		e_mascotas_mayores:false
+	})
+
+	const questions = [
+		{ title: "¿Tienes jardín?",caracteristica: "jardin" },
+		{ title: "¿Tienes niños?",caracteristica: "niños" },
+		{ title: "¿Tienes mascotas?",caracteristica: "mascotas" },
+		{ title: "¿Tienes conocimientos en primeros auxilios?",caracteristica: "p_auxilios" },
+		{ title: "¿Puedes administrar medicamentos orales?",caracteristica: "m_orales" },
+		{ title: "¿Puedes administrar medicamentos inyectables?",caracteristica: "m_inyectables" },
+		{ title: "¿Tienes experiencia con mascotas mayores?",caracteristica: "e_mascotas_mayores"}
+	]
 
 
 	const { homeImages,saveHomeImage,deleteHomeImage } = useSelectImagen()
 
-	const handleSaveData = () => {
-		let images = []
-		// homeImages.forEach(async (image)=>{
-		// 	const imageUrl = await suvirImagen(image)
-		// 	images.push(imageUrl)
-		// })
+	const handleSaveData = async () => {
 
+		let images = []
+		
+		for (const image of homeImages) {
+			const imageUrl = await suvirImagen(image);
+			images.push(imageUrl);
+		}
+		
+		const data = {
+			images,
+			profession,
+			caracterUpdates
+		}
+		
+		EditProfessionalCaracterMethod({ data,success: (s) => { console.log(s) },error: (e) => { console.log(e) },loading: (l) => { console.log(l) } })
 	}
+
 
 	return (
 		<View className="flex flex-col items-center">
@@ -47,7 +77,7 @@ const CaracteristicasTab = () => {
 
 			<View className="flex flex-col items-center justify-center mt-10 px-4 space-y-6">
 				{questions.map((question,i) => (
-					<Question key={i} question={question} />
+					<Question key={i} question={question.title} caracteristica={question.caracteristica} confirmation={caracterUpdates[question.caracteristica]} setCaracterUpdates={setCaracterUpdates} caracterUpdates={caracterUpdates} />
 				))}
 			</View>
 			<Button onPress={handleSaveData} title="Guardar" titleClass="text-naranja font-bold text-base" buttonClass="my-10 bg-trasparent border border-naranja w-72 h-14 rounded-2xl items-center justify-center" />

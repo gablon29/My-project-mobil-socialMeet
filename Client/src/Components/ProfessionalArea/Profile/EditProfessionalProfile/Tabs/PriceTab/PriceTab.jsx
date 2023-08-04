@@ -26,15 +26,29 @@ const PriceTab = () => {
 
 
 	const pets = [
-		{ name: "Perros",categories: ["0 - 5 KG","5 - 20 KG","20 - 50 KG","+50 KG"],image: perro,quantity: undefined,isCaring: caresDog },
-		{ name: "Gatos",categories: ["0 - 5 KG","5 - 20 KG"],image: gato,quantity: undefined,isCaring: caresCat },
-		{ name: "Pájaros",categories: ["0 - 300 Gr","300 - 1000 Gr","+1000 Gr"],image: ave,quantity: undefined,isCaring: caresBird },
-		{ name: "Peces",categories: ["Agua dulce","Agua salada"],image: pez,quantity: undefined,isCaring: caresFish },
-		{ name: "Reptiles",categories: ["Tortuga","Serpiente","Gecko","Iguana","Camaleon","Rana"],image: reptil,quantity: undefined,isCaring: caresReptile },
-		{ name: "Roedores",categories: ["Hamster","Conejillo de Indias","Erizo","Ratón","Chinchilla"],image: roedor,quantity: undefined,isCaring: caresRodent },
-		{ name: "Conejos",categories: ["0 - 5 KG","5 - 20 KG"],image: conejo,quantity: undefined,isCaring: caresRabbit },
-		{ name: "Hurones",categories: ["0 - 5 KG"],image: huron,quantity: undefined,isCaring: caresFerret },
+		{ name: "Perros",categories: ["0 - 5 KG","5 - 20 KG","20 - 50 KG","+50 KG"],image: perro,isCaring: caresDog },
+		{ name: "Gatos",categories: ["0 - 5 KG","5 - 20 KG"],image: gato,isCaring: caresCat },
+		{ name: "Pájaros",categories: ["0 - 300 Gr","300 - 1000 Gr","+1000 Gr"],image: ave,isCaring: caresBird },
+		{ name: "Peces",categories: ["Agua dulce","Agua salada"],image: pez,isCaring: caresFish },
+		{ name: "Reptiles",categories: ["Tortuga","Serpiente","Gecko","Iguana","Camaleon","Rana"],image: reptil,isCaring: caresReptile },
+		{ name: "Roedores",categories: ["Hamster","Conejillo de Indias","Erizo","Ratón","Chinchilla"],image: roedor,isCaring: caresRodent },
+		{ name: "Conejos",categories: ["0 - 5 KG","5 - 20 KG"],image: conejo,isCaring: caresRabbit },
+		{ name: "Hurones",categories: ["0 - 5 KG"],image: huron,isCaring: caresFerret },
 	]
+	const [activeServices,setActiveServices] = useState({
+		perros: [],
+		gatos: [],
+		pajaros: [],
+		peces: [],
+		reptiles: [],
+		roedores: [],
+		conejos: [],
+		hurones: []
+	})
+
+	const handleSaveServices = () => {
+		
+	}
 
 	return (<>
 		<View className="mb-10">
@@ -63,12 +77,12 @@ const PriceTab = () => {
 				<View className="my-5 px-5">
 					{pets.map((pet,i) => (
 						pet.isCaring &&
-						<CaredPets key={i} pet={pet} />
+						<CaredPets key={i} pet={pet} activeServices={activeServices} setActiveServices={setActiveServices} />
 					))}
 				</View>
 
 				{/* Guardar info */}
-				<Button onPress={() => { }} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
+				<Button onPress={handleSaveServices} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
 			</View>
 		</View>
 	</>

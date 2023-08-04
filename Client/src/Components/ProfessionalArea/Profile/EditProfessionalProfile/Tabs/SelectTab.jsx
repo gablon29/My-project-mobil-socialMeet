@@ -5,7 +5,7 @@ import PersonalTab from './PersonalTab';
 import PriceTab from './PriceTab/PriceTab';
 import CaracteristicasTab from './CaracteristicasTab/CaracteristicasTab';
 
-const SelectTab = () => {
+const SelectTab = ({profession, professional}) => {
 	const [tab,setTab] = useState('Personal');
 	const [countries, setCountries] = useState([])
 
@@ -34,9 +34,9 @@ const SelectTab = () => {
 				<View className="absolute w-[96%] h-px bg-black bottom-[1px] flex flex-row"></View>
 
 			</View>
-				{tab === "Personal" && <PersonalTab/>}
-				{tab === "Características" && <CaracteristicasTab/>}
-				{tab === "Precios" && <PriceTab/>}
+				{tab === "Personal" && <PersonalTab profession={profession} professional={professional}/>}
+				{tab === "Características" && <CaracteristicasTab profession={profession} professional={professional}/>}
+				{tab === "Precios" && <PriceTab profession={profession} professional={professional}/>}
 		</>
 	)
 }

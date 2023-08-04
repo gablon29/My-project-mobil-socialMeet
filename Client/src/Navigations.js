@@ -35,7 +35,6 @@ import ClinicVet from './Components/ProfessionalArea/Veterinary/ClinicVet';
 import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfessionalArea';
 import RegisterProfessional from './Components/ProfessionalArea/Register/RegisterProfessional';
 import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
-import ProfessionalProfile from './Components/ProfessionalArea/Profile/ProfessionalProfile';
 import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
 import EditProfessionalProfile from './Components/ProfessionalArea/Profile/EditProfessionalProfile/EditProfessionalProfile';
 
@@ -49,6 +48,7 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      {/* <StackAuthFalse.Screen name="Login" component={DisplayProfessionalProfile} options={{ headerShown: false }} /> */}
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: false, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
     </StackAuthFalse.Navigator>

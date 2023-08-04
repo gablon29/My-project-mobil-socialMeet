@@ -8,9 +8,12 @@ import peluqueros from "../../../images/dropDownMenu/peluqueros.png";
 import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) => {
     
+	const navigation = useNavigation()
+
     const areas = [{name:"Educadores", img: educador}, {name: "Veterinario", img: veterinario}, {name: "Tienda", img: tienda}, {name:"Cuidador", img: cuidadores}, {name: "Paseador", img: paseadores}, {name: "Peluquero", img: peluqueros}]
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     

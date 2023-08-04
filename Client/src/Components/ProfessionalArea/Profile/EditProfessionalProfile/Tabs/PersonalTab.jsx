@@ -5,35 +5,38 @@ import cruz from '../../../../../../images/iconos/cruz.png'
 import basura from '../../../../../../images/iconos/basura.png'
 import countryList from '../../../../../../extras/countrys.json';
 import { SelectList } from 'react-native-dropdown-select-list'
-import Calendar from 'react-native-modern-datepicker'
+import Calendar from 'react-native-calendar-picker';
 import Button from '../../../../Buttons/ButtonCuston'
 import { suvirImagen,useSelectImagen } from '../../../../../CustomHooks/useImage'
-const PersonalTab = () => {
+import { TextInput } from 'react-native'
+import { EditProfessionalMethod } from '../../../../../metodos/professionalMetodos'
+const PersonalTab = ({professional}) => {
 
 
 	const [countries,setCountries] = useState([])
 	const [provinces,setProvinces] = useState([])
-	const [localities,setLocalities] = useState([])
 
 	const [selectedCountry,setSelectedCountry] = useState("")
 	const [selectedProvince,setSelectedProvince] = useState("")
 	const [selectedLocality,setSelectedLocality] = useState("")
+
 	const [selectedDate,setSelectedDate] = useState("")
+
 	const { selImg,setProfile,deleteSelImg } = useSelectImagen()
 
 	// const [image,setImage] = useState("")
 
-	const handleSave = () => {
-		const image = suvirImagen(selImg.profile)
-		const savedData = {
+	const handleSave = async () => {
+		console.log("asdasd");
+		const image = await suvirImagen(selImg.profile)
+		const data = {
 			country: selectedCountry,
 			province: selectedProvince,
-			locality: selectedLocality,
-			birthDate: selectedDate,
-			image
+			city: selectedLocality,
+			fechaNacimiento: new Date(selectedDate),
+			profilePic: image
 		}
-		console.log(savedData);
-		//POST
+		EditProfessionalMethod({ data,success: (s) => { console.log(s) },error: (e) => { console.log(e) },loading: (l) => { console.log(l) } })
 	}
 
 	useEffect(() => {
@@ -52,7 +55,7 @@ const PersonalTab = () => {
 
 	return (
 		<View className="flex flex-col items-center justify-center">
-			
+
 			<View className="relative my-10 w-32 h-32 flex flex-col items-center justify-center">
 				<TouchableOpacity onPress={() => setProfile()} className="absolute w-32 h-32 flex flex-row items-center justify-center mb-9" >
 					<View className="rounded-full bg-new w-32 h-32">
@@ -131,13 +134,12 @@ const PersonalTab = () => {
 			</View>
 			<View className="flex flex-col items-start w-full p-6">
 				<Text className="font-poppinsSemiBold text-base">Localidad</Text>
-				<View className="w-[99%] self-cente">
+				<View className="w-[99%] self-center">
 
-					<SelectList
-						data={[]}
-						setSelected={() => { }}
-						placeholder="Seleccionar"
-						search={true}
+					<TextInput
+						value={selectedLocality}
+						onChangeText={(locality) => setSelectedLocality(locality)}
+						className="bg-new h-[40px] rounded-[10px] p-[10px] pl-4 text-[12px]	font-poppins"
 						boxStyles={{
 							backgroundColor: '#FEC89A',
 							borderRadius: 10,
@@ -146,15 +148,7 @@ const PersonalTab = () => {
 							width: "100%",
 							padding: 10,
 						}}
-						inputStyles={{
-							fontSize: 12,
-							fontFamily: "Poppins",
-							marginTop: -2
 
-						}}
-						dropdownStyles={{
-							backgroundColor: '#FEC89A',
-						}}
 					/>
 				</View>
 			</View>
@@ -165,21 +159,9 @@ const PersonalTab = () => {
 
 
 				<Calendar
-					mode='calendar'
-					onSelectedChange={(date) => {
-						setSelectedDate(date)
-					}}
-
-					options={{
-						backgroundColor: '#FFFFFF',
-						textHeaderColor: 'black',
-						textDefaultColor: 'black',
-						selectedTextColor: '#fff',
-						mainColor: '#FB6726',
-						textSecondaryColor: 'black',
-						borderColor: 'rgba(122, 146, 165, 0.1)',
-					}}
-					style={{ borderRadius: 16,elevation: 6 }}
+					onDateChange={(date) => { setSelectedDate(date) }}
+					selectedDayColor="#FB6726"
+					selectedDayTextColor="white"
 				/>
 
 
