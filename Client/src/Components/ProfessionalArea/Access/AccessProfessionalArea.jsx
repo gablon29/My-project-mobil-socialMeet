@@ -1,10 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import SelectProfessionalArea from "../SelectProfessionalArea";
 const AccessProfessionalArea = ({route}) => {
-    const {register, text} = route.params;
-		const navigation = useNavigation()
+    const {register, profile, professionals} = route.params;
     return (
-        <SelectProfessionalArea navigation = {navigation} register={register} text={text}/>
+        <SelectProfessionalArea professionals={professionals} profileId={profile?.id} register={register} text={`Accede a tu área${"\n"}profesional`}/>
     );
 }
  

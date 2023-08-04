@@ -3,6 +3,7 @@ import ReducerAuth from "./ReducerAuth";
 import ReducerPets from "./ReducerPets";
 import ReducerCart from "./ReducerCart";
 import ReducerTickets from "./ReducerTickets";
+import ReducerProfessional from "./ReducerProffesional";
 
 const store = configureStore({
   reducer: {
@@ -10,7 +11,7 @@ const store = configureStore({
     ReducerPets: ReducerPets,
     ReducerCart: ReducerCart,
     ReducerTickets: ReducerTickets,
-
+    ReducerProfessional: ReducerProfessional
   },
 });
 

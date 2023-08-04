@@ -1,25 +1,20 @@
-import { Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { View } from "react-native";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import Button from "../../Buttons/ButtonCuston";
 import EspecieMascota from "../../Pets/Create/EspecieMascota";
 import { usePets } from "../../../CustomHooks/usePets";
 
-const SelectSpice = ({title, text, multiple, setRender, setMascotaCuidar, lugarAtencion, tipo}) => {
-    const navigate = useNavigation();
-    console.log(lugarAtencion)
+const SelectSpice = ({title, text, multiple, setRender, setMascotaCuidar, tipo, setProvince, setCountry, setCity}) => {
+
     const { pet, setSpecie } = usePets(); //debe llegar por props para que lo admita el crear editar mascota etc
     const [valida, setValida] = useState(false);
     
     const nextStep = () => {
         setMascotaCuidar(pet.specie);
-        setRender(8)
-        /* if(tipo === "Cuidador") {
-            setRender(8);
-        } else if(tipo === "Peluquero") {
-            setRender(18);
-        } */
+        setCity("");
+        setCountry("");
+        setProvince("");
+        setRender(8);
     }
 
     return (

@@ -88,8 +88,10 @@ module.exports = {
 
   editProfessional: async (req, res) => {
     const professionalId = req.user.userId;
-		
-    const professional = await ProfessionalModel.findOne({user: professionalId});
+
+
+
+    const professional = await ProfessionalModel.findOne({ user: professionalId });
     if (!professional) {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
@@ -118,12 +120,11 @@ module.exports = {
   getProfessionalData: async (req, res) => {
     const professionalId = req.user.userId;
 
-    const professional = await ProfessionalModel.findOne({user: professionalId});
+    const professional = await ProfessionalModel.findOne({ user: professionalId });
     if (!professional) {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
     return response(res, 200, { professional });
-    // return response(res, 200, "holi");
   },
 
   getAllProfessionals: async (req, res) => {
@@ -284,7 +285,7 @@ module.exports = {
   editCaracter: async (req, res) => {
     const professionalId = req.user.userId;
     const { profession, caracterUpdates, images } = req.body;
-		console.log(profession);
+    console.log("profession");
     const professional = await ProfessionalModel.findOne({ user: professionalId });
 
     if (!professional) {
@@ -293,8 +294,8 @@ module.exports = {
 
     if (caracterUpdates && Object.keys(caracterUpdates).length > 0) {
       for (const key in caracterUpdates) {
-      	if (caracterUpdates.hasOwnProperty(key)) {
-      		professional.professions[profession.toLowerCase()].caracter[key] = caracterUpdates[key];
+        if (caracterUpdates.hasOwnProperty(key)) {
+          professional.professions[profession.toLowerCase()].caracter[key] = caracterUpdates[key];
         }
       }
       if (images) {

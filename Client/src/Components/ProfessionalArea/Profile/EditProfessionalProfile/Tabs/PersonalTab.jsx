@@ -10,7 +10,7 @@ import Button from '../../../../Buttons/ButtonCuston'
 import { suvirImagen,useSelectImagen } from '../../../../../CustomHooks/useImage'
 import { TextInput } from 'react-native'
 import { EditProfessionalMethod } from '../../../../../metodos/professionalMetodos'
-const PersonalTab = ({professional}) => {
+const PersonalTab = () => {
 
 
 	const [countries,setCountries] = useState([])
@@ -36,6 +36,7 @@ const PersonalTab = ({professional}) => {
 			fechaNacimiento: new Date(selectedDate),
 			profilePic: image
 		}
+		
 		EditProfessionalMethod({ data,success: (s) => { console.log(s) },error: (e) => { console.log(e) },loading: (l) => { console.log(l) } })
 	}
 

@@ -48,7 +48,6 @@ function NavigatorAuthFalse() {
       <StackAuthFalse.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthFalse.Screen name="Login" component={Login} options={{ headerShown: false }} />
-      {/* <StackAuthFalse.Screen name="Login" component={DisplayProfessionalProfile} options={{ headerShown: false }} /> */}
       <StackAuthFalse.Screen name="Register" component={Register} options={{ headerShown: false }} />
       <StackAuthFalse.Screen name="ResetPassword" component={ResetPasword} options={{ headerStyle: { backgroundColor: '#FFF' }, headerShown: false, headerTintColor: '#000', title: 'Iniciar sesión', headerBackTitle: true, headerBackTitleVisible: true, headerTitleAlign: 'center' }} />
     </StackAuthFalse.Navigator>
@@ -82,7 +81,6 @@ const NavigatorAuthTrue = () => {
     <StackAuthTrue.Navigator screenOptions={{ header: (props) => (!sinHeader(props.route) ? null : showHeader(props.route) ? <Header /> : <HeaderBack />), headerShown: false }}>
       <StackAuthTrue.Screen name="Home" component={Home} options={{ headerShown: true, headerLeft: null }} />
       <StackAuthTrue.Screen name="Profile" component={ProfileComponent} options={{ headerShown: true }} />
-      {/* <StackAuthTrue.Screen name="Profile" component={DisplayProfessionalProfile} options={{ headerShown: true }} /> */}
       <StackAuthTrue.Screen name="EditProfile" component={EditInfoProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="MyPets" component={MyPets} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="AddPet" component={AddPet} options={{ headerShown: true }} />

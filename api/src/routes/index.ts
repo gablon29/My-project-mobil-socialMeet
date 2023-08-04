@@ -128,24 +128,15 @@ router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getP
 router.get('/api/professional/all', isLoggedIn, catchedAsync(professionals.getAllProfessionals));
 router.put('/api/professional/caracter',isLoggedIn, catchedAsync(professionals.editCaracter))
 //----- Date Routes --------
-router.post('/api/professional/disponibilidad', isLoggedIn, catchedAsync(professionals.addAvailability));
-router.get('/api/professional/disponibilidad/:professionalId/:date', isLoggedIn, catchedAsync(professionals.getAvailability));
-router.put('/api/professional/disponibilidad/:professionalId/:date', isLoggedIn, catchedAsync(professionals.editAvailability));
-//----- Professions --------
-router.get('/api/professional/profession/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
-router.put('/api/professional/profession/allow', isLoggedIn, catchedAsync(professionals.allowProfessionalProfession));
-router.post('/api/professional/profession/add', isLoggedIn, catchedAsync(professionals.registerProfession));
-router.put('/api/professional/profession/edit', isLoggedIn, catchedAsync(professionals.editProfession));
-router.get('/api/professional/profession/services', isLoggedIn, catchedAsync(professionals.getServices))
-
-//----- Professions --------
-router.get('/api/professional/purchases', isLoggedIn, catchedAsync(professionals.getPurchasesProfesional)) //si se le pasa un estado como filter por body también se encarga de hacer el filtrado
+router.post('/api/professional/disponibilidad', catchedAsync(professionals.addAvailability));
+router.get('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.getAvailability));
+router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.editAvailability));
 
 
 // ------------->  Services  <-------------
-router.get('/api/service/all', isLoggedIn, catchedAsync(services.all));
-router.get('/api/service/byName', isLoggedIn, catchedAsync(services.byName));
-router.get('/api/service/byId', isLoggedIn, catchedAsync(services.byId))
-router.post('/api/service/add', isLoggedIn, catchedAsync(services.addService));
+router.get('/api/service/all', isLoggedIn, isLoggedIn, catchedAsync(services.all));
+router.get('/api/service/byName', isLoggedIn, isLoggedIn, catchedAsync(services.byName));
+router.get('/api/service/byId', isLoggedIn, isLoggedIn, catchedAsync(services.byId))
+router.post('/api/service/add', isLoggedIn, isLoggedIn, catchedAsync(services.addService));
 
 module.exports = router;
