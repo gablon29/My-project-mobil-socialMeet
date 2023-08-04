@@ -7,7 +7,7 @@ const EditProfessionalProfile = ({ route }) => {
 	const navigation = useNavigation();
 	const profession = route.params.profession
 
-
+	
 	return (
 		<ScrollView>
 			<TouchableOpacity className="flex flex-row items-center">
