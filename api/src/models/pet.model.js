@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const { toJSON /* , paginate */ } = require('./plugins');
+const PhotoSocial = require('./socialPet.model');
 
 const petSchema = mongoose.Schema(
   {
@@ -68,12 +69,14 @@ const petSchema = mongoose.Schema(
       type: String,
       default: 'https://www.shutterstock.com/image-photo/manipulated-image-very-long-dachshund-260nw-38764216.jpg',
     },
-    gallery: [
+    gallery:  [
       {
-        type: String,
-        default: [],
-      },
-    ],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PhotoSocial',
+        autopopulate: true      
+      }
+    ]
+    ,
     owner: {
       type: String,
     },
@@ -97,6 +100,7 @@ const petSchema = mongoose.Schema(
   }
 );
 
+petSchema.plugin(require('mongoose-autopopulate'));
 // le saca el _ a algunas cosas
 petSchema.plugin(toJSON);
 //petSchema.plugin(paginate);

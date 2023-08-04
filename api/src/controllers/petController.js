@@ -15,8 +15,7 @@ const createPet = async ({ name, specie, breed, weight, sex, age, health, profil
 
 const updatePet = async (PetData, petID, ownerEmail) => {
   const queryCondition = { _id: petID, owner: ownerEmail };
-  const updatedPet = await PetModel.updateOne(queryCondition, PetData);
-  
+  const updatedPet = await PetModel.updateOne(queryCondition, PetData);  
 
   return updatedPet;
 };

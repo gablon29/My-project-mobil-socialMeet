@@ -56,7 +56,7 @@ router.post('/api/pet/add', isLoggedIn, catchedAsync(pet.create_pet));
 router.put('/api/pet/profile', isLoggedIn, catchedAsync(pet.edit_pet));
 router.delete('/api/pet/delete', isLoggedIn, catchedAsync(pet.delete_my_pet));
 router.get('/api/pet/with-chip', isLoggedIn, catchedAsync(pet.all_pets_with_chip));
-
+router.put('/api/pet/social-comment', isLoggedIn, catchedAsync(pet.push_petComment))
 
 // ------------->  ADMIN  <-------------
 router.get('/api/admin/push', /* isLoggedIn, */ catchedAsync(admin.sendOneNotification));
