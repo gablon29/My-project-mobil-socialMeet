@@ -6,7 +6,7 @@ import Button from "../../Buttons/ButtonCuston";
 import EspecieMascota from "../../Pets/Create/EspecieMascota";
 import { usePets } from "../../../CustomHooks/usePets";
 
-const SelectSpice = ({title, text, multiple, setRender, setMascotaCuidar, lugarAtencion, tipo}) => {
+const SelectSpice = ({title, text, multiple, setRender, setMascotaCuidar, lugarAtencion, tipo, setProvince, setCountry, setCity}) => {
     const navigate = useNavigation();
     console.log(lugarAtencion)
     const { pet, setSpecie } = usePets(); //debe llegar por props para que lo admita el crear editar mascota etc
@@ -14,12 +14,10 @@ const SelectSpice = ({title, text, multiple, setRender, setMascotaCuidar, lugarA
     
     const nextStep = () => {
         setMascotaCuidar(pet.specie);
-        setRender(8)
-        /* if(tipo === "Cuidador") {
-            setRender(8);
-        } else if(tipo === "Peluquero") {
-            setRender(18);
-        } */
+        setCity("");
+        setCountry("");
+        setProvince("");
+        setRender(8);
     }
 
     return (

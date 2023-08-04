@@ -142,6 +142,8 @@ router.get('/api/professional/profession/services', isLoggedIn, catchedAsync(pro
 router.get('/api/professional/purchases', isLoggedIn, catchedAsync(professionals.getPurchasesProfesional)) //si se le pasa un estado como filter por body también se encarga de hacer el filtrado
 
 
+
+
 // ------------->  Services  <-------------
 router.get('/api/service/all', isLoggedIn, catchedAsync(services.all));
 router.get('/api/service/byName', isLoggedIn, catchedAsync(services.byName));
