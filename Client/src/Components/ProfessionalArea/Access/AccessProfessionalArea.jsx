@@ -1,9 +1,9 @@
 import SelectProfessionalArea from "../SelectProfessionalArea";
 
 const AccessProfessionalArea = ({route}) => {
-    const {register, text} = route.params;
+    const {register, profile} = route.params;
     return (
-        <SelectProfessionalArea register={register} text={text}/>
+        <SelectProfessionalArea register={register} text={`Accede a tu área${"\n"}profesional`}/>
     );
 }
  

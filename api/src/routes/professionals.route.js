@@ -50,35 +50,35 @@ module.exports = {
       addresses: addresses,
       caracter: caracter
     });
-    if(tipo === "educador") {
-      await registerProfession(req.body)
+    if(tipo === "Educadores") {
+      newProfessional.professions.educador.isRegister = true
 
     await newProfessional.save();
   }
-  if(tipo === "veterinario") {
+  if(tipo === "Veterinario") {
     newProfessional.professions.veterinario.isRegister = true
     newProfessional.professions.veterinario.modalidad = modalidad
 
     await newProfessional.save();
   }  
-    if(tipo === "tienda") {
-      await registerProfession(req.body)
+    if(tipo === "Tienda") {
+      newProfessional.professions.tienda.isRegister = true
 
     await newProfessional.save();
   }    
-    if(tipo === "cuidador") {
+    if(tipo === "Cuidador") {
     newProfessional.professions.cuidador.isRegister = true
     newProfessional.professions.cuidador.mascotasAcuidar = mascotasCuidar
     newProfessional.professions.cuidador.lugarAtencion = lugarAtencion
 
     await newProfessional.save();
   }
-  if(tipo === "paseador") {
+  if(tipo === "Paseador") {
     newProfessional.professions.paseador.isRegister = true
     newProfessional.professions.paseador.species = mascotasCuidar
     await newProfessional.save();
   }
-  if(tipo === "peluquero") {
+  if(tipo === "Peluquero") {
     newProfessional.professions.peluquero.isRegister = true
     newProfessional.professions.peluquero.lugarAtencion = lugarAtencion 
     await newProfessional.save();

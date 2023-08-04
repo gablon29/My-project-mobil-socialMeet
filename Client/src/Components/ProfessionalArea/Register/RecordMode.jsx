@@ -8,7 +8,7 @@ const RecordMode = ({setModalidad, setRender}) => {
 
     const activeBtn = (mode) => {
         setBtnActive(mode);
-        mode === "clinic" ? setModalidad("Clínica Veterinaria") : setModalidad("Veterinario Autónomo");
+        mode === "clinic" ? setModalidad("clinica") : setModalidad("autonomo");
     };
 
     return (

@@ -44,12 +44,10 @@ const professionalsSchema = mongoose.Schema(
 
     documento: {
       type: String,
-      required: true,
     },
 
     fotoDoc: {
       type: String,
-      required: true,
     },
 
     fechaNacimiento: {
