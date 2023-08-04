@@ -56,7 +56,7 @@ export default function Header() {
     setShowNotifications(!showNotifications);
     setShowMenu(false); // Cierra el menú cuando se abren las notificaciones
   };
-  console.log("console.log(profile.Notifications) =",profile.Notifications)
+ /*  console.log("console.log(profile.Notifications) =",profile.Notifications) */
 
   return (
     <View className={`w-screen ${showMenu || showNotifications ? 'h-screen' : 'h-fit'} bg-white`}>

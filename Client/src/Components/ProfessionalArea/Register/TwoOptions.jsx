@@ -44,7 +44,7 @@ const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtenci
             setCity("")
             selectOp.op1 != "" ? setRender(15) : setRender(16)
           }
-        } else if (tipo === "Educadores"){
+        } else if (tipo === "Educador"){
           setLugarAtencion([{lugar:selectOp}])
           setRender(23)
         }
