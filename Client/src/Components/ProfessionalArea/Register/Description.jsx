@@ -2,10 +2,10 @@ import { Text, TextInput, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 
 
-const Description = ({description, tipo, setRender, setDescription, registerProfessional}) => {
+const Description = ({description, setRender, setDescription, registerProfessional, id}) => {
     
     const nextStep = () => {
-        registerProfessional()
+        registerProfessional(id);
         setRender(21)
     }
 
