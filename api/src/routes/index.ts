@@ -7,7 +7,8 @@ import notify from './pushNotify.route'
 import purchases from './purchases.route'
 
 import chips from '../controllers/chipsController'
-import stripeControllers  from '../controllers/stripe'
+// import stripeControllers  from '../controllers/stripe'
+import vivaWalletControllers from '../controllers/vivaWallet'
 import support from "../routes/support.route"
 import professionals from './professionals.route'
 import services from './services.route'
@@ -79,13 +80,16 @@ router.put('/api/admin/purchases', /* isLoggedIn, */ catchedAsync(admin.allSales
 router.get('/api/admin/getUserById', /* isLoggedIn, */ catchedAsync(admin.get_by_id));
 
 
-// ------------->  STRIPE  <-------------
-router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(stripeControllers.getApiKey));
-router.get('/api/stripe/allproducts',isLoggedIn, catchedAsync(stripeControllers.getAllProducts));
-router.get('/api/stripe/product/:productId',isLoggedIn, catchedAsync(stripeControllers.getProductById));
-router.post('/api/stripe/start-pay-process',isLoggedIn, catchedAsync(stripeControllers.postStartBuyProcess));
-router.post('/stripe/callback', express.raw({ type: 'application/json' }), catchedAsync(stripeControllers.postHandleStripeEvents));
-router.post('/api/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
+// // ------------->  STRIPE  <-------------
+// router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(stripeControllers.getApiKey));
+// router.get('/api/stripe/allproducts',isLoggedIn, catchedAsync(stripeControllers.getAllProducts));
+// router.get('/api/stripe/product/:productId',isLoggedIn, catchedAsync(stripeControllers.getProductById));
+// router.post('/api/stripe/start-pay-process',isLoggedIn, catchedAsync(stripeControllers.postStartBuyProcess));
+// router.post('/stripe/callback', express.raw({ type: 'application/json' }), catchedAsync(stripeControllers.postHandleStripeEvents));
+// router.post('/api/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
+
+// ------------->  VIVA WALLET  <-------------
+router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(vivaWalletControllers.getApiKey));
 
 
 // ------------->  CHIPS  <-------------
