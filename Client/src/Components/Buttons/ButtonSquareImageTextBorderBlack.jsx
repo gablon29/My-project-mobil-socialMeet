@@ -3,7 +3,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import img from '../../../images/ic_default.png';
 
 const ButtonSquareImageTextBorderBlack = ({ register, isRegister, touchClass, texto = 'Texto', textClass, imagen = img, activado = true, onPress = () => alert('no implementado') }) => {
-  console.log(isRegister)
+  register === undefined ? register = true : register
+  
   if(register) {
     return (
       <TouchableOpacity onPress={isRegister ? null : onPress} className={touchClass}>

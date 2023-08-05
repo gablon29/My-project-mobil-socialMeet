@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
 import Btn from "../../Buttons/ButtonCuston";
-import { useState } from "react";
 
 const Politics = ({setRender, tipo}) => {
     
