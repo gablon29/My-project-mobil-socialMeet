@@ -14,7 +14,7 @@
 
 // export const BACK_URL= 'http://192.168.1.2:8080'; // Vini
 //export const BACK_URL= 'http://192.168.178.211:8080'; // santiago
-export const BACK_URL = 'http://192.168.0.8:8080'// Lauty
+// export const BACK_URL = 'http://192.168.0.8:8080'// Lauty
 
 // DESARROLLO
 
