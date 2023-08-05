@@ -90,7 +90,9 @@ router.get('/api/admin/getUserById', /* isLoggedIn, */ catchedAsync(admin.get_by
 
 // ------------->  VIVA WALLET  <-------------
 router.get('/api/viva-wallet/get-api-key',isLoggedIn, catchedAsync(vivaWalletControllers.getApiKey));
+router.get('/api/viva-wallet/pay/:orderId',isLoggedIn, catchedAsync(vivaWalletControllers.pay));
 router.post('/api/viva-wallet/create-payment',isLoggedIn, catchedAsync(vivaWalletControllers.createPayment));
+
 
 // ------------->  CHIPS  <-------------
 router.get('/api/pet-info', catchedAsync(chips.ruta_incorrecta)); //xd

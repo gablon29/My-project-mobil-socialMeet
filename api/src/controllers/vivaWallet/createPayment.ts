@@ -1,7 +1,6 @@
 import axios from 'axios';
 import getApiKey from './getApiKey';
 
-
 export default async function (req, res) {
 
     //-----environment acá-----//
@@ -31,8 +30,7 @@ export default async function (req, res) {
 
     axios.post(createOrderUrl, orderData, config)
         .then(response => {
-            console.log('Orden de pago creada exitosamente:', response.data);
-            // Aquí podrías redirigir al usuario a la página de pago si lo deseas
+            console.log('Orden de pago creada exitosamente:', response.data); //OrderCode acá para después efectuar el pago en /pay/:orderId
             res.status(200).send('Orden de pago creada exitosamente');
         })
         .catch(error => {
