@@ -6,7 +6,7 @@ const vivaWalletControllers =
 {
     getApiKey,
     createPayment,
-    pay
+    pay,
 }
 
 export default vivaWalletControllers
