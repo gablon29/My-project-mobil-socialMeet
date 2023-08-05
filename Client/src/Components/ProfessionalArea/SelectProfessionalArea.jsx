@@ -11,12 +11,11 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const SelectProfessionalArea = ({tipo, register, text, setRender, render, setTipo, professionals, profileId}) => {
-   
-const SelectProfessionalArea = ({register, text, setRender, render, setTipo, professionals, profileId}) => {
   
-    const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
+    const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false, allowed: false}, {name: "Veterinario", img: veterinario, allowed: false, isRegister: false}, {name: "Tienda", allowed: false, img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false, allowed: false}, {name: "Paseador", img: paseadores, isRegister: false, allowed: false}, {name: "Peluquero", img: peluqueros, isRegister: false, allowed: false}])
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     
+
     const handleBtnActive = (index) => {
 			if(!register){
 				navigation.navigate('ProfessionalProfile', {profession: areas[index].name})
@@ -31,7 +30,7 @@ const SelectProfessionalArea = ({register, text, setRender, render, setTipo, pro
             if (profileId === professional.user) {
               const updatedAreas = areas.map((area) => {
                 const u = area.name.toLowerCase();
-                return { ...area, isRegister: professional.professions[u]?.isRegister || false };
+                return { ...area, isRegister: professional.professions[u]?.isRegister && professional.professions[u]?.allowed || false };
               });
         
               setAreas(updatedAreas);
