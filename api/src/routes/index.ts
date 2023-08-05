@@ -89,8 +89,8 @@ router.get('/api/admin/getUserById', /* isLoggedIn, */ catchedAsync(admin.get_by
 // router.post('/api/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
 
 // ------------->  VIVA WALLET  <-------------
-router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(vivaWalletControllers.getApiKey));
-
+router.get('/api/viva-wallet/get-api-key',isLoggedIn, catchedAsync(vivaWalletControllers.getApiKey));
+router.post('/api/viva-wallet/create-payment',isLoggedIn, catchedAsync(vivaWalletControllers.createPayment));
 
 // ------------->  CHIPS  <-------------
 router.get('/api/pet-info', catchedAsync(chips.ruta_incorrecta)); //xd
