@@ -10,6 +10,7 @@ export const JWT_RANDOM_PASSWORD:string = process.env.JWT_RANDOM_PASSWORD || 'My
 export const PORT:string = process.env.PORT || '8080'
 export const ADMIN_EMAIL:string = process.env.ADMIN_EMAIL
 export const ADMIN_NAME:string = process.env.ADMIN_NAME
+export const VIVA_WALLET_API_KEY:string = process.env.VIVA_WALLET_API_KEY //de momento es fincticia se obtiene de la cuenta
 
 function checkEnv(envVar,name){
     if(!envVar) console.warn(name +" es undefined");
