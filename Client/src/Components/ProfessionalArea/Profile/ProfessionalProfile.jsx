@@ -8,9 +8,12 @@ import Pawpoints from './Pawpoints';
 const ProfessionalProfile = () => {
 
 	// const {professional} = route.params
+
+
 	const { firstName,lastName,profilePic,country,province,pawpoints } = useSelector((state) => state.ReducerAuth.profile)
 	const profile = useSelector((state) => state.ReducerAuth.profile);
-	console.log(profile);
+
+
 	return (
 		<ScrollView className="">
 			<View className="flex flex-col items-center justify-center">
