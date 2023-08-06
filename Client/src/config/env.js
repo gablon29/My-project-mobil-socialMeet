@@ -22,7 +22,7 @@ export const BACK_URL= 'http://192.168.178.211:8080'; // santiago
 
 //PRODUCCIÓN - HAY Q HACER UN REVERSE PROXY PARA MAPEAR PETICIONES DE HTTP/S -> a diferentes rutas.
     //nginx
-    // export const BACK_URL= 'https://whopaws-production.up.railway.app';
+   //  export const BACK_URL= 'https://whopaws-production.up.railway.app';
     export const BACK_SOCKET_URL = 'https://whopaws-production.up.railway.app/socketio'
 
 

@@ -122,6 +122,9 @@ export default function App() {
   useEffect(() => {
     registerForPushNotificationsAsync().then(async (token) => {
       setExpoPushToken(token);
+      await AsyncStorage.setItem('devicetoken', token);
+      let checkToken = await AsyncStorage.getItem("devicetoken")
+      if(checkToken !== token){
       await saveToken({
         token: token,
         tokenSession: await AsyncStorage.getItem('Token'),
@@ -134,7 +137,7 @@ export default function App() {
         error: (err) => {
           console.log("cl135Error",err);
         },
-      });
+      })};
     }).catch(e => {
       console.log("Error al ejecutar registerForPushNotificationsAsync()", e.message)
     })

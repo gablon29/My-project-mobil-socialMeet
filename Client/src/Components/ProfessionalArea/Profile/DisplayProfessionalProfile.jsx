@@ -10,9 +10,25 @@ const DisplayProfessionalProfile = ({ route }) => {
 	useEffect(() => {
 		console.log(route.params.profession);
 	},[])
+
+	//de este tendriamos que sacar los datos del profesional segun la profesion que llega por params no se bien cual esta hecho y no puedo ver el console.log
+
+    const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals); 
+	//educador // veterinario cuidadorpaseador peluquero tienda
+	//seria mas o menos asi 
+	const professionMap = {
+		paseador: professionals.paseador,
+		peluquero: professionals.peluquero,
+		veterinario: professionals.veterinario,
+		tienda: professionals.tienda,
+		cuidador: professionals.cuidador,
+
+	  };
+  let profesional = professionMap[route.params.profession]
+//abria que mirar bien como llega y como se guardan en redux al entrar a 1 perfil con console.log pero no logro entrar despues mandar por props a profesional y renderizar descripcion reviewrs etc segun el tipo de profesional.
 	return (
 		<ScrollView>
-			<ProfessionalProfile />
+			<ProfessionalProfile profesional={profesional} />
 
 			<View className="flex flex-col justify-center items-center">
 				<Button onPress={() => navigate.navigate("EditProfessionalProfile", {profession: route.params.profession})} title="Configurar mi perfil" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center mb-8" />
