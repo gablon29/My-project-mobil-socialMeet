@@ -101,7 +101,7 @@ const SocialPaws = () => {
                                 padding: 10,
                               }}
                               inputStyles={{
-                                fontSize: 12,
+                                fontSize: 8,
                                 fontFamily:"Poppins",
                                 marginTop: -2
                   
@@ -109,6 +109,7 @@ const SocialPaws = () => {
                               dropdownStyles={{
                                 backgroundColor: '#FEC89A',
                               }}
+                              
                         />
                     </View>
                     </View>
