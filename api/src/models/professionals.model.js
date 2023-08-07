@@ -22,7 +22,6 @@ const professionalsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
     province: {
       type: String,
       required: true,
@@ -177,6 +176,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
+        pawpoints:{
+          type: String,
+        }
       },
 
       veterinario: {
@@ -209,6 +211,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
+        pawpoints:{
+          type: String,
+        }
       },
 
       // <------------- TIENDA ----------------->
@@ -225,6 +230,9 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
+        pawpoints:{
+          type: String,
+        }
       },
 
       // <------------- CUIDADOR ----------------->
@@ -325,6 +333,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
+        pawpoints:{
+          type: String,
+        }
       },
 
       // <------------- PASEADOR ----------------->
@@ -369,6 +380,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
+        pawpoints:{
+          type: String,
+        }
       },
 
       // <------------- PELUQUERO ----------------->
@@ -422,6 +436,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
+        pawpoints:{
+          type: String,
+        }
       },
     },
 

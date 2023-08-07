@@ -28,6 +28,8 @@
         "foregroundImage": "./assets/favicon.png",
         "backgroundColor": "#ffffff"
       },
+      "googleServicesFile": "./google-services.json",
+
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",

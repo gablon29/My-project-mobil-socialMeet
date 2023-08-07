@@ -8,6 +8,7 @@ import purchases from './purchases.route'
 
 import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
+import vivaWalletControllers from '../controllers/vivaWallet'
 import support from "../routes/support.route"
 import professionals from './professionals.route'
 import services from './services.route'
@@ -79,7 +80,7 @@ router.put('/api/admin/purchases', /* isLoggedIn, */ catchedAsync(admin.allSales
 router.get('/api/admin/getUserById', /* isLoggedIn, */ catchedAsync(admin.get_by_id));
 
 
-// ------------->  STRIPE  <-------------
+// // ------------->  STRIPE  <-------------
 router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(stripeControllers.getApiKey));
 router.get('/api/stripe/allproducts',isLoggedIn, catchedAsync(stripeControllers.getAllProducts));
 router.get('/api/stripe/product/:productId',isLoggedIn, catchedAsync(stripeControllers.getProductById));
@@ -87,6 +88,11 @@ router.post('/api/stripe/start-pay-process',isLoggedIn, catchedAsync(stripeContr
 router.post('/stripe/callback', express.raw({ type: 'application/json' }), catchedAsync(stripeControllers.postHandleStripeEvents));
 router.post('/api/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
 
+// !!!!! -------------> ¡PRODUCTION! VIVA WALLET ¡PRODUCTION! <------------- !!!!!
+router.get('/api/viva-wallet/get-api-key',isLoggedIn, catchedAsync(vivaWalletControllers.getApiKey));
+router.get('/api/viva-wallet/pay/:orderId',isLoggedIn, catchedAsync(vivaWalletControllers.pay));
+router.post('/api/viva-wallet/create-payment',isLoggedIn, catchedAsync(vivaWalletControllers.createPayment));
+// !!!!! ------------->  !!!!! !!!!! !!!!! !!!!! !!!!! !!!!!  <------------- !!!!!
 
 // ------------->  CHIPS  <-------------
 router.get('/api/pet-info', catchedAsync(chips.ruta_incorrecta)); //xd
