@@ -36,6 +36,8 @@ import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfes
 import RegisterProfessional from './Components/ProfessionalArea/Register/RegisterProfessional';
 import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
 import SocialPaws from './Components/Social/SocialPaws';
+import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
+import EditProfessionalProfile from './Components/ProfessionalArea/Profile/EditProfessionalProfile/EditProfessionalProfile';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -108,6 +110,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="AccessProfessionalArea" component={AccessProfessionalArea} options={{ headerShown: true }}/>
 
       <StackAuthTrue.Screen name="SocialPaws" component={SocialPaws} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="ProfessionalProfile" component={DisplayProfessionalProfile} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="EditProfessionalProfile" component={EditProfessionalProfile} options={{ headerShown: true }}/>
     </StackAuthTrue.Navigator>
   );
 };

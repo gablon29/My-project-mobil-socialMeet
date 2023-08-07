@@ -8,16 +8,20 @@ import { useImage } from "../../../CustomHooks/useImage";
 
 
 const FormRegister = ({ profile, registerProfessional, render, nombre, apellido, address, documento, phone, email, fotoDoc, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
-    console.log({render, tipo})
+    console.log(phone)
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
     const [currentProvinces, setCurrentProvinces] = useState([]);
     const {url, setUrl, uploadImage} = useImage();
-    
     useEffect(() => {
         const countries = countrys.map((country) => country.name);
         setCountryOptions(countries);
-        console.log(countryOptions)
+        setApellido(profile.lastName)
+        setNombre(profile.firstName)
+        setCountry(profile.country)
+        setProvince(profile.province)
+        setPhone(profile.phone)
+        setEmail(profile.email)
       }, []);
       
     useEffect(() => {
@@ -108,7 +112,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
     const Label =  (title,set, value, text) => (<Text className="font-semibold text-base left-4 mt-5">{title} {set === value ? text : null}</Text>);
     const Input = (getValue, defaultValue) => (
     <TextInput
-        onChangeText={(text)=>getValue(text)}
+        onChangeText={(text)=>getValue(defaultValue)}
         className="w-full shadow-lg shadow-black h-10 pl-3 rounded-lg bg-new"
         placeholder="Requerido"
         placeholderTextColor={"red"}
@@ -129,8 +133,8 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
             <Text className="text-center font-semibold text-base">{info}</Text>
             <View className="w-10/12">
                 {tipo === "Veterinario" && Label("Nombre ", modalidad, "Clínica Veterinaria", "de la clínica")}
-                {tipo === "Veterinario" && Input(setNombre, profile.firstName)}
-                { modalidad === "autonomo" && <>{Label("Apellidos")}{Input(setApellido, profile.lastName)}</> }
+                {tipo === "Veterinario" && Input(setNombre, profile?.firstName)}
+                { modalidad === "autonomo" && <>{Label("Apellidos")}{Input(setApellido, profile?.lastName)}</> }
                 {Label("País")}
                 <SelectList
                     data={countryOptions}
@@ -176,9 +180,9 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
                 {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("Calle y número")}{Input(setAddress)}</> : null}
                 {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("CIF / Num Identificación Fiscal")}{Input(setDocumento)}</> : null}
                 {tipo === "Veterinario" && Label("Teléfono")}
-                {tipo === "Veterinario" && Input(setPhone, profile.phone)}
+                {tipo === "Veterinario" && Input(setPhone, profile?.phone)}
                 {tipo === "Veterinario" && Label("Email")}
-                {tipo === "Veterinario" && Input(setEmail, profile.email)}
+                {tipo === "Veterinario" && Input(setEmail, profile?.email)}
                 {modalidad === "autonomo" ? <>{Label("Selecciona documento de identidad")}{Input(setDocumento)}</> : null}
                 {modalidad === "autonomo" ? 
                 <>{Label("Adjunta imagen de el documento")}

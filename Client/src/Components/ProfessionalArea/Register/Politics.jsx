@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
 import Btn from "../../Buttons/ButtonCuston";
-import { useState } from "react";
 
 const Politics = ({setRender, tipo}) => {
     
@@ -8,7 +7,7 @@ const Politics = ({setRender, tipo}) => {
         if (tipo === "Veterinario") {setRender(3)} 
         else if(tipo === "Cuidador") {setRender(6)} 
         else if(tipo === "Peluquero") {setRender(12)}
-        else if(tipo === "Educadores") {setRender(22)}
+        else if(tipo === "Educador") {setRender(22)}
         else if(tipo === "Paseador") {setRender(24)}
     };
 

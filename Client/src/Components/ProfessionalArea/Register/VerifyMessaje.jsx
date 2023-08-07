@@ -3,7 +3,7 @@ import dog from "../../../../images/dropDownMenu/dogMoneyFlower.png";
 import Button from "../../Buttons/ButtonCuston";
 import { useNavigation } from "@react-navigation/native";
 
-const VerificationMessage = ({setRender}) => {
+const VerificationMessage = ({setRender, profile, professionals}) => {
     const navigate = useNavigation();
     return (
         <View className="h-full items-center py-10">
@@ -19,7 +19,7 @@ const VerificationMessage = ({setRender}) => {
                 title={"Registrar otro servicio"}
                 titleClass={"text-white font-bold text-base"}
                 buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
-                onPress={()=>{setRender(1); navigate.navigate("RegisterProfessional", {register: true, text: `Selecciona un área${"\n"}profesional`})}}
+                onPress={()=>{setRender(1); navigate.navigate("RegisterProfessional", {register: true, profile, professionals})}}
             />
         </View>
     );
