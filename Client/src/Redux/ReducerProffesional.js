@@ -6,7 +6,7 @@ const initialState = {
     errorProfessional: "",
     successProfessional: "",
     userProfessionals: [],
-    userProfessional: undefined
+    userProfessional: {}
 };
 
 const ReducerProfessional = createSlice({

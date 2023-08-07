@@ -1,17 +1,17 @@
 import React,{ useState } from 'react'
 import { Text } from 'react-native'
 import { View } from 'react-native'
-import perro from '../../../../../../../images/especies/ic_perro.png';
-import gato from '../../../../../../../images/especies/ic_gato.png';
-import ave from '../../../../../../../images/especies/ic_ave.png';
-import reptil from '../../../../../../../images/especies/ic_reptil.png';
-import pez from '../../../../../../../images/especies/ic_pez.png';
-import roedor from '../../../../../../../images/especies/ic_roedor.png';
-import huron from '../../../../../../../images/especies/conejo.png';
-import conejo from '../../../../../../../images/especies/ardilla.png';
-import ButtonSquareImageTextBorderBlack from '../../../../../Buttons/ButtonSquareImageTextBorderBlack'
+import perro from '../../../../../../images/especies/ic_perro.png';
+import gato from '../../../../../../images/especies/ic_gato.png';
+import ave from '../../../../../../images/especies/ic_ave.png';
+import reptil from '../../../../../../images/especies/ic_reptil.png';
+import pez from '../../../../../../images/especies/ic_pez.png';
+import roedor from '../../../../../../images/especies/ic_roedor.png';
+import huron from '../../../../../../images/especies/conejo.png';
+import conejo from '../../../../../../images/especies/ardilla.png';
+import ButtonSquareImageTextBorderBlack from '../../../../Buttons/ButtonSquareImageTextBorderBlack'
 import CaredPets from './CaredPets';
-import Button from '../../../../../Buttons/ButtonCuston';
+import Button from '../../../../Buttons/ButtonCuston';
 
 const PriceTab = () => {
 

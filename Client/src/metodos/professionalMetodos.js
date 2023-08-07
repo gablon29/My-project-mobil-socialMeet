@@ -28,7 +28,7 @@ export const EditProfessionalMethod = async ({data, loading, error, success}) =>
         Authorization: `Bearer ${token}`,
       },
     })
-    success(response.data);
+    success(response.data.payload.professional);
     loading(false);
   } catch (err) {
     console.error('EditProfessionalMethod', err);
@@ -45,7 +45,7 @@ export const EditProfessionalCaracterMethod = async ({data, loading, error, succ
         Authorization: `Bearer ${token}`,
       },
     })
-    success(response.data);
+    success(response.data.payload.professional);
     loading(false);
   } catch (err) {
     console.error('EditProfessionalCaracterMethod', err);
@@ -64,8 +64,10 @@ export const GetDataProfessionalMethod = async ({loading, error, success }) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    success(response.data);
+
+    success(response.data.payload.professional);
     loading(false);
+		console.log("saliotodobien");
   } catch (err) {
     console.error('GetDataProfessionalMethod', err);
     error(err.message);

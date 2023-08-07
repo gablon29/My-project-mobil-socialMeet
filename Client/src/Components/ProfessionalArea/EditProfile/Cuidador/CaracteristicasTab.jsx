@@ -1,25 +1,28 @@
-import React,{ useState } from 'react'
+import React,{ useEffect,useState } from 'react'
 import { Text,View,Image,TouchableOpacity } from 'react-native'
 
-import basura from '../../../../../../../images/iconos/basura.png'
-import cruz from '../../../../../../../images/iconos/cruz.png'
 import Question from './Question'
-import Button from '../../../../../Buttons/ButtonCuston'
+import Button from '../../../Buttons/ButtonCuston'
 import FotoCasa from './FotoCasa'
-import { suvirImagen,useSelectImagen } from '../../../../../../CustomHooks/useImage'
-import { EditProfessionalCaracterMethod } from '../../../../../../metodos/professionalMetodos'
+import { suvirImagen,useSelectImagen } from '../../../../CustomHooks/useImage'
+import { EditProfessionalCaracterMethod } from '../../../../metodos/professionalMetodos'
+import { useDispatch,useSelector } from 'react-redux'
+import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../Redux/ReducerProffesional'
 
 const CaracteristicasTab = ({ profession }) => {
 
-	const [caracterUpdates, setCaracterUpdates] = useState({
-		jardin:false,
-		niños:false,
-		mascotas:false,
-		p_auxilios:false,
-		m_orales:false,
-		m_inyectables:false,
-		e_mascotas_mayores:false
-	})
+	const dispatch = useDispatch()
+	const professional = useSelector(state => state.ReducerProfessional.userProfessional)
+
+	const [caracterUpdates,setCaracterUpdates] = useState(professional.professions.cuidador.caracter)
+	const [homePictures,setHomePictures] = useState(professional.professions.cuidador.gallery)
+
+	const { saveHomeImage } = useSelectImagen()
+	
+	const handleDeleteHomeImage = (i) => {
+		const newImages = homePictures.filter((image,index) => index !== i)
+		setHomePictures([...newImages])
+	}
 
 	const questions = [
 		{ title: "¿Tienes jardín?",caracteristica: "jardin" },
@@ -28,28 +31,33 @@ const CaracteristicasTab = ({ profession }) => {
 		{ title: "¿Tienes conocimientos en primeros auxilios?",caracteristica: "p_auxilios" },
 		{ title: "¿Puedes administrar medicamentos orales?",caracteristica: "m_orales" },
 		{ title: "¿Puedes administrar medicamentos inyectables?",caracteristica: "m_inyectables" },
-		{ title: "¿Tienes experiencia con mascotas mayores?",caracteristica: "e_mascotas_mayores"}
+		{ title: "¿Tienes experiencia con mascotas mayores?",caracteristica: "e_mascotas_mayores" }
 	]
-
-
-	const { homeImages,saveHomeImage,deleteHomeImage } = useSelectImagen()
 
 	const handleSaveData = async () => {
 
 		let images = []
-		
-		for (const image of homeImages) {
-			const imageUrl = await suvirImagen(image);
-			images.push(imageUrl);
+
+		for (const image of homePictures) {
+			if (image.substring(0,5) === "file:") {
+				const imageUrl = await suvirImagen(image);
+				images.push(imageUrl);
+			} else {
+				images.push(image);
+			}
 		}
-		
 		const data = {
 			images,
 			profession,
 			caracterUpdates
 		}
-		
-		EditProfessionalCaracterMethod({ data,success: (s) => { console.log(s) },error: (e) => { console.log(e) },loading: (l) => { console.log(l) } })
+
+		EditProfessionalCaracterMethod({
+			data,
+			success: (response) => { dispatch(setProfessional(response)) },
+			error: (e) => { dispatch(setErrorProfessional(e)) },
+			loading: (boolean) => { dispatch(setLoadingProffesional(boolean)) }
+		})
 	}
 
 
@@ -62,15 +70,13 @@ const CaracteristicasTab = ({ profession }) => {
 
 			<View className="w-full">
 				<View className="flex flex-row px-2 flex-wrap justify-evenly">
-
 					{[1,2,3].map((n) => (
-						<FotoCasa key={n} saveHomeImage={saveHomeImage} deleteHomeImage={deleteHomeImage} image={homeImages[n - 1]} i={n - 1} />
+						<FotoCasa key={n} homePictures={homePictures} setHomePictures={setHomePictures} saveHomeImage={saveHomeImage} handleDeleteHomeImage={handleDeleteHomeImage} image={homePictures[n - 1]} i={n - 1} />
 					))}
 				</View>
 				<View className="flex flex-row px-2 flex-wrap justify-evenly">
-
 					{[4,5,6].map((n) => (
-						<FotoCasa key={n} saveHomeImage={saveHomeImage} deleteHomeImage={deleteHomeImage} image={homeImages[n - 1]} i={n - 1} />
+						<FotoCasa key={n} homePictures={homePictures} setHomePictures={setHomePictures} saveHomeImage={saveHomeImage} handleDeleteHomeImage={handleDeleteHomeImage} image={homePictures[n - 1]} i={n - 1} />
 					))}
 				</View>
 			</View>

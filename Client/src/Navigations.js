@@ -36,7 +36,8 @@ import DisplayProfessionalArea from './Components/ProfessionalArea/DisplayProfes
 import RegisterProfessional from './Components/ProfessionalArea/Register/RegisterProfessional';
 import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
 import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
-import EditProfessionalProfile from './Components/ProfessionalArea/Profile/EditProfessionalProfile/EditProfessionalProfile';
+import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile';
+
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
