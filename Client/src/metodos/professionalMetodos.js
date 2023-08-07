@@ -48,7 +48,7 @@ export const EditProfessionalCaracterMethod = async ({data, loading, error, succ
     success(response.data);
     loading(false);
   } catch (err) {
-    console.error('EditProfessionalMethod', err);
+    console.error('EditProfessionalCaracterMethod', err);
     error(err.message);
     loading(false);
   }

@@ -10,10 +10,9 @@ import Btn from "../Buttons/ButtonCuston";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const SelectProfessionalArea = ({tipo, register, text, setRender, render, setTipo, professionals, profileId}) => {
-   
 const SelectProfessionalArea = ({register, text, setRender, render, setTipo, professionals, profileId}) => {
-  
+		const navigation = useNavigation()
+
     const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
     
