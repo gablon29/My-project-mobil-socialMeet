@@ -402,7 +402,9 @@ const professionalsSchema = mongoose.Schema(
         lugarAtencion: {
           type: Array, 
         },
-
+				mascotasAcuidar: {
+					type: Array
+				},
         caracter: {
           atencion_domicilio: {
             type: Boolean,

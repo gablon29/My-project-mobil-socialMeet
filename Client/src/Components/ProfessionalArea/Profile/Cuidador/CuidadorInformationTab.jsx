@@ -10,10 +10,11 @@ import conejo from '../../../../../images/especies/ardilla.png';
 import roedor from '../../../../../images/especies/ic_roedor.png';
 import { useSelector } from 'react-redux';
 
-const InformationTab = () => {
+const CuidadorInformationTab = () => {
 
-	const homeImages = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.gallery)
-	const caracteristicasProfesional = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.caracter)
+	const profession = useSelector(state => state?.ReducerProfessional?.profession)
+	const homeImages = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.gallery)
+	const caracteristicasProfesional = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.caracter)
 	const pets = useSelector(state => state.ReducerPets.userPets)
 
 	const [mascotasAcuidar,setMascotasAcuidar] = useState([])
@@ -28,7 +29,7 @@ const InformationTab = () => {
 		{ title: "Tengo experiencia con mascotas mayores",caracteristica: "e_mascotas_mayores" }
 	])
 
-	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.mascotasAcuidar)
+	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.mascotasAcuidar)
 
 	useEffect(() => {
 		let mascotasConImagen = []
@@ -130,4 +131,4 @@ const InformationTab = () => {
 	);
 };
 
-export default InformationTab;
+export default CuidadorInformationTab;

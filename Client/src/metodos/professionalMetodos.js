@@ -93,3 +93,19 @@ export const GetDataAllProfessional = async ({loading, error, success}) => {
     loading(false);
   }
 }
+
+export const CreateProfessionalServices = async ({services, loading, error,success}) => {
+	try {
+		loading(true)
+    const response = await axios.post('/api/service/add', services, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    success(response.data);
+    loading(false);
+	} catch (error) {
+		console.log(error);
+	}
+}

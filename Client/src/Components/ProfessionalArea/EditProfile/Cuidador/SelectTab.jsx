@@ -1,8 +1,8 @@
 import React,{ useEffect, useState } from 'react'
 import { Text,TouchableOpacity,View } from 'react-native';
-import CaracteristicasTab from './CaracteristicasTab'
 import PriceTab from './PriceTab/PriceTab'
-import PersonalTab from './PersonalTab'
+import PersonalTab from '../Tabs/PersonalTab'
+import CaracteristicasTab from '../Tabs/CaracteristicasTab';
 
 const SelectTab = ({profession, professional}) => {
 	const [tab,setTab] = useState('Personal');

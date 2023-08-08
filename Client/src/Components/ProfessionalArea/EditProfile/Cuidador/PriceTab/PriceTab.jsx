@@ -13,7 +13,7 @@ import ButtonSquareImageTextBorderBlack from '../../../../Buttons/ButtonSquareIm
 import CaredPets from './CaredPets';
 import Button from '../../../../Buttons/ButtonCuston';
 import { useDispatch,useSelector } from 'react-redux';
-import { EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
+import { CreateProfessionalServices,EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
 import { useNavigation } from '@react-navigation/native';
 
@@ -22,11 +22,14 @@ const PriceTab = () => {
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
 
+	const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
 	const professional = useSelector(state => state?.ReducerProfessional?.userProfessional)
+	const profession = useSelector(state => state?.ReducerProfessional?.profession)
 	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.mascotasAcuidar)
 
 	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
 	const [mascotasAcuidar,setMascotasAcuidar] = useState({})
+	const [petsPerNight,setPetsPerNight] = useState({})
 
 	const handlePets = (pet) => {
 		if (mascotasAcuidarStrings.includes(pet)) {
@@ -59,29 +62,33 @@ const PriceTab = () => {
 		setMascotasAcuidar(mascotasConImagen);
 	},[professionalPets,mascotasAcuidarStrings]);
 
-	const [activeServices,setActiveServices] = useState({
-		perros: [],
-		gatos: [],
-		pajaros: [],
-		peces: [],
-		reptiles: [],
-		roedores: [],
-		conejos: [],
-		hurones: []
-	})
+	const [activeServices,setActiveServices] = useState([])
 
 	const handleSaveServices = () => {
-		const data = {
-			mascotasAcuidar: mascotasAcuidarStrings,
-			profession: "cuidador"
+		const services = {
+			activeServices,
+			petsPerNight,
+			profession,
+			metadata: {
+				name: firstName,
+				email,
+			}
 		}
-		// EditProfessionalMethod({
-		// 	data,
-		// 	success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
-		// 	error: (e) => dispatch(setErrorProfessional(e)),
-		// 	loading: (boolean) => dispatch(setLoadingProffesional(boolean))
-		// })
-		console.log(activeServices);
+
+		EditProfessionalMethod({
+			data: {mascotasAcuidar: mascotasAcuidarStrings,profession},
+			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
+			error: (e) => dispatch(setErrorProfessional(e)),
+			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
+		})
+
+		CreateProfessionalServices({
+			services,
+			success: (response) => {console.log(response); },
+			error: (e) => {console.log(e); },
+			loading: () => { }
+		})
+		console.log(services);
 	}
 
 	return (<>
@@ -111,7 +118,7 @@ const PriceTab = () => {
 				<View className="my-5 px-5">
 					{mascotasAcuidarStrings?.map((pet,i) => {
 						if (mascotasAcuidar[pet]) {
-							return <CaredPets key={i} pet={mascotasAcuidar[pet]} activeServices={activeServices} setActiveServices={setActiveServices} />;
+							return <CaredPets key={i} pet={mascotasAcuidar[pet]} activeServices={activeServices} setActiveServices={setActiveServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />;
 						}
 					})}
 				</View>

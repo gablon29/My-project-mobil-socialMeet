@@ -291,6 +291,7 @@ module.exports = {
     const professionalId = req.user.userId;
     const { profession, caracterUpdates, images } = req.body;
     console.log('profession');
+    console.log(profession);
     const professional = await ProfessionalModel.findOne({ user: professionalId });
 
     if (!professional) {

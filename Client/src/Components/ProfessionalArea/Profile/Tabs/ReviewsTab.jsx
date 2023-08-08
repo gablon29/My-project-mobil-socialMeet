@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import StarRating from './ratings/StarRating';
 import { useSelector } from 'react-redux';
+import StarRating from '../StarRating';
 const ReviewsTab = () => {
   const reseñas = [
     { name: 'Laura', ago: '3 días', rating: '3', comment: 'So impressed with the care my dog Bella has received. Amazing surgical skills alongside high standards of care and compassion. Susie was fabulous and helped make a stressful time so much easier. Thank you so much!.' },

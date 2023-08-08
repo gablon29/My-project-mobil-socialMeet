@@ -1,20 +1,20 @@
-import React,{ useEffect,useState } from 'react'
-import { Text,View,Image,TouchableOpacity } from 'react-native'
-
-import Question from './Question'
-import Button from '../../../Buttons/ButtonCuston'
-import FotoCasa from './FotoCasa'
-import { suvirImagen,useSelectImagen } from '../../../../CustomHooks/useImage'
-import { EditProfessionalCaracterMethod } from '../../../../metodos/professionalMetodos'
+import React,{ useState } from 'react'
+import { Text,View } from 'react-native'
+import Question from '../../Cuidador/Question'
+import Button from '../../../../Buttons/ButtonCuston'
+import FotoCasa from '../../Cuidador/FotoCasa'
+import { suvirImagen,useSelectImagen } from '../../../../../CustomHooks/useImage'
+import { EditProfessionalCaracterMethod } from '../../../../../metodos/professionalMetodos'
 import { useDispatch,useSelector } from 'react-redux'
-import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../Redux/ReducerProffesional'
+import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional'
 import { useNavigation } from '@react-navigation/native'
 
-const CaracteristicasTab = ({ profession }) => {
+const CuidadorCaracteristicasTab = () => {
 
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
 	const professional = useSelector(state => state.ReducerProfessional.userProfessional)
+	const profession = useSelector(state => state?.ReducerProfessional?.profession)
 
 	const [caracterUpdates,setCaracterUpdates] = useState(professional?.professions?.cuidador?.caracter)
 	const [homePictures,setHomePictures] = useState(professional?.professions?.cuidador?.gallery)
@@ -93,4 +93,4 @@ const CaracteristicasTab = ({ profession }) => {
 	)
 }
 
-export default CaracteristicasTab
+export default CuidadorCaracteristicasTab

@@ -9,7 +9,7 @@ import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useEffect,useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { setErrorProfessional,setLoadingProffesional,setProfessional } from "../../Redux/ReducerProffesional";
+import { setErrorProfessional,setLoadingProffesional,setProfession,setProfessional } from "../../Redux/ReducerProffesional";
 import { GetDataProfessionalMethod } from "../../metodos/professionalMetodos";
 import { useDispatch } from "react-redux";
 
@@ -17,7 +17,7 @@ const SelectProfessionalArea = ({ tipo,register,text,setRender,render,setTipo,pr
 
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
-
+	
 	const [areas,setAreas] = useState([{ name: "Educador",img: educador,isRegister: false,allowed: false },{ name: "Veterinario",img: veterinario,allowed: false,isRegister: false },{ name: "Tienda",allowed: false,img: tienda,isRegister: false },{ name: "Cuidador",img: cuidadores,isRegister: false,allowed: false },{ name: "Paseador",img: paseadores,isRegister: false,allowed: false },{ name: "Peluquero",img: peluqueros,isRegister: false,allowed: false }])
 	const [btnActive,setBtnActive] = useState(areas.map(() => false));
 
@@ -31,6 +31,7 @@ const SelectProfessionalArea = ({ tipo,register,text,setRender,render,setTipo,pr
 					error: (message) => dispatch(setErrorProfessional(message)),
 					success: (response) => dispatch(setProfessional(response))
 				})
+				dispatch(setProfession(areas[index].name.toLowerCase()))
 			}
 			getUserData()
 		}

@@ -2,10 +2,7 @@ import React,{ useState } from 'react'
 import { Image,Text,TouchableOpacity,View,TextInput } from 'react-native';
 import ServicioCuidador from './ServicioCuidador';
 
-const CaredPets = ({ pet,activeServices,setActiveServices }) => {
-	const [petPerNight,setPetPerNight] = useState(null)
-	
-
+const CaredPets = ({ pet,activeServices,setActiveServices, petsPerNight,setPetsPerNight }) => {
 	return (
 		<View className="flex flex-col items-center rounded-[10px] mt-20 px-5 pt-20 bg-lightnew pb-5">
 			<View className="absolute -top-10 left-5 w-24 h-24 border-[5px] border-white rounded-full bg-new justify-center items-center">
@@ -19,7 +16,7 @@ const CaredPets = ({ pet,activeServices,setActiveServices }) => {
 
 			<View className="flex flex-row justify-evenly my-7">
 				{[1,2,3,4,5].map((n) => (
-					<TouchableOpacity key={n} onPress={() => { setPetPerNight(n) }} className={`${petPerNight === n && "border-[2px] border-black "} flex flex-row items-center justify-center bg-white w-9 h-9 mx-2 rounded-[10px]`}>
+					<TouchableOpacity key={n} onPress={() => { setPetsPerNight({...petsPerNight, [pet.title]:n}) }} className={`${petsPerNight[pet.title] === n && "border-[2px] border-black "} flex flex-row items-center justify-center bg-white w-9 h-9 mx-2 rounded-[10px]`}>
 						<Text className=" font-poppinsBold text-base text-center " style={{ textAlignVertical: "center" }}>{n}</Text>
 					</TouchableOpacity>
 				))}

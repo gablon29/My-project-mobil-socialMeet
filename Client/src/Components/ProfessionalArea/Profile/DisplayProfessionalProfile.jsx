@@ -6,14 +6,14 @@ import { useNavigation } from '@react-navigation/native'
 import { useDispatch,useSelector } from 'react-redux'
 import { GetDataProfessionalMethod } from '../../../metodos/professionalMetodos'
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../Redux/ReducerProffesional'
-import DisplayTabs from './Cuidador/DisplayTabs'
+import DisplayTabs from './DisplayTabs'
 
 const DisplayProfessionalProfile = ({ route }) => {
 	const navigate = useNavigation()
 
+
 	//de este tendriamos que sacar los datos del profesional segun la profesion que llega por params no se bien cual esta hecho y no puedo ver el console.log
 	const professionals = useSelector((state) => state.ReducerProfessional.userProfessionals);
-
 	//educador // veterinario cuidadorpaseador peluquero tienda
 	//seria mas o menos asi 
 	const professionMap = {
@@ -23,12 +23,13 @@ const DisplayProfessionalProfile = ({ route }) => {
 		tienda: professionals.tienda,
 		cuidador: professionals.cuidador,
 	};
-
+	
 	let profesional = professionMap[route.params.profession]
 	//abria que mirar bien como llega y como se guardan en redux al entrar a 1 perfil con console.log pero no logro entrar despues mandar por props a profesional y renderizar descripcion reviewrs etc segun el tipo de profesional.
+	
 	return (
 		<ScrollView>
-			<ProfessionalProfile profesional={profesional} />
+			<ProfessionalProfile/>
 
 			<View className="flex flex-col justify-center items-center">
 				<Button onPress={() => navigate.navigate("EditProfessionalProfile",{ profession: route.params.profession })} title="Configurar mi perfil" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center mb-8" />
@@ -41,7 +42,7 @@ const DisplayProfessionalProfile = ({ route }) => {
 				</View>
 			</View>
 
-			<DisplayTabs profession={route.params.profession} />
+			<DisplayTabs/>
 		</ScrollView>
 	)
 }
