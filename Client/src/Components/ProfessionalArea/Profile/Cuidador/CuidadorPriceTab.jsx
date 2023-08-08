@@ -9,9 +9,8 @@ import pez from '../../../../../images/especies/ic_pez.png';
 import conejo from '../../../../../images/especies/conejo.png';
 import ardilla from '../../../../../images/especies/ardilla.png';
 import roedor from '../../../../../images/especies/ic_roedor.png';
-import StarRating from './ratings/StarRating';
 
-const PriceTab = () => {
+const CuidadorPriceTab = () => {
   const [select, setSelect] = useState('EnCasa');
 
   const cuidados = [
@@ -93,4 +92,4 @@ const PriceTab = () => {
   <Text className="h-9 rounded-md"></Text>;
 };
 
-export default PriceTab;
+export default CuidadorPriceTab;

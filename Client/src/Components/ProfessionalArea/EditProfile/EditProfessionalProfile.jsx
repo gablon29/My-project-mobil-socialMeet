@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from 'react'
 import { ScrollView,Text,TouchableOpacity } from 'react-native'
-import SelectTab from './Tabs/SelectTab'
+import SelectTab from './Cuidador/SelectTab'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 const EditProfessionalProfile = ({ route }) => {
@@ -18,7 +18,6 @@ const EditProfessionalProfile = ({ route }) => {
 					</Text>
 				</TouchableOpacity>
 			</TouchableOpacity>
-
 			<SelectTab profession={profession} professional={""} />
 
 		</ScrollView>
