@@ -7,8 +7,8 @@ import cruz from '../../../../images/iconos/cruz.png';
 import { useImage } from "../../../CustomHooks/useImage";
 
 
-const FormRegister = ({ profile, registerProfessional, render, nombre, apellido, address, documento, phone, email, fotoDoc, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
-    console.log(phone)
+const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido, address, documento, phone, email, fotoDoc, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
+    
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
     const [currentProvinces, setCurrentProvinces] = useState([]);
@@ -16,12 +16,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
     useEffect(() => {
         const countries = countrys.map((country) => country.name);
         setCountryOptions(countries);
-        setApellido(profile.lastName)
-        setNombre(profile.firstName)
-        setCountry(profile.country)
-        setProvince(profile.province)
-        setPhone(profile.phone)
-        setEmail(profile.email)
+        setCity(data.city || " ")
       }, []);
       
     useEffect(() => {
@@ -37,7 +32,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
 
     const nextStep = () => {
         if (tipo === "Veterinario") {
-            registerProfessional()
+            registerProfessional(id)
             setRender(5);
         } else if (tipo === "Cuidador") {
            setRender(7)
@@ -88,7 +83,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
             }
         } else if( tipo === "Peluquero") {
             if(render === 13 || render === 16) {
-                if(country==="" || province==="" || city==="") {
+                if(country==="" || province==="" || city=== " ") {
                     return false
                 } else {
                     return true
@@ -101,7 +96,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
                 }
             }
         } else {
-                if(country==="" || province==="" || city==="") {
+                if(country==="" || province==="" || city=== "") {
                     return false
                 } else {
                     return true
@@ -112,7 +107,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
     const Label =  (title,set, value, text) => (<Text className="font-semibold text-base left-4 mt-5">{title} {set === value ? text : null}</Text>);
     const Input = (getValue, defaultValue) => (
     <TextInput
-        onChangeText={(text)=>getValue(defaultValue)}
+        onChangeText={(text)=>getValue(text)}
         className="w-full shadow-lg shadow-black h-10 pl-3 rounded-lg bg-new"
         placeholder="Requerido"
         placeholderTextColor={"red"}
@@ -133,14 +128,14 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
             <Text className="text-center font-semibold text-base">{info}</Text>
             <View className="w-10/12">
                 {tipo === "Veterinario" && Label("Nombre ", modalidad, "Clínica Veterinaria", "de la clínica")}
-                {tipo === "Veterinario" && Input(setNombre, profile?.firstName)}
-                { modalidad === "autonomo" && <>{Label("Apellidos")}{Input(setApellido, profile?.lastName)}</> }
+                {tipo === "Veterinario" && Input(setNombre, data?.firstName || data?.name)}
+                { modalidad === "autonomo" && <>{Label("Apellidos")}{Input(setApellido, data?.lastName)}</> }
                 {Label("País")}
                 <SelectList
                     data={countryOptions}
                     setSelected={setCountry}
                     placeholder="Seleccionar"
-                    defaultOption={{key: profile?.country, value:profile?.country}}
+                    defaultOption={{key: data?.country, value: data?.country}}
                     search={false}
                     boxStyles={{
                     backgroundColor: '#FEC89A',
@@ -161,7 +156,7 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
                     data={provinceOptions}
                     setSelected={setProvince}
                     placeholder="Seleccionar"
-                    defaultOption={country === profile?.country ? {key: profile?.province, value:profile?.province} : {key: currentProvinces[0], value: currentProvinces[0]} }
+                    defaultOption={country === data?.country ? {key: data?.province, value: data?.province} : {key: currentProvinces[0], value: currentProvinces[0]} }
                     search={false}
                     boxStyles={{
                     backgroundColor: '#FEC89A',
@@ -176,13 +171,13 @@ const FormRegister = ({ profile, registerProfessional, render, nombre, apellido,
                     dropdownStyles={{ backgroundColor: '#FEC89A' }}
                 />
                 {render != 15 && Label("Localidad")}
-                {render != 15 && Input(setCity)}
-                {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("Calle y número")}{Input(setAddress)}</> : null}
-                {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("CIF / Num Identificación Fiscal")}{Input(setDocumento)}</> : null}
+                {render != 15 && Input(setCity, data?.city === " " ? null : data?.city)}
+                {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("Calle y número")}{Input(setAddress, data?.address)}</> : null}
+                {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("CIF / Num Identificación Fiscal")}{Input(setDocumento, data?.documento)}</> : null}
                 {tipo === "Veterinario" && Label("Teléfono")}
-                {tipo === "Veterinario" && Input(setPhone, profile?.phone)}
+                {tipo === "Veterinario" && Input(setPhone, data?.phone)}
                 {tipo === "Veterinario" && Label("Email")}
-                {tipo === "Veterinario" && Input(setEmail, profile?.email)}
+                {tipo === "Veterinario" && Input(setEmail, data?.email)}
                 {modalidad === "autonomo" ? <>{Label("Selecciona documento de identidad")}{Input(setDocumento)}</> : null}
                 {modalidad === "autonomo" ? 
                 <>{Label("Adjunta imagen de el documento")}

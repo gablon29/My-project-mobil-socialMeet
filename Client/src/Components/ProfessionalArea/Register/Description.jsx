@@ -21,7 +21,7 @@ const Description = ({description, setRender, setDescription, registerProfession
                 onChangeText={(text)=>setDescription(text)}
             />
             <Button title={"Ahora no, saltar este paso"} titleClass={"my-5 text-base underline font-semibold"}
-                onPress={()=>nextStep("")}
+                onPress={()=>nextStep()}
             />
              <Button
                 title={"Siguiente"}
