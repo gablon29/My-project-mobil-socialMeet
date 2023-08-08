@@ -3,10 +3,10 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 export default async function (req, res) {
 
-    const { fee, priceId } = req.body || req
+    const { newPrice, priceId } = req.body || req
 
     const precioActualizado = await stripe.prices.update(priceId, {
-        unit_amount: fee,
+        unit_amount: newPrice,
         currency: 'eur',
       });
   

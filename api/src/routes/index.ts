@@ -140,9 +140,10 @@ router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsyn
 
 
 // ------------->  Services  <-------------
-router.get('/api/service/all', isLoggedIn, isLoggedIn, catchedAsync(services.all));
-router.get('/api/service/byName', isLoggedIn, isLoggedIn, catchedAsync(services.byName));
-router.get('/api/service/byId', isLoggedIn, isLoggedIn, catchedAsync(services.byId))
-router.post('/api/service/add', isLoggedIn, isLoggedIn, catchedAsync(services.addService));
+router.get('/api/service/all', isLoggedIn, catchedAsync(services.all));
+router.get('/api/service/byName', isLoggedIn, catchedAsync(services.byName));
+router.get('/api/service/byId', isLoggedIn, catchedAsync(services.byId))
+router.post('/api/service/add', isLoggedIn, catchedAsync(services.addService));
+router.post('/api/service/editPrice', isLoggedIn, catchedAsync(services.editPrice));
 
 module.exports = router;
