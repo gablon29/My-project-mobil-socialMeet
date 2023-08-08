@@ -12,7 +12,7 @@
 // export const BACK_URL= 'http://192.168.1.84:8080'; // IP IGNA
 //export const BACK_URL = 'http://192.168.0.12:8080'; // Rodri
 //export const BACK_URL = 'http://192.168.1.51:3001'; // Mili
-export const BACK_URL = 'http://192.168.0.115:3001' ; // Mili pat
+export const BACK_URL = 'http://192.168.1.143:3001' ; // Mili pat
 //export const BACK_URL= 'http://192.168.1.2:8080'; // Vini
 //export const BACK_URL= 'http://192.168.178.211:8080'; // santiago
 

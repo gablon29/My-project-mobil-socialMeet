@@ -6,6 +6,7 @@ import ButtonSocial from '../Buttons/ButtonSocialPaws';
 import { View, Text, Image, ScrollView } from "react-native";
 import doggy from '../../../images/dropDownMenu/socialDog.png';
 import axios from "axios";
+
 const SocialPaws = () => {
 
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const SocialPaws = () => {
             <View className= "h-full w-screen">
                 <View className = "justify-center items-center mt-8">
                     <ButtonSocial 
-                        onPress={() => "Home"}
+                        onPress={() => navigation.navigate('SocialProfile')}
                         buttonClass="bg-naranja rounded-full w-56 h-8 justify-center items-center"
                         title= 'Ver mis perfiles'
                         titleClass= 'text-white font-medium'
