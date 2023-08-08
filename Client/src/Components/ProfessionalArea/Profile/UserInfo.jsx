@@ -1,10 +1,10 @@
 import React,{ useEffect,useState } from 'react'
-import { Text,Image,View,TouchableOpacity } from 'react-native'
+import { Text,Image,View } from 'react-native'
 import { useSelector } from 'react-redux'
 import Pawpoints from './Pawpoints'
 
 const UserInfo = () => {
-	const { profilePic,city,province,country,description,pawpoints,fechaNacimiento } = useSelector((state) => state.ReducerProfessional.userProfessional)
+	const { profilePic,city,province,country,fechaNacimiento } = useSelector((state) => state.ReducerProfessional.userProfessional)
 	const { firstName,lastName } = useSelector((state) => state.ReducerAuth.profile);
 
 	const [edad,setEdad] = useState("undefined")
@@ -15,9 +15,7 @@ const UserInfo = () => {
 
 		let edad = actual.getFullYear() - nacimiento.getFullYear();
 
-		// Verificar si el día de nacimiento ya ha pasado en el año actual
-		if (actual.getMonth() < nacimiento.getMonth() ||
-			(actual.getMonth() === nacimiento.getMonth() && actual.getDate() < nacimiento.getDate())) {
+		if (actual.getMonth() < nacimiento.getMonth() || (actual.getMonth() === nacimiento.getMonth() && actual.getDate() < nacimiento.getDate())) {
 			edad--;
 		}
 

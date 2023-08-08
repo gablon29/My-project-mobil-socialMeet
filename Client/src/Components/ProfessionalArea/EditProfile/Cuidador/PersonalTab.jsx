@@ -51,7 +51,7 @@ const PersonalTab = () => {
 
 		EditProfessionalMethod({
 			data,
-			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); console.log(updatedProfessional);navigation.goBack() },
+			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional));navigation.goBack() },
 			error: (e) => dispatch(setErrorProfessional(e)),
 			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
 		})

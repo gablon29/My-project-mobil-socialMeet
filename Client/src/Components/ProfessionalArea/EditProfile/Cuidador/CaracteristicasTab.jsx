@@ -8,10 +8,12 @@ import { suvirImagen,useSelectImagen } from '../../../../CustomHooks/useImage'
 import { EditProfessionalCaracterMethod } from '../../../../metodos/professionalMetodos'
 import { useDispatch,useSelector } from 'react-redux'
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../Redux/ReducerProffesional'
+import { useNavigation } from '@react-navigation/native'
 
 const CaracteristicasTab = ({ profession }) => {
 
 	const dispatch = useDispatch()
+	const navigation = useNavigation()
 	const professional = useSelector(state => state.ReducerProfessional.userProfessional)
 
 	const [caracterUpdates,setCaracterUpdates] = useState(professional.professions.cuidador.caracter)
@@ -54,9 +56,9 @@ const CaracteristicasTab = ({ profession }) => {
 
 		EditProfessionalCaracterMethod({
 			data,
-			success: (response) => { dispatch(setProfessional(response)) },
-			error: (e) => { dispatch(setErrorProfessional(e)) },
-			loading: (boolean) => { dispatch(setLoadingProffesional(boolean)) }
+			success: (response) =>   { dispatch(setProfessional(response));navigation.goBack() },
+			error: (e) =>  dispatch(setErrorProfessional(e)),
+			loading: (boolean) =>  dispatch(setLoadingProffesional(boolean))
 		})
 	}
 
