@@ -23,21 +23,20 @@ const RegisterProfessional = ({route}) => {
     const {tipo, setTipo, modalidad, setModalidad, setNombre, nombre, apellido, setApellido, country, setCountry, province, setProvince, city, setCity, address, setAddress, phone, setPhone, email, setEmail, documento, setDocumento, fotoDoc, setFo, mascotasCuidar, setMascotaCuidar, fechaNacimiento, setFechaNacimiento, description, setDescription, lugarAtencion, setLugarAtencion, onSubmit
     } = useProfesional();
     const dispatch = useDispatch();
-    
+
+
     const registerProfessional = async (profileId) => {
-        console.log("😁 RESGITRO 1  ")
         //ya este usurio tiene perfil de profeional?
         //si ya tiene pasa a editar, si no tiene va a crear.
         const professional = {
             tipo, modalidad, 
             name: nombre ? nombre : profile.firstName, apellido: apellido ? apellido : profile.lastName, 
-            country:country ? country : profile.country, city:city ? city : " ", province:province ? province : profile.province, lugarAtencion, address, 
+            country:country ? country : profile.country, city:city, province:province ? province : profile.province, lugarAtencion, address, 
             phone:phone ? phone : profile.phone, email:email ? email : profile.email, 
             documento, profilePic:fotoDoc, fotoDoc, 
             mascotasCuidar, fechaNacimiento, description
         }
         let verify = verifyRegister(profileId);
-        console.log("😁 VERIFY 3  ")
         if(verify.res) {
             console.log("Ya tienes perfil de profesional")
             await EditProfessionalMethod({
@@ -62,15 +61,16 @@ const RegisterProfessional = ({route}) => {
             error: (msg) => dispatch(setErrorProfessional(msg)),
             success: (res) => {dispatch(setAllProfessionals(res.payload))}
           });
-    }
+    };
 
     const verifyRegister = (profileId) => {
 
         for (const professional of professionals) {
             if(profileId === professional.user) {
-                return  {res: true, id: professional.id}
+                return  {res: true, id: professional.id};
             }
         }
+        return { res: false, id: null };
     }
 
     useEffect(()=>{
@@ -91,12 +91,12 @@ const RegisterProfessional = ({route}) => {
                 {render === 4 && <FormRegister render={render} data={data} registerProfessional={registerProfessional} id={profile?.id} fotoDoc={fotoDoc} nombre={nombre} apellido={apellido} country={country} province={province} city={city} address={address} documento={documento} phone={phone} email={email} setFo={setFo} setAddress={setAddress} setDocumento={setDocumento} setEmail={setEmail} setPhone={setPhone} setApellido={setApellido} setCity={setCity} setNombre={setNombre} tipo={tipo} setRender={setRender} setCountry={setCountry} setProvince={setProvince} modalidad={modalidad}/>}
                 {render === 5 && <VerificationMessage professionals={professionals} data={data} setRender={setRender}/>}
                 {/* Cuidadores */}
-                {render === 6 && <FormRegister setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} country={country} city={city} province={province} render={render} setCountry={setCountry} setCity={setCity} setProvince={setProvince} setRender={setRender} tipo={tipo} modalidad={"¿Dónde vives?"} info={`Esta información será pública en tu ${"\n"} perfil como cuidador/a`}/>}
+                {render === 6 && <FormRegister setCity={setCity} setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} country={country} city={city} province={province} render={render} setCountry={setCountry} setProvince={setProvince} setRender={setRender} tipo={tipo} modalidad={"¿Dónde vives?"} info={`Esta información será pública en tu ${"\n"} perfil como cuidador/a`}/>}
                 {render === 7 && <SelectSpice multiple={true} lugarAtencion={lugarAtencion} setCity={setCity} setCountry={setCountry} setProvince={setProvince} tipo={tipo} setRender={setRender} setMascotaCuidar={setMascotaCuidar} title="¿Qué mascotas quieres cuidar?" text={`Selecciona una o varias mascotas ${"\n"} que puedes cuidar.`} />}
                 {render === 8 && <AddPicture data={data} tipo={tipo} fotoDoc={fotoDoc} setFo={setFo} setRender={setRender}/>}
                 {render === 9 && <BirthDay data={data} fechaNacimiento={fechaNacimiento} tipo={tipo} setFechaNacimiento={setFechaNacimiento} setRender={setRender}/>}
                 {render === 10 && <TwoOptions setLugarAtencion={setLugarAtencion} op1={"Cuido mascotas a domicilio"} op2={"Cuido mascotas en mi casa"} tipo={tipo} setRender={setRender} title={"Selecciona una o varias opciones"}/>}
-                {render === 11 && <Description id={profile?.id} description={description} tipo={tipo} setDescription={setDescription} setRender={setRender} registerProfessional={registerProfessional}/>}
+                {render === 11 && <Description data={data} id={profile?.id} description={description} tipo={tipo} setDescription={setDescription} setRender={setRender} registerProfessional={registerProfessional}/>}
                 {/* Peluquero */}
                 {render === 12 && <TwoOptions setLugarAtencion={setLugarAtencion} render={render} op1={"Lo hago en un centro"} op2={"Lo hago a domicilio"} tipo={tipo} setRender={setRender} title={"¿Dónde das tus servicios de peluquería?"} text={"Selecciona una o varias opciones"}/>}
                 {render === 13 && <FormRegister setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} render={render} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} setRender={setRender} tipo={tipo} setCountry={setCountry} country={country} province={province} city={city} setProvince={setProvince} setCity={setCity} modalidad={`¿Dónde esta la dirección de tu ${"\n"} centro de peluquería?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
@@ -104,7 +104,7 @@ const RegisterProfessional = ({route}) => {
                 {render === 15 && <FormRegister etPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} render={render} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} setRender={setRender} tipo={tipo} setCountry={setCountry} country={country} province={province} city={city} setProvince={setProvince} setCity={setCity} modalidad={`¿Dónde das servicios de ${"\n"} peluquería a domicilio?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
                 {render === 16 && <FormRegister setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} city={city} data={data} setCity={setCity} setRender={setRender} setCountry={setCountry} country={country} province={province} setProvince={setProvince} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} render={render} tipo={tipo}  modalidad={`¿Dónde das servicios de ${"\n"} peluquería a domicilio?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`} />}
                 {render === 17 && <SelectSpice setCity={setCity} setCountry={setCountry} setProvince={setProvince} tipo={tipo} setRender={setRender} setMascotaCuidar={setMascotaCuidar} text={`Selecciona una o varias mascotas ${"\n"} que puedes cuidar.`} title={`¿Que mascotas aceptas en tus ${"\n"} servicios?`} multiple={true} lugarAtencion={lugarAtencion}/>}
-                {render === 21 && <AccountAccepted professionals={professionals} tipo={tipo} data={data}/>}
+                {render === 21 && <AccountAccepted profile={profile} professionals={professionals} tipo={tipo} data={data}/>}
                 {/* Educadores */}
                 {render === 22 && <TwoOptions setLugarAtencion={setLugarAtencion} setRender={setRender} render={render} op1={"Solo en mi localidad"} op2={"En toda mi provincia"} tipo={tipo} text={`Selecciona una de las opciones`} title={`¿Dónde das tus servicios como ${"\n"} paseador/a?`}/>}
                 {render === 23 && <FormRegister setApellido={setApellido} setNombre={setNombre} setPhone={setPhone} setEmail={setEmail} data={data} setRender={setRender} setCity={setCity} setCountry={setCountry} setProvince={setProvince} tipo={tipo} country={country} city={city} province={province} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`} modalidad={`¿Cuál es la ubicación de tu ${"\n"} localidad?`} />}

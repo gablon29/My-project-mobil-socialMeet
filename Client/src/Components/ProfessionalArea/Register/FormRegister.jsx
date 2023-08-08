@@ -8,7 +8,6 @@ import { useImage } from "../../../CustomHooks/useImage";
 
 
 const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido, address, documento, phone, email, fotoDoc, modalidad, country, setCountry, setProvince, setRender, tipo, info, setNombre, setCity, setApellido, setPhone, setEmail, setDocumento, setAddress, setFo, setLugarAtencion, lugarAtencion, province, city}) => {
-    
     const [countryOptions, setCountryOptions] = useState([]);
     const [provinceOptions, setProvinceOptions] = useState([]);
     const [currentProvinces, setCurrentProvinces] = useState([]);
@@ -16,7 +15,9 @@ const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido
     useEffect(() => {
         const countries = countrys.map((country) => country.name);
         setCountryOptions(countries);
-        setCity(data.city || " ")
+        setCity(data?.city || "")
+        setNombre(data?.name || data?.firstName)
+        setPhone(data?.phone)
       }, []);
       
     useEffect(() => {
@@ -64,7 +65,7 @@ const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido
             setRender(8)
         }
     };
-
+    console.log({nombre, apellido, country, province, city, documento, phone, email, fotoDoc})
     const dissableBtn = () => {
         if(tipo === "Veterinario") {
             if(modalidad === "clinica") {
@@ -83,7 +84,7 @@ const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido
             }
         } else if( tipo === "Peluquero") {
             if(render === 13 || render === 16) {
-                if(country==="" || province==="" || city=== " ") {
+                if(country==="" || province==="" || city=== "") {
                     return false
                 } else {
                     return true
@@ -111,7 +112,7 @@ const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido
         className="w-full shadow-lg shadow-black h-10 pl-3 rounded-lg bg-new"
         placeholder="Requerido"
         placeholderTextColor={"red"}
-        defaultValue={modalidad != "clinica" || modalidad === undefined ? defaultValue : ""}
+        defaultValue={modalidad != "clinica" || modalidad === undefined ? defaultValue : " "}
         />
     );
 
@@ -171,7 +172,7 @@ const FormRegister = ({ id, data, registerProfessional, render, nombre, apellido
                     dropdownStyles={{ backgroundColor: '#FEC89A' }}
                 />
                 {render != 15 && Label("Localidad")}
-                {render != 15 && Input(setCity, data?.city === " " ? null : data?.city)}
+                {render != 15 && Input(setCity, data?.city)}
                 {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("Calle y número")}{Input(setAddress, data?.address)}</> : null}
                 {tipo === "Veterinario" && modalidad === "clinica" ? <>{Label("CIF / Num Identificación Fiscal")}{Input(setDocumento, data?.documento)}</> : null}
                 {tipo === "Veterinario" && Label("Teléfono")}

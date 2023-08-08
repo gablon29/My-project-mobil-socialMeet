@@ -30,7 +30,7 @@ const professionalsSchema = mongoose.Schema(
 
     city: {
       type: String,
-      required: true,
+      default: " "
     },
 
     address: {

@@ -8,12 +8,14 @@ import peluqueros from "../../../images/dropDownMenu/peluqueros.png";
 import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const SelectProfessionalArea = ({data, register, text, setRender, render, setTipo, professionals, profileId}) => {
-   
+const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) => {
     const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
     const [btnActive, setBtnActive] = useState(areas.map(()=>false));
-    /* console.log(JSON.stringify(data, null, 2)) */
+    const profile = useSelector((state) => state.ReducerAuth.profile);
+    const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals);
+    const arrayProfesions = professionals.professionals
     const handleBtnActive = (index) => {
         const updateBtnActive = btnActive.map((state, i)=> i == index);
         setBtnActive(updateBtnActive);
@@ -21,8 +23,8 @@ const SelectProfessionalArea = ({data, register, text, setRender, render, setTip
     };
 
       useEffect(()=>{
-        for (const professional of professionals) {
-            if (profileId === professional.user) {
+        for (const professional of arrayProfesions) {
+            if (profile.id === professional.user) {
               const updatedAreas = areas.map((area) => {
                 const u = area.name.toLowerCase();
                 return { ...area, isRegister: professional.professions[u]?.isRegister || false };
