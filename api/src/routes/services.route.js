@@ -59,7 +59,7 @@ module.exports = {
           const savedService = await newService.save();
           savedServices.push(savedService);
   
-          const professionKey = profession.toLowerCase(); // Convert to lowercase if needed
+          const professionKey = profession.toLowerCase();
           if (!professional.professions[professionKey].services) {
               professional.professions[professionKey].services = [];
           }
