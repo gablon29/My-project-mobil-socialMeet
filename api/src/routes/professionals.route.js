@@ -31,6 +31,7 @@ module.exports = {
     });
     if (tipo === 'Educador') {
       await registerProfession(req.body);
+      newProfessional.professions.cuidador.allowed = true;
 
       await newProfessional.save();
     }
@@ -49,17 +50,20 @@ module.exports = {
       newProfessional.professions.cuidador.isRegister = true;
       newProfessional.professions.cuidador.mascotasAcuidar = mascotasCuidar;
       newProfessional.professions.cuidador.lugarAtencion = lugarAtencion;
+      newProfessional.professions.cuidador.allowed = true;
 
       await newProfessional.save();
     }
     if (tipo === 'Paseador') {
       newProfessional.professions.paseador.isRegister = true;
       newProfessional.professions.paseador.species = mascotasCuidar;
+      newProfessional.professions.cuidador.allowed = true;
       await newProfessional.save();
     }
     if (tipo === 'Peluquero') {
       newProfessional.professions.peluquero.isRegister = true;
       newProfessional.professions.peluquero.lugarAtencion = lugarAtencion;
+      newProfessional.professions.cuidador.allowed = true;
       await newProfessional.save();
     }
     return response(res, 201, { message: 'Registro exitoso', professional: newProfessional });
