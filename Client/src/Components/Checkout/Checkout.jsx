@@ -3,6 +3,8 @@ import { SelectAdres } from './SelectAdres';
 import { useNavigation } from '@react-navigation/native';
 import { Cart } from './Cart';
 import { Button } from 'react-native';
+import { useSelector } from 'react-redux';
+
 
 export const Checkout = () => {
   const [steps, setSteps] = useState(0);

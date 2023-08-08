@@ -8,6 +8,7 @@ import purchases from './purchases.route'
 
 import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
+import vivaWalletControllers from '../controllers/vivaWallet'
 import support from "../routes/support.route"
 import professionals from './professionals.route'
 import services from './services.route'
@@ -79,7 +80,7 @@ router.put('/api/admin/purchases', /* isLoggedIn, */ catchedAsync(admin.allSales
 router.get('/api/admin/getUserById', /* isLoggedIn, */ catchedAsync(admin.get_by_id));
 
 
-// ------------->  STRIPE  <-------------
+// // ------------->  STRIPE  <-------------
 router.get('/api/stripe/getpubkey',isLoggedIn, catchedAsync(stripeControllers.getApiKey));
 router.get('/api/stripe/allproducts',isLoggedIn, catchedAsync(stripeControllers.getAllProducts));
 router.get('/api/stripe/product/:productId',isLoggedIn, catchedAsync(stripeControllers.getProductById));
@@ -87,6 +88,11 @@ router.post('/api/stripe/start-pay-process',isLoggedIn, catchedAsync(stripeContr
 router.post('/stripe/callback', express.raw({ type: 'application/json' }), catchedAsync(stripeControllers.postHandleStripeEvents));
 router.post('/api/stripe/createProduct', catchedAsync(stripeControllers.createProducts));
 
+// !!!!! -------------> ¡PRODUCTION! VIVA WALLET ¡PRODUCTION! <------------- !!!!!
+router.get('/api/viva-wallet/get-api-key',isLoggedIn, catchedAsync(vivaWalletControllers.getApiKey));
+router.get('/api/viva-wallet/pay/:orderId',isLoggedIn, catchedAsync(vivaWalletControllers.pay));
+router.post('/api/viva-wallet/create-payment',isLoggedIn, catchedAsync(vivaWalletControllers.createPayment));
+// !!!!! ------------->  !!!!! !!!!! !!!!! !!!!! !!!!! !!!!!  <------------- !!!!!
 
 // ------------->  CHIPS  <-------------
 router.get('/api/pet-info', catchedAsync(chips.ruta_incorrecta)); //xd
@@ -128,20 +134,12 @@ router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getP
 router.get('/api/professional/all', isLoggedIn, catchedAsync(professionals.getAllProfessionals));
 router.put('/api/professional/caracter',isLoggedIn, catchedAsync(professionals.editCaracter))
 //----- Date Routes --------
-router.post('/api/professional/disponibilidad', isLoggedIn, catchedAsync(professionals.addAvailability));
-router.get('/api/professional/disponibilidad/:professionalId/:date', isLoggedIn, catchedAsync(professionals.getAvailability));
-router.put('/api/professional/disponibilidad/:professionalId/:date', isLoggedIn, catchedAsync(professionals.editAvailability));
-//----- Professions --------
-router.get('/api/professional/profession/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
-router.put('/api/professional/profession/allow', isLoggedIn, catchedAsync(professionals.allowProfessionalProfession));
-router.post('/api/professional/profession/add', isLoggedIn, catchedAsync(professionals.registerProfession));
-router.put('/api/professional/profession/edit', isLoggedIn, catchedAsync(professionals.editProfession));
-router.get('/api/professional/profession/services', isLoggedIn, catchedAsync(professionals.getServices))
-
-//----- Professions --------
-router.get('/api/professional/purchases', isLoggedIn, catchedAsync(professionals.getPurchasesProfesional)) //si se le pasa un estado como filter por body también se encarga de hacer el filtrado
-
-
+router.get('/api/professional/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
+router.put('/api/professional/allow', isLoggedIn, catchedAsync(professionals.allowProfessionalProfession));
+//----- Date Routes --------
+router.post('/api/professional/disponibilidad', catchedAsync(professionals.addAvailability));
+router.get('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.getAvailability));
+router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsync(professionals.editAvailability));
 
 
 // ------------->  Services  <-------------
@@ -149,5 +147,6 @@ router.get('/api/service/all', isLoggedIn, catchedAsync(services.all));
 router.get('/api/service/byName', isLoggedIn, catchedAsync(services.byName));
 router.get('/api/service/byId', isLoggedIn, catchedAsync(services.byId))
 router.post('/api/service/add', isLoggedIn, catchedAsync(services.addService));
+router.post('/api/service/editPrice', isLoggedIn, catchedAsync(services.editPrice));
 
 module.exports = router;
