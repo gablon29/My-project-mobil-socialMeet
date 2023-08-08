@@ -8,63 +8,71 @@ const { default: editPrice } = require('../controllers/stripe/editPrice')
 module.exports = {
 
     addService: async (req, res) => {
-        const { 
-            name, description, place, price, capacity, country, province, addresses, gallery, //Service Data
-            metadata, professionalId, profession,//Stripe Product Data
-            interval, interval_count //Stripe Price Data
-        } = req.body;
-
-        const professional = await ProfessionalModel.findById(professionalId);
-        if (!professional) {
+      const services = req.body;
+    
+      const professionalId = services[0].professionalId;
+      
+      const professional = await ProfessionalModel.findById(professionalId);
+      if (!professional) {
           return response(res, 500, 'Profesional no encontrado');
-        }
-    
-        const stripeProductData = {
-          name: name,
-          metadata: metadata
-        };
-
-        const stripeProduct = await createProducts(stripeProductData);
-
-        const separadorCentavos = price.includes(',') ? ',' : '.';
-
-        const priceInCents = parseInt(parseFloat(price.replace(separadorCentavos, '')) * 100);
+      }
   
-        const stripePriceData = {
-            interval,
-            interval_count,
-            productId: stripeProduct.id,
-            unit_amount: priceInCents 
-        }
-
-        const stripePrice = await createPrice(stripePriceData)
-    
-        const newService = new ServiceModel({
-          name,
-          description,
-          place,
-          price: [price, stripePrice.id, stripeProduct.id],
-          capacity,
-          country,
-          province,
-          addresses,
-          gallery,
-          professional: professionalId,
-        });
-    
-        const savedService = await newService.save();
-    
-        if (!professional.professions[profession].services) {
-          professional.professions[profession].services = [];
-        }
-        const service = {
-          idService: savedService._id,
-          price: savedService.price,
-          name: savedService.name,
-        };
-        professional.professions[profession].services.push(service);
-        await professional.save();
-        response(res, 200, 'Servicio creado exitosamente', savedService);
+      const savedServices = [];
+  
+      for (let i = 0; i < services.length; i++) {
+          const {
+              name, description, place, price, capacity, country, province, addresses,
+              metadata, profession, interval, interval_count
+          } = services[i];
+  
+          const stripeProductData = {
+              name: name,
+              metadata: metadata
+          };
+  
+          const stripeProduct = await createProducts(stripeProductData);
+  
+          const separadorCentavos = price.includes(',') ? ',' : '.';
+          const priceInCents = parseInt(parseFloat(price.replace(separadorCentavos, '')) * 100);
+  
+          const stripePriceData = {
+              interval,
+              interval_count,
+              productId: stripeProduct.id,
+              unit_amount: priceInCents 
+          };
+  
+          const stripePrice = await createPrice(stripePriceData);
+  
+          const newService = new ServiceModel({
+              name,
+              description,
+              place,
+              price: [price, stripePrice.id, stripeProduct.id],
+              capacity,
+              country,
+              province,
+              addresses,
+              professional: professionalId,
+          });
+  
+          const savedService = await newService.save();
+          savedServices.push(savedService);
+  
+          const professionKey = profession.toLowerCase();
+          if (!professional.professions[professionKey].services) {
+              professional.professions[professionKey].services = [];
+          }
+          const service = {
+              idService: savedService._id,
+              price: savedService.price,
+              name: savedService.name,
+          };
+          professional.professions[professionKey].services.push(service);
+      }
+  
+      await professional.save();
+      response(res, 200, 'Servicios creados exitosamente', savedServices);
     },
 
     all: async (req, res) => {
