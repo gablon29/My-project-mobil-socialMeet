@@ -3,6 +3,7 @@ const { response } = require('../utils');
 const ServiceModel = require('../models/services.model')
 const { default: createProducts } = require('../controllers/stripe/createProducts');
 const { default: createPrice } = require('../controllers/stripe/createPrice');
+const { default: editPrice } = require('../controllers/stripe/editPrice')
 
 module.exports = {
 
@@ -25,9 +26,9 @@ module.exports = {
 
         const stripeProduct = await createProducts(stripeProductData);
 
-        const separadorCentavos = fee.includes(',') ? ',' : '.';
+        const separadorCentavos = price.includes(',') ? ',' : '.';
 
-        const priceInCents = parseInt(parseFloat(fee.replace(separadorCentavos, '')) * 100);
+        const priceInCents = parseInt(parseFloat(price.replace(separadorCentavos, '')) * 100);
   
         const stripePriceData = {
             interval,
@@ -84,5 +85,17 @@ module.exports = {
       const service = await ServiceModel.findById(id)
       if (!service) response(res, 404, 'No se han encontrado servicios')
       response(res, 200, service)
+    },
+
+    editPrice: async (req,res) => {
+
+      const data = {
+        newPrice: req.body.newPrice,
+        priceId: req.price.priceId
+      }
+
+      const updatedPrice = await editPrice(data)
+      
+      response(res, 200, updatedPrice)
     }
 }
