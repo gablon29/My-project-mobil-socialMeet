@@ -16,17 +16,17 @@ const CaracteristicasTab = ({ profession }) => {
 	const navigation = useNavigation()
 	const professional = useSelector(state => state.ReducerProfessional.userProfessional)
 
-	const [caracterUpdates,setCaracterUpdates] = useState(professional.professions.cuidador.caracter)
-	const [homePictures,setHomePictures] = useState(professional.professions.cuidador.gallery)
+	const [caracterUpdates,setCaracterUpdates] = useState(professional?.professions?.cuidador?.caracter)
+	const [homePictures,setHomePictures] = useState(professional?.professions?.cuidador?.gallery)
 
 	const { saveHomeImage } = useSelectImagen()
-	
+
 	const handleDeleteHomeImage = (i) => {
-		const newImages = homePictures.filter((image,index) => index !== i)
+		const newImages = homePictures?.filter((image,index) => index !== i)
 		setHomePictures([...newImages])
 	}
 
-	const questions = [
+	const [questions,setQuestions] = useState([
 		{ title: "¿Tienes jardín?",caracteristica: "jardin" },
 		{ title: "¿Tienes niños?",caracteristica: "niños" },
 		{ title: "¿Tienes mascotas?",caracteristica: "mascotas" },
@@ -34,7 +34,7 @@ const CaracteristicasTab = ({ profession }) => {
 		{ title: "¿Puedes administrar medicamentos orales?",caracteristica: "m_orales" },
 		{ title: "¿Puedes administrar medicamentos inyectables?",caracteristica: "m_inyectables" },
 		{ title: "¿Tienes experiencia con mascotas mayores?",caracteristica: "e_mascotas_mayores" }
-	]
+	])
 
 	const handleSaveData = async () => {
 
@@ -56,9 +56,9 @@ const CaracteristicasTab = ({ profession }) => {
 
 		EditProfessionalCaracterMethod({
 			data,
-			success: (response) =>   { dispatch(setProfessional(response));navigation.goBack() },
-			error: (e) =>  dispatch(setErrorProfessional(e)),
-			loading: (boolean) =>  dispatch(setLoadingProffesional(boolean))
+			success: (response) => { dispatch(setProfessional(response)); navigation.goBack() },
+			error: (e) => dispatch(setErrorProfessional(e)),
+			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
 		})
 	}
 
@@ -84,7 +84,7 @@ const CaracteristicasTab = ({ profession }) => {
 			</View>
 
 			<View className="flex flex-col items-center justify-center mt-10 px-4 space-y-6">
-				{questions.map((question,i) => (
+				{questions?.map((question,i) => (
 					<Question key={i} question={question.title} caracteristica={question.caracteristica} confirmation={caracterUpdates[question.caracteristica]} setCaracterUpdates={setCaracterUpdates} caracterUpdates={caracterUpdates} />
 				))}
 			</View>

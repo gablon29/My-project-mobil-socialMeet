@@ -89,13 +89,14 @@ module.exports = {
   editProfessional: async (req, res) => {
     const professionalId = req.user.userId;
 
-
-
     const professional = await ProfessionalModel.findOne({ user: professionalId });
     if (!professional) {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
-    const { description, experience, addresses, profilePic, country, province, city, name, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss, fechaNacimiento } = req.body;
+    const { description, experience, addresses, profilePic, country, province, city, name, address, phone, mascotasAcuidar, modalidadNoVet, zipcode, shippingaddresss, fechaNacimiento, profession } = req.body;
+
+    console.log(req.body);
+    console.log(mascotasAcuidar);
 
     professional.description = description || professional.description;
     professional.experience = experience || professional.experience;
@@ -107,7 +108,7 @@ module.exports = {
     professional.name = name || professional.name;
     professional.address = address || professional.address;
     professional.phone = phone || professional.phone;
-    professional.mascotasCuidar = mascotasCuidar || professional.mascotasCuidar;
+    professional.professions[profession].mascotasAcuidar = mascotasAcuidar || professional.professions[profession].mascotasAcuidar;
     professional.modalidadNoVet = modalidadNoVet || professional.modalidadNoVet;
     professional.zipcode = zipcode || professional.zipcode;
     professional.shippingaddresss = shippingaddresss || professional.shippingaddresss;
@@ -285,7 +286,7 @@ module.exports = {
   editCaracter: async (req, res) => {
     const professionalId = req.user.userId;
     const { profession, caracterUpdates, images } = req.body;
-    console.log("profession");
+    console.log('profession');
     const professional = await ProfessionalModel.findOne({ user: professionalId });
 
     if (!professional) {

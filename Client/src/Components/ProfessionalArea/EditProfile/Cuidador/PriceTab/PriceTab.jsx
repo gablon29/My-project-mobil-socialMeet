@@ -1,4 +1,4 @@
-import React,{ useState } from 'react'
+import React,{ useEffect,useState } from 'react'
 import { Text } from 'react-native'
 import { View } from 'react-native'
 import perro from '../../../../../../images/especies/ic_perro.png';
@@ -12,29 +12,53 @@ import conejo from '../../../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../../../Buttons/ButtonSquareImageTextBorderBlack'
 import CaredPets from './CaredPets';
 import Button from '../../../../Buttons/ButtonCuston';
+import { useDispatch,useSelector } from 'react-redux';
+import { EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
+import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
+import { useNavigation } from '@react-navigation/native';
 
 const PriceTab = () => {
 
-	const [caresDog,setCaresDog] = useState(false)
-	const [caresCat,setCaresCat] = useState(false)
-	const [caresBird,setCaresBird] = useState(false)
-	const [caresFish,setCaresFish] = useState(false)
-	const [caresReptile,setCaresReptile] = useState(false)
-	const [caresRodent,setCaresRodent] = useState(false)
-	const [caresRabbit,setCaresRabbit] = useState(false)
-	const [caresFerret,setCaresFerret] = useState(false)
+	const dispatch = useDispatch()
+	const navigation = useNavigation()
+
+	const professional = useSelector(state => state?.ReducerProfessional?.userProfessional)
+	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.mascotasAcuidar)
+
+	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
+	const [mascotasAcuidar,setMascotasAcuidar] = useState({})
+
+	const handlePets = (pet) => {
+		if (mascotasAcuidarStrings.includes(pet)) {
+			const newPets = mascotasAcuidarStrings.filter((m) => m !== pet)
+			setMascotasAcuidarStrings(newPets)
+		} else {
+			setMascotasAcuidarStrings([...mascotasAcuidarStrings,pet])
+		}
+	}
 
 
-	const pets = [
-		{ name: "Perros",categories: ["0 - 5 KG","5 - 20 KG","20 - 50 KG","+50 KG"],image: perro,isCaring: caresDog },
-		{ name: "Gatos",categories: ["0 - 5 KG","5 - 20 KG"],image: gato,isCaring: caresCat },
-		{ name: "Pájaros",categories: ["0 - 300 Gr","300 - 1000 Gr","+1000 Gr"],image: ave,isCaring: caresBird },
-		{ name: "Peces",categories: ["Agua dulce","Agua salada"],image: pez,isCaring: caresFish },
-		{ name: "Reptiles",categories: ["Tortuga","Serpiente","Gecko","Iguana","Camaleon","Rana"],image: reptil,isCaring: caresReptile },
-		{ name: "Roedores",categories: ["Hamster","Conejillo de Indias","Erizo","Ratón","Chinchilla"],image: roedor,isCaring: caresRodent },
-		{ name: "Conejos",categories: ["0 - 5 KG","5 - 20 KG"],image: conejo,isCaring: caresRabbit },
-		{ name: "Hurones",categories: ["0 - 5 KG"],image: huron,isCaring: caresFerret },
-	]
+	useEffect(() => {
+		const pets = {
+			Perro: { title: "Perros",categories: ["0 - 5 KG","5 - 20 KG","20 - 50 KG","+50 KG"],image: perro },
+			Gato: { title: "Gatos",categories: ["0 - 5 KG","5 - 20 KG"],image: gato },
+			Ave: { title: "Pájaros",categories: ["0 - 300 Gr","300 - 1000 Gr","+1000 Gr"],image: ave },
+			Pez: { title: "Peces",categories: ["Agua dulce","Agua salada"],image: pez },
+			Reptil: { title: "Reptiles",categories: ["Tortuga","Serpiente","Gecko","Iguana","Camaleon","Rana"],image: reptil },
+			Roedor: { title: "Roedores",categories: ["Hamster","Conejillo de Indias","Erizo","Ratón","Chinchilla"],image: roedor },
+			Conejo: { title: "Conejos",categories: ["0 - 5 KG","5 - 20 KG"],image: conejo },
+			Hurón: { title: "Hurones",categories: ["0 - 5 KG"],image: huron },
+		}
+		let mascotasConImagen = {}
+		mascotasAcuidarStrings?.forEach((m) => {
+			const mascotaACuidar = pets[m]
+			if (mascotaACuidar) {
+				mascotasConImagen = { ...mascotasConImagen,[m]: pets[m] }
+			}
+		})
+		setMascotasAcuidar(mascotasConImagen);
+	},[professionalPets,mascotasAcuidarStrings]);
+
 	const [activeServices,setActiveServices] = useState({
 		perros: [],
 		gatos: [],
@@ -47,7 +71,17 @@ const PriceTab = () => {
 	})
 
 	const handleSaveServices = () => {
-		
+		const data = {
+			mascotasAcuidar: mascotasAcuidarStrings,
+			profession: "cuidador"
+		}
+		// EditProfessionalMethod({
+		// 	data,
+		// 	success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
+		// 	error: (e) => dispatch(setErrorProfessional(e)),
+		// 	loading: (boolean) => dispatch(setLoadingProffesional(boolean))
+		// })
+		console.log(activeServices);
 	}
 
 	return (<>
@@ -58,29 +92,29 @@ const PriceTab = () => {
 
 				<View className="justify-center items-center my-7">
 					<View className="flex flex-row">
-						<ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={caresDog} onPress={() => setCaresDog(!caresDog)} />
-						<ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={caresCat} onPress={() => setCaresCat(!caresCat)} />
-						<ButtonSquareImageTextBorderBlack texto="Ave" imagen={ave} activado={caresBird} onPress={() => setCaresBird(!caresBird)} />
+						<ButtonSquareImageTextBorderBlack texto="Perro" imagen={perro} activado={mascotasAcuidarStrings.includes("Perro")} onPress={() => { handlePets("Perro") }} />
+						<ButtonSquareImageTextBorderBlack texto="Gato" imagen={gato} activado={mascotasAcuidarStrings.includes("Gato")} onPress={() => { handlePets("Gato") }} />
+						<ButtonSquareImageTextBorderBlack texto="Ave" imagen={ave} activado={mascotasAcuidarStrings.includes("Ave")} onPress={() => { handlePets("Ave") }} />
 					</View>
 					<View className="flex flex-row mt-4">
-						<ButtonSquareImageTextBorderBlack texto="Reptil" imagen={reptil} activado={caresReptile} onPress={() => setCaresReptile(!caresReptile)} />
-						<ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={caresFish} onPress={() => setCaresFish(!caresFish)} />
-						<ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={caresRodent} onPress={() => setCaresRodent(!caresRodent)} />
+						<ButtonSquareImageTextBorderBlack texto="Reptil" imagen={reptil} activado={mascotasAcuidarStrings.includes("Reptil")} onPress={() => { handlePets("Reptil") }} />
+						<ButtonSquareImageTextBorderBlack texto="Pez" imagen={pez} activado={mascotasAcuidarStrings.includes("Pez")} onPress={() => { handlePets("Pez") }} />
+						<ButtonSquareImageTextBorderBlack texto="Roedor" imagen={roedor} activado={mascotasAcuidarStrings.includes("Roedor")} onPress={() => { handlePets("Roedor") }} />
 					</View>
 					<View className="flex flex-row mt-4 flext items-center">
-						<ButtonSquareImageTextBorderBlack texto="Conejo" imagen={conejo} activado={caresRabbit} onPress={() => setCaresRabbit(!caresRabbit)} />
-						<ButtonSquareImageTextBorderBlack texto="Hurón" imagen={huron} activado={caresFerret} onPress={() => setCaresFerret(!caresFerret)} />
+						<ButtonSquareImageTextBorderBlack texto="Conejo" imagen={conejo} activado={mascotasAcuidarStrings.includes("Conejo")} onPress={() => { handlePets("Conejo") }} />
+						<ButtonSquareImageTextBorderBlack texto="Hurón" imagen={huron} activado={mascotasAcuidarStrings.includes("Hurón")} onPress={() => { handlePets("Hurón") }} />
 					</View>
 				</View>
 
 
 				<View className="my-5 px-5">
-					{pets.map((pet,i) => (
-						pet.isCaring &&
-						<CaredPets key={i} pet={pet} activeServices={activeServices} setActiveServices={setActiveServices} />
-					))}
+					{mascotasAcuidarStrings?.map((pet,i) => {
+						if (mascotasAcuidar[pet]) {
+							return <CaredPets key={i} pet={mascotasAcuidar[pet]} activeServices={activeServices} setActiveServices={setActiveServices} />;
+						}
+					})}
 				</View>
-
 				{/* Guardar info */}
 				<Button onPress={handleSaveServices} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
 			</View>

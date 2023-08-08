@@ -32,12 +32,10 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 			if (service.name === category) {
 				const updatedService = { ...actualServices[animal][i],isActive: status }
 				actualServices[animal][i] = updatedService
-				console.log("existo");
 				exist = true;
 			}
 		})
 		if (!exist) {
-			console.log("paso");
 			actualServices[animal] = [...actualServices[animal],{ name: category,isActive: status,price }]
 		}
 		setActiveServices(actualServices)

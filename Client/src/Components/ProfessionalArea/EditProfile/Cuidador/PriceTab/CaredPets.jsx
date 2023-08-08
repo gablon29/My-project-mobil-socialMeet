@@ -12,8 +12,8 @@ const CaredPets = ({ pet,activeServices,setActiveServices }) => {
 				<Image source={pet.image} className="w-10 h-14" resizeMode='contain' />
 			</View>
 			<View className="flex flex-col items-center px-4">
-				<Text className="font-poppinsSemiBold text-xl ">Cuidado de {pet.name}</Text>
-				<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos {pet.name} aceptas por noche?</Text>
+				<Text className="font-poppinsSemiBold text-xl ">Cuidado de {pet.title}</Text>
+				<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos {pet.title} aceptas por noche?</Text>
 				<Text className="font-poppins text-center text-sm">En base a esto calcularemos el cupo maximo de mascotas por noche en las reservas</Text>
 			</View>
 
@@ -28,7 +28,7 @@ const CaredPets = ({ pet,activeServices,setActiveServices }) => {
 			<Text className="font-poppins text-center text-sm">A continuación selecciona que características aceptas y tu precio en cada una</Text>
 
 			{pet.categories.map((category,i) => (
-				<ServicioCuidador key={i} petName={pet.name} category={category} activeServices={activeServices} setActiveServices={setActiveServices}/>
+				<ServicioCuidador key={i} petName={pet.title} category={category} activeServices={activeServices} setActiveServices={setActiveServices}/>
 			))}
 		</View>
 	)
