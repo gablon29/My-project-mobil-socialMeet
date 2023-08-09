@@ -7,35 +7,6 @@ import paseadores from "../../../images/dropDownMenu/paseadores.png";
 import peluqueros from "../../../images/dropDownMenu/peluqueros.png";
 import Button from "../Buttons/ButtonSquareImageTextBorderBlack";
 import Btn from "../Buttons/ButtonCuston";
-<<<<<<< HEAD
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
-const SelectProfessionalArea = ({register, text, setRender, render, setTipo}) => {
-    const [areas, setAreas] = useState([{name:"Educador", img: educador, isRegister: false}, {name: "Veterinario", img: veterinario, isRegister: false}, {name: "Tienda", img: tienda, isRegister: false}, {name:"Cuidador", img: cuidadores, isRegister: false}, {name: "Paseador", img: paseadores, isRegister: false}, {name: "Peluquero", img: peluqueros, isRegister: false}])
-    const [btnActive, setBtnActive] = useState(areas.map(()=>false));
-    const profile = useSelector((state) => state.ReducerAuth.profile);
-    const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals);
-    const arrayProfesions = professionals.professionals
-    const handleBtnActive = (index) => {
-        const updateBtnActive = btnActive.map((state, i)=> i == index);
-        setBtnActive(updateBtnActive);
-        setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
-    };
-
-      useEffect(()=>{
-        for (const professional of arrayProfesions) {
-            if (profile.id === professional.user) {
-              const updatedAreas = areas.map((area) => {
-                const u = area.name.toLowerCase();
-                return { ...area, isRegister: professional.professions[u]?.isRegister || false };
-              });
-        
-              setAreas(updatedAreas);
-            }
-          }
-      },[])
-=======
 import { useEffect,useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { setErrorProfessional,setLoadingProffesional,setProfession,setProfessional } from "../../Redux/ReducerProffesional";
@@ -49,7 +20,6 @@ const SelectProfessionalArea = ({ tipo,register,text,setRender,render,setTipo,pr
 	
 	const [areas,setAreas] = useState([{ name: "Educador",img: educador,isRegister: false,allowed: false },{ name: "Veterinario",img: veterinario,allowed: false,isRegister: false },{ name: "Tienda",allowed: false,img: tienda,isRegister: false },{ name: "Cuidador",img: cuidadores,isRegister: false,allowed: false },{ name: "Paseador",img: paseadores,isRegister: false,allowed: false },{ name: "Peluquero",img: peluqueros,isRegister: false,allowed: false }])
 	const [btnActive,setBtnActive] = useState(areas.map(() => false));
->>>>>>> main
 
 
 	const handleBtnActive = (index) => {

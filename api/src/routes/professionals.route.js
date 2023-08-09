@@ -10,7 +10,6 @@ const { default: createPrice } = require('../controllers/stripe/createPrice');
 module.exports = {
   register: async (req, res) => {
     const userId = req.user.userId;
-<<<<<<< HEAD
     console.log("Entre")
     const { 
       name,
@@ -33,9 +32,6 @@ module.exports = {
       modalidad,
       caracter
       } = req.body;
-=======
-    const { name, country, province, city, address, phone, documento, fotoDoc, fechaNacimiento, description, profilePic, zipcode, shippingaddresss, addresses, tipo, mascotasCuidar, lugarAtencion, modalidad, caracter } = req.body;
->>>>>>> main
     const newProfessional = new ProfessionalModel({
       user: userId,
       name: name,
@@ -54,14 +50,8 @@ module.exports = {
       addresses: addresses,
       caracter: caracter,
     });
-<<<<<<< HEAD
     if(tipo === "Educador") {
       newProfessional.professions.educador.isRegister = true
-=======
-    if (tipo === 'Educador') {
-      await registerProfession(req.body);
-      newProfessional.professions.cuidador.allowed = true;
->>>>>>> main
 
       await newProfessional.save();
     }
@@ -121,7 +111,6 @@ module.exports = {
   },
 
   editProfessional: async (req, res) => {
-<<<<<<< HEAD
       const id = req.body.id;
       const professional = await ProfessionalModel.findById(id);
       if (!professional) {
@@ -179,18 +168,6 @@ module.exports = {
       professional.shippingaddresss = shippingaddresss || professional.shippingaddresss
       professional.tipo = tipo || professional.tipo
       ;
-=======
-    const professionalId = req.user.userId;
-
-    const professional = await ProfessionalModel.findOne({ user: professionalId });
-    if (!professional) {
-      return response(res, 404, { error: 'Profesional no encontrado' });
-    }
-    const { description, experience, addresses, profilePic, country, province, city, name, address, phone, mascotasAcuidar, modalidadNoVet, zipcode, shippingaddresss, fechaNacimiento, profession } = req.body;
-
-    console.log(req.body);
-    console.log(mascotasAcuidar);
->>>>>>> main
 
     professional.description = description || professional.description;
     professional.experience = experience || professional.experience;

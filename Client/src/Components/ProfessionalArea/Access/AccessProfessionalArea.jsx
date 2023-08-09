@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-import { useSelector } from "react-redux";
-=======
-import { useNavigation } from "@react-navigation/native";
->>>>>>> main
 import SelectProfessionalArea from "../SelectProfessionalArea";
+import { useSelector } from "react-redux";
 const AccessProfessionalArea = ({route}) => {
-    const {register/* , profile, professionals */} = route.params;
+    const {register} = route.params;
     const profile = useSelector((state) => state.ReducerAuth.profile);
     const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals);
     return (

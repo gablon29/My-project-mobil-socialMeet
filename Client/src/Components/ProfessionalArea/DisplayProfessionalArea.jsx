@@ -2,13 +2,28 @@ import { View, Text, Image, ScrollView } from "react-native";
 import panda from "../../../images/dropDownMenu/pandaMoney.png";
 import Button from "../Buttons/ButtonCuston";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { GetDataAllProfessional } from "../../metodos/professionalMetodos";
+import { setAllProfessionals, setErrorProfessional, setLoadingProffesional } from "../../Redux/ReducerProffesional";
 
 const DisplayProfessionalArea = () => {
 
     const navigate = useNavigation();
     const profile = useSelector((state) => state.ReducerAuth.profile);
     const professionals = useSelector((state)=> state.ReducerProfessional.userProfessionals);
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        const getProfessionals = async () => {
+            await GetDataAllProfessional({
+                loading: (v) => dispatch(setLoadingProffesional(v)),
+                error: (msg) => dispatch(setErrorProfessional(msg)),
+                success: (res) => {dispatch(setAllProfessionals(res.payload))}
+              });
+        };
+        getProfessionals()
+    },[])
+
     return (
         <ScrollView className="bg-white">
             <View className="items-center py-10 bg-white h-full">
