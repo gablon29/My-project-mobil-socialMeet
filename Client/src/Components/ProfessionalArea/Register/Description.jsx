@@ -1,9 +1,15 @@
 import { Text, TextInput, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
+import { useEffect } from "react";
 
 
-const Description = ({description, setRender, setDescription, registerProfessional, id}) => {
+const Description = ({data, description, setRender, setDescription, registerProfessional, id}) => {
     
+
+    useEffect(()=>{
+        setDescription(data.description)
+    },[])
+
     const nextStep = () => {
         registerProfessional(id);
         setRender(21)
@@ -16,12 +22,13 @@ const Description = ({description, setRender, setDescription, registerProfession
                 multiline
                 textAlignVertical="top"
                 placeholder="Escribe una presentación"
+                defaultValue={data?.description}
                 numberOfLines={12}
                 className="bg-new rounded-xl w-10/12 p-3"
                 onChangeText={(text)=>setDescription(text)}
             />
             <Button title={"Ahora no, saltar este paso"} titleClass={"my-5 text-base underline font-semibold"}
-                onPress={()=>nextStep("")}
+                onPress={()=>nextStep()}
             />
              <Button
                 title={"Siguiente"}

@@ -4,12 +4,11 @@ import { useImage } from "../../../CustomHooks/useImage";
 import Btn from "../../Buttons/ButtonCuston";
 import { useEffect } from "react";
 
-const AddPicture = ({profile, setRender, setFo, fotoDoc, mascotasCuidar}) => {
-  
+const AddPicture = ({data, setRender, setFo, fotoDoc}) => {
     const {url, setUrl, uploadImage} = useImage();
 
     useEffect(()=>{
-        setUrl(profile.profilePic)
+        setUrl(data?.profilePic)
     })
 
     const nextStep = (url) => {
@@ -31,7 +30,7 @@ const AddPicture = ({profile, setRender, setFo, fotoDoc, mascotasCuidar}) => {
             </TouchableOpacity>
             <Btn 
                 title={"Ahora no, saltar este paso"} titleClass={"mb-20 text-base underline font-semibold"}
-                onPress={()=>nextStep(profile.profilePic)}
+                onPress={()=>nextStep(data?.profilePic)}
             />
             <Btn 
                 title={"Siguiente"}

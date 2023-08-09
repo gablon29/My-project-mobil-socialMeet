@@ -2,11 +2,11 @@ import { useNavigation } from "@react-navigation/native";
 import { Image, Text, View } from "react-native";
 import Button from "../../Buttons/ButtonCuston";
 import dog from "../../../../images/dropDownMenu/happyDog.png";
-import { useEffect } from "react";
 
 const AccountAccepted = ({tipo, profile, professionals}) => {
     
     const navigate = useNavigation();
+    
     return (
         <View className="h-full items-center py-10">
             <Text className="text-center text-2xl font-bold">{`¡Tu cuenta como ${"\n"} ${tipo} a sido aceptada!`}</Text>
@@ -33,7 +33,7 @@ const AccountAccepted = ({tipo, profile, professionals}) => {
                 title={"Acceder a mi perfil"}
                 titleClass={"text-white font-bold text-base"}
                 buttonClass={"bg-celeste w-64 h-14 rounded-2xl items-center justify-center"}
-                onPress={()=>navigate.navigate("AccessProfessionalArea", {register: false, profile, professionals})}
+                onPress={()=> navigate.navigate("AccessProfessionalArea", {register: false, profile, professionals})}
             />
             }
         </View>

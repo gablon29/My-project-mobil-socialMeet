@@ -5,7 +5,7 @@ import { useState } from "react";
 const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtencion, setLugarAtencion, setCountry, setProvince, setCity}) => {
     
     const [selectOp, setSelectOp ] = useState({op1: "", op2: ""});
-    
+    console.log(tipo)
     const select = (option, title) => {
       if(render===12) {
         SelectMultiple(option, title)
