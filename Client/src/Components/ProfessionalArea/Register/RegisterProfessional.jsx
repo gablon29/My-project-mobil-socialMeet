@@ -39,7 +39,7 @@ const RegisterProfessional = ({route}) => {
         let verify = verifyRegister(profileId);
         if(verify.res) {
             console.log("Ya tienes perfil de profesional")
-            await EditProfessionalMethod({
+            /* await EditProfessionalMethod({
                 professional: {
                    ...professional,
                    id: verify.id
@@ -47,7 +47,7 @@ const RegisterProfessional = ({route}) => {
                 loading: (v) => {console.log(v)},
                 error: (msg) => {console.log(msg)},
                 success: (res) => {console.log(res)}
-            })
+            }) */
         } else {
             await CreateProfessionalMethod({
                 professional, 
