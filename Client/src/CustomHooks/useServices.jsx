@@ -1,8 +1,19 @@
-import React from "react";
+import React,{ useState } from "react";
+import { CreateProfessionalServices, EditProfessionalMethod } from "../metodos/professionalMetodos";
 
 export const useServices = () => {
+	const [services,setServices] = useState([])
 
-    return{
+	const saveServices = () => {
+		
+		// EditProfessionalMethod({})
 
-    }
+		// CreateProfessionalServices({})
+	}
+
+	return {
+		services,
+		setServices,
+		saveServices
+	}
 }

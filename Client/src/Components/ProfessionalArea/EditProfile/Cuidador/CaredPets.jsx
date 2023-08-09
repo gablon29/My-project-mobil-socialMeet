@@ -1,5 +1,5 @@
-import React,{ useState } from 'react'
-import { Image,Text,TouchableOpacity,View,TextInput } from 'react-native';
+import React from 'react'
+import { Image,Text,TouchableOpacity,View } from 'react-native';
 import ServicioCuidador from './ServicioCuidador';
 
 const CaredPets = ({ pet,activeServices,setActiveServices, petsPerNight,setPetsPerNight }) => {

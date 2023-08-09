@@ -10,14 +10,14 @@ import roedor from '../../../../../../images/especies/ic_roedor.png';
 import huron from '../../../../../../images/especies/conejo.png';
 import conejo from '../../../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../../../Buttons/ButtonSquareImageTextBorderBlack'
-import CaredPets from './CaredPets';
+import CaredPets from '../../Cuidador/CaredPets';
 import Button from '../../../../Buttons/ButtonCuston';
 import { useDispatch,useSelector } from 'react-redux';
 import { CreateProfessionalServices,EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
 import { useNavigation } from '@react-navigation/native';
 
-const PriceTab = () => {
+const CuidadorPriceTab = () => {
 
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
@@ -130,4 +130,4 @@ const PriceTab = () => {
 	)
 }
 
-export default PriceTab
+export default CuidadorPriceTab
