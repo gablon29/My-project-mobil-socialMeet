@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const Description = ({data, description, setRender, setDescription, registerProfessional, id}) => {
     
-
+    console.log(description)
     useEffect(()=>{
         setDescription(data.description)
     },[])
@@ -35,7 +35,7 @@ const Description = ({data, description, setRender, setDescription, registerProf
                 titleClass={"text-naranja font-bold text-base"}
                 buttonClass={"bg-white mt-10 border-2 border-naranja mb-10 w-64 h-14 rounded-2xl items-center justify-center"}
                 onPress={()=>nextStep()}
-                dissable={description === "" ? false : true}
+                dissable={description === "" || description === undefined ? false : true}
             />
         </View>
     );

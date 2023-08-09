@@ -35,9 +35,9 @@ const SelectProfessionalArea = ({ tipo,register,text,setRender,render,setTipo,pr
 			}
 			getUserData()
 		}
-		// const updateBtnActive = btnActive.map((state, i)=> i == index);
-		// setBtnActive(updateBtnActive);
-		// setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
+		const updateBtnActive = btnActive.map((state, i)=> i == index);
+		setBtnActive(updateBtnActive);
+		setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
 	};
 
 	useEffect(() => {
