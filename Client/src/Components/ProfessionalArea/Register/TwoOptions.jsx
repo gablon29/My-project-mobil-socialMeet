@@ -5,7 +5,7 @@ import { useState } from "react";
 const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtencion, setLugarAtencion, setCountry, setProvince, setCity}) => {
     
     const [selectOp, setSelectOp ] = useState({op1: "", op2: ""});
-    console.log(tipo)
+    
     const select = (option, title) => {
       if(render===12) {
         SelectMultiple(option, title)
@@ -39,9 +39,6 @@ const TwoOptions = ({tipo, setRender, title, text, op1, op2, render, lugarAtenci
             lugarAtencion[0].lugar.op2 = [lugarAtencion[0].lugar.op2, selectOp.op1 != "" ? selectOp.op1 : selectOp.op2]
             const updateObject = lugarAtencion;
             setLugarAtencion(updateObject);
-            setCountry("")
-            setProvince("")
-            setCity("")
             selectOp.op1 != "" ? setRender(15) : setRender(16)
           }
         } else if (tipo === "Educador"){
