@@ -2,16 +2,21 @@ import ButtonSocial from '../Buttons/ButtonSocialPaws';
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import cover from '../../../images/portada.png';
 import profile from '../../../images/temporales/image5.png';
 import axios from "axios";
+import { useRoute } from '@react-navigation/native';
 import location from '../../../images/iconos/gps.png';
 const SocialProfile = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
+
+    const profile = useSelector((state) => state.ReducerAuth.profile);
+    const route = useRoute();
+    const { pet } = route.params;
 
     return (
         <ScrollView>
@@ -33,11 +38,11 @@ const SocialProfile = () => {
                 
                 <View>
                     <Image
-                        source={cover}
+                        source={!pet?.cover ?  cover  : pet?.cover}
                         className="w-390 h-190"
                     />
                     <Image
-                        source={profile}
+                        source={!pet?.profilePic ? profile : pet?.profilePic}
                         className="rounded-full w-120 h-120 bg-cover bg-no-repeat absolute top-32 left-32"
                     />
                 </View>
@@ -53,7 +58,7 @@ const SocialProfile = () => {
                         className="w-6 h-6 mr-1"
                     />
                     <Text className="text-[#63C5C9] font-poppins text-xs font-normal">
-                        Pais | Ciudad | Localidad
+                        {profile?.country} | {profile?.province} | {profile?.zipCode}
                     </Text>
                 </View>
 

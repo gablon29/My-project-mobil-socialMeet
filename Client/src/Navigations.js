@@ -40,6 +40,7 @@ import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/Di
 import EditProfessionalProfile from './Components/ProfessionalArea/Profile/EditProfessionalProfile/EditProfessionalProfile';
 import SocialProfile from './Components/Social/Profile';
 import EditProfile from './Components/Social/EditProfile';
+import SelectPet from './Components/Social/SelectPet';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -113,6 +114,7 @@ const NavigatorAuthTrue = () => {
 
       <StackAuthTrue.Screen name="SocialPaws" component={SocialPaws} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="SocialProfile" component={SocialProfile} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="SelectPet" component={SelectPet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditSocialProfile" component={EditProfile} options={{ headerShown: true }} />
       
       
