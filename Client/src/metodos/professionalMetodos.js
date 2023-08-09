@@ -36,6 +36,25 @@ export const EditProfessionalMethod = async ({data, loading, error, success}) =>
     loading(false);
   }
 }
+
+export const RegisterOtherProfessionalMethod = async ({professional, loading, error, success}) => {
+  try {
+    const token = await AsyncStorage.getItem('Token');
+    const response = await axios.put('/api/professional/registertwo', professional, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    success(response.data);
+    loading(false);
+  } catch (err) {
+    console.error('EditProfessionalMethod', err);
+    error(err.message);
+    loading(false);
+  }
+}
+
 export const EditProfessionalCaracterMethod = async ({data, loading, error, success}) => {
   try {
     const token = await AsyncStorage.getItem('Token');

@@ -12,7 +12,7 @@ import BirthDay from "./BirthDay";
 import TwoOptions from "./TwoOptions";
 import Description from "./Description";
 import AccountAccepted from "./AccountAccepted";
-import { CreateProfessionalMethod, EditProfessionalMethod, GetDataAllProfessional } from "../../../metodos/professionalMetodos";
+import { CreateProfessionalMethod, GetDataAllProfessional, RegisterOtherProfessionalMethod } from "../../../metodos/professionalMetodos";
 import { useDispatch } from "react-redux";
 import { setAllProfessionals, setErrorProfessional, setLoadingProffesional } from "../../../Redux/ReducerProffesional";
 
@@ -39,7 +39,7 @@ const RegisterProfessional = ({route}) => {
         let verify = verifyRegister(profileId);
         if(verify.res) {
             console.log("Ya tienes perfil de profesional")
-            /* await EditProfessionalMethod({
+            await RegisterOtherProfessionalMethod({
                 professional: {
                    ...professional,
                    id: verify.id
@@ -47,7 +47,7 @@ const RegisterProfessional = ({route}) => {
                 loading: (v) => {console.log(v)},
                 error: (msg) => {console.log(msg)},
                 success: (res) => {console.log(res)}
-            }) */
+            })
         } else {
             await CreateProfessionalMethod({
                 professional, 
@@ -101,7 +101,7 @@ const RegisterProfessional = ({route}) => {
                 {render === 12 && <TwoOptions setLugarAtencion={setLugarAtencion} render={render} op1={"Lo hago en un centro"} op2={"Lo hago a domicilio"} tipo={tipo} setRender={setRender} title={"¿Dónde das tus servicios de peluquería?"} text={"Selecciona una o varias opciones"}/>}
                 {render === 13 && <FormRegister setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} render={render} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} setRender={setRender} tipo={tipo} setCountry={setCountry} country={country} province={province} city={city} setProvince={setProvince} setCity={setCity} modalidad={`¿Dónde esta la dirección de tu ${"\n"} centro de peluquería?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
                 {render === 14 && <TwoOptions setCountry={setCountry} setProvince={setProvince} setCity={setCity} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} render={render} setRender={setRender} op1={"Si, en toda la provincia"} op2={"No, solo en un localidad en concreto"} tipo={tipo} text={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`} title={`¿En tus servicios a domicilio te ${"\n"} puedes desplazar por toda tu provincia?`}/>}
-                {render === 15 && <FormRegister etPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} render={render} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} setRender={setRender} tipo={tipo} setCountry={setCountry} country={country} province={province} city={city} setProvince={setProvince} setCity={setCity} modalidad={`¿Dónde das servicios de ${"\n"} peluquería a domicilio?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
+                {render === 15 && <FormRegister setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} data={data} render={render} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} setRender={setRender} tipo={tipo} setCountry={setCountry} country={country} province={province} city={city} setProvince={setProvince} setCity={setCity} modalidad={`¿Dónde das servicios de ${"\n"} peluquería a domicilio?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`}/>}
                 {render === 16 && <FormRegister setPhone={setPhone} setEmail={setEmail} setNombre={setNombre} setApellido={setApellido} city={city} data={data} setCity={setCity} setRender={setRender} setCountry={setCountry} country={country} province={province} setProvince={setProvince} lugarAtencion={lugarAtencion} setLugarAtencion={setLugarAtencion} render={render} tipo={tipo}  modalidad={`¿Dónde das servicios de ${"\n"} peluquería a domicilio?`} info={`Esta información será pública en tu ${"\n"} perfil como peluquero/a`} />}
                 {render === 17 && <SelectSpice setCity={setCity} setCountry={setCountry} setProvince={setProvince} tipo={tipo} setRender={setRender} setMascotaCuidar={setMascotaCuidar} text={`Selecciona una o varias mascotas ${"\n"} que puedes cuidar.`} title={`¿Que mascotas aceptas en tus ${"\n"} servicios?`} multiple={true} lugarAtencion={lugarAtencion}/>}
                 {render === 21 && <AccountAccepted profile={profile} professionals={professionals} tipo={tipo} data={data}/>}

@@ -9,7 +9,7 @@ const AddPicture = ({data, setRender, setFo, fotoDoc}) => {
 
     useEffect(()=>{
         setUrl(data?.profilePic)
-    })
+    },[])
 
     const nextStep = (url) => {
         url === undefined ? null : setFo(url);
@@ -26,7 +26,7 @@ const AddPicture = ({data, setRender, setFo, fotoDoc}) => {
             <Text className="text-2xl font-bold mb-5">Añáde una imagen de perfil</Text>
             <Text className="font-bold text-center">Esto ayudará a los usuarios a {"\n"} conocerte mejor y darles confianza</Text>
             <TouchableOpacity className="my-10 flex justify-center items-center rounded-full bg-new w-40 h-40" onPress={() => {uploadImage()}}>
-                <Image source={url ? {uri: url} : cruz} style={url ? { width: 160, height: 160 } : {width: 50, height: 50 }} className="rounded-full" />
+                <Image source={{uri:url}} style={url ? { width: 160, height: 160 } : {width: 50, height: 50 }} className="rounded-full" />
             </TouchableOpacity>
             <Btn 
                 title={"Ahora no, saltar este paso"} titleClass={"mb-20 text-base underline font-semibold"}

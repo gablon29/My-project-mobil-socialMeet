@@ -117,10 +117,10 @@ module.exports = {
         return response(res, 404, { error: 'Profesional no encontrado' });
       }
       const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss } = req.body;
-      console.log(professional)
+
       if(tipo === "Educador") {
         professional.professions.educador.isRegister = true
-  
+        professional.professions.educador.allowed = true
         await professional.save();
     }
     if(tipo === "Veterinario") {
@@ -138,17 +138,19 @@ module.exports = {
       professional.professions.cuidador.isRegister = true
       professional.professions.cuidador.mascotasAcuidar = mascotasCuidar
       professional.professions.cuidador.lugarAtencion = lugarAtencion
-  
+      professional.professions.cuidador.allowed = true
       await professional.save();
     }
     if(tipo === "Paseador") {
       professional.professions.paseador.isRegister = true
       professional.professions.paseador.species = mascotasCuidar
+      professional.professions.paseador.allowed = true
       await professional.save();
     }
     if(tipo === "Peluquero") {
       professional.professions.peluquero.isRegister = true
-      professional.professions.peluquero.lugarAtencion = lugarAtencion 
+      professional.professions.peluquero.lugarAtencion = lugarAtencion
+      professional.professions.peluquero.allowed = true
       await professional.save();
     }
       professional.description = description || professional.description;
@@ -186,6 +188,69 @@ module.exports = {
     professional.fechaNacimiento = fechaNacimiento || professional.fechaNacimiento;
     await professional.save();
 
+    return response(res, 200, { message: 'Profesional actualizado', professional });
+  },
+
+  registerOtherProfessional: async (req, res) => {
+    const id = req.body.id;
+      const professional = await ProfessionalModel.findById(id);
+      if (!professional) {
+        return response(res, 404, { error: 'Profesional no encontrado' });
+      }
+      const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss } = req.body;
+
+      if(tipo === "Educador") {
+        professional.professions.educador.isRegister = true
+        professional.professions.educador.allowed = true
+        await professional.save();
+    }
+    if(tipo === "Veterinario") {
+      professional.professions.veterinario.isRegister = true
+      professional.professions.veterinario.modalidad = modalidad
+  
+      await professional.save();
+    }  
+      if(tipo === "Tienda") {
+        professional.professions.tienda.isRegister = true
+  
+      await professional.save();
+    }    
+      if(tipo === "Cuidador") {
+      professional.professions.cuidador.isRegister = true
+      professional.professions.cuidador.mascotasAcuidar = mascotasCuidar
+      professional.professions.cuidador.lugarAtencion = lugarAtencion
+      professional.professions.cuidador.allowed = true
+      await professional.save();
+    }
+    if(tipo === "Paseador") {
+      professional.professions.paseador.isRegister = true
+      professional.professions.paseador.species = mascotasCuidar
+      professional.professions.paseador.allowed = true
+      await professional.save();
+    }
+    if(tipo === "Peluquero") {
+      professional.professions.peluquero.isRegister = true
+      professional.professions.peluquero.lugarAtencion = lugarAtencion
+      professional.professions.peluquero.allowed = true
+      await professional.save();
+    }
+
+    professional.description = description || professional.description;
+    professional.experience = experience || professional.experience;
+    professional.addresses = addresses || professional.addresses;
+    professional.profilePic = profilePic || professional.profilePic;
+    professional.country = country || professional.country;
+    professional.province = province || professional.province;
+    professional.city = city || professional.city;
+    professional.name = name || professional.name;
+    professional.address = address || professional.address;
+    professional.phone = phone || professional.phone;
+    professional.mascotasCuidar = mascotasCuidar || professional.mascotasCuidar;
+    professional.modalidadNoVet = modalidadNoVet || professional.modalidadNoVet;
+    professional.zipcode = zipcode || professional.zipcode;      
+    professional.shippingaddresss = shippingaddresss || professional.shippingaddresss;
+
+    await professional.save();
     return response(res, 200, { message: 'Profesional actualizado', professional });
   },
 
