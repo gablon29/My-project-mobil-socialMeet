@@ -26,7 +26,7 @@ export default function Header() {
   const navigation = useNavigation();
   const logoOpciones = [
     { working: true, logo: inicio, nombre: 'Inicio', url: 'Home' },
-    { working: false, logo: socialPaws, nombre: 'Socialpaws' },
+    { working: true, logo: socialPaws, nombre: 'SocialPaws', url: "SocialPaws" },
     { working: true, logo: veterinarios, nombre: 'Veterinarios', url: "Veterinary" },
     { working: false, logo: cuidadores, nombre: 'Cuidadores' },
     { working: false, logo: paseadores, nombre: 'Paseadores' },
