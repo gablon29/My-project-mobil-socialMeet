@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import InformationPeluqueroTab from './Peluquero/InformationPeluqueroTab';
 import PricePeluqueroTab from './Peluquero/PricePeluqueroTab';
 import ReviewsTab from './Tabs/ReviewsTab';
+import InformationPaseadorTab from './Paseador/InformationPaseadorTab';
 
 const DisplayTabs = () => {
 
@@ -13,7 +14,8 @@ const DisplayTabs = () => {
 
 	const tabs = {
 		cuidador: ["Información","Precios","Reseñas"],
-		peluquero: ["Información","Precios","Reseñas"]
+		peluquero: ["Información","Precios","Reseñas"],
+		paseador:["Información","Reseñas"]
 	}
 	// const [tabs,setTabs] = useState({
 	// 	cuidador: ["Información","Precios","Reseñas"]
@@ -54,6 +56,12 @@ const DisplayTabs = () => {
 				<>
 					{tab === 'Información' && <InformationPeluqueroTab />}
 					{tab === 'Precios' && <PricePeluqueroTab />}
+					{tab === 'Reseñas' && <ReviewsTab />}
+				</>
+			)}
+			{profession === "paseador" && (
+				<>
+					{tab === 'Información' && <InformationPaseadorTab/>}
 					{tab === 'Reseñas' && <ReviewsTab />}
 				</>
 			)}
