@@ -25,11 +25,10 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 
 	const handleActivation = (status) => {
 		setIsActive(status)
-		const animal = quitarTildes(petName)
+
 		let exist = false
-		console.log(services);
 		services.forEach((service,i) => {
-			if (service?.name === `${animal} ${category}`) {
+			if (service?.name === `${petName} ${category}`) {
 				const actualServices = services
 				const updatedService = { ...service,isActive: status }
 				actualServices[i] = updatedService
@@ -38,7 +37,7 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 			}
 		})
 		if (!exist) {
-			setServices([...services,{ name: `${animal} ${category}`,isActive: status,price,country,province,city }])
+			setServices([...services,{ name: `${petName} ${category}`,isActive: status,price,country,province,city }])
 		}
 	}
 
@@ -47,12 +46,10 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 		if (numericRegex.test(input)) {
 			setPrice(input);
 
-			const animal = quitarTildes(petName)
-
 			let exist = false
 
 			services.forEach((service,i) => {
-				if (service?.name === `${animal} ${category}`) {
+				if (service?.name === `${petName} ${category}`) {
 					const actualServices = services
 
 					const updatedService = { ...service,price: input }
@@ -65,7 +62,7 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 			})
 
 			if (!exist) {
-				setServices([...services,{ name: `${animal} ${category}`,isActive,price,country,province,city }])
+				setServices([...services,{ name: `${petName} ${category}`,isActive,price,country,province,city }])
 			}
 		}
 		// console.log(activeServices);
@@ -80,7 +77,7 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 					<TouchableOpacity onPress={() => handleActivation(false)} className={`${!isActive && "bg-white rounded-full"} flex flex-row items-center justify-center w-7 h-7`}><Text style={{ textAlignVertical: "bottom" }} className="font-poppinsSemiBold   text-center ">No</Text></TouchableOpacity>
 				</View>
 			</View>
-			<Text className="text-sm text-center">¿Cuál es el precio por noche?</Text>
+
 			<View className="flex flex-row items-center justify-center my-4 ">
 				<TextInput
 					className="bg-celeste w-3/5 text-white font-poppins text-center text-xl rounded-[10px]"

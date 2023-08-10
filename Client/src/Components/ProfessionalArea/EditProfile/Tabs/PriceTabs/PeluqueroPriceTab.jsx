@@ -12,9 +12,8 @@ import { useDispatch,useSelector } from 'react-redux';
 import { CreateProfessionalServices,EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
 import { useNavigation } from '@react-navigation/native';
-import ServiciosPerros from '../../Peluquero/ServiciosPerros';
 import { useServices } from '../../../../../CustomHooks/useServices';
-import ServicioPeluquero from '../../Peluquero/ServicioPeluquero';
+import PeluqueroPerros from '../../Peluquero/PeluqueroPerros';
 
 const PeluqueroPriceTab = () => {
 
@@ -33,6 +32,7 @@ const PeluqueroPriceTab = () => {
 	const handlePets = (pet) => {
 		if (mascotasAcuidarStrings.includes(pet)) {
 			const newPets = mascotasAcuidarStrings.filter((m) => m !== pet)
+			setPetsPerNight({...petsPerNight, [pet]:0})
 			setMascotasAcuidarStrings(newPets)
 		} else {
 			setMascotasAcuidarStrings([...mascotasAcuidarStrings,pet])
@@ -47,6 +47,7 @@ const PeluqueroPriceTab = () => {
 			Hurón: { title: "Hurones",categories: ["Baño","Corte/arreglo"],image: huron },
 		}
 		const perros = { categories: [{ name: "Perros pequeños",peso: "1kg a 8 kg" },{ name: "Perros medianos",peso: "8kg a 35kg" },{ name: "Perros grandes",peso: "+35kg" }],services: ["Baño pelo corto","Baño pelo largo","Stripping","Tijera","Máquina","Quitar muda/deslanar","Arreglo de cara y patas","Cepillado dental"] }
+		// const perros = { categories: [{ name: "Perros pequeños",peso: "1kg a 8 kg" }],services: ["Baño pelo corto","Baño pelo largo","Stripping","Tijera","Máquina","Quitar muda/deslanar","Arreglo de cara y patas","Cepillado dental"] }
 		let mascotasConImagen = {}
 		mascotasAcuidarStrings?.forEach((m) => {
 			const mascotaACuidar = pets[m]
@@ -82,29 +83,31 @@ const PeluqueroPriceTab = () => {
 
 				<View className="my-5 px-5">
 					{
-						mascotasAcuidarStrings?.includes("Perro") && <></>
-						// <View className="flex flex-col items-center">
-						// 	<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos perros aceptas por día?</Text>
-						// 	<View className="flex flex-row justify-evenly my-7">
-						// 		{[1,2,3,4,5].map((n) => (
-						// 			<TouchableOpacity key={n}
-						// 				onPress={() => { setPetsPerNight({ ...petsPerNight,Perro: n }) }} className={`${petsPerNight.Perro === n && "border-[2px] border-black"}  flex flex-row bg-new items-center justify-center  w-9 h-9 mx-2 rounded-[10px]`}>
-						// 				<Text className=" font-poppinsBold text-base text-center " style={{ textAlignVertical: "center" }}>{n}</Text>
-						// 			</TouchableOpacity>
-						// 		))}
-						// 	</View>
-						// 	<Text className="font-poppins text-center text-sm">En base a esto calcularemos el cupo máximo de mascotas por día en las reservas</Text>
-						// </View>
-						// perrosArenderizar?.categories?.map((category,i)=>{
-						// 	return <PeluqueroCaredPets key={i} pet={}/>
-						// })
-					}
-					{
 						mascotasAcuidarStrings?.includes("Perro") &&
-						perrosArenderizar?.categories?.map((category) => {
-							return <ServicioPeluquero  petName={category.name} category={category.peso} services={services} setServices={setServices} />
-						})
+						<View className="flex flex-col items-center">
+							<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos perros aceptas por día?</Text>
+							<View className="flex flex-row justify-evenly my-7">
+								{[1,2,3,4,5].map((n) => (
+									<TouchableOpacity key={n}
+										onPress={() => { setPetsPerNight({ ...petsPerNight,Perro: n }) }} className={`${petsPerNight.Perro === n && "border-[2px] border-black"}  flex flex-row bg-new items-center justify-center  w-9 h-9 mx-2 rounded-[10px]`}>
+										<Text className=" font-poppinsBold text-base text-center " style={{ textAlignVertical: "center" }}>{n}</Text>
+									</TouchableOpacity>
+								))}
+							</View>
+							<Text className="font-poppins text-center text-sm">En base a esto calcularemos el cupo máximo de mascotas por día en las reservas</Text>
+							<View className="w-full">
+								{
+									mascotasAcuidarStrings?.includes("Perro") &&
+									perrosArenderizar?.categories?.map((category,i) => {
+										return <PeluqueroPerros key={i} pet={category} image={perro} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} dogServices={perrosArenderizar.services} />
+									})
+								}
+							</View>
+						</View>
 					}
+				</View>
+
+				<View className="my-5 px-5">
 					{mascotasAcuidarStrings?.map((pet,i) => {
 						if (mascotasArenderizar[pet] && pet !== "Perro") {
 							return (

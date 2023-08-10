@@ -27,7 +27,7 @@ const PeluqueroCaredPets = ({ pet,services,setServices,petsPerNight,setPetsPerNi
 				<Text className="font-poppins text-center text-sm">A continuación selecciona que características aceptas y tu precio en cada una</Text>
 
 				{pet.categories.map((category,i) => (
-					<ServicioPeluquero key={i} petName={pet.title} category={category} services={services} setServices={setServices} />
+					<ServicioPeluquero key={i} petName={pet.title} category={category} services={services} setServices={setServices}/>
 				))}
 			</View>
 
