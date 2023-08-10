@@ -1,19 +1,10 @@
 import React from 'react'
+import { useState } from 'react'
 import { Image,Text,TextInput,TouchableOpacity,View } from 'react-native'
 
 const ServiciosPerros = ({ category,services,image }) => {
+	const [isActive, setIsActive] = useState(second)
 	return (
-		// <View className="bg-lightnew">
-		// 	<Image source={image} className="w-14 h-14" resizeMode='contain'/>
-		// 	<Text>
-		// 		{category.name}
-		// 	</Text>
-		// 	{services.map((service)=>{
-		// 		return <View>
-		// 			<Text>{service}</Text>
-		// 		</View>
-		// 	})}
-		// </View>
 
 		<View className="pt-20 mt-20 relative flex flex-col w-full rounded-[10px] bg-lightnew px-5 pb-5">
 			<View className="absolute -top-10 left-5 w-24 h-24 border-[5px] border-white rounded-full bg-new justify-center items-center">

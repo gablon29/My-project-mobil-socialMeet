@@ -2,7 +2,7 @@ import React,{ useState } from 'react'
 import { Image,Text,TouchableOpacity,View,TextInput } from 'react-native';
 import ServicioPeluquero from './ServicioPeluquero';
 
-const PeluqueroCaredPets = ({ pet,activeServices,setActiveServices,petsPerNight,setPetsPerNight }) => {
+const PeluqueroCaredPets = ({ pet,services,setServices,petsPerNight,setPetsPerNight }) => {
 	return (
 		<View className="flex flex-col items-center mt-20">
 			<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos {pet.title} aceptas por día?</Text>
@@ -27,7 +27,7 @@ const PeluqueroCaredPets = ({ pet,activeServices,setActiveServices,petsPerNight,
 				<Text className="font-poppins text-center text-sm">A continuación selecciona que características aceptas y tu precio en cada una</Text>
 
 				{pet.categories.map((category,i) => (
-					<ServicioPeluquero key={i} petName={pet.title} category={category} activeServices={activeServices} setActiveServices={setActiveServices} />
+					<ServicioPeluquero key={i} petName={pet.title} category={category} services={services} setServices={setServices} />
 				))}
 			</View>
 

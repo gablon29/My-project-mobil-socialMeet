@@ -1,8 +1,8 @@
-import React,{ useEffect,useState } from 'react'
+import React,{ useState } from 'react'
 import { Text,TextInput,TouchableOpacity,View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const ServicioPeluquero = ({ petName,category,activeServices,setActiveServices }) => {
+const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
 	const [price,setPrice] = useState(null)
 	const [isActive,setIsActive] = useState(false)
@@ -25,26 +25,20 @@ const ServicioPeluquero = ({ petName,category,activeServices,setActiveServices }
 
 	const handleActivation = (status) => {
 		setIsActive(status)
-
 		const animal = quitarTildes(petName)
-
 		let exist = false
-		console.log(activeServices);
-		activeServices.forEach((service,i) => {
-			// if (true) {
+		console.log(services);
+		services.forEach((service,i) => {
 			if (service?.name === `${animal} ${category}`) {
-				const actualServices = activeServices
-
+				const actualServices = services
 				const updatedService = { ...service,isActive: status }
-
 				actualServices[i] = updatedService
-
-				setActiveServices([...actualServices])
+				setServices([...actualServices])
 				exist = true;
 			}
 		})
 		if (!exist) {
-			setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive: status,price,country,province,city }])
+			setServices([...services,{ name: `${animal} ${category}`,isActive: status,price,country,province,city }])
 		}
 	}
 
@@ -57,24 +51,24 @@ const ServicioPeluquero = ({ petName,category,activeServices,setActiveServices }
 
 			let exist = false
 
-			activeServices.forEach((service,i) => {
+			services.forEach((service,i) => {
 				if (service?.name === `${animal} ${category}`) {
-					const actualServices = activeServices
+					const actualServices = services
 
 					const updatedService = { ...service,price: input }
 
 					actualServices[i] = updatedService
 
-					setActiveServices([...actualServices])
+					setServices([...actualServices])
 					exist = true;
 				}
 			})
 
 			if (!exist) {
-				setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive,price,country,province,city }])
+				setServices([...services,{ name: `${animal} ${category}`,isActive,price,country,province,city }])
 			}
 		}
-		console.log(activeServices);
+		// console.log(activeServices);
 	}
 
 	return (

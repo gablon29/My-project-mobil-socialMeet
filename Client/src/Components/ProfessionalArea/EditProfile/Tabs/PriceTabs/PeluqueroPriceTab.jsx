@@ -1,5 +1,5 @@
 import React,{ useEffect,useState } from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text,TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 import perro from '../../../../../../images/especies/ic_perro.png';
 import gato from '../../../../../../images/especies/ic_gato.png';
@@ -13,20 +13,22 @@ import { CreateProfessionalServices,EditProfessionalMethod } from '../../../../.
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
 import { useNavigation } from '@react-navigation/native';
 import ServiciosPerros from '../../Peluquero/ServiciosPerros';
+import { useServices } from '../../../../../CustomHooks/useServices';
+import ServicioPeluquero from '../../Peluquero/ServicioPeluquero';
 
 const PeluqueroPriceTab = () => {
 
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
+	const { services,setServices,saveServices,petsPerNight,setPetsPerNight,mascotasAcuidarStrings,setMascotasAcuidarStrings } = useServices()
 
-	const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
-	const profession = useSelector(state => state?.ReducerProfessional?.profession)
-	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession].mascotasAcuidar)
+	// const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
+	// const profession = useSelector((state) => state?.ReducerProfessional?.profession)
+	// const professionalPets = useSelector((state) => state?.ReducerProfessional?.userProfessional?.professions[profession].mascotasAcuidar)
 
-	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
-	const [mascotasAcuidar,setMascotasAcuidar] = useState({})
-	const [perrosAcuidar,setPerrosAcuidar] = useState({})
-	const [petsPerNight,setPetsPerNight] = useState({})
+	// const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
+	const [mascotasArenderizar,setMascotasArenderizar] = useState({})
+	const [perrosArenderizar,setPerrosArenderizar] = useState({})
 
 	const handlePets = (pet) => {
 		if (mascotasAcuidarStrings.includes(pet)) {
@@ -52,38 +54,10 @@ const PeluqueroPriceTab = () => {
 				mascotasConImagen = { ...mascotasConImagen,[m]: pets[m] }
 			}
 		})
-		setMascotasAcuidar(mascotasConImagen);
-		setPerrosAcuidar(perros)
-	},[professionalPets,mascotasAcuidarStrings]);
+		setMascotasArenderizar(mascotasConImagen);
+		setPerrosArenderizar(perros)
+	},[mascotasAcuidarStrings]);
 
-	const [activeServices,setActiveServices] = useState([])
-
-	const handleSaveServices = () => {
-		const services = {
-			activeServices,
-			petsPerNight,
-			profession,
-			metadata: {
-				name: firstName,
-				email,
-			}
-		}
-
-		EditProfessionalMethod({
-			data: { mascotasAcuidar: mascotasAcuidarStrings,profession },
-			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
-			error: (e) => dispatch(setErrorProfessional(e)),
-			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
-		})
-
-		// CreateProfessionalServices({
-		// 	services,
-		// 	success: (response) => { console.log(response); },
-		// 	error: (e) => { console.log(e); },
-		// 	loading: () => { }
-		// })
-		console.log(services);
-	}
 
 	return (<>
 		<View className="mb-10 ">
@@ -108,35 +82,39 @@ const PeluqueroPriceTab = () => {
 
 				<View className="my-5 px-5">
 					{
-						mascotasAcuidarStrings?.includes("Perro") && <View className="flex flex-col items-center">
-						<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos perros aceptas por día?</Text>
-							<View className="flex flex-row justify-evenly my-7">
-								{[1,2,3,4,5].map((n) => (
-									<TouchableOpacity key={n} 
-									onPress={() => { }} className={`border-[2px] border-black  flex flex-row bg-new items-center justify-center  w-9 h-9 mx-2 rounded-[10px]`}>
-										<Text className=" font-poppinsBold text-base text-center " style={{ textAlignVertical: "center" }}>{n}</Text>
-									</TouchableOpacity>
-								))}
-							</View>
-							<Text className="font-poppins text-center text-sm">En base a esto calcularemos el cupo máximo de mascotas por día en las reservas</Text>
-						</View>
+						mascotasAcuidarStrings?.includes("Perro") && <></>
+						// <View className="flex flex-col items-center">
+						// 	<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos perros aceptas por día?</Text>
+						// 	<View className="flex flex-row justify-evenly my-7">
+						// 		{[1,2,3,4,5].map((n) => (
+						// 			<TouchableOpacity key={n}
+						// 				onPress={() => { setPetsPerNight({ ...petsPerNight,Perro: n }) }} className={`${petsPerNight.Perro === n && "border-[2px] border-black"}  flex flex-row bg-new items-center justify-center  w-9 h-9 mx-2 rounded-[10px]`}>
+						// 				<Text className=" font-poppinsBold text-base text-center " style={{ textAlignVertical: "center" }}>{n}</Text>
+						// 			</TouchableOpacity>
+						// 		))}
+						// 	</View>
+						// 	<Text className="font-poppins text-center text-sm">En base a esto calcularemos el cupo máximo de mascotas por día en las reservas</Text>
+						// </View>
+						// perrosArenderizar?.categories?.map((category,i)=>{
+						// 	return <PeluqueroCaredPets key={i} pet={}/>
+						// })
 					}
 					{
 						mascotasAcuidarStrings?.includes("Perro") &&
-						perrosAcuidar?.categories?.map((category) => {
-							return <ServiciosPerros category={category} services={perrosAcuidar?.services} image={perro} />
+						perrosArenderizar?.categories?.map((category) => {
+							return <ServicioPeluquero  petName={category.name} category={category.peso} services={services} setServices={setServices} />
 						})
 					}
 					{mascotasAcuidarStrings?.map((pet,i) => {
-						if (mascotasAcuidar[pet] && pet !== "Perro") {
+						if (mascotasArenderizar[pet] && pet !== "Perro") {
 							return (
-								<PeluqueroCaredPets key={i} pet={mascotasAcuidar[pet]} activeServices={activeServices} setActiveServices={setActiveServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />
+								<PeluqueroCaredPets key={i} pet={mascotasArenderizar[pet]} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />
 							)
 						}
 					})}
 				</View>
 				{/* Guardar info */}
-				<Button onPress={handleSaveServices} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
+				<Button onPress={saveServices} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
 			</View>
 		</View>
 	</>
