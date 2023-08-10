@@ -8,11 +8,13 @@ const { default: editPrice } = require('../controllers/stripe/editPrice')
 module.exports = {
 
     addService: async (req, res) => {
-      const services = req.body;
-    
-      const professionalId = services[0].professionalId;
-      
-      const professional = await ProfessionalModel.findById(professionalId);
+			//req.body = {services,metadata,petPerNigth,profession}
+      const {services} = req.body;
+			
+			//id llega por req.user.userId
+			const professionalId = req.user.userId;
+      const professional = await ProfessionalModel.findOne({user: professionalId});
+
       if (!professional) {
           return response(res, 500, 'Profesional no encontrado');
       }

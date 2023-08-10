@@ -8,6 +8,7 @@ export const useServices = () => {
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
 
+	const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
 	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
 	const professionalPets = useSelector((state) => state?.ReducerProfessional?.userProfessional?.professions[profession].mascotasAcuidar)
 
@@ -17,15 +18,15 @@ export const useServices = () => {
 	const saveServices = () => {
 		console.log("services",services);
 		console.log("petsPerNight",petsPerNight);
-		// const services = {
-		// 	activeServices,
-		// 	petsPerNight,
-		// 	profession,
-		// 	metadata: {
-		// 		name: firstName,
-		// 		email,
-		// 	}
-		// }
+		const updatedServices = {
+			services,
+			petsPerNight,
+			profession,
+			metadata: {
+				name: firstName,
+				email,
+			}
+		}
 
 		EditProfessionalMethod({
 			data: { mascotasAcuidar: mascotasAcuidarStrings,profession },
@@ -35,10 +36,10 @@ export const useServices = () => {
 		})
 
 		CreateProfessionalServices({
-			services,
+			updatedServices,
 			success: (response) => { console.log(response); },
 			error: (e) => { console.log(e); },
-			loading: () => { }
+			loading: (b) => { console.log(`loading ${b}`);}
 		})
 	}
 

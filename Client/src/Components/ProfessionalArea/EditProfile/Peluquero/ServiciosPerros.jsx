@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 const ServiciosPerros = ({ petName,peso,dogService,services,setServices }) => {
 	
 	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
+	
 	const [isActive,setIsActive] = useState(false)
 	const [price,setPrice] = useState(null)
 
