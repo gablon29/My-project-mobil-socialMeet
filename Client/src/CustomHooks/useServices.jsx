@@ -16,8 +16,6 @@ export const useServices = () => {
 	const [petsPerNight,setPetsPerNight] = useState({})
 	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
 	const saveServices = () => {
-		console.log("services",services);
-		console.log("petsPerNight",petsPerNight);
 		const updatedServices = {
 			services,
 			petsPerNight,
@@ -27,7 +25,7 @@ export const useServices = () => {
 				email,
 			}
 		}
-
+		console.log(petsPerNight);
 		EditProfessionalMethod({
 			data: { mascotasAcuidar: mascotasAcuidarStrings,profession },
 			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
@@ -35,12 +33,12 @@ export const useServices = () => {
 			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
 		})
 
-		CreateProfessionalServices({
-			updatedServices,
-			success: (response) => { console.log(response); },
-			error: (e) => { console.log(e); },
-			loading: (b) => { console.log(`loading ${b}`);}
-		})
+		// CreateProfessionalServices({
+		// 	updatedServices,
+		// 	success: (response) => { console.log(response); },
+		// 	error: (e) => { console.log(e); },
+		// 	loading: (b) => { console.log(`loading ${b}`);}
+		// })
 	}
 
 	return {

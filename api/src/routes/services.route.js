@@ -8,7 +8,7 @@ const { default: editPrice } = require('../controllers/stripe/editPrice')
 module.exports = {
 
     addService: async (req, res) => {
-			//req.body = {services,metadata,petPerNigth,profession}
+			//req.body = {services,metadata,petsPerNigth,profession}
       const {services} = req.body;
 			
 			//id llega por req.user.userId

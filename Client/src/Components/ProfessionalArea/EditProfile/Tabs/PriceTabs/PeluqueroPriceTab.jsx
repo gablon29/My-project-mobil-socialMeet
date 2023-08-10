@@ -111,7 +111,7 @@ const PeluqueroPriceTab = () => {
 					{mascotasAcuidarStrings?.map((pet,i) => {
 						if (mascotasArenderizar[pet] && pet !== "Perro") {
 							return (
-								<PeluqueroCaredPets key={i} pet={mascotasArenderizar[pet]} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />
+								<PeluqueroCaredPets key={i} pet={mascotasArenderizar[pet]} petString={pet} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />
 							)
 						}
 					})}

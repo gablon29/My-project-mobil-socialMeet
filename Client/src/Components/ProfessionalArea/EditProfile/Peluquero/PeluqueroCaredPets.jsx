@@ -2,13 +2,13 @@ import React,{ useState } from 'react'
 import { Image,Text,TouchableOpacity,View,TextInput } from 'react-native';
 import ServicioPeluquero from './ServicioPeluquero';
 
-const PeluqueroCaredPets = ({ pet,services,setServices,petsPerNight,setPetsPerNight }) => {
+const PeluqueroCaredPets = ({ pet,petString,services,setServices,petsPerNight,setPetsPerNight }) => {
 	return (
 		<View className="flex flex-col items-center mt-20">
 			<Text className="font-poppinsSemiBold text-base text-center mt-6 mb-4">¿Cuántos {pet.title} aceptas por día?</Text>
 			<View className="flex flex-row justify-evenly my-7">
 				{[1,2,3,4,5].map((n) => (
-					<TouchableOpacity key={n} onPress={() => { setPetsPerNight({ ...petsPerNight,[pet.title]: n }) }} className={`${petsPerNight[pet.title] === n && "border-[2px] border-black "} flex flex-row items-center justify-center bg-new w-9 h-9 mx-2 rounded-[10px]`}>
+					<TouchableOpacity key={n} onPress={() => { setPetsPerNight({ ...petsPerNight,[petString]: n }) }} className={`${petsPerNight[petString] === n && "border-[2px] border-black "} flex flex-row items-center justify-center bg-new w-9 h-9 mx-2 rounded-[10px]`}>
 						<Text className=" font-poppinsBold text-base text-center " style={{ textAlignVertical: "center" }}>{n}</Text>
 					</TouchableOpacity>
 				))}
