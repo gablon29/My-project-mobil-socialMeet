@@ -1,43 +1,61 @@
 import React,{ useEffect,useState } from 'react'
 import { Image,Text,TouchableOpacity,View } from 'react-native'
-import { useSelector } from 'react-redux'
-import cruz from '../../../../../../images/iconos/cruz.png'
-import basura from '../../../../../../images/iconos/basura.png'
-import countryList from '../../../../../../extras/countrys.json';
+import { useDispatch,useSelector } from 'react-redux'
+import cruz from '../../../../../images/iconos/cruz.png'
+import basura from '../../../../../images/iconos/basura.png'
+import countryList from '../../../../../extras/countrys.json';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Calendar from 'react-native-calendar-picker';
-import Button from '../../../../Buttons/ButtonCuston'
-import { suvirImagen,useSelectImagen } from '../../../../../CustomHooks/useImage'
+import Button from '../../../Buttons/ButtonCuston'
+import { suvirImagen,useSelectImagen } from '../../../../CustomHooks/useImage'
 import { TextInput } from 'react-native'
-import { EditProfessionalMethod } from '../../../../../metodos/professionalMetodos'
+import { EditProfessionalMethod } from '../../../../metodos/professionalMetodos'
+import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../Redux/ReducerProffesional'
+import { useNavigation } from '@react-navigation/native'
 const PersonalTab = () => {
 
+	const dispatch = useDispatch()
+	const navigation = useNavigation()
+	const { country,province,city,profilePic,fechaNacimiento } = useSelector(state => state.ReducerProfessional.userProfessional)
 
 	const [countries,setCountries] = useState([])
 	const [provinces,setProvinces] = useState([])
+	
 
-	const [selectedCountry,setSelectedCountry] = useState("")
-	const [selectedProvince,setSelectedProvince] = useState("")
-	const [selectedLocality,setSelectedLocality] = useState("")
 
-	const [selectedDate,setSelectedDate] = useState("")
+	const [selectedDate,setSelectedDate] = useState(fechaNacimiento)
+	const [location, setLocation] = useState({
+		country,
+		province,
+		city
+	})
+
 
 	const { selImg,setProfile,deleteSelImg } = useSelectImagen()
 
 	// const [image,setImage] = useState("")
 
 	const handleSave = async () => {
-		console.log("asdasd");
-		const image = await suvirImagen(selImg.profile)
-		const data = {
-			country: selectedCountry,
-			province: selectedProvince,
-			city: selectedLocality,
-			fechaNacimiento: new Date(selectedDate),
-			profilePic: image
+		let image
+		if (selImg.profile) {
+			image = await suvirImagen(selImg.profile)
 		}
-		
-		EditProfessionalMethod({ data,success: (s) => { console.log(s) },error: (e) => { console.log(e) },loading: (l) => { console.log(l) } })
+
+		const data = {
+			country: location.country,
+			province: location.province,
+			city: location.city,
+			fechaNacimiento: new Date(selectedDate),
+			profilePic: image || profilePic
+		}
+
+		EditProfessionalMethod({
+			data,
+			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional));navigation.goBack() },
+			error: (e) => dispatch(setErrorProfessional(e)),
+			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
+		})
+		// console.log(data);
 	}
 
 	useEffect(() => {
@@ -47,11 +65,11 @@ const PersonalTab = () => {
 	},[])
 
 	useEffect(() => {
-		if (selectedCountry) {
-			const country = countryList.find((c) => c.name === selectedCountry)
+		if (location.country) {
+			const country = countryList.find((c) => c.name === location.country)
 			setProvinces(country.provinces)
 		}
-	},[selectedCountry]);
+	},[location.country]);
 
 
 	return (
@@ -59,9 +77,19 @@ const PersonalTab = () => {
 
 			<View className="relative my-10 w-32 h-32 flex flex-col items-center justify-center">
 				<TouchableOpacity onPress={() => setProfile()} className="absolute w-32 h-32 flex flex-row items-center justify-center mb-9" >
-					<View className="rounded-full bg-new w-32 h-32">
-						{selImg.profile && <Image source={{ uri: selImg.profile }} className="rounded-full w-32 h-32" />}
-					</View>
+					{/* <View className="rounded-full bg-new w-32 h-32">
+						{selImg.profile && <Image source={{ uri: selImg.profile || profilePic }} className="rounded-full w-32 h-32" />}
+					</View> */}
+					{
+						selImg.profile ?
+							<View className="rounded-full bg-new w-32 h-32">
+								<Image source={{ uri: selImg.profile }} className="rounded-full w-32 h-32" />
+							</View>
+							:
+							<View className="rounded-full bg-new w-32 h-32">
+								<Image source={{ uri: profilePic }} className="rounded-full w-32 h-32" />
+							</View>
+					}
 					{!selImg.profile && <Image className="absolute w-9 h-9" source={cruz} />}
 				</TouchableOpacity>
 
@@ -79,9 +107,10 @@ const PersonalTab = () => {
 				<View className="w-[99%] self-cente">
 
 					<SelectList
+						key={"country"}
 						data={countries}
-						setSelected={setSelectedCountry}
-						placeholder="Seleccionar"
+						setSelected={(country) => setLocation({...location, country})}
+						placeholder={country}
 						search={true}
 						boxStyles={{
 							backgroundColor: '#FEC89A',
@@ -110,8 +139,8 @@ const PersonalTab = () => {
 
 					<SelectList
 						data={provinces}
-						setSelected={setSelectedProvince}
-						placeholder="Seleccionar"
+						setSelected={(province) => setLocation({...location, province})}
+						placeholder={province}
 						search={true}
 						boxStyles={{
 							backgroundColor: '#FEC89A',
@@ -138,8 +167,8 @@ const PersonalTab = () => {
 				<View className="w-[99%] self-center">
 
 					<TextInput
-						value={selectedLocality}
-						onChangeText={(locality) => setSelectedLocality(locality)}
+						value={location.city}
+						onChangeText={(city) => setLocation({...location, city})}
 						className="bg-new h-[40px] rounded-[10px] p-[10px] pl-4 text-[12px]	font-poppins"
 						boxStyles={{
 							backgroundColor: '#FEC89A',
@@ -161,6 +190,7 @@ const PersonalTab = () => {
 
 				<Calendar
 					onDateChange={(date) => { setSelectedDate(date) }}
+					selectedStartDate={fechaNacimiento}
 					selectedDayColor="#FB6726"
 					selectedDayTextColor="white"
 				/>

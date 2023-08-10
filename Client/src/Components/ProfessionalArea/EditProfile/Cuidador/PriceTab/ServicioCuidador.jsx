@@ -1,7 +1,9 @@
 import React,{ useEffect,useState } from 'react'
 import { Text,TextInput,TouchableOpacity,View } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const ServicioCuidador = ({ petName,category,activeServices,setActiveServices }) => {
+	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
 	const [price,setPrice] = useState(null)
 	const [isActive,setIsActive] = useState(false)
 	const quitarTildes = (string) => {
@@ -20,53 +22,60 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 		return string.toLowerCase().replace(/[áéíóúÁÉÍÓÚ]/g,(letra) => mapaAcentos[letra] || letra);
 	}
 
+
 	const handleActivation = (status) => {
 		setIsActive(status)
-		const actualServices = activeServices
 
 		const animal = quitarTildes(petName)
 
 		let exist = false
+		console.log(activeServices);
+		activeServices.forEach((service,i) => {
+			// if (true) {
+			if (service?.name === `${animal} ${category}`) {
+				const actualServices = activeServices
 
-		actualServices[animal].forEach((service,i) => {
-			if (service.name === category) {
-				const updatedService = { ...actualServices[animal][i],isActive: status }
-				actualServices[animal][i] = updatedService
-				console.log("existo");
+				const updatedService = { ...service,isActive: status }
+
+				actualServices[i] = updatedService
+
+				setActiveServices([...actualServices])
 				exist = true;
 			}
 		})
 		if (!exist) {
-			console.log("paso");
-			actualServices[animal] = [...actualServices[animal],{ name: category,isActive: status,price }]
+			setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive: status,price,country,province,city }])
 		}
-		setActiveServices(actualServices)
 	}
-	
+
 	const handlePriceChange = (input) => {
-		const numericRegex = /^[0-9]*$/;
+		const numericRegex = /^[0-9]*\,?[0-9]*$/
 		if (numericRegex.test(input)) {
 			setPrice(input);
-			const actualServices = activeServices
-			
+
 			const animal = quitarTildes(petName)
-			
+
 			let exist = false
-			
-			actualServices[animal].forEach((service,i) => {
-				if (service.name === category) {
-					const updatedService = { ...activeServices[animal][i],price: input }
-					actualServices[animal][i] = updatedService
+
+			activeServices.forEach((service,i) => {
+				if (service?.name === `${animal} ${category}`) {
+					const actualServices = activeServices
+
+					const updatedService = { ...service,price: input }
+
+					actualServices[i] = updatedService
+
+					setActiveServices([...actualServices])
 					exist = true;
 				}
 			})
-			if(!exist){
-				actualServices[animal] = [...actualServices[animal],{ name: category,price }]
-			}
-			setActiveServices(actualServices)
-		}
-	};
 
+			if (!exist) {
+				setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive,price,country,province,city }])
+			}
+		}
+		console.log(activeServices);
+	}
 
 	return (
 		<View className="bg-white w-full rounded-[10px] my-3">
@@ -95,5 +104,4 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 		</View>
 	)
 }
-
 export default ServicioCuidador

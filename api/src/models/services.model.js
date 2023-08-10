@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { toJSON /* , paginate */ } = require('./plugins');
-const Professional = require('./professionals.model'); 
+const Professional = require('./professionals.model');
 
 const servicesSchema = mongoose.Schema(
   {
@@ -16,34 +16,39 @@ const servicesSchema = mongoose.Schema(
       default: 'Sin descripción.',
     },
     place: {
-        type: String,
-        enum: ['cuidador', 'dueño'],
-        default: []
+      type: String,
+      enum: ['cuidador', 'dueño'],
+      default: [],
     },
     price: {
-        type: Array
+      type: Array,
     },
     capacity: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     country: {
-        type: String,
-        required: true
-      },
-      province: {
-        type: String,
-        required: true
-      },
-      addresses:{
-        type: Array,
-        required: true
-      },
+      type: String,
+      required: true,
+    },
+    province: {
+      type: String,
+      required: true,
+    },
+    addresses: {
+      type: Array,
+      required: true,
+    },
     professional: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Professional',
       required: true,
     },
+		isActive: {
+			type: Boolean,
+			required: true,
+			default:false
+		}
   },
   {
     timestamps: {

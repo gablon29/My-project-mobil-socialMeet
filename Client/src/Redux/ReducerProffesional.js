@@ -6,7 +6,8 @@ const initialState = {
     errorProfessional: "",
     successProfessional: "",
     userProfessionals: [],
-    userProfessional: undefined
+    userProfessional: {},
+		profession:""
 };
 
 const ReducerProfessional = createSlice({
@@ -42,10 +43,16 @@ const ReducerProfessional = createSlice({
                 ...state,
                 successProfessional: action.payload,
             }
-        }
+        },
+				setProfession(state,action) {
+					return {
+						...state,
+						profession: action.payload
+					}
+				}
     }
 });
 
-export const {setProfessional, setAllProfessionals, setErrorProfessional, setLoadingProffesional, setSuccessProfessional} = ReducerProfessional.actions;
+export const {setProfessional, setAllProfessionals, setErrorProfessional, setLoadingProffesional, setSuccessProfessional, setProfession} = ReducerProfessional.actions;
 
 export default ReducerProfessional.reducer;

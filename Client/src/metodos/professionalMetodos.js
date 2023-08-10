@@ -28,7 +28,7 @@ export const EditProfessionalMethod = async ({data, loading, error, success}) =>
         Authorization: `Bearer ${token}`,
       },
     })
-    success(response.data);
+    success(response.data.payload.professional);
     loading(false);
   } catch (err) {
     console.error('EditProfessionalMethod', err);
@@ -36,10 +36,11 @@ export const EditProfessionalMethod = async ({data, loading, error, success}) =>
     loading(false);
   }
 }
-export const EditProfessionalCaracterMethod = async ({data, loading, error, success}) => {
+
+export const RegisterOtherProfessionalMethod = async ({professional, loading, error, success}) => {
   try {
     const token = await AsyncStorage.getItem('Token');
-    const response = await axios.put('/api/professional/caracter', data, {
+    const response = await axios.put('/api/professional/registertwo', professional, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -49,6 +50,24 @@ export const EditProfessionalCaracterMethod = async ({data, loading, error, succ
     loading(false);
   } catch (err) {
     console.error('EditProfessionalMethod', err);
+    error(err.message);
+    loading(false);
+  }
+}
+
+export const EditProfessionalCaracterMethod = async ({data, loading, error, success}) => {
+  try {
+    const token = await AsyncStorage.getItem('Token');
+    const response = await axios.put('/api/professional/caracter', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    success(response.data.payload.professional);
+    loading(false);
+  } catch (err) {
+    console.error('EditProfessionalCaracterMethod', err);
     error(err.message);
     loading(false);
   }
@@ -64,8 +83,10 @@ export const GetDataProfessionalMethod = async ({loading, error, success }) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    success(response.data);
+
+    success(response.data.payload.professional);
     loading(false);
+		console.log("saliotodobien");
   } catch (err) {
     console.error('GetDataProfessionalMethod', err);
     error(err.message);
@@ -90,4 +111,20 @@ export const GetDataAllProfessional = async ({loading, error, success}) => {
     error(err.message);
     loading(false);
   }
+}
+
+export const CreateProfessionalServices = async ({services, loading, error,success}) => {
+	try {
+		loading(true)
+    const response = await axios.post('/api/service/add', services, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    success(response.data);
+    loading(false);
+	} catch (error) {
+		console.log(error);
+	}
 }

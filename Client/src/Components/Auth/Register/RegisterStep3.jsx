@@ -6,12 +6,31 @@ import Button from '../../Buttons/Button';
 import Toast from 'react-native-root-toast';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRegistroAuth } from '../../../Redux/ReducerAuth';
+import { setErrorAuth, setLoadingAuth, setRegistroAuth, userRefresh } from '../../../Redux/ReducerAuth';
+import { GetDataAllProfessional } from '../../../metodos/professionalMetodos';
+import { setAllProfessionals, setErrorProfessional, setLoadingProffesional } from '../../../Redux/ReducerProffesional';
+import { ReloadAuthMethod } from '../../../metodos/authMetodos';
 
 export default function RegisterStep3() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { authenticatedAuth, loadingAuth, errorAuth, profile, token, registro } = useSelector((state) => state.ReducerAuth);
+
+  const loadProfessionals = async () => {
+    await ReloadAuthMethod({
+      loading: (v) => dispatch(setLoadingAuth(v)),
+      error: (msg) => dispatch(setErrorAuth(msg)),
+      success: (res) => {
+        dispatch(userRefresh(res.payload));
+      },
+      
+    });
+    await GetDataAllProfessional({
+      loading: (v) => dispatch(setLoadingProffesional(v)),
+      error: (msg) => dispatch(setErrorProfessional(msg)),
+      success: (res) => {dispatch(setAllProfessionals(res.payload))}
+    });
+  }
 
   return (
       <View className="flex-1 items-center justify-center bg-white my-12">
@@ -25,6 +44,7 @@ export default function RegisterStep3() {
             <Button
               title="Ir a inicio"
               onPress={() => {
+                loadProfessionals();
                 Toast.show('Muchas Gracias por Registrarte, Bienvenido', {
                   duration: 10000,
                   position: Toast.positions.CENTER,
