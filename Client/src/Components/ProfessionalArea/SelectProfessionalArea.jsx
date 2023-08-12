@@ -13,7 +13,7 @@ import { setErrorProfessional,setLoadingProffesional,setProfession,setProfession
 import { GetDataProfessionalMethod } from "../../metodos/professionalMetodos";
 import { useDispatch } from "react-redux";
 
-const SelectProfessionalArea = ({ tipo,register,text,setRender,render,setTipo,professionals,profileId }) => {
+const SelectProfessionalArea = ({ register,text,setRender,render,setTipo,professionals,profileId }) => {
 
 	const dispatch = useDispatch()
 	const navigation = useNavigation()
@@ -34,10 +34,11 @@ const SelectProfessionalArea = ({ tipo,register,text,setRender,render,setTipo,pr
 				dispatch(setProfession(areas[index].name.toLowerCase()))
 			}
 			getUserData()
+		} else {
+			setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
 		}
 		const updateBtnActive = btnActive.map((state, i)=> i == index);
 		setBtnActive(updateBtnActive);
-		setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
 	};
 
 	useEffect(() => {
