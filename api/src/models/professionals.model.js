@@ -29,7 +29,7 @@ const professionalsSchema = mongoose.Schema(
 
     city: {
       type: String,
-      default: " "
+      default: ' ',
     },
 
     address: {
@@ -90,7 +90,7 @@ const professionalsSchema = mongoose.Schema(
 
     shippingaddresss: {
       address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },
-      tracking_number : { type: String },
+      tracking_number: { type: String },
       name: { type: String },
       phone: { type: String },
     },
@@ -130,10 +130,10 @@ const professionalsSchema = mongoose.Schema(
         active: Boolean,
       },
     },
-    
-      purchases:{
-      default: {}
-      },
+
+    purchases: {
+      default: {},
+    },
 
     professions: {
       educador: {
@@ -147,24 +147,29 @@ const professionalsSchema = mongoose.Schema(
           default: false,
         },
         services: {
-          type: [String],
-          default: [],
+          type: Object,
+          default: null,
         },
         caracter: {
           titulacon_adiestrador: {
             type: Boolean,
-            default: false
+            default: false,
           },
           experiencia_2a: {
             type: Boolean,
-            default: false
+            default: false,
           },
           e_perros_dif: {
             type: Boolean,
-            default: false
-          }
+            default: false,
+          },
         },
-
+        capacity: {
+          type: Object,
+          default: {
+            Perro: 0,
+          },
+        },
         experience: {
           type: Date,
         },
@@ -176,9 +181,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
-        pawpoints:{
+        pawpoints: {
           type: String,
-        }
+        },
       },
 
       veterinario: {
@@ -211,9 +216,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
-        pawpoints:{
+        pawpoints: {
           type: String,
-        }
+        },
       },
 
       // <------------- TIENDA ----------------->
@@ -230,9 +235,9 @@ const professionalsSchema = mongoose.Schema(
           type: [String],
           default: [],
         },
-        pawpoints:{
+        pawpoints: {
           type: String,
-        }
+        },
       },
 
       // <------------- CUIDADOR ----------------->
@@ -252,44 +257,44 @@ const professionalsSchema = mongoose.Schema(
           type: Array,
         },
         services: {
-          type: [String],
+          type: [Object],
           default: [],
         },
-        gallery: [ //cuidador service?
-        {
-          type: String,
-          default: [],
-        },
-      ],
+        gallery: [
+          {
+            type: [String],
+            default: [],
+          },
+        ],
         caracter: {
           jardin: {
             type: Boolean,
-            default: false
+            default: false,
           },
           niños: {
             type: Boolean,
-            default: false
+            default: false,
           },
           mascotas: {
             type: Boolean,
-            default: false
+            default: false,
           },
           p_auxilios: {
             type: Boolean,
-            default: false
+            default: false,
           },
           m_orales: {
             type: Boolean,
-            default: false
+            default: false,
           },
           m_inyectables: {
             type: Boolean,
-            default: false
+            default: false,
           },
           e_mascotas_mayores: {
             type: Boolean,
-            default: false
-          }
+            default: false,
+          },
         },
         disponibilidad: {
           lunes: {
@@ -333,9 +338,21 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
-        pawpoints:{
+        pawpoints: {
           type: String,
-        }
+        },
+        capacity: {
+          type: Object,
+          default: {
+            Perro: 0,
+            Gato: 0,
+            Huron: 0,
+            Ave: 0,
+            Reptil: 0,
+            Conejo: 0,
+            Roeador: 0,
+          },
+        },
       },
 
       // <------------- PASEADOR ----------------->
@@ -348,41 +365,40 @@ const professionalsSchema = mongoose.Schema(
           type: Boolean,
           default: false,
         },
-        species: {
-          type: Array
-        },
         services: {
-          type: [String],
-          default: [],
+          type: Object,
+          default: null,
         },
-
         experience: {
           type: Date,
         },
         caracter: {
           p_auxilios: {
-            type:Boolean,
-            default: false
+            type: Boolean,
+            default: false,
           },
           conocimiento_veterinario: {
             type: Boolean,
-            default: false
+            default: false,
           },
           e_paseador: {
             type: Boolean,
-            default: false
+            default: false,
           },
         },
         completed: {
           type: Number,
         },
-
         reviews: {
           type: [Object],
         },
-        pawpoints:{
+        pawpoints: {
           type: String,
-        }
+        },
+        capacity: {
+          type: Object,
+          default: null,
+        },
       },
 
       // <------------- PELUQUERO ----------------->
@@ -400,32 +416,32 @@ const professionalsSchema = mongoose.Schema(
           default: [],
         },
         lugarAtencion: {
-          type: Array, 
+          type: Array,
         },
-				mascotasAcuidar: {
-					type: Array
-				},
+        mascotasAcuidar: {
+          type: Array,
+        },
         caracter: {
           atencion_domicilio: {
             type: Boolean,
-            default: false
+            default: false,
           },
           centro_fisico: {
             type: Boolean,
-            default: false
+            default: false,
           },
           titulacion_peluquería: {
             type: Boolean,
-            default: false
+            default: false,
           },
           instrumentación_necesaria: {
             type: Boolean,
-            default: false
+            default: false,
           },
           mascotas: {
             type: Boolean,
-            default: false
-          }
+            default: false,
+          },
         },
         experience: {
           type: Date,
@@ -438,9 +454,9 @@ const professionalsSchema = mongoose.Schema(
         reviews: {
           type: [Object],
         },
-        pawpoints:{
+        pawpoints: {
           type: String,
-        }
+        },
       },
     },
 
@@ -451,7 +467,6 @@ const professionalsSchema = mongoose.Schema(
         },
       },
     ],
-
   },
   {
     timestamps: {

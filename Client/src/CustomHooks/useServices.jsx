@@ -14,8 +14,9 @@ export const useServices = () => {
 
 	const [services,setServices] = useState([])
 	const [petsPerNight,setPetsPerNight] = useState({})
-	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
-	const saveServices = () => {
+	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets || []])
+
+	const saveServices = async () => {
 		const updatedServices = {
 			services,
 			petsPerNight,
@@ -25,20 +26,24 @@ export const useServices = () => {
 				email,
 			}
 		}
+		console.log(services);
 		console.log(petsPerNight);
-		EditProfessionalMethod({
-			data: { mascotasAcuidar: mascotasAcuidarStrings,profession },
-			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
+		console.log(mascotasAcuidarStrings);
+		await EditProfessionalMethod({
+			data: { mascotasAcuidar: mascotasAcuidarStrings,profession, capacity:petsPerNight },
+			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional))},
 			error: (e) => dispatch(setErrorProfessional(e)),
 			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
 		})
 
-		// CreateProfessionalServices({
-		// 	updatedServices,
-		// 	success: (response) => { console.log(response); },
-		// 	error: (e) => { console.log(e); },
-		// 	loading: (b) => { console.log(`loading ${b}`);}
-		// })
+
+		await CreateProfessionalServices({
+			updatedServices,
+			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)) },
+			error: (e) => { console.log(e); },
+			loading: (b) => { console.log(`loading ${b}`); }
+		})
+		navigation.goBack()
 	}
 
 	return {

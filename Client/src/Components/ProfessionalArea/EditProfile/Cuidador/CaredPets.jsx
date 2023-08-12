@@ -2,7 +2,8 @@ import React from 'react'
 import { Image,Text,TouchableOpacity,View } from 'react-native';
 import ServicioCuidador from './ServicioCuidador';
 
-const CaredPets = ({ pet,activeServices,setActiveServices, petsPerNight,setPetsPerNight }) => {
+const CaredPets = ({ pet,nombreAnimal,services,setServices, petsPerNight,setPetsPerNight }) => {
+	
 	return (
 		<View className="flex flex-col items-center rounded-[10px] mt-20 px-5 pt-20 bg-lightnew pb-5">
 			<View className="absolute -top-10 left-5 w-24 h-24 border-[5px] border-white rounded-full bg-new justify-center items-center">
@@ -25,7 +26,7 @@ const CaredPets = ({ pet,activeServices,setActiveServices, petsPerNight,setPetsP
 			<Text className="font-poppins text-center text-sm">A continuación selecciona que características aceptas y tu precio en cada una</Text>
 
 			{pet.categories.map((category,i) => (
-				<ServicioCuidador key={i} petName={pet.title} category={category} activeServices={activeServices} setActiveServices={setActiveServices}/>
+				<ServicioCuidador key={i} petName={pet.title} nombreAnimal={nombreAnimal} category={category} services={services} setServices={setServices}/>
 			))}
 		</View>
 	)

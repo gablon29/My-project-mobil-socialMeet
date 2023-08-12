@@ -1,28 +1,21 @@
 import React,{ useEffect,useState } from 'react'
 import perro from '../../../../../images/especies/ic_perro.png';
-import gato from '../../../../../images/especies/ic_gato.png';
-import ave from '../../../../../images/especies/ic_ave.png';
-import reptil from '../../../../../images/especies/ic_reptil.png';
-import pez from '../../../../../images/especies/ic_pez.png';
-import huron from '../../../../../images/especies/conejo.png';
-import conejo from '../../../../../images/especies/ardilla.png';
-import roedor from '../../../../../images/especies/ic_roedor.png';
 import { Image,Text,View } from 'react-native'
 import { useSelector } from 'react-redux'
-
-const InformationPaseadorTab = () => {
+const InformationEducadorTab = () => {
 	const profession = useSelector(state => state?.ReducerProfessional?.profession)
+
 	const caracteristicasProfesional = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.caracter)
-	const savedPrice = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.services?.price)
+	const savedService = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.services?.price)
 
 	const [caracteristicas,setCaracteristicas] = useState([
-		{ title: "Tengo conocimientos en primeros auxilios",caracteristica: "p_auxilios" },
-		{ title: "Tengo conocimientos veterinarios",caracteristica: "conocimiento_veterinario" },
-		{ title: "Tengo experiencia paseando perros",caracteristica: "e_paseador" }
+		{ title: "Tiene una titulación como adiestrador",caracteristica: "titulacon_adiestrador" },
+		{ title: "Tiene más de 2 años de experiencia",caracteristica: "experiencia_2a" },
+		{ title: "Tiene experiencia con perros difíciles",caracteristica: "e_perros_dif" }
 	])
 
-
-
+	useEffect(()=>{
+	},[])
 
 	const check = (
 		<View className="bg-green-600 w-5 h-5 rounded-full items-center justify-center">
@@ -45,15 +38,15 @@ const InformationPaseadorTab = () => {
 					</View>
 
 					<View>
-						<Text className="font-poppinsSemiBold text-[20px]">{"Paseo de perros"}</Text>
-						<Text className="font-poppins text-sm">Precio por hora</Text>
+						<Text className="font-poppinsSemiBold text-[20px]">Adiestramiento</Text>
+						<Text className="font-poppins text-sm">Precio por sesión</Text>
 					</View>
 
 					<View className="flex flex-col my-8 space-y-5">
 						<View className="flex flex-row items-center">
-							<Text className="text-base font-poppinsBold">Paseo</Text>
+							<Text className="text-base font-poppinsBold">Adiestramiento</Text>
 							<View className="flex-grow h-px bg-black mx-2"></View>
-							<Text className="font-poppins text-base">{savedPrice || 0} $</Text>
+							<Text className="font-poppins text-base font-medium	">{savedService} $</Text>
 						</View>
 					</View>
 
@@ -73,5 +66,4 @@ const InformationPaseadorTab = () => {
 		</View>
 	)
 }
-
-export default InformationPaseadorTab
+export default InformationEducadorTab

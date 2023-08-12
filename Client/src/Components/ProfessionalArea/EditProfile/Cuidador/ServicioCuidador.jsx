@@ -2,9 +2,15 @@ import React,{ useEffect,useState } from 'react'
 import { Text,TextInput,TouchableOpacity,View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const ServicioCuidador = ({ petName,category,activeServices,setActiveServices }) => {
+const ServicioCuidador = ({ petName,nombreAnimal,category,services,setServices }) => {
 	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
-	const [price,setPrice] = useState(null)
+	
+	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
+	const actualServices = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.services)
+	
+	
+
+	const [price,setPrice] = useState(undefined)
 	const [isActive,setIsActive] = useState(false)
 	const quitarTildes = (string) => {
 		const mapaAcentos = {
@@ -21,7 +27,15 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 		};
 		return string.toLowerCase().replace(/[áéíóúÁÉÍÓÚ]/g,(letra) => mapaAcentos[letra] || letra);
 	}
-
+	useState(()=>{
+		const animal = quitarTildes(petName)
+		const existentService = actualServices.find((s)=>s.name === `${animal} ${category}` )
+		if(existentService){
+			console.log("existo")
+			setPrice(existentService.price)
+			setIsActive(existentService.isActive)
+		}
+	},[])
 
 	const handleActivation = (status) => {
 		setIsActive(status)
@@ -29,22 +43,22 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 		const animal = quitarTildes(petName)
 
 		let exist = false
-		console.log(activeServices);
-		activeServices.forEach((service,i) => {
+		console.log(services);
+		services.forEach((service,i) => {
 			// if (true) {
 			if (service?.name === `${animal} ${category}`) {
-				const actualServices = activeServices
+				const actualServices = services
 
 				const updatedService = { ...service,isActive: status }
 
 				actualServices[i] = updatedService
 
-				setActiveServices([...actualServices])
+				setServices([...actualServices])
 				exist = true;
 			}
 		})
 		if (!exist) {
-			setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive: status,price,country,province,city }])
+			setServices([...services,{ name: `${animal} ${category}`,isActive: status,price,country,province,city,animal:nombreAnimal,description:category }])
 		}
 	}
 
@@ -57,24 +71,24 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 
 			let exist = false
 
-			activeServices.forEach((service,i) => {
+			services.forEach((service,i) => {
 				if (service?.name === `${animal} ${category}`) {
-					const actualServices = activeServices
+					const actualServices = services
 
 					const updatedService = { ...service,price: input }
 
 					actualServices[i] = updatedService
 
-					setActiveServices([...actualServices])
+					setServices([...actualServices])
 					exist = true;
 				}
 			})
 
 			if (!exist) {
-				setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive,price,country,province,city }])
+				console.log(price);
+				setServices([...services,{ name: `${animal} ${category}`,isActive,price: input,country,province,city,animal:nombreAnimal,description:category }])
 			}
 		}
-		console.log(activeServices);
 	}
 
 	return (

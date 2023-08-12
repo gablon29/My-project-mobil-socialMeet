@@ -123,7 +123,8 @@ export const CreateProfessionalServices = async ({updatedServices, loading, erro
         Authorization: `Bearer ${token}`,
       },
     })
-    success(response.data);
+		
+    success(response.data.payload);
     loading(false);
 	} catch (error) {
 		console.log(error);

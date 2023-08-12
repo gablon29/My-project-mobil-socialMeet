@@ -16,15 +16,20 @@ const servicesSchema = mongoose.Schema(
       default: 'Sin descripción.',
     },
     place: {
-      type: String,
+      type: [String],
       enum: ['cuidador', 'dueño'],
       default: [],
     },
     price: {
-      type: Array,
+      type: String,
+      required: true,
     },
-    capacity: {
-      type: Number,
+    stripePrice_id: {
+      type: String,
+      required: true,
+    },
+    stripeProduct_id: {
+      type: String,
       required: true,
     },
     country: {
@@ -44,11 +49,14 @@ const servicesSchema = mongoose.Schema(
       ref: 'Professional',
       required: true,
     },
-		isActive: {
-			type: Boolean,
-			required: true,
-			default:false
-		}
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    animal: {
+      type: String,
+    },
   },
   {
     timestamps: {
