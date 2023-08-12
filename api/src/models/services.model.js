@@ -8,7 +8,6 @@ const servicesSchema = mongoose.Schema(
       type: String,
       required: true,
       minlength: 1,
-      maxlength: 30,
     },
     description: {
       type: String,

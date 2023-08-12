@@ -6,9 +6,20 @@ import { useSelector } from 'react-redux'
 const ServiciosPerros = ({ petName,peso,dogService,services,setServices }) => {
 	
 	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
-	
+	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
+	const actualServices = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.services)
+	const perroText = "Perro"
 	const [isActive,setIsActive] = useState(false)
 	const [price,setPrice] = useState(null)
+
+	useState(()=>{
+		const existentService = actualServices.find((s)=>s.name === `${petName} ${dogService}` )
+		if(existentService){
+			setPrice(existentService.price)
+			setIsActive(existentService.isActive)
+		}
+	},[])
+
 
 	const handleActivation = (status) => {
 		setIsActive(status)
@@ -24,7 +35,7 @@ const ServiciosPerros = ({ petName,peso,dogService,services,setServices }) => {
 			}
 		})
 		if (!exist) {
-			setServices([...services,{ name: `${petName} ${dogService}`,isActive: status,price,country,province,city }])
+			setServices([...services,{ name: `${petName} ${dogService}`,isActive: status,price,country,province,city,description:dogService,animal:perroText }])
 		}
 	}
 
@@ -49,7 +60,7 @@ const ServiciosPerros = ({ petName,peso,dogService,services,setServices }) => {
 			})
 
 			if (!exist) {
-				setServices([...services,{ name: `${petName} ${dogService}`,isActive,price,country,province,city }])
+				setServices([...services,{ name: `${petName} ${dogService}`,isActive,price:input,country,province,city,description:dogService,animal:perroText }])
 			}
 		}
 	}

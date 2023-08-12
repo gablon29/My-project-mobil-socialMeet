@@ -2,26 +2,23 @@ import React,{ useState } from 'react'
 import { Text,TextInput,TouchableOpacity,View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const ServicioPeluquero = ({ petName,category,services,setServices }) => {
+const ServicioPeluquero = ({ petName,nombreAnimal,category,services,setServices }) => {
 	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
+
+	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
+	const actualServices = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.services)
+
 	const [price,setPrice] = useState(null)
 	const [isActive,setIsActive] = useState(false)
-	const quitarTildes = (string) => {
-		const mapaAcentos = {
-			'á': 'a',
-			'é': 'e',
-			'í': 'i',
-			'ó': 'o',
-			'ú': 'u',
-			'Á': 'A',
-			'É': 'E',
-			'Í': 'I',
-			'Ó': 'O',
-			'Ú': 'U'
-		};
-		return string.toLowerCase().replace(/[áéíóúÁÉÍÓÚ]/g,(letra) => mapaAcentos[letra] || letra);
-	}
 
+	useState(()=>{
+		const existentService = actualServices.find((s)=>s.name === `${petName} ${category}` )
+		if(existentService){
+			console.log("existo")
+			setPrice(existentService.price)
+			setIsActive(existentService.isActive)
+		}
+	},[])
 
 	const handleActivation = (status) => {
 		setIsActive(status)
@@ -37,7 +34,7 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 			}
 		})
 		if (!exist) {
-			setServices([...services,{ name: `${petName} ${category}`,isActive: status,price,country,province,city }])
+			setServices([...services,{ name: `${petName} ${category}`,isActive: status,price,country,province,city,animal:nombreAnimal,description:category }])
 		}
 	}
 
@@ -62,10 +59,9 @@ const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 			})
 
 			if (!exist) {
-				setServices([...services,{ name: `${petName} ${category}`,isActive,price,country,province,city }])
+				setServices([...services,{ name: `${petName} ${category}`,isActive,price:input,country,province,city,animal:nombreAnimal,description:category }])
 			}
 		}
-		// console.log(activeServices);
 	}
 
 	return (

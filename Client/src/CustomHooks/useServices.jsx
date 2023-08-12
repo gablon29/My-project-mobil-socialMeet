@@ -26,6 +26,9 @@ export const useServices = () => {
 				email,
 			}
 		}
+		console.log(mascotasAcuidarStrings);
+		console.log(services);
+		console.log(petsPerNight);
 		await EditProfessionalMethod({
 			data: { mascotasAcuidar: mascotasAcuidarStrings,profession, capacity:petsPerNight },
 			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional))},

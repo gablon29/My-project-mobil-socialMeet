@@ -20,9 +20,7 @@ const CuidadorPriceTab = () => {
 	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
 	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.mascotasAcuidar)
 	const capacity = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.capacity)
-	// const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
 	const [mascotasAcuidar,setMascotasAcuidar] = useState({})
-	// const [petsPerNight,setPetsPerNight] = useState({})
 
 	const handlePets = (pet) => {
 		if (mascotasAcuidarStrings.includes(pet)) {

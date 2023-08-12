@@ -1,7 +1,6 @@
 import React,{ useEffect,useState } from 'react'
 import { Text,Image,View } from 'react-native'
 import { useSelector } from 'react-redux'
-import Pawpoints from './Pawpoints'
 
 const UserInfo = () => {
 	const { profilePic,city,province,country,fechaNacimiento } = useSelector((state) => state.ReducerProfessional.userProfessional)
@@ -28,7 +27,7 @@ const UserInfo = () => {
 
 	return (
 		<View className="flex flex-col items-center space-y-6 mt-12">
-			<Image source={{ uri: profilePic }} className="rounded-full w-24 h-24 border border-black" />
+			<Image source={{ uri: profilePic }} className="rounded-full w-24 h-24" />
 			<View className="flex flex-col items-center mb-4">
 
 				<Text className="font-bold font-poppins">
