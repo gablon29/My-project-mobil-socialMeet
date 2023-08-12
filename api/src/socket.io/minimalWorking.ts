@@ -48,8 +48,8 @@ setInterval(() => {
 }, 10000);
 
 // Show the index.html by default
-app.get('/', (req, res) => res.sendFile('index.html'));
-console.log('Socket.io: ->Se ha ejecutado socket.io/minimalWorking.ts');
+//app.get('/', (req, res) => res.sendFile('index.html'));
+//console.log('Socket.io: ->Se ha ejecutado socket.io/minimalWorking.ts');
 
 // Start the express server
 export default http

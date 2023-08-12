@@ -97,13 +97,18 @@ module.exports = {
 
     editPrice: async (req,res) => {
 
-      const data = {
-        newPrice: req.body.newPrice,
-        priceId: req.price.priceId
-      }
+      // const data/item = {
+      //   newPrice: req.body.newPrice,
+      //   priceId: req.price.priceId
+      // }
 
-      const updatedPrice = await editPrice(data)
-      
-      response(res, 200, updatedPrice)
+      const dataArray = req.body.dataArray;
+    
+      const updatedPrices = await Promise.all(dataArray.map(async item => {
+        const updatedPrice = await editPrice(item);
+        return updatedPrice;
+      }));
+    
+      response(res, 200, updatedPrices);
     }
 }
