@@ -28,7 +28,7 @@ const UserInfo = () => {
 
 	return (
 		<View className="flex flex-col items-center space-y-6 mt-12">
-			<Image source={{ uri: profilePic }} className="rounded-full w-24 h-24" />
+			<Image source={{ uri: profilePic }} className="rounded-full w-24 h-24 border border-black" />
 			<View className="flex flex-col items-center mb-4">
 
 				<Text className="font-bold font-poppins">
