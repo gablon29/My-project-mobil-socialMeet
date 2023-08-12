@@ -32,13 +32,16 @@ const SelectProfessionalArea = ({ register,text,setRender,render,setTipo,profess
 					success: (response) => dispatch(setProfessional(response))
 				})
 				dispatch(setProfession(areas[index].name.toLowerCase()))
+				console.log(areas[index].name.toLowerCase());
 			}
 			getUserData()
 		} else {
 			setTipo(areas[index].name); //De esta manera guarda en un obj la opción escojida
 		}
+
 		const updateBtnActive = btnActive.map((state, i)=> i == index);
 		setBtnActive(updateBtnActive);
+
 	};
 
 	useEffect(() => {

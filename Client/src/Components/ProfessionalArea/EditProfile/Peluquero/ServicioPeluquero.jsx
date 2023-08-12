@@ -1,8 +1,8 @@
-import React,{ useEffect,useState } from 'react'
+import React,{ useState } from 'react'
 import { Text,TextInput,TouchableOpacity,View } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const ServicioCuidador = ({ petName,category,activeServices,setActiveServices }) => {
+const ServicioPeluquero = ({ petName,category,services,setServices }) => {
 	const { country,province,city } = useSelector(state => state?.ReducerProfessional?.userProfessional)
 	const [price,setPrice] = useState(null)
 	const [isActive,setIsActive] = useState(false)
@@ -26,25 +26,18 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 	const handleActivation = (status) => {
 		setIsActive(status)
 
-		const animal = quitarTildes(petName)
-
 		let exist = false
-		console.log(activeServices);
-		activeServices.forEach((service,i) => {
-			// if (true) {
-			if (service?.name === `${animal} ${category}`) {
-				const actualServices = activeServices
-
+		services.forEach((service,i) => {
+			if (service?.name === `${petName} ${category}`) {
+				const actualServices = services
 				const updatedService = { ...service,isActive: status }
-
 				actualServices[i] = updatedService
-
-				setActiveServices([...actualServices])
+				setServices([...actualServices])
 				exist = true;
 			}
 		})
 		if (!exist) {
-			setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive: status,price,country,province,city }])
+			setServices([...services,{ name: `${petName} ${category}`,isActive: status,price,country,province,city }])
 		}
 	}
 
@@ -53,28 +46,26 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 		if (numericRegex.test(input)) {
 			setPrice(input);
 
-			const animal = quitarTildes(petName)
-
 			let exist = false
 
-			activeServices.forEach((service,i) => {
-				if (service?.name === `${animal} ${category}`) {
-					const actualServices = activeServices
+			services.forEach((service,i) => {
+				if (service?.name === `${petName} ${category}`) {
+					const actualServices = services
 
 					const updatedService = { ...service,price: input }
 
 					actualServices[i] = updatedService
 
-					setActiveServices([...actualServices])
+					setServices([...actualServices])
 					exist = true;
 				}
 			})
 
 			if (!exist) {
-				setActiveServices([...activeServices,{ name: `${animal} ${category}`,isActive,price,country,province,city }])
+				setServices([...services,{ name: `${petName} ${category}`,isActive,price,country,province,city }])
 			}
 		}
-		console.log(activeServices);
+		// console.log(activeServices);
 	}
 
 	return (
@@ -86,7 +77,7 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 					<TouchableOpacity onPress={() => handleActivation(false)} className={`${!isActive && "bg-white rounded-full"} flex flex-row items-center justify-center w-7 h-7`}><Text style={{ textAlignVertical: "bottom" }} className="font-poppinsSemiBold   text-center ">No</Text></TouchableOpacity>
 				</View>
 			</View>
-			<Text className="text-sm text-center">¿Cuál es el precio por noche?</Text>
+
 			<View className="flex flex-row items-center justify-center my-4 ">
 				<TextInput
 					className="bg-celeste w-3/5 text-white font-poppins text-center text-xl rounded-[10px]"
@@ -104,4 +95,4 @@ const ServicioCuidador = ({ petName,category,activeServices,setActiveServices })
 		</View>
 	)
 }
-export default ServicioCuidador
+export default ServicioPeluquero

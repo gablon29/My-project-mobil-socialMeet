@@ -10,28 +10,8 @@ const { default: createPrice } = require('../controllers/stripe/createPrice');
 module.exports = {
   register: async (req, res) => {
     const userId = req.user.userId;
-    console.log("Entre")
-    const { 
-      name,
-      country,
-      province,
-      city,
-      address,
-      phone,
-      documento,
-      fotoDoc,
-      fechaNacimiento,
-      description,
-      profilePic,
-      zipcode,
-      shippingaddresss,
-      addresses,
-      tipo,
-      mascotasCuidar,
-      lugarAtencion,
-      modalidad,
-      caracter
-      } = req.body;
+    console.log('Entre');
+    const { name, country, province, city, address, phone, documento, fotoDoc, fechaNacimiento, description, profilePic, zipcode, shippingaddresss, addresses, tipo, mascotasCuidar, lugarAtencion, modalidad, caracter } = req.body;
     const newProfessional = new ProfessionalModel({
       user: userId,
       name: name,
@@ -50,8 +30,8 @@ module.exports = {
       addresses: addresses,
       caracter: caracter,
     });
-    if(tipo === "Educador") {
-      newProfessional.professions.educador.isRegister = true
+    if (tipo === 'Educador') {
+      newProfessional.professions.educador.isRegister = true;
 
       await newProfessional.save();
     }
@@ -111,65 +91,50 @@ module.exports = {
   },
 
   editProfessional: async (req, res) => {
-      const id = req.body.id;
-      const professional = await ProfessionalModel.findById(id);
-      if (!professional) {
-        return response(res, 404, { error: 'Profesional no encontrado' });
-      }
-      const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss } = req.body;
+    const id = req.user.userId;
+    const professional = await ProfessionalModel.findOne({ user: id });
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+    const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, 
+			address, phone, mascotasAcuidar, modalidadNoVet, zipcode, shippingaddresss, profession, fechaNacimiento, capacity } = req.body;
 
-      if(tipo === "Educador") {
-        professional.professions.educador.isRegister = true
-        professional.professions.educador.allowed = true
-        await professional.save();
-    }
-    if(tipo === "Veterinario") {
-      professional.professions.veterinario.isRegister = true
-      professional.professions.veterinario.modalidad = modalidad
-  
-      await professional.save();
-    }  
-      if(tipo === "Tienda") {
-        professional.professions.tienda.isRegister = true
-  
-      await professional.save();
-    }    
-      if(tipo === "Cuidador") {
-      professional.professions.cuidador.isRegister = true
-      professional.professions.cuidador.mascotasAcuidar = mascotasCuidar
-      professional.professions.cuidador.lugarAtencion = lugarAtencion
-      professional.professions.cuidador.allowed = true
+			console.log(req.body);
+    if (tipo === 'Educador') {
+      professional.professions.educador.isRegister = true;
+      professional.professions.educador.allowed = true;
       await professional.save();
     }
-    if(tipo === "Paseador") {
-      professional.professions.paseador.isRegister = true
-      professional.professions.paseador.species = mascotasCuidar
-      professional.professions.paseador.allowed = true
+    if (tipo === 'Veterinario') {
+      professional.professions.veterinario.isRegister = true;
+      professional.professions.veterinario.modalidad = modalidad;
+
       await professional.save();
     }
-    if(tipo === "Peluquero") {
-      professional.professions.peluquero.isRegister = true
-      professional.professions.peluquero.lugarAtencion = lugarAtencion
-      professional.professions.peluquero.allowed = true
+    if (tipo === 'Tienda') {
+      professional.professions.tienda.isRegister = true;
+
       await professional.save();
     }
-      professional.description = description || professional.description;
-      professional.experience = experience || professional.experience;
-      professional.addresses = addresses || professional.addresses;
-      professional.profilePic = profilePic || professional.profilePic;
-      professional.country = country || professional.country;
-      professional.province = province || professional.province;
-      professional.city = city || professional.city;
-      professional.name = name || professional.name;
-      professional.apellido = apellido || professional.apellido;
-      professional.address = address || professional.address;
-      professional.phone = phone || professional.phone;
-      professional.mascotasCuidar = mascotasCuidar || professional.mascotasCuidar;
-      professional.modalidadNoVet = modalidadNoVet || professional.modalidadNoVet;
-      professional.zipcode = zipcode || professional.zipcode;      
-      professional.shippingaddresss = shippingaddresss || professional.shippingaddresss
-      professional.tipo = tipo || professional.tipo
-      ;
+    if (tipo === 'Cuidador') {
+      professional.professions.cuidador.isRegister = true;
+      professional.professions.cuidador.mascotasAcuidar = mascotasCuidar;
+      professional.professions.cuidador.lugarAtencion = lugarAtencion;
+      professional.professions.cuidador.allowed = true;
+      await professional.save();
+    }
+    if (tipo === 'Paseador') {
+      professional.professions.paseador.isRegister = true;
+      professional.professions.paseador.species = mascotasCuidar;
+      professional.professions.paseador.allowed = true;
+      await professional.save();
+    }
+    if (tipo === 'Peluquero') {
+      professional.professions.peluquero.isRegister = true;
+      professional.professions.peluquero.lugarAtencion = lugarAtencion;
+      professional.professions.peluquero.allowed = true;
+      await professional.save();
+    }
 
     professional.description = description || professional.description;
     professional.experience = experience || professional.experience;
@@ -182,10 +147,12 @@ module.exports = {
     professional.address = address || professional.address;
     professional.phone = phone || professional.phone;
     professional.professions[profession].mascotasAcuidar = mascotasAcuidar || professional.professions[profession].mascotasAcuidar;
+    professional.professions[profession].capacity = capacity || professional.professions[profession].capacity;
     professional.modalidadNoVet = modalidadNoVet || professional.modalidadNoVet;
     professional.zipcode = zipcode || professional.zipcode;
     professional.shippingaddresss = shippingaddresss || professional.shippingaddresss;
     professional.fechaNacimiento = fechaNacimiento || professional.fechaNacimiento;
+    professional.tipo = tipo || professional.tipo;
     await professional.save();
 
     return response(res, 200, { message: 'Profesional actualizado', professional });
@@ -193,45 +160,45 @@ module.exports = {
 
   registerOtherProfessional: async (req, res) => {
     const id = req.body.id;
-      const professional = await ProfessionalModel.findById(id);
-      if (!professional) {
-        return response(res, 404, { error: 'Profesional no encontrado' });
-      }
-      const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss } = req.body;
+    const professional = await ProfessionalModel.findById(id);
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+    const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss } = req.body;
 
-      if(tipo === "Educador") {
-        professional.professions.educador.isRegister = true
-        professional.professions.educador.allowed = true
-        await professional.save();
-    }
-    if(tipo === "Veterinario") {
-      professional.professions.veterinario.isRegister = true
-      professional.professions.veterinario.modalidad = modalidad
-  
-      await professional.save();
-    }  
-      if(tipo === "Tienda") {
-        professional.professions.tienda.isRegister = true
-  
-      await professional.save();
-    }    
-      if(tipo === "Cuidador") {
-      professional.professions.cuidador.isRegister = true
-      professional.professions.cuidador.mascotasAcuidar = mascotasCuidar
-      professional.professions.cuidador.lugarAtencion = lugarAtencion
-      professional.professions.cuidador.allowed = true
+    if (tipo === 'Educador') {
+      professional.professions.educador.isRegister = true;
+      professional.professions.educador.allowed = true;
       await professional.save();
     }
-    if(tipo === "Paseador") {
-      professional.professions.paseador.isRegister = true
-      professional.professions.paseador.species = mascotasCuidar
-      professional.professions.paseador.allowed = true
+    if (tipo === 'Veterinario') {
+      professional.professions.veterinario.isRegister = true;
+      professional.professions.veterinario.modalidad = modalidad;
+
       await professional.save();
     }
-    if(tipo === "Peluquero") {
-      professional.professions.peluquero.isRegister = true
-      professional.professions.peluquero.lugarAtencion = lugarAtencion
-      professional.professions.peluquero.allowed = true
+    if (tipo === 'Tienda') {
+      professional.professions.tienda.isRegister = true;
+
+      await professional.save();
+    }
+    if (tipo === 'Cuidador') {
+      professional.professions.cuidador.isRegister = true;
+      professional.professions.cuidador.mascotasAcuidar = mascotasCuidar;
+      professional.professions.cuidador.lugarAtencion = lugarAtencion;
+      professional.professions.cuidador.allowed = true;
+      await professional.save();
+    }
+    if (tipo === 'Paseador') {
+      professional.professions.paseador.isRegister = true;
+      professional.professions.paseador.species = mascotasCuidar;
+      professional.professions.paseador.allowed = true;
+      await professional.save();
+    }
+    if (tipo === 'Peluquero') {
+      professional.professions.peluquero.isRegister = true;
+      professional.professions.peluquero.lugarAtencion = lugarAtencion;
+      professional.professions.peluquero.allowed = true;
       await professional.save();
     }
 
@@ -247,7 +214,7 @@ module.exports = {
     professional.phone = phone || professional.phone;
     professional.mascotasCuidar = mascotasCuidar || professional.mascotasCuidar;
     professional.modalidadNoVet = modalidadNoVet || professional.modalidadNoVet;
-    professional.zipcode = zipcode || professional.zipcode;      
+    professional.zipcode = zipcode || professional.zipcode;
     professional.shippingaddresss = shippingaddresss || professional.shippingaddresss;
 
     await professional.save();

@@ -10,26 +10,19 @@ import roedor from '../../../../../../images/especies/ic_roedor.png';
 import huron from '../../../../../../images/especies/conejo.png';
 import conejo from '../../../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../../../Buttons/ButtonSquareImageTextBorderBlack'
-import CaredPets from './CaredPets';
+import CaredPets from '../../Cuidador/CaredPets';
 import Button from '../../../../Buttons/ButtonCuston';
-import { useDispatch,useSelector } from 'react-redux';
-import { CreateProfessionalServices,EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
-import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
-import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { useServices } from '../../../../../CustomHooks/useServices'
+const CuidadorPriceTab = () => {
+	const { services,setServices,saveServices,petsPerNight,setPetsPerNight,mascotasAcuidarStrings,setMascotasAcuidarStrings } = useServices()
 
-const PriceTab = () => {
-
-	const dispatch = useDispatch()
-	const navigation = useNavigation()
-
-	const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
-	const professional = useSelector(state => state?.ReducerProfessional?.userProfessional)
-	const profession = useSelector(state => state?.ReducerProfessional?.profession)
+	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
 	const professionalPets = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.mascotasAcuidar)
-
-	const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
+	const capacity = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.capacity)
+	// const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
 	const [mascotasAcuidar,setMascotasAcuidar] = useState({})
-	const [petsPerNight,setPetsPerNight] = useState({})
+	// const [petsPerNight,setPetsPerNight] = useState({})
 
 	const handlePets = (pet) => {
 		if (mascotasAcuidarStrings.includes(pet)) {
@@ -60,36 +53,8 @@ const PriceTab = () => {
 			}
 		})
 		setMascotasAcuidar(mascotasConImagen);
+		setPetsPerNight(capacity)
 	},[professionalPets,mascotasAcuidarStrings]);
-
-	const [activeServices,setActiveServices] = useState([])
-
-	const handleSaveServices = () => {
-		const services = {
-			activeServices,
-			petsPerNight,
-			profession,
-			metadata: {
-				name: firstName,
-				email,
-			}
-		}
-
-		EditProfessionalMethod({
-			data: {mascotasAcuidar: mascotasAcuidarStrings,profession},
-			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional)); navigation.goBack() },
-			error: (e) => dispatch(setErrorProfessional(e)),
-			loading: (boolean) => dispatch(setLoadingProffesional(boolean))
-		})
-
-		CreateProfessionalServices({
-			services,
-			success: (response) => {console.log(response); },
-			error: (e) => {console.log(e); },
-			loading: () => { }
-		})
-		console.log(services);
-	}
 
 	return (<>
 		<View className="mb-10">
@@ -118,16 +83,16 @@ const PriceTab = () => {
 				<View className="my-5 px-5">
 					{mascotasAcuidarStrings?.map((pet,i) => {
 						if (mascotasAcuidar[pet]) {
-							return <CaredPets key={i} pet={mascotasAcuidar[pet]} activeServices={activeServices} setActiveServices={setActiveServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />;
+							return <CaredPets key={i} pet={mascotasAcuidar[pet]} nombreAnimal={pet} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />;
 						}
 					})}
 				</View>
 				{/* Guardar info */}
-				<Button onPress={handleSaveServices} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
+				<Button onPress={saveServices} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center" />
 			</View>
 		</View>
 	</>
 	)
 }
 
-export default PriceTab
+export default CuidadorPriceTab

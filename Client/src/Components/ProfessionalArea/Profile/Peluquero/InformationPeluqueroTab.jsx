@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React,{ useEffect,useState } from 'react'
 import perro from '../../../../../images/especies/ic_perro.png';
 import gato from '../../../../../images/especies/ic_gato.png';
 import ave from '../../../../../images/especies/ic_ave.png';
@@ -7,7 +7,7 @@ import pez from '../../../../../images/especies/ic_pez.png';
 import huron from '../../../../../images/especies/conejo.png';
 import conejo from '../../../../../images/especies/ardilla.png';
 import roedor from '../../../../../images/especies/ic_roedor.png';
-import { Image, Text,View } from 'react-native'
+import { Image,Text,View } from 'react-native'
 import { useSelector } from 'react-redux'
 
 const InformationPeluqueroTab = () => {
@@ -63,13 +63,13 @@ const InformationPeluqueroTab = () => {
 		<View>
 			<View className="w-full">
 				<Text className="font-poppins text-base text-left font-bold mb-5 px-4">¿Qué mascotas atiendo?</Text>
-				<View className="flex flex-row flex-wrap justify-center">
+				<View className="flex flex-row flex-wrap justify-center items-center">
 					{mascotasAcuidar?.map((elem,_idx) => (
-						<View key={_idx} className="justify-start items-center mx-3 mb-2">
+						<View key={_idx} className="justify-start items-center mx-7 mb-2">
 							<View className="w-20 h-20 bg-new rounded-xl justify-center items-center">
 								<Image source={elem?.img} className="h-14 w-14" resizeMode="contain" />
 							</View>
-							<Text className="font-poppins text-xs text-center font-semibold mt-1">{elem?.name}</Text>
+							<Text className="font-poppinsSemiBold text-xs text-center mt-1">{elem?.name}</Text>
 						</View>
 					))}
 				</View>
