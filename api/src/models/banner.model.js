@@ -5,7 +5,7 @@ const { toJSON /* , paginate */ } = require('./plugins');
 const bannersSchema = mongoose.Schema(
   {
     banner: {
-      type: [String],
+      type: Array,
     },
   },
   {
