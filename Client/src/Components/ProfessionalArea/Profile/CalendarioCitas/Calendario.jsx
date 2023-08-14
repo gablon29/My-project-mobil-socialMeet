@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Button from "../../../Buttons/ButtonCuston";
 
-const Calendario = () => {
+const Calendario = ({birthDay, birth, handleDateChange}) => {
 
     /* Asi debería venir la estructura de datos para las fechas del calendario, un rango y el horario para cada día */
     const dato = [
@@ -40,7 +40,20 @@ const Calendario = () => {
     const filteredMonths = months.filter(item => item !== "");
     const [navYears, setNavYears] = useState([year, year+1, year+2, year+3, year+4, year+5,year+6,year+7,year+8]);
     const [showHours, setShowHours] = useState(false);
-    const [hours, setHours] = useState([])
+    const [hours, setHours] = useState([]);
+
+    useEffect(()=>{
+      if(birth) {
+        const date = new Date(birth)
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        setSelectDay(day);
+        setMonth(month);
+        setYear(year);
+        handleDateChange(`${year}-${String(month).length > 1 ? month : "0"+month}-${day}T12:00:00.000Z`)
+      }
+    },[])
 
     const nextMonth = () => {
       if (month === 12) {
@@ -82,8 +95,8 @@ const Calendario = () => {
     const daysCount = daysInMonth(month, year);
     const firstDayIndex = new Date(year, month - 1, 1).getDay(); // Índice del día de la semana para el primer día del mes
   
-    const markDay = (day,i, range, h) => {
-        if(selectDay === day) {
+    const markDay = (day, i, range, h) => {
+        if (selectDay === day) {
             setHours([])
             setShowHours(false)
             setSelectDay(null)
@@ -92,8 +105,12 @@ const Calendario = () => {
             setShowHours(range);
             setSelectDay(day)
         }
+        if (birthDay) {
+          setSelectDay(day)
+          handleDateChange(`${year}-${String(month).length > 1 ? month : "0"+month}-${day}T12:00:00.000Z`)
+        }
     }
-    
+
     const renderDays = () => {
         const daysArray = Array.from({ length: daysCount }, (_, index) => index + 1);
         const emptyDaysArray = Array.from({ length: (firstDayIndex + 6) % 7 }, (_, index) => null);
@@ -102,15 +119,17 @@ const Calendario = () => {
           let isInRange = false;
           var h = [];
       
-          for (const file of dato) {
-            const start = file.start;
-            const end = file.end;
-            h = file.days;
-
-            // Comprobamos si el día está dentro del rango de start y end
-            if (start <= new Date(year, month - 1, day) && end >= new Date(year, month - 1, day)) {
-              isInRange = true;
-              break;
+          if(birthDay === undefined) {
+            for (const file of dato) {
+              const start = file.start;
+              const end = file.end;
+              h = file.days;
+  
+              // Comprobamos si el día está dentro del rango de start y end
+              if (start <= new Date(year, month - 1, day) && end >= new Date(year, month - 1, day)) {
+                isInRange = true;
+                break;
+              }
             }
           }
       
@@ -122,7 +141,7 @@ const Calendario = () => {
                   component={
                     <Text
                       className={`h-8 w-8 text-center rounded-full text-lg ${
-                        currentDay === day && months[currentMonth + 1] === months[month] ? "bg-gris" : ""
+                        currentDay === day && months[currentMonth + 1] === months[month] && year === new Date().getFullYear() ? "bg-gris" : ""
                       } ${
                         index === 5 || index === 6 || index === 12 || index === 13 || index === 19 || index === 20 || index === 26 || index === 27 || index === 33 || index === 34 ? "text-red-600" : ""
                       } ${isInRange ? "bg-new" : ""} ${selectDay === day ? "bg-naranja text-white" : ""}`}

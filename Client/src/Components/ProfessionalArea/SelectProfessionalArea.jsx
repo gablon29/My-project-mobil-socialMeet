@@ -32,7 +32,6 @@ const SelectProfessionalArea = ({ register,text,setRender,render,setTipo,profess
 					success: (response) => dispatch(setProfessional(response))
 				})
 				dispatch(setProfession(areas[index].name.toLowerCase()))
-				console.log(areas[index].name.toLowerCase());
 			}
 			getUserData()
 		} else {
