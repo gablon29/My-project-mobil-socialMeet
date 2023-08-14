@@ -4,13 +4,33 @@ import Button from "../../../Buttons/ButtonCuston";
 
 const Calendario = () => {
 
-    const dato = [{start:new Date("2023-08-01T00:00:00Z"), end:new Date("2023-08-06T00:00:00Z")},{start:new Date("2023-08-26T00:00:00Z"), end:new Date("2023-09-03T00:00:00Z")},{start:new Date("2023-10-01T00:00:00Z"), end:new Date("2023-10-10T00:00:00Z")}];
-    /* const dato = [] */
+    /* Asi debería venir la estructura de datos para las fechas del calendario, un rango y el horario para cada día */
+    const dato = [
+      {
+        start:new Date("2023-08-01T00:00:00Z"),
+        end:new Date("2023-08-06T00:00:00Z"), 
+        days: [
+          { date: new Date("2023-08-01T00:00:00Z"), hours: ["8:00AM", "5:00PM"] },
+          { date: new Date("2023-08-02T00:00:00Z"), hours: ["9:00AM", "6:00PM"] },
+          { date: new Date("2023-08-03T00:00:00Z"), hours: ["10:00AM", "6:00PM"] },
+          { date: new Date("2023-08-04T00:00:00Z"), hours: ["8:00AM", "5:00PM"] },
+          { date: new Date("2023-08-05T00:00:00Z"), hours: ["9:00AM", "6:00PM"] },
+          { date: new Date("2023-08-06T00:00:00Z"), hours: ["10:00AM", "6:00PM"] },
+        ],
+      },
+     {
+      start: new Date("2023-08-18T00:00:00Z"),
+      end: new Date("2023-08-18T00:00:00Z"),
+      days: [
+        { date: new Date("2023-08-18T00:00:00Z"), hours: ["6:00AM", "10:30AM"] },
+      ],
+     }
+    ];
 
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1);
     const [selectDay, setSelectDay] = useState(null);
-    const [currentDay, setCurrentDay] = useState(new Date().getDate() - 1);
+    const [currentDay, setCurrentDay] = useState(new Date().getDate());
     const currentMonth = new Date().getMonth();
 
     const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
@@ -18,8 +38,9 @@ const Calendario = () => {
     const months = ["","Enero",'Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     const [show, setShow] = useState("days");
     const filteredMonths = months.filter(item => item !== "");
-    const [height, setHeight] =useState(false);
     const [navYears, setNavYears] = useState([year, year+1, year+2, year+3, year+4, year+5,year+6,year+7,year+8]);
+    const [showHours, setShowHours] = useState(false);
+    const [hours, setHours] = useState([])
 
     const nextMonth = () => {
       if (month === 12) {
@@ -61,13 +82,16 @@ const Calendario = () => {
     const daysCount = daysInMonth(month, year);
     const firstDayIndex = new Date(year, month - 1, 1).getDay(); // Índice del día de la semana para el primer día del mes
   
-    const markDay = (day,i) => {
+    const markDay = (day,i, range, h) => {
         if(selectDay === day) {
+            setHours([])
+            setShowHours(false)
             setSelectDay(null)
         } else {
+            setHours(h === undefined ? [] : h)
+            setShowHours(range);
             setSelectDay(day)
         }
-        setHeight(true)
     }
     
     const renderDays = () => {
@@ -76,11 +100,13 @@ const Calendario = () => {
       
         return [...emptyDaysArray, ...daysArray].map((day, index) => {
           let isInRange = false;
+          var h = [];
       
           for (const file of dato) {
             const start = file.start;
             const end = file.end;
-      
+            h = file.days;
+
             // Comprobamos si el día está dentro del rango de start y end
             if (start <= new Date(year, month - 1, day) && end >= new Date(year, month - 1, day)) {
               isInRange = true;
@@ -92,7 +118,7 @@ const Calendario = () => {
             <View key={index} className={`p-2 text-center w-[14.28%] justify-center items-center`}>
               {day !== null ? (
                 <Button
-                  onPress={() => markDay(day, index)}
+                  onPress={() => markDay(day, index, isInRange, h)}
                   component={
                     <Text
                       className={`h-8 w-8 text-center rounded-full text-lg ${
@@ -172,17 +198,25 @@ const Calendario = () => {
                     </View>
                 </>
             }
-            { selectDay === 18 && months[month] === "Agosto" ?
-                <View className={`relative w-full ${height ? "h-auto" : "h-[0px]"} border-b-2 transition ease-in-out delay-150 duration-300 overflow-hidden`}>
-                    <Button onPress={()=>setHeight(false)} title={"❌"} titleClass={`text-sm`} buttonClass={`absolute right-2`}/>
-                    <Text className="font-poppinsSemiBold text-base mt-8">Horarios para el {selectDay || currentDay} de {months[month]}</Text>
-                    {
-                        [{h:"8:00AM"}, {h:"5:00PM"}].map((item, index)=>(
-                            <Text className="font-poppinsSemiBold" key={index}>{item.h}</Text>
-                        ))
-                    }
-                </View>
-                : null
+            {
+            hours.length !== 0 && (
+                showHours ? (
+                    <View className="relative w-full border-b-2 transition ease-in-out delay-150 duration-300 overflow-hidden">
+                        <Text className="font-poppinsSemiBold text-base mt-8">Horarios para el {selectDay || currentDay} de {months[month]}</Text>
+                        {
+                            hours.map((item)=>{
+                              const dayRange = item.date.getDate();
+                              if(dayRange === selectDay) {
+                                const array = item.hours
+                                return (array.map((item,index)=>(
+                                  <Text key={index}>{item}</Text>
+                                )))
+                              }
+                            })
+                        }
+                    </View>
+                ) : null
+            )
             }
     </View>
     );
