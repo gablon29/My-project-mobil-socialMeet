@@ -1,12 +1,8 @@
 import { authSetError, authSetLoading } from '@/redux/reducer/reducerAuth';
 import Profesionales from '../components/Profesionales/Profesionales';
-import { setProfessions } from '@/redux/reducer/reducerProfesionales';
-import { useEffect } from 'react';
-import { getAllProfessions } from '../../utils/metodos/userMetodos';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const profesionales = () =>{
-
     // const dispatch = useDispatch()
 
     // useEffect(() => {
