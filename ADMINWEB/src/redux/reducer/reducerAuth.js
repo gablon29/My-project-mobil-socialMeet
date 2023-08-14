@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //SE INICIA OBJETO DEL REDUCER
 const initialState = {
    usuarioAuth: undefined,
+   professions: undefined,
    authenticatedAuth: false,
    loadingAuth: true,
    errorAuth: '',
@@ -47,11 +48,17 @@ const reducerAuth = createSlice({
             successAuth: action.payload,
          };
       },
+      setProfessional(state, action) {
+         return {
+            ...state,
+            professions: action.payload,
+         };
+      },
    },
 });
 
 //ACA SE EXPORTAN LAS ACTIONS QUE SE CREAN AUTOMATICAMENTE MAS ARRIVA
-export const { authSetUser, authSetError, authSetLoading, authSetSuccess, authSignOut } = reducerAuth.actions;
+export const { authSetUser, authSetError,setProfessional, authSetLoading, authSetSuccess, authSignOut } = reducerAuth.actions;
 
 //ACA SE EXPORTAN O EXPORTA EL REDUCER
 export default reducerAuth.reducer;
