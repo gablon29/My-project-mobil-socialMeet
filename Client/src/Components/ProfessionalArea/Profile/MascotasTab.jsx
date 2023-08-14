@@ -1,10 +1,10 @@
 import { Text, View } from "react-native";
-import Button from "../../../Buttons/ButtonCuston";
+import Button from "../../Buttons/ButtonCuston";
 
-const PeluqueroMascotasTab = () => {
+const MascotasTab = ({title}) => {
     return (
-        <View className="w-11/12 my-5">
-            <Text className="font-poppinsSemiBold text-lg">Mascotas:</Text>
+        <View className="w-11/12 my-10">
+            <Text className="font-poppinsSemiBold text-lg">Mascotas{title ? title : ":"}</Text>
             {
                 [1,2].map((item, index)=>(
                     <View key={index} className="flex-row justify-between items-center my-2">
@@ -20,4 +20,4 @@ const PeluqueroMascotasTab = () => {
     );
 }
  
-export default PeluqueroMascotasTab;
+export default MascotasTab;

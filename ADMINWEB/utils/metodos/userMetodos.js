@@ -37,7 +37,8 @@ export const getAllPets = async ({ loading, error, success }) => {
          },
       };
       const response = await axios.get('/api/professional/all', config);
-      success(response.data.payload);
+      console.log(response)
+      success(response.data.payload.professionals);
       loading(false);
    } catch (err) {
       console.log('GetUserLocalMethod', err);

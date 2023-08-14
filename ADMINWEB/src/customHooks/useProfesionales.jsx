@@ -3,8 +3,8 @@ import React, { useState } from "react";
 
 
 export const useFilterProfesional = (professions) => {
-console.log("HOLA", professions)
-    const [searchTerm, setSearchTerm] = useState("");
+console.log(professions)
+  const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = (event) => {
       setSearchTerm(event.target.value);
