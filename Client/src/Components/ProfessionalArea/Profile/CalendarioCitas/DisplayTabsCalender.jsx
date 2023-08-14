@@ -9,6 +9,8 @@ import PeluqueroServicios from "../Peluquero/PeluqueroServicios";
 import PeluqueroSolicitudesTab from "../Peluquero/PeluqueroSolicitudesTab";
 import PaseadorActivosTab from "../Paseador/PaseadorActivosTab";
 import PaseadorSolicitudesTab from "../Paseador/PaseadorSolicitudesTab";
+import EducadorActivosTab from "../Educador/EducadorActivosTab";
+import EducadorSolicitudesTab from "../Educador/EducadorSolicitudesTab";
 
 const DisplayTabsCalender = () => {
     const profession = useSelector((state) => state?.ReducerProfessional?.profession);
@@ -27,18 +29,19 @@ const DisplayTabsCalender = () => {
             </View>
             <View className="pt-20 w-screen items-center">
             {profession === "cuidador" && (
-                tab ? (<>{[1,2].map((item, index)=>(<CuidadorActivosTab index={index}/>))}</>)
-                :(<>{[1,2].map((item, index)=>( <CuidadorSolicitudesTab index={index}/>))}</>))}
+                tab ? (<>{[1,2].map((item, index)=>(<CuidadorActivosTab key={index} />))}</>)
+                :(<>{[1,2].map((item, index)=>( <CuidadorSolicitudesTab key={index} />))}</>))}
             {profession === "peluquero" && (
-                tab ? (<>{[1,2].map((item, index)=><PeluqueroSolicitudesTab index={index} />)}</>) 
-                :(<>{[1,2].map((item,index)=>(<PeluqueroActivosTab index={index} />))}</>)
+                tab ? (<>{[1,2].map((item, index)=><PeluqueroActivosTab key={index} />)}</>) 
+                :(<>{[1,2].map((item,index)=>(<PeluqueroSolicitudesTab key={index} />))}</>)
             )}
             {profession === "paseador" && (
-                tab ? (<>{[1,2].map((item,index)=>(<PaseadorActivosTab index={index}/>))}</>)
-                : (<>{[1,2].map((item,index)=>(<PaseadorSolicitudesTab index={index}/>))}</>)
+                tab ? (<>{[1,2].map((item,index)=>(<PaseadorActivosTab key={index} />))}</>)
+                : (<>{[1,2].map((item,index)=>(<PaseadorSolicitudesTab key={index} />))}</>)
             )}
             {profession === "educador" && (
-                tab ? (<></>) : (<></>)
+                tab ? (<>{[1,2].map((item,index)=>(<EducadorActivosTab key={index} />))}</>) 
+                : (<>{[1,2].map((item, index)=>(<EducadorSolicitudesTab key={index} />))}</>)
             )}
             </View>
         </View>
