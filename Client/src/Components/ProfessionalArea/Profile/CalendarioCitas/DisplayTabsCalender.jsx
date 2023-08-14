@@ -7,6 +7,8 @@ import CuidadorSolicitudesTab from "../Cuidador/CuidadorSolicitudesTab";
 import PeluqueroActivosTab from "../Peluquero/PeluqueroActivosTab";
 import PeluqueroServicios from "../Peluquero/PeluqueroServicios";
 import PeluqueroSolicitudesTab from "../Peluquero/PeluqueroSolicitudesTab";
+import PaseadorActivosTab from "../Paseador/PaseadorActivosTab";
+import PaseadorSolicitudesTab from "../Paseador/PaseadorSolicitudesTab";
 
 const DisplayTabsCalender = () => {
     const profession = useSelector((state) => state?.ReducerProfessional?.profession);
@@ -32,7 +34,8 @@ const DisplayTabsCalender = () => {
                 :(<>{[1,2].map((item,index)=>(<PeluqueroActivosTab index={index} />))}</>)
             )}
             {profession === "paseador" && (
-                tab ? (<></>) : (<></>)
+                tab ? (<>{[1,2].map((item,index)=>(<PaseadorActivosTab index={index}/>))}</>)
+                : (<>{[1,2].map((item,index)=>(<PaseadorSolicitudesTab index={index}/>))}</>)
             )}
             {profession === "educador" && (
                 tab ? (<></>) : (<></>)
