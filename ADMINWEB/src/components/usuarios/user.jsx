@@ -1,11 +1,41 @@
 import HeaderAdmin from "../all/HeaderAdmin";
 import ButtonCustom from "../all/ButtonCustom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { authSetError, authSetLoading } from "@/redux/reducer/reducerAuth";
+import { setPets } from "@/redux/reducer/reducerUsuarios";
+import { getAllPets } from "../../../utils/metodos/userMetodos";
+import { useParams } from "react-router-dom";
+import { useRouter } from "next/router";
+import { UserRightPanel } from "./UserRightPanel";
+import { UserPetPanel } from "./UserPetPanel";
 
 const User = () => {
+    const router = useRouter();
+    const { id } = router.query;
+
+    const mascotas = useSelector((state) => state.reducerUsuarios.mascotas);
+    const usuarios = useSelector((state) => state.reducerUsuarios.usuarios);
+    const tickets = useSelector((state) => state.reducerUsuarios.tickets);
 
     const [activeBtn, setActiveBtn] = useState("mascota")
     const generalBtnClass = "w-28 rounded-lg h-14 font-bold text-base"
+
+console.log(tickets)
+let mascotasUser = mascotas.filter((ele) => ele.owner === id)
+let userProfile = usuarios.filter((ele) => ele.id === id)
+let userTicket = tickets.filter((ele) => ele.messages[0].sender.id === id)
+
+console.log(userTicket)
+const dispatch = useDispatch()
+useEffect(() => {
+    getAllPets({
+        success : (m) => dispatch(setPets(m)),
+        loading: (v) => console.log(v)
+        , error : (c) => console.log(c), 
+    })
+},[])
+
 
     return (
         <div className="grid col-start-1 col-end-2 row-start-1 row-end-3 grid-cols-[256px_1fr] grid-rows-[25vh_75vh] bg-white">
@@ -20,24 +50,7 @@ const User = () => {
                 </div>
                 {
                     activeBtn === "mascota" ?
-                    <div className="flex mt-10 pb-10 items-center justify-center flex-wrap col-start-1 col-end-2 row-start-2 row-end-3 gap-12 sticky bottom-0 overflow-x-auto">
-                        {
-                            [1,1,1,1].map((data, index)=>(
-                                <div className="w-60 h-80 bg-celeste flex justify-around items-center flex-col rounded-xl">
-                                    <div className="w-16 h-16 bg-black rounded-full">
-                                        <img src="" alt="" className="w-full h-full rounded-full"/>
-                                    </div>
-                                    <ul className="list-none text-white text-xl">
-                                        <li>Nombre de la mascota</li>
-                                        <li>Especie</li>
-                                        <li>Raza</li>
-                                        <li>Edad</li>
-                                    </ul>
-                                    <button className="bg-white rounded-3xl w-8/12 h-8 text-base font-semibold">Ver su perfil</button>
-                                </div>
-                            ))
-                        }
-                    </div>
+       <UserPetPanel mascotasUser={mascotasUser}/>
                     :
                     activeBtn === "ticket" ?
                     <div className="mt-10 col-start-1 col-end-2 row-start-2 row-end-3 sticky bottom-0 overflow-x-auto grid grid-cols-3 grid-rows-[60px_1fr]">
@@ -47,11 +60,11 @@ const User = () => {
                             <span className="font-semibold text-center">Atendido por</span>
                         </div>
                         <div className=" col-start-1 col-end-4 row-start-2 row-end-3">
-                            {[1,2,3,5,6,7,8,8,8,8,8,8].map((data, index)=>(
+                            {userTicket.map((data, index)=>(
                                 <div key={index} className="grid grid-cols-[40%_1fr_1fr] grid-rows-1 py-5 border-t-[1px] border-black">
-                                    <span className="underline">Nombre</span>
-                                    <span className="text-center">27/07/2023</span>
-                                    <span className="text-center">Nombre admin</span>
+                                    <span className="underline">{data.subject}</span>
+                                    <p>{data.status}</p>
+                                <p>Fecha: {new Date(data.createdAt).toLocaleString()}</p>
                                 </div>
                             ))}
                         </div>
@@ -91,31 +104,12 @@ const User = () => {
                         </div>
                     </div>
                 }
-                <div className="flex mb-5 justify-center items-center col-start-2 col-end-3 row-start-1 row-end-3 sticky right-0">
-                    <div className="w-10/12 h-full rounded-lg bg-naranja flex justify-center items-center flex-col">
-                        <div className="w-full flex justify-center items-center flex-col mb-10">
-                            <div className="w-16 h-16 bg-black rounded-full">
-                                <img src="" alt="" className="w-full h-full rounded-full"/>
-                            </div>
-                            <p>Nombre de usuario</p>
-                            <p>id: 4165744134</p>
-                            <p>Estado: Activo o Baneado</p>
+                        <div className="flex mb-5 justify-center items-center col-start-2 col-end-3 row-start-1 row-end-3 sticky right-0">
+                       <UserRightPanel userProfile={userProfile}/>
+                       
                         </div>
-                        <ul className="list-none relative -left-7 mb-5">
-                            <li className="font-semibold text-white">Email</li>
-                            <li className="font-semibold text-white">Télefono</li>
-                            <li className="font-semibold text-white">País</li>
-                            <li className="font-semibold text-white">Ciudad</li>
-                            <li className="font-semibold text-white">Localidad</li>
-                            <li className="font-semibold text-white">Fecha de Registro</li>
-                        </ul>
-                        <div className="flex flex-col w-full justify-center items-center">
-                            <button className="bg-black text-white m-2 rounded-3xl w-8/12 h-8 text-base font-semibold">Bannear Usuario</button>
-                            <button className="bg-white rounded-3xl m-2 w-8/12 h-8 text-base font-semibold">Activar Usuario</button>
+
                         </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }

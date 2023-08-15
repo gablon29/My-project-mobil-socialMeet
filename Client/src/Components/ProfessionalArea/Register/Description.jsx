@@ -4,8 +4,7 @@ import { useEffect } from "react";
 
 
 const Description = ({data, description, setRender, setDescription, registerProfessional, id}) => {
-    
-    console.log(description)
+
     useEffect(()=>{
         setDescription(data.description)
     },[])

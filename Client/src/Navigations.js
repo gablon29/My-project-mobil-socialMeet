@@ -37,11 +37,16 @@ import RegisterProfessional from './Components/ProfessionalArea/Register/Registe
 import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
 import SocialPaws from './Components/Social/SocialPaws';
 import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
+
+import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile'
+import CalendarioCitas from './Components/ProfessionalArea/Profile/CalendarioCitas/CaledarioCitas';
+import BloquearFechas from './Components/ProfessionalArea/Profile/CalendarioCitas/BloquearFechas';
+import GestionarReserva from './Components/ProfessionalArea/Profile/CalendarioCitas/GestionarReserva';
+
 import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile';
 import SocialProfile from './Components/Social/Profile';
 import EditProfile from './Components/Social/EditProfile';
 import SelectPet from './Components/Social/SelectPet';
-
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -121,6 +126,9 @@ const NavigatorAuthTrue = () => {
       
       <StackAuthTrue.Screen name="ProfessionalProfile" component={DisplayProfessionalProfile} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="EditProfessionalProfile" component={EditProfessionalProfile} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="CalendarioCitas" component={CalendarioCitas} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="BloquearFechas" component={BloquearFechas} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="GestionarReserva" component={GestionarReserva} options={{ headerShown: true }}/>
     </StackAuthTrue.Navigator>
   );
 };
