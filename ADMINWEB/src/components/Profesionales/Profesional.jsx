@@ -52,10 +52,10 @@ useEffect(() => {
                     
                     <p>Cargando...</p>
                 }
-                        <div className="flex mb-5 justify-center items-center col-start-2 col-end-3 row-start-1 row-end-3 sticky right-0">
+                        {/* <div className="flex mb-5 justify-center items-center col-start-2 col-end-3 row-start-1 row-end-3 sticky right-0">
                        <UserRightPanel userProfile={userProfile}/>
                        
-                        </div>
+                        </div> */}
 
                         </div>
         </div>

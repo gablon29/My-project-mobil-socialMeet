@@ -1,14 +1,14 @@
 import react from "react"
 
 export const UserProfesion = ({userProfesion}) => {
-console.log(userProfesion)
-let veterinario = userProfesion.professions.veterinario.isRegister
-let cuidador = userProfesion.professions.cuidador.isRegister
-let peluquero = userProfesion.professions.peluquero.isRegister
-let paseador = userProfesion.professions.paseador.isRegister
-let educador = userProfesion.professions.educador.isRegister
-let tienda = userProfesion.professions.tienda.isRegister
-
+console.log(userProfesion, "USERPROFESION")
+let veterinario = userProfesion[0].professions.veterinario.isRegister
+let cuidador = userProfesion[0].professions.cuidador.isRegister
+let peluquero = userProfesion[0].professions.peluquero.isRegister
+let paseador = userProfesion[0].professions.paseador.isRegister
+let educador = userProfesion[0].professions.educador.isRegister
+let tienda = userProfesion[0].professions.tienda.isRegister
+console.log(veterinario, "VETERINARIO")
     return(
         <div className="flex mt-10 pb-10 items-center justify-center flex-wrap col-start-1 col-end-2 row-start-2 row-end-3 gap-12 sticky bottom-0 overflow-x-auto">
         {
