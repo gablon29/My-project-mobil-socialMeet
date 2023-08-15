@@ -18,7 +18,7 @@ let tienda = userProfesion.professions.tienda.isRegister
                         <img src={data.profilePic} alt={data.name} className="w-full h-full rounded-full"/>
                     </div>
                     <ul className="list-none text-white text-xl">
-                        <li>Profesión: {veterinario && "veterinario" || cuidador && "cuidador" || peluquero && "peluquero" || paseador && "paseador" || educador && "educador" || tienda && "tienda" ||}</li>
+                        <li>Profesión: {veterinario && "veterinario" || cuidador && "cuidador" || peluquero && "peluquero" || paseador && "paseador" || educador && "educador" || tienda && "tienda" }</li>
                     </ul>
                     <button className="bg-white rounded-3xl w-8/12 h-8 text-base font-semibold">Ver su perfil</button>
                 </div>
