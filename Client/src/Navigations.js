@@ -37,10 +37,11 @@ import RegisterProfessional from './Components/ProfessionalArea/Register/Registe
 import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessProfessionalArea';
 import SocialPaws from './Components/Social/SocialPaws';
 import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
-import EditProfessionalProfile from './Components/ProfessionalArea/Profile/EditProfessionalProfile/EditProfessionalProfile';
+import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile';
 import SocialProfile from './Components/Social/Profile';
 import EditProfile from './Components/Social/EditProfile';
 import SelectPet from './Components/Social/SelectPet';
+
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();

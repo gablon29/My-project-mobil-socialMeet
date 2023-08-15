@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import StarRating from './ratings/StarRating';
+import { useSelector } from 'react-redux';
+import StarRating from '../StarRating';
 const ReviewsTab = () => {
   const reseñas = [
     { name: 'Laura', ago: '3 días', rating: '3', comment: 'So impressed with the care my dog Bella has received. Amazing surgical skills alongside high standards of care and compassion. Susie was fabulous and helped make a stressful time so much easier. Thank you so much!.' },
@@ -8,8 +9,10 @@ const ReviewsTab = () => {
     { name: 'Laura', ago: '3 días', rating: '5', comment: 'So impressed with the care my dog Bella has received. Amazing surgical skills alongside high standards of care and compassion. Susie was fabulous and helped make a stressful time so much easier. Thank you so much!.' },
     { name: 'Laura', ago: '3 días', rating: '2', comment: 'So impressed with the care my dog Bella has received. Amazing surgical skills alongside high standards of care and compassion. Susie was fabulous and helped make a stressful time so much easier. Thank you so much!.' },
   ];
+
+	const reviews = useSelector(state=>state.ReducerProfessional.userProfessional.professions.cuidador.reviews)
 	const totalStars = [1,2,3,4,5]
-	const totalVotes = reseñas.length
+	const totalVotes = reviews.length
 	const promedio = 4.5
 
 	const porcentajes = {
@@ -20,7 +23,7 @@ const ReviewsTab = () => {
 		5:0,
 	}
 
-	reseñas.forEach((reseña)=>{
+	reviews.forEach((reseña)=>{
 		porcentajes[reseña.rating]++ 
 	})
 
@@ -49,7 +52,7 @@ const ReviewsTab = () => {
 				</View>
 
       <View className="flex flex-col space-y-12 mb-12">
-        {reseñas.map((reseña, i) => (
+        {reviews.map((reseña, i) => (
 					<View key={i} className="bg-new rounded-2xl p-4">
             <View className="flex flex-row justify-between">
               <Text className="font-semibold text-base">{reseña.name}</Text>

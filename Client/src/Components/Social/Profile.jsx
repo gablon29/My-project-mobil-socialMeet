@@ -36,6 +36,30 @@ const SocialProfile = () => {
                     />
                 </TouchableOpacity>
                 
+                {!pet?.cover 
+                ?
+                <View>
+                    <Image
+                        source={ cover }
+                        className="w-390 h-190"
+                    />
+                    <Image
+                        source={ profile }
+                        className="rounded-full w-120 h-120 bg-cover bg-no-repeat absolute top-32 left-32"
+                    />
+                </View>
+                :
+                <View>
+                    <Image
+                        source={ pet?.cover }
+                        className="w-390 h-190"
+                    />
+                    <Image
+                        source={ pet?.profilePic }
+                        className="rounded-full w-120 h-120 bg-cover bg-no-repeat absolute top-32 left-32"
+                    />
+                </View>
+                 }
                 <View>
                     <Image
                         source={!pet?.cover ?  cover  : pet?.cover}

@@ -29,7 +29,7 @@ const professionalsSchema = mongoose.Schema(
 
     city: {
       type: String,
-      required: true,
+      default: " "
     },
 
     address: {
@@ -402,7 +402,9 @@ const professionalsSchema = mongoose.Schema(
         lugarAtencion: {
           type: Array, 
         },
-
+				mascotasAcuidar: {
+					type: Array
+				},
         caracter: {
           atencion_domicilio: {
             type: Boolean,

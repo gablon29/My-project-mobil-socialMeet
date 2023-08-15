@@ -40,24 +40,26 @@ const SelectPet = () => {
                 </Text>
             </View>
 
-            <View className="flex flex-wrap justify-center items-center">
+            <View className="flex flex-row justify-center items-center m-4 mt-14">
                 {pets?.map(pet => {
                     return (
-                        <View key={pet.id} className="flex flex-row items-center justify-center mt-4">
-                            
-                            <View className=""> 
+                        <View key={pet.id} className="flex items-center justify-center ">
+                                                       
                                 <TouchableOpacity
                                     onPress={() => handlePetSelection(pet.id)}
                                 >
-                                    <Image
-                                        source={!pet?.profilePic ? {uri: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} : { uri: pet?.profilePic }}
-                                        className="w-32 h-32 ml-3 mr-3"
-                                    />
+                                    {!pet?.profilePic ? 
+                                    <View className="w-24 h-24 bg-[#FEC89A] rounded-xl"/>
+                                    :
+                                    <Image 
+                                    source={pet.profilePic} 
+                                    className='rounded-xl w-24 h-24' />
+                                    }
                                 </TouchableOpacity>
                                 <Text className="text-xl text-center font-poppins font-semibold">
                                     {pet.name}
                                 </Text>     
-                            </View>
+                            
                         </View>
                     )
                 })}

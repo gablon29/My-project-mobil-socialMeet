@@ -3,8 +3,6 @@ import { launchImageLibraryAsync } from 'expo-image-picker';
 
 export const useSelectImagen = (profilePic) => {
   const [selImg, setSelImg] = useState({ profile: profilePic ? profilePic : '', portada: '' });
-	const [homeImages, setHomeImages] = useState([])
-
 	
   // const SelectedImage = async () => {
   //   try {
@@ -41,24 +39,23 @@ export const useSelectImagen = (profilePic) => {
 	
   const setImgProfile = (v) => setSelImg({ ...selImg, profile: v });
 	
-	const saveHomeImage = async () => {
+	const saveHomeImage = async (homePictures, setHomePictures) => {
 		try {
+			if(homePictures.length >= 6){
+				throw new Error("Máximo de fotos alcanzado")
+			}
 			const resp = await launchImageLibraryAsync({ mediaTypes: 'Images' });
 	
 			const { uri } = resp.assets[0];
 			console.log(uri);
-			setHomeImages([...homeImages, uri])
+			setHomePictures([...homePictures, uri])
 
 		} catch (error) {
 			console.error('Error selected image:', error.message);
 		}
 	}
 
-	const deleteHomeImage = (i) => {
-		const newImages = homeImages.filter((image, index)=> index !== i)
-		console.log(newImages);
-		setHomeImages([...newImages])
-	}
+	
 
 	const deleteSelImg = () => {
 		setSelImg({ profile: '', portada: '' })
@@ -72,9 +69,7 @@ export const useSelectImagen = (profilePic) => {
     setSelImg,
 		deleteSelImg,
 		
-		homeImages,
 		saveHomeImage,
-		deleteHomeImage
   };
 };
 

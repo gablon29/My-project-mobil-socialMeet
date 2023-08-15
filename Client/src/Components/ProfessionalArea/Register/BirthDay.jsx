@@ -1,11 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Text, View } from "react-native";
 import Btn from "../../Buttons/ButtonCuston";
 import CalendarPicker from 'react-native-calendar-picker';
 
 
-const BirthDay = ({tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
+const BirthDay = ({data, tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
     const [selectedDate, setSelectedDate] = useState(null);
+
+    useEffect(() => {
+        // Convertir la fecha de nacimiento almacenada en un objeto de fecha válido
+        if (data?.fechaNacimiento) {
+          setSelectedDate(new Date(data.fechaNacimiento));
+          setFechaNacimiento(data?.fechaNacimiento)
+        }
+      }, [data?.fechaNacimiento]);
 
     const handleDateChange = (date) => {
         const currentDate = new Date();
@@ -36,8 +44,8 @@ const BirthDay = ({tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
             selectedStartDate={selectedDate}
             selectedDayColor="#FB6726"
             selectedDayTextColor="white"
+            initialDate={data?.fechaNacimiento}
             />
-            
                
             <Btn 
                 title={"Siguiente"}
