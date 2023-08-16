@@ -18,7 +18,13 @@ console.log(veterinario, "VETERINARIO")
                         <img src={data.profilePic} alt={data.name} className="w-full h-full rounded-full"/>
                     </div>
                     <ul className="list-none text-white text-xl">
-                        <li>Profesión: {veterinario && "veterinario" || cuidador && "cuidador" || peluquero && "peluquero" || paseador && "paseador" || educador && "educador" || tienda && "tienda" }</li>
+                        <li>Profesión:</li>
+                        <li>{ veterinario && "veterinario"}</li>
+                        <li>{ cuidador && "cuidador"}</li>
+                        <li>{ peluquero && "peluquero"}</li>
+                        <li>{ paseador && "paseador"}</li>
+                        <li>{ educador && "educador"}</li>
+                        <li>{ tienda && "tienda"}</li>
                     </ul>
                     <button className="bg-white rounded-3xl w-8/12 h-8 text-base font-semibold">Ver su perfil</button>
                 </div>
