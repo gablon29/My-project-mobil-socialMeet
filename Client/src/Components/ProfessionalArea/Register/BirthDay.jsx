@@ -11,14 +11,10 @@ const BirthDay = ({data, tipo, setRender, setFechaNacimiento, fechaNacimiento}) 
         const currentDate = new Date();
         const objDate = new Date(date);
         console.log(objDate.getFullYear() <= currentDate.getFullYear() - 18)
-        /* const formatDate = objDate.toLocaleDateString('es-ES');
-        setSelectedDate(date) */
         if( objDate.getFullYear() <= currentDate.getFullYear() - 18) {
             setFechaNacimiento(objDate)
-            console.log(fechaNacimiento)
         } else if(objDate.getFullYear() >= currentDate.getFullYear() || objDate.getFullYear() <= currentDate.getFullYear()) {
             setFechaNacimiento("");
-            console.log(fechaNacimiento === "")
         }
       };
     
@@ -34,7 +30,7 @@ const BirthDay = ({data, tipo, setRender, setFechaNacimiento, fechaNacimiento}) 
         <View className="w-screen items-center py-10">
             <Text className="text-2xl font-bold text-center mb-5">¿Cuál es tu fecha de {"\n"} nacimiento?</Text>
 
-            <Calendario birthDay={true} birth={data?.fechaNacimiento} handleDateChange={handleDateChange}/>
+            <Calendario birthDay={true} birth={data?.fechaNacimiento} setFechaNacimiento={setFechaNacimiento}/>
                
             <Btn 
                 title={"Siguiente"}

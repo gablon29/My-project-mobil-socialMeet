@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Button from "../../../Buttons/ButtonCuston";
 
-const Calendario = ({birthDay, birth, handleDateChange}) => {
+const Calendario = ({birthDay, birth, setFechaNacimiento}) => {
 
     /* Asi debería venir la estructura de datos para las fechas del calendario, un rango y el horario para cada día */
     const dato = [
@@ -53,7 +53,18 @@ const Calendario = ({birthDay, birth, handleDateChange}) => {
         setYear(year);
         handleDateChange(`${year}-${String(month).length > 1 ? month : "0"+month}-${day}T12:00:00.000Z`)
       }
-    },[])
+    },[]);
+
+    const handleDateChange = (date) => {
+      const currentDate = new Date();
+      const objDate = new Date(date);
+      console.log(objDate.getFullYear() <= currentDate.getFullYear() - 18)
+      if( objDate.getFullYear() <= currentDate.getFullYear() - 18) {
+          setFechaNacimiento(objDate)
+      } else if(objDate.getFullYear() >= currentDate.getFullYear() || objDate.getFullYear() <= currentDate.getFullYear()) {
+          setFechaNacimiento("");
+      }
+    };
 
     const nextMonth = () => {
       if (month === 12) {
