@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import Button from "../../../Buttons/ButtonCuston";
 
-const Calendario = ({birthDay, birth, setFechaNacimiento}) => {
+const Calendario = ({birthDay, birth, setFechaNacimiento, myCalender}) => {
 
     /* Asi debería venir la estructura de datos para las fechas del calendario, un rango y el horario para cada día */
     const dato = [
@@ -130,7 +130,7 @@ const Calendario = ({birthDay, birth, setFechaNacimiento}) => {
           let isInRange = false;
           var h = [];
       
-          if(birthDay === undefined) {
+          if(birthDay === undefined && myCalender === undefined) {
             for (const file of dato) {
               const start = file.start;
               const end = file.end;
@@ -152,7 +152,7 @@ const Calendario = ({birthDay, birth, setFechaNacimiento}) => {
                   component={
                     <Text
                       className={`h-8 w-8 text-center rounded-full text-lg ${
-                        currentDay === day && months[currentMonth + 1] === months[month] && year === new Date().getFullYear() ? "bg-gris" : ""
+                        currentDay === day && months[currentMonth + 1] === months[month] && year === new Date().getFullYear() ? "border border-naranja text-naranja" : ""
                       } ${
                         index === 5 || index === 6 || index === 12 || index === 13 || index === 19 || index === 20 || index === 26 || index === 27 || index === 33 || index === 34 ? "text-red-600" : ""
                       } ${isInRange ? "bg-new" : ""} ${selectDay === day ? "bg-naranja text-white" : ""}`}
@@ -169,7 +169,7 @@ const Calendario = ({birthDay, birth, setFechaNacimiento}) => {
       
 
     return (
-    <View className="flex-1 flex-col px-4 pt-8 w-11/12">
+    <View className={`flex-1 flex-col px-4 pt-8 ${myCalender ? "w-11/12 shadow-2xl shadow-black bg-white rounded-2xl" : ""}`}>
             {   show === "days" || show === "months" ?
                 <View className="flex-row items-center justify-center mb-4 w-full">
                 <Button title="<" titleClass={"top-1 mr-1 text-black font-poppinsSemiBold text-3xl"} onPress={prevMonth} />
