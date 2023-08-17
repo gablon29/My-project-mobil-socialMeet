@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Image, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import dog1 from '../../../images/dog1.png';
+import Calendario from "../ProfessionalArea/Profile/CalendarioCitas/Calendario"
 
 const MiCalendario = () => {
   const navigation = useNavigation();
@@ -16,35 +17,28 @@ const MiCalendario = () => {
         <Text className="text-base font-poppins ml-4">Atrás</Text>
       </View>
       <ScrollView>
-        <View className="m-4">
-          <Text className="text-sm font-poppinsBold">Selecciona la Mascota</Text>
-          <View className="flex flex-row flex-wrap gap-3">
-            <TouchableOpacity className="rounded-full">
-              <View className="border-2 p-1 border-sky-600 rounded-full">
-                <Image source={dog1} className="h-16 w-16 rounded-full" resizeMode="contain" />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity className="rounded-full">
-              <View className="p-1 border-sky-600 rounded-full">
-                <Image source={dog1} className="h-16 w-16 rounded-full" resizeMode="contain" />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity className="rounded-full">
-              <View className="p-1 border-sky-600 rounded-full">
-                <Image source={dog1} className="h-16 w-16 rounded-full" resizeMode="contain" />
-              </View>
-            </TouchableOpacity>
+        <View className="w-screen items-center pb-20">
+          <View className="pl-4 m-4 w-full">
+            <Text className="text-sm font-poppinsBold">Selecciona la Mascota</Text>
+            <View className="flex flex-row flex-wrap gap-3">
+              <TouchableOpacity className="rounded-full">
+                <View className="border-2 p-1 border-sky-600 rounded-full">
+                  <Image source={dog1} className="h-16 w-16 rounded-full" resizeMode="contain" />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity className="rounded-full">
+                <View className="p-1 border-sky-600 rounded-full">
+                  <Image source={dog1} className="h-16 w-16 rounded-full" resizeMode="contain" />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity className="rounded-full">
+                <View className="p-1 border-sky-600 rounded-full">
+                  <Image source={dog1} className="h-16 w-16 rounded-full" resizeMode="contain" />
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View>
-          {/* <DateTimePicker
-          value={date}
-          mode={'date'}
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          is24Hour={true}
-          onChange={onChange}
-          // style={styles.datePicker}
-        /> */}
+          <Calendario myCalender={true}/>
         </View>
       </ScrollView>
     </View>

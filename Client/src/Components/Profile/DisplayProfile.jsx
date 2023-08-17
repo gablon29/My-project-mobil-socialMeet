@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, ScrollView} from 'react-native';
 import Button from '../Buttons/ButtonCuston';
-import Icon from 'react-native-vector-icons/AntDesign';
 import Email from 'react-native-vector-icons/Fontisto';
 import Phone from 'react-native-vector-icons/Feather';
 import Location from 'react-native-vector-icons/EvilIcons';
