@@ -24,7 +24,7 @@ const EducadorPriceTab = () => {
 		const numericRegex = /^[0-9]*\,?[0-9]*$/
 		if (numericRegex.test(input)) {
 			setPrice(input);
-			setServices([{ name: "Adiestramiento de perros",price: input,country,province,city }])
+			setServices([{ name: "Adiestramiento de perros",price: input,country,province,city,profession }])
 		}
 	}
 

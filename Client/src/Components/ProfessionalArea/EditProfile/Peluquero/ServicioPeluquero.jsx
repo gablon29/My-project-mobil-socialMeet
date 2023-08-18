@@ -14,7 +14,6 @@ const ServicioPeluquero = ({ petName,nombreAnimal,category,services,setServices 
 	useState(()=>{
 		const existentService = actualServices.find((s)=>s.name === `${petName} ${category}` )
 		if(existentService){
-			console.log("existo")
 			setPrice(existentService.price)
 			setIsActive(existentService.isActive)
 		}

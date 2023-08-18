@@ -35,7 +35,7 @@ const ServiciosPerros = ({ petName,peso,dogService,services,setServices }) => {
 			}
 		})
 		if (!exist) {
-			setServices([...services,{ name: `${petName} ${dogService}`,isActive: status,price,country,province,city,description:dogService,animal:perroText }])
+			setServices([...services,{ name: `${petName} ${dogService}`,isActive: status,price,country,province,city,description:dogService,animal:perroText,profession }])
 		}
 	}
 
@@ -60,7 +60,7 @@ const ServiciosPerros = ({ petName,peso,dogService,services,setServices }) => {
 			})
 
 			if (!exist) {
-				setServices([...services,{ name: `${petName} ${dogService}`,isActive,price:input,country,province,city,description:dogService,animal:perroText }])
+				setServices([...services,{ name: `${petName} ${dogService}`,isActive,price:input,country,province,city,description:dogService,animal:perroText,profession }])
 			}
 		}
 	}

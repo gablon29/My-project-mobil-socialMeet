@@ -38,8 +38,8 @@ const CuidadorPriceTab = () => {
 			Gato: { title: "Gatos",categories: ["0 - 5 KG","5 - 20 KG"],image: gato },
 			Ave: { title: "Pájaros",categories: ["0 - 300 Gr","300 - 1000 Gr","+1000 Gr"],image: ave },
 			Pez: { title: "Peces",categories: ["Agua dulce","Agua salada"],image: pez },
-			Reptil: { title: "Reptiles",categories: ["Tortuga","Serpiente","Gecko","Iguana","Camaleon","Rana"],image: reptil },
-			Roedor: { title: "Roedores",categories: ["Hamster","Conejillo de Indias","Erizo","Ratón","Chinchilla"],image: roedor },
+			Reptil: { title: "Reptiles",categories: ["Tortuga","Serpiente","Gecko","Iguana","Camaleón","Rana"],image: reptil },
+			Roedor: { title: "Roedores",categories: ["Hámster","Conejillo de Indias","Erizo","Ratón","Chinchilla"],image: roedor },
 			Conejo: { title: "Conejos",categories: ["0 - 5 KG","5 - 20 KG"],image: conejo },
 			Hurón: { title: "Hurones",categories: ["0 - 5 KG"],image: huron },
 		}

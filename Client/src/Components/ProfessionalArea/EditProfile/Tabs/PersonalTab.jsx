@@ -60,7 +60,6 @@ const PersonalTab = () => {
 
 	useEffect(() => {
 		const selectedCountries = countryList.map((country) => country.name);
-		const selectedProvinces = countryList.map((country) => country.name)
 		setCountries(selectedCountries);
 	},[])
 

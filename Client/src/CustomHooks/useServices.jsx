@@ -11,6 +11,8 @@ export const useServices = () => {
 	const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
 	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
 	const professionalPets = useSelector((state) => state?.ReducerProfessional?.userProfessional?.professions[profession].mascotasAcuidar)
+	const professionalId = useSelector((state) => state?.ReducerProfessional?.userProfessional.id)
+	
 
 	const [services,setServices] = useState([])
 	const [petsPerNight,setPetsPerNight] = useState({})
@@ -24,11 +26,9 @@ export const useServices = () => {
 			metadata: {
 				name: firstName,
 				email,
-			}
+			},
+			professionalId
 		}
-		console.log(mascotasAcuidarStrings);
-		console.log(services);
-		console.log(petsPerNight);
 		await EditProfessionalMethod({
 			data: { mascotasAcuidar: mascotasAcuidarStrings,profession, capacity:petsPerNight },
 			success: (updatedProfessional) => { dispatch(setProfessional(updatedProfessional))},
