@@ -43,7 +43,6 @@ import CalendarioCitas from './Components/ProfessionalArea/Profile/CalendarioCit
 import BloquearFechas from './Components/ProfessionalArea/Profile/CalendarioCitas/BloquearFechas';
 import GestionarReserva from './Components/ProfessionalArea/Profile/CalendarioCitas/GestionarReserva';
 
-import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile';
 import SocialProfile from './Components/Social/Profile';
 import EditProfile from './Components/Social/EditProfile';
 import SelectPet from './Components/Social/SelectPet';

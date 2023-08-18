@@ -18,7 +18,6 @@ const SelectPet = () => {
 
     const handleSelectButton = () => {
         if (selectedPetId !== null) {
-            // Aquí navega a la ruta 'Profile' con el pet seleccionado
             navigation.navigate('SocialProfile', { pet: pets.find(pet => pet.id === selectedPetId) });
         }
     };

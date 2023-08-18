@@ -6,6 +6,8 @@ import admin from './admin.route'
 import notify from './pushNotify.route'
 import purchases from './purchases.route'
 
+import social from './socialpaws.route'
+
 import chips from '../controllers/chipsController'
 import stripeControllers  from '../controllers/stripe'
 import vivaWalletControllers from '../controllers/vivaWallet'
@@ -58,6 +60,17 @@ router.put('/api/pet/profile', isLoggedIn, catchedAsync(pet.edit_pet));
 router.delete('/api/pet/delete', isLoggedIn, catchedAsync(pet.delete_my_pet));
 router.get('/api/pet/with-chip', isLoggedIn, catchedAsync(pet.all_pets_with_chip));
 router.put('/api/pet/social-comment', isLoggedIn, catchedAsync(pet.push_petComment))
+
+
+// ------------->  SOCIAL  <-------------
+router.get('/api/social/gallery/:imageId/comments', isLoggedIn, catchedAsync(social.find_comments));
+router.post('/api/social/gallery/:imageId/comments', isLoggedIn, catchedAsync(social.create_comment));
+router.delete('/api/social/gallery/:imageId/comments/:commentId', isLoggedIn, catchedAsync(social.delete_comment));
+router.put('/api/social/gallery/:imageId/comments/:commentId', isLoggedIn, catchedAsync(social.edit_comment));
+router.get('/api/socialprofile/gallery', isLoggedIn, catchedAsync(social.get_gallery));
+router.post('/api/socialprofile/:petId/gallery', isLoggedIn, catchedAsync(social.post_photo));
+router.put('/api/socialprofile/:petId/gallery', isLoggedIn, catchedAsync(social.edit_profile));
+router.delete('/api/socialprofile/:petId/gallery/:imageId', isLoggedIn, catchedAsync(social.delete_image));
 
 // ------------->  ADMIN  <-------------
 router.get('/api/admin/push', /* isLoggedIn, */ catchedAsync(admin.sendOneNotification));
