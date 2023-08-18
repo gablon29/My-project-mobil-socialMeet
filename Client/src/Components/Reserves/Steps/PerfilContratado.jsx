@@ -3,12 +3,14 @@ import { Image,ScrollView,Text,TouchableOpacity,View } from 'react-native'
 import UserInfo from '../../ProfessionalArea/Profile/UserInfo'
 import Pawpoints from '../../ProfessionalArea/Profile/Pawpoints'
 import { useSelector } from 'react-redux'
+import { usePay } from '../../../CustomHooks/usePay'
 
-const PerfilContratado = ({ profession,setStep,STEPS,query,displayTotalPrice }) => {
+const PerfilContratado = ({ profession,setStep,STEPS,query,displayTotalPrice,productId }) => {
 
 	const { description,pawpoints } = useSelector((state) => state?.ReducerProfessional?.userProfessional)
 	const professional = useSelector((state) => state?.ReducerProfessional?.userProfessional)
 	const professionalPets = useSelector(state => state?.ReducerServices?.professionalPets)
+	const { handleBuy } = usePay()
 
 	const check = (
 		<View className="bg-green-600 w-5 h-5 rounded-full items-center justify-center">
@@ -33,11 +35,6 @@ const PerfilContratado = ({ profession,setStep,STEPS,query,displayTotalPrice }) 
 		{ title: "Tengo experiencia con mascotas mayores",caracteristica: "e_mascotas_mayores" }
 	]
 
-	useEffect(() => {
-		console.log(professional?.professions[profession]?.caracteristicas)
-		console.log(professional?.professions[profession])
-	},[])
-
 	return (
 		<ScrollView className="">
 			<TouchableOpacity onPress={() => setStep(STEPS.PROFESSIONALS)} className="flex flex-col justify-center w-64 h-14 bg-naranja rounded-2xl">
@@ -54,7 +51,14 @@ const PerfilContratado = ({ profession,setStep,STEPS,query,displayTotalPrice }) 
 				<Text className="text-gray-700">Del {query.startDate} al {query.endDate}</Text>
 				<Text className="text-4xl font-poppinsSemiBold mt-7">{displayTotalPrice}€</Text>
 				<Text className="italic text-gray-700">Este precio incluye las comisiones de la app</Text>
-				<TouchableOpacity onPress={() => setStep(STEPS.CHECKOUT)} className="mt-10 w-64 h-14 bg-naranja rounded-2xl flex flex-col items-center justify-center">
+				{/* <TouchableOpacity onPress={() => setStep(STEPS.CHECKOUT)} className="mt-10 w-64 h-14 bg-naranja rounded-2xl flex flex-col items-center justify-center"> */}
+				<TouchableOpacity onPress={() => handleBuy({
+					succes:(msg)=>console.log(msg),
+					error:(msg)=>console.log(msg),
+					loading:(msg)=>console.log(msg),
+					productId,
+					shippingAdress:{direccion1:"asdasd"}
+				})} className="mt-10 w-64 h-14 bg-naranja rounded-2xl flex flex-col items-center justify-center">
 					<Text className="text-white font-bold">Reservar</Text>
 				</TouchableOpacity>
 			</View>

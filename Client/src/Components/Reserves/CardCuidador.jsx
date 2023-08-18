@@ -6,10 +6,11 @@ import { setProfessionalPets } from '../../Redux/ReducerServices'
 import { setProfessional } from '../../Redux/ReducerProffesional'
 import { GetProfessionalPets } from '../../metodos/professionalMetodos'
 
-const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice,startDate,endDate }) => {
+const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice,startDate,endDate, setProductId }) => {
 	const dispatch = useDispatch()
 
 	const [totalPrice,setTotalPrice] = useState(null)
+
 
 	useEffect(() => {
 
@@ -26,14 +27,14 @@ const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice
 		let total = 0
 		if (services) {
 			services.forEach((service) => {
-
+				setProductId(service.stripeProduct_id)
 				const numero = parseFloat(service.price.replace(',','.'));
 				console.log(service);
 				total += numero
 				console.log(numero);
 			})
 		}
-		total = total * diferenciaEnDias
+		total = total * diferenciaEnDias * 1.15
 		setTotalPrice(total.toFixed(2).replace('.',','))
 	},[professional,services])
 
@@ -55,7 +56,7 @@ const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice
 			</View>
 			<View>
 				<Text className="font-bold text-base">{professional.name}</Text>
-				<Text>Del { } al { }</Text>
+				<Text>Del {startDate} al {endDate}</Text>
 				<StarRating rating={4} />
 				<TouchableOpacity onPress={() => { setStep(STEPS.PROFILE); getProfessionalInfo(); setDisplayTotalPrice(totalPrice) }} className="flex flex-row h-8 items-center bg-black rounded-[10px] px-4 mt-2">
 					<View className="flex flex-row items-center">

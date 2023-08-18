@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
 import { Linking, Text,TextInput,TouchableOpacity,View } from 'react-native';
 
-const Checkout = () => {
+const Checkout = ({displayTotalPrice, query}) => {
 
 	const [cardNumber,setCardNumber] = useState("")
 	const [CVV,setCVV] = useState("")
@@ -10,8 +10,8 @@ const Checkout = () => {
 		<View className="relative h-full">
 			<View className="my-12">
 				<Text className="text-2xl font-poppinsBold text-center mb-8">Pasarela de pagos</Text>
-				<Text className="text-4xl font-poppinsSemiBold text-center">1231€</Text>
-				<Text className="text-gray-700 text-center text-base my-1">del 0000 al 0000</Text>
+				<Text className="text-4xl font-poppinsSemiBold text-center">{displayTotalPrice}€</Text>
+				<Text className="text-gray-700 text-center text-base my-1">del {query.startDate} al {query.endDate}</Text>
 				<Text className="italic text-gray-700 text-center">Este precio incluye las comisiones de la app</Text>
 			</View>
 			<View>
@@ -43,7 +43,7 @@ const Checkout = () => {
 					</View>
 				</View>
 			</View>
-			<View className="flex flex-col items-center space-y-4 mt-8 absolute bottom-28 left-0 right-0">
+			<View className="flex flex-col items-center space-y-4 mt-8 absolute bottom-16 left-0 right-0">
 				<View className="flex flex-row items-center justify-center" style={{ textAlignVertical: "center" }}>
 					<Text className="inline text-xs">Haciendo click en pagar aceptas </Text>
 					<TouchableOpacity className="" onPress={() => Linking.openURL('https://www.facebook.com')}>
@@ -52,7 +52,7 @@ const Checkout = () => {
 				</View>
 
 				<TouchableOpacity className="flex flex-col items-center rounded-2xl justify-center bg-naranja w-72 h-14">
-					<Text className="font-poppinsSemiBold text-white">Pagar precio€</Text>
+					<Text className="font-poppinsSemiBold text-white">Pagar {displayTotalPrice}€</Text>
 				</TouchableOpacity>
 			</View>
 		</View>

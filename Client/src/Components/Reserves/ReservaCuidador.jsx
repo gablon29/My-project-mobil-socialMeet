@@ -15,7 +15,8 @@ const ReservaCuidador = ({ route }) => {
 	const myPets = useSelector(state => state.ReducerPets?.userPets)
 	
 	const [displayTotalPrice, setDisplayTotalPrice] = useState(null)
-	
+	const [productId, setProductId] = useState("")
+
 	const STEPS = {
 		PET: 0,
 		PLACE: 1,
@@ -47,9 +48,9 @@ const ReservaCuidador = ({ route }) => {
 	if (STEPS.PLACE === step) return <SelectPlace query={query} setQuery={setQuery} place={place} setPlace={setPlace} setStep={setStep} STEPS={STEPS} />
 	if (STEPS.LOCATION === step) return <SelectLocation query={query} setQuery={setQuery} setStep={setStep} STEPS={STEPS} />
 	if (STEPS.DATES === step) return <SelectDates setStep={setStep} STEPS={STEPS} query={query} setQuery={setQuery}/>
-	if (STEPS.PROFESSIONALS === step) return <SelectProfessional setStep={setStep} STEPS={STEPS} setDisplayTotalPrice={setDisplayTotalPrice} startDate={query.startDate} endDate={query.endDate}/>
-	if (STEPS.PROFILE === step) return <PerfilContratado setStep={setStep} STEPS={STEPS} profession={profession} query={query} displayTotalPrice={displayTotalPrice}/>
-	if (STEPS.CHECKOUT === step) return <Checkout />
+	if (STEPS.PROFESSIONALS === step) return <SelectProfessional setStep={setStep} STEPS={STEPS} setDisplayTotalPrice={setDisplayTotalPrice} startDate={query.startDate} endDate={query.endDate} setProductId={setProductId}/>
+	if (STEPS.PROFILE === step) return <PerfilContratado setStep={setStep} STEPS={STEPS} profession={profession} query={query} displayTotalPrice={displayTotalPrice} productId={productId}/>
+	if (STEPS.CHECKOUT === step) return <Checkout displayTotalPrice={displayTotalPrice} query={query}/>
 }
 
 export default ReservaCuidador

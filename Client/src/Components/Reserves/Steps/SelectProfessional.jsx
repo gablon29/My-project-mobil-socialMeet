@@ -3,7 +3,7 @@ import { ScrollView,Text,View } from 'react-native'
 import { useSelector } from 'react-redux'
 import CardCuidador from '../CardCuidador'
 
-const SelectProfessional = ({ setStep,STEPS,setDisplayTotalPrice, startDate, endDate }) => {
+const SelectProfessional = ({ setStep,STEPS,setDisplayTotalPrice, startDate, endDate,setProductId }) => {
 
 	const allProfessionals = useSelector((state) => state?.ReducerProfessional?.filteredProfessionals)
 	const [keys,setKeys] = useState([])
@@ -24,7 +24,7 @@ const SelectProfessional = ({ setStep,STEPS,setDisplayTotalPrice, startDate, end
 				<View className="px-10 w-full">
 					{allProfessionals?.map((professional,i) => {
 						return (
-							<CardCuidador key={i} professional={professional.profile} services={professional.services} setStep={setStep} STEPS={STEPS} setDisplayTotalPrice={setDisplayTotalPrice} startDate={startDate} endDate={endDate}/>
+							<CardCuidador key={i} professional={professional.profile} services={professional.services} setStep={setStep} STEPS={STEPS} setDisplayTotalPrice={setDisplayTotalPrice} startDate={startDate} endDate={endDate} setProductId={setProductId}/>
 						)
 					})}
 				</View>
