@@ -53,11 +53,16 @@ const Profesionales = () => {
                                 <span className="w-full text-center">{profesionales.address}</span>
                                 <span className="w-full text-center">{profesionales.phone}</span>
                                 <span className="w-full text-center">
-                                    <Link href={`/profesionales/${profesionales.id}`} passHref>
-
-                                        Ver Profesión
-
-                                    </Link>
+                                <Link
+                    href={{
+                      pathname: `/profesionales/${profesionales.id}`,
+                      query: { id: profesionales.id},
+                    }}
+                    passHref
+                    className="bg-naranja text-white px-4 py-2 rounded-full"
+                  >
+                    Ver profesional
+                  </Link>
                                 </span>
                             </div>
                         );

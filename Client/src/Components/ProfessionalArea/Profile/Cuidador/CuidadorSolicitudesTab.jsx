@@ -4,10 +4,10 @@ import Button from "../../../Buttons/ButtonCuston";
 import ButtonsAcceptDeneg from "../ButtonsAcceptDeneg";
 import FotoActivoSoliTabs from "../FotoActivoSoliTabs";
 
-const CuidadorSolicitudesTab = ({index}) => {
+const CuidadorSolicitudesTab = () => {
 
     return (
-        <View key={index} className="relative shadow-2xl shadow-black mb-28 w-80 rounded-xl bg-lightnew items-center">
+        <View className="relative shadow-2xl shadow-black mb-28 w-80 rounded-xl bg-lightnew items-center">
         <FotoActivoSoliTabs />
         <RangoFechas />
         <View className="p-4 bottom-0 w-full justify-center">

@@ -2,24 +2,15 @@ import React, {useEffect, useState} from 'react';
 import { Text, View } from "react-native";
 import Btn from "../../Buttons/ButtonCuston";
 import CalendarPicker from 'react-native-calendar-picker';
+import Calendario from '../Profile/CalendarioCitas/Calendario';
 
 
 const BirthDay = ({data, tipo, setRender, setFechaNacimiento, fechaNacimiento}) => {
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    useEffect(() => {
-        // Convertir la fecha de nacimiento almacenada en un objeto de fecha válido
-        if (data?.fechaNacimiento) {
-          setSelectedDate(new Date(data.fechaNacimiento));
-          setFechaNacimiento(data?.fechaNacimiento)
-        }
-      }, [data?.fechaNacimiento]);
 
     const handleDateChange = (date) => {
         const currentDate = new Date();
         const objDate = new Date(date);
-        /* const formatDate = objDate.toLocaleDateString('es-ES');
-        setSelectedDate(date) */
+        console.log(objDate.getFullYear() <= currentDate.getFullYear() - 18)
         if( objDate.getFullYear() <= currentDate.getFullYear() - 18) {
             setFechaNacimiento(objDate)
         } else if(objDate.getFullYear() >= currentDate.getFullYear() || objDate.getFullYear() <= currentDate.getFullYear()) {
@@ -38,14 +29,8 @@ const BirthDay = ({data, tipo, setRender, setFechaNacimiento, fechaNacimiento}) 
     return (
         <View className="w-screen items-center py-10">
             <Text className="text-2xl font-bold text-center mb-5">¿Cuál es tu fecha de {"\n"} nacimiento?</Text>
-           
-            <CalendarPicker
-            onDateChange={handleDateChange}
-            selectedStartDate={selectedDate}
-            selectedDayColor="#FB6726"
-            selectedDayTextColor="white"
-            initialDate={data?.fechaNacimiento}
-            />
+
+            <Calendario birthDay={true} birth={data?.fechaNacimiento} setFechaNacimiento={setFechaNacimiento}/>
                
             <Btn 
                 title={"Siguiente"}

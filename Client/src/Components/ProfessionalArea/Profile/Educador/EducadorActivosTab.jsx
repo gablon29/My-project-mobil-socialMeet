@@ -1,20 +1,18 @@
 import { View } from "react-native";
 import FotoActivoSoliTabs from "../FotoActivoSoliTabs";
 import RangoFechas from "../CalendarioCitas/RangoFechas";
-import ButtonsAcceptDeneg from "../ButtonsAcceptDeneg";
 import MascotasTab from "../MascotasTab";
-import FechasPasear from "./FechasPasear";
+import ButtonGestionarReserva from "../ButtonGestinarReserva";
 
-const PaseadorSolicitudesTab = () => {
+const EducadorActivosTab = () => {
     return (
         <View className="pb-10 relative shadow-2xl shadow-black mb-28 w-80 rounded-xl bg-lightnew items-center">
             <FotoActivoSoliTabs />
-            <RangoFechas />
-            <MascotasTab title={" a pasear:"}/>
-            <FechasPasear />
-            <ButtonsAcceptDeneg />
+            <RangoFechas fechaServicio={"Fecha de la sesión"}/>
+            <MascotasTab title={" a adiestrar:"}/>
+            <ButtonGestionarReserva />
         </View>
     );
 }
  
-export default PaseadorSolicitudesTab;
+export default EducadorActivosTab;

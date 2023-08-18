@@ -5,13 +5,14 @@ import cruz from '../../../../../images/iconos/cruz.png'
 import basura from '../../../../../images/iconos/basura.png'
 import countryList from '../../../../../extras/countrys.json';
 import { SelectList } from 'react-native-dropdown-select-list'
-import Calendar from 'react-native-calendar-picker';
 import Button from '../../../Buttons/ButtonCuston'
 import { suvirImagen,useSelectImagen } from '../../../../CustomHooks/useImage'
 import { TextInput } from 'react-native'
 import { EditProfessionalMethod } from '../../../../metodos/professionalMetodos'
 import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../Redux/ReducerProffesional'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
+import Calendario from '../../Profile/CalendarioCitas/Calendario';
+
 const PersonalTab = () => {
 
 	const dispatch = useDispatch()
@@ -186,15 +187,8 @@ const PersonalTab = () => {
 
 				<Text className="font-poppinsBold text-base text-center my-9 ">¿Cual es tu fecha de nacimiento?</Text>
 
-
-				<Calendar
-					onDateChange={(date) => { setSelectedDate(date) }}
-					selectedStartDate={fechaNacimiento}
-					selectedDayColor="#FB6726"
-					selectedDayTextColor="white"
-				/>
-
-
+				<Calendario birthDay={true} birth={fechaNacimiento} setFechaNacimiento={setSelectedDate}/>
+			
 			</View>
 			<Button onPress={handleSave} title="Guardar" titleClass="text-base text-naranja font-semibold" buttonClass="bg-transparent w-64 h-14 rounded-2xl border-2 border-naranja justify-center items-center my-8" />
 		</View>

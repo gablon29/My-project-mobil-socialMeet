@@ -3,10 +3,10 @@ import RangoFechas from "../CalendarioCitas/RangoFechas";
 import ButtonGestionarReserva from "../ButtonGestinarReserva";
 import FotoActivoSoliTabs from "../FotoActivoSoliTabs";
 
-const CuidadorActivosTab = ({index}) => {
+const CuidadorActivosTab = () => {
 
     return (
-        <View key={index} className="relative shadow-2xl shadow-black mb-28 w-80 h-56 rounded-xl bg-lightnew">
+        <View className="relative shadow-2xl shadow-black mb-28 w-80 h-56 rounded-xl bg-lightnew">
             <FotoActivoSoliTabs />
             <RangoFechas />
             <View className="p-4 bottom-3 w-full justify-center">

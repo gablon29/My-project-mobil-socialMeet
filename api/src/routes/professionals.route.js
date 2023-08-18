@@ -13,11 +13,12 @@ const { checkServices } = require('../controllers/servicesController');
 module.exports = {
   register: async (req, res) => {
     const userId = req.user.userId;
-    console.log('Entre');
-    const { name, country, province, city, address, phone, documento, fotoDoc, fechaNacimiento, description, profilePic, zipcode, shippingaddresss, addresses, tipo, mascotasCuidar, lugarAtencion, modalidad, caracter } = req.body;
+
+    const { name, apellido, country, province, city, address, phone, documento, fotoDoc, fechaNacimiento, description, profilePic, zipcode, shippingaddresss, addresses, tipo, mascotasCuidar, lugarAtencion, modalidad, caracter } = req.body;
     const newProfessional = new ProfessionalModel({
       user: userId,
       name: name,
+      apellido: apellido,
       country: country,
       province: province,
       city: city,
@@ -35,7 +36,7 @@ module.exports = {
     });
     if (tipo === 'Educador') {
       newProfessional.professions.educador.isRegister = true;
-
+      newProfessional.professions.educador.allowed = true;
       await newProfessional.save();
     }
     if (tipo === 'Veterinario') {
@@ -60,7 +61,7 @@ module.exports = {
     if (tipo === 'Paseador') {
       newProfessional.professions.paseador.isRegister = true;
       newProfessional.professions.paseador.species = mascotasCuidar;
-      newProfessional.professions.cuidador.allowed = true;
+      newProfessional.professions.paseador.allowed = true;
       await newProfessional.save();
     }
     if (tipo === 'Peluquero') {
@@ -166,11 +167,12 @@ module.exports = {
     if (!professional) {
       return response(res, 404, { error: 'Profesional no encontrado' });
     }
-    const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, address, phone, mascotasCuidar, modalidadNoVet, zipcode, shippingaddresss } = req.body;
-
+    const { name, experience, apellido, country, province, city, address, phone, documento, fotoDoc, fechaNacimiento, description, profilePic, zipcode, shippingaddresss, addresses, tipo, mascotasCuidar, lugarAtencion, modalidad, caracter } = req.body;
+    
     if (tipo === 'Educador') {
       professional.professions.educador.isRegister = true;
       professional.professions.educador.allowed = true;
+      professional.fechaNacimiento = fechaNacimiento;
       await professional.save();
     }
     if (tipo === 'Veterinario') {
@@ -188,18 +190,21 @@ module.exports = {
       professional.professions.cuidador.isRegister = true;
       professional.professions.cuidador.mascotasAcuidar = mascotasCuidar;
       professional.professions.cuidador.lugarAtencion = lugarAtencion;
+      professional.fechaNacimiento = fechaNacimiento;
       professional.professions.cuidador.allowed = true;
       await professional.save();
     }
     if (tipo === 'Paseador') {
       professional.professions.paseador.isRegister = true;
       professional.professions.paseador.species = mascotasCuidar;
+      professional.fechaNacimiento = fechaNacimiento;
       professional.professions.paseador.allowed = true;
       await professional.save();
     }
     if (tipo === 'Peluquero') {
       professional.professions.peluquero.isRegister = true;
       professional.professions.peluquero.lugarAtencion = lugarAtencion;
+      professional.fechaNacimiento = fechaNacimiento;
       professional.professions.peluquero.allowed = true;
       await professional.save();
     }
@@ -212,12 +217,15 @@ module.exports = {
     professional.province = province || professional.province;
     professional.city = city || professional.city;
     professional.name = name || professional.name;
+    professional.apellido = apellido || professional.apellido;
     professional.address = address || professional.address;
     professional.phone = phone || professional.phone;
     professional.mascotasCuidar = mascotasCuidar || professional.mascotasCuidar;
-    professional.modalidadNoVet = modalidadNoVet || professional.modalidadNoVet;
     professional.zipcode = zipcode || professional.zipcode;
     professional.shippingaddresss = shippingaddresss || professional.shippingaddresss;
+    professional.fechaNacimiento = fechaNacimiento || professional.fechaNacimiento;
+    professional.documento = documento || professional.documento;
+    professional.fotoDoc = fotoDoc || professional.fotoDoc;
 
     await professional.save();
     return response(res, 200, { message: 'Profesional actualizado', professional });
