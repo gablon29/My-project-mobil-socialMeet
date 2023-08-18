@@ -17,6 +17,7 @@ const CuidadorCaracteristicasTab = () => {
 	const profession = useSelector(state => state?.ReducerProfessional?.profession)
 
 	const [caracterUpdates,setCaracterUpdates] = useState(professional?.professions?.cuidador?.caracter)
+	
 	const [homePictures,setHomePictures] = useState(professional?.professions?.cuidador?.gallery)
 
 	const { saveHomeImage } = useSelectImagen()

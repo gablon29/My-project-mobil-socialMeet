@@ -1,6 +1,6 @@
 
 //recibe un objeto ShipingAdress y el productId que es el producto que esta cargado en stripe cada ves que se carga un producto a stripe
-//se le asigna un id y ese id se manda en la peticion para pagar.
+// //se le asigna un id y ese id se manda en la peticion para pagar.
 //   const shippingAddress = {
 //     address: {
 //       city: 'a',
@@ -32,11 +32,22 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const usePay = () => {
-
-  const stripe = useStripe();
-
-  const handleBuy = async ({shippingAdress, productId, succes, error, loading}) => {
-loading(true)
+	const stripe = useStripe();
+	
+  const handleBuy = async ({ shippingAdress,productId, succes, error, loading}) => {
+		loading(true)
+		// const shippingAdress = {
+		// 	address: {
+		// 		city: 'a',
+		// 		country: 'ES',
+		// 		line1: 'xd',
+		// 		line2: 'da',
+		// 		postal_code: '123',
+		// 		state: 'Sara',
+		// 	},
+		// 	name: 'nn',
+		// 	phone: 'zz',
+		// };
     const axios_body = { shippingAdress, productId: productId };
     const axios_config = {
       headers: {

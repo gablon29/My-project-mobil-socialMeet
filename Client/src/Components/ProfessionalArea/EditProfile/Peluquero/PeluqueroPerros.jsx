@@ -2,7 +2,7 @@ import React from 'react'
 import { Image,Text,View } from 'react-native'
 import ServiciosPerros from './ServiciosPerros'
 
-const PeluqueroPerros = ({ pet,services,setServices,dogServices,image }) => {
+const PeluqueroPerros = ({ pet,nombreAnimal,services,setServices,dogServices,image }) => {
 	return (
 		<View className="pt-20 mt-20 relative flex flex-col justify-center items-center rounded-[10px] bg-lightnew px-5 pb-5">
 			<View className="absolute -top-10 left-5 w-24 h-24 border-[5px] border-white rounded-full bg-new justify-center items-center">
@@ -16,7 +16,7 @@ const PeluqueroPerros = ({ pet,services,setServices,dogServices,image }) => {
 
 			<View className="w-full">
 				{dogServices.map((dogService,i) => (
-					<ServiciosPerros key={i} petName={pet.name} peso={pet.peso} dogService={dogService} services={services} setServices={setServices} />
+					<ServiciosPerros key={i} petName={pet.name} nombreAnimal={nombreAnimal} peso={pet.peso} dogService={dogService} services={services} setServices={setServices} />
 				))}
 			</View>
 		</View>

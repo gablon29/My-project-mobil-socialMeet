@@ -37,7 +37,10 @@
         "RECORD_AUDIO",
         "RECEIVE_BOOT_COMPLETED"
       ],
-
+      "notification": {
+        "icon": "./assets/notification-icon.png",
+        "color": "#ffffff"
+      },
       "config": {
         "googleMaps": {
           "apiKey": "tu-clave-de-API-de-Google-Maps"

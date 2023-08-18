@@ -25,7 +25,7 @@ const PaseadorPriceTab = () => {
 		const numericRegex = /^[0-9]*\,?[0-9]*$/
 		if (numericRegex.test(input)) {
 			setPrice(input);
-			setServices([{ name: "Paseo de perros",price: input,country,province,city }])
+			setServices([{ name: "Paseo de perros",price: input,country,province,city,profession }])
 		}
 	}
 

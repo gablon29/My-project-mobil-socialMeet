@@ -28,7 +28,7 @@ export default function Header() {
     { working: true, logo: inicio, nombre: 'Inicio', url: 'Home' },
     { working: true, logo: socialPaws, nombre: 'SocialPaws', url: "SocialPaws" },
     { working: true, logo: veterinarios, nombre: 'Veterinarios', url: "Veterinary" },
-    { working: false, logo: cuidadores, nombre: 'Cuidadores' },
+    { working: true, logo: cuidadores, nombre: 'Cuidadores', url:"Reservar", profession: "cuidador" },
     { working: false, logo: paseadores, nombre: 'Paseadores' },
     { working: false, logo: peluqueros, nombre: 'Peluqueros' },
     { working: false, logo: educadores, nombre: 'Educadores' },
@@ -79,7 +79,7 @@ export default function Header() {
                 onPress={() => {
                   if (elem.working) {
                     setShowMenu(!showMenu);
-                    navigation.navigate(elem.url);
+                    navigation.navigate(elem.url, {profession: elem.profession});
                   } else {
                     noImplementado()
                   }
