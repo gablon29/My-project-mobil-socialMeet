@@ -412,7 +412,7 @@ const professionalsSchema = mongoose.Schema(
           default: false,
         },
         services: {
-          type: [String],
+          type: [Object],
           default: [],
         },
         lugarAtencion: {
@@ -457,6 +457,10 @@ const professionalsSchema = mongoose.Schema(
         pawpoints: {
           type: String,
         },
+				capacity: {
+					type: Object,
+					default: {}
+				}
       },
     },
 

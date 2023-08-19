@@ -8,24 +8,17 @@ import conejo from '../../../../../../images/especies/ardilla.png';
 import ButtonSquareImageTextBorderBlack from '../../../../Buttons/ButtonSquareImageTextBorderBlack'
 import PeluqueroCaredPets from '../../Peluquero/PeluqueroCaredPets';
 import Button from '../../../../Buttons/ButtonCuston';
-import { useDispatch,useSelector } from 'react-redux';
-import { CreateProfessionalServices,EditProfessionalMethod } from '../../../../../metodos/professionalMetodos';
-import { setErrorProfessional,setLoadingProffesional,setProfessional } from '../../../../../Redux/ReducerProffesional';
-import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import { useServices } from '../../../../../CustomHooks/useServices';
 import PeluqueroPerros from '../../Peluquero/PeluqueroPerros';
 
 const PeluqueroPriceTab = () => {
 
-	const dispatch = useDispatch()
-	const navigation = useNavigation()
 	const { services,setServices,saveServices,petsPerNight,setPetsPerNight,mascotasAcuidarStrings,setMascotasAcuidarStrings } = useServices()
-
-	// const { firstName,email } = useSelector((state) => state.ReducerAuth.profile)
-	// const profession = useSelector((state) => state?.ReducerProfessional?.profession)
-	// const professionalPets = useSelector((state) => state?.ReducerProfessional?.userProfessional?.professions[profession].mascotasAcuidar)
-
-	// const [mascotasAcuidarStrings,setMascotasAcuidarStrings] = useState([...professionalPets])
+	
+	
+	const profession = useSelector((state) => state?.ReducerProfessional?.profession)
+	const capacity = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.capacity)
 	const [mascotasArenderizar,setMascotasArenderizar] = useState({})
 	const [perrosArenderizar,setPerrosArenderizar] = useState({})
 
@@ -47,7 +40,6 @@ const PeluqueroPriceTab = () => {
 			Hurón: { title: "Hurones",categories: ["Baño","Corte/arreglo"],image: huron },
 		}
 		const perros = { categories: [{ name: "Perros pequeños",peso: "1kg a 8 kg" },{ name: "Perros medianos",peso: "8kg a 35kg" },{ name: "Perros grandes",peso: "+35kg" }],services: ["Baño pelo corto","Baño pelo largo","Stripping","Tijera","Máquina","Quitar muda/deslanar","Arreglo de cara y patas","Cepillado dental"] }
-		// const perros = { categories: [{ name: "Perros pequeños",peso: "1kg a 8 kg" }],services: ["Baño pelo corto","Baño pelo largo","Stripping","Tijera","Máquina","Quitar muda/deslanar","Arreglo de cara y patas","Cepillado dental"] }
 		let mascotasConImagen = {}
 		mascotasAcuidarStrings?.forEach((m) => {
 			const mascotaACuidar = pets[m]
@@ -58,6 +50,10 @@ const PeluqueroPriceTab = () => {
 		setMascotasArenderizar(mascotasConImagen);
 		setPerrosArenderizar(perros)
 	},[mascotasAcuidarStrings]);
+
+	useEffect(()=>{
+		setPetsPerNight(capacity)
+	},[capacity])
 
 
 	return (<>
@@ -99,7 +95,7 @@ const PeluqueroPriceTab = () => {
 								{
 									mascotasAcuidarStrings?.includes("Perro") &&
 									perrosArenderizar?.categories?.map((category,i) => {
-										return <PeluqueroPerros key={i} pet={category} image={perro} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} dogServices={perrosArenderizar.services} />
+										return <PeluqueroPerros key={i} pet={category} nombreAnimal={"Perro"} image={perro} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} dogServices={perrosArenderizar.services} />
 									})
 								}
 							</View>
@@ -111,7 +107,7 @@ const PeluqueroPriceTab = () => {
 					{mascotasAcuidarStrings?.map((pet,i) => {
 						if (mascotasArenderizar[pet] && pet !== "Perro") {
 							return (
-								<PeluqueroCaredPets key={i} pet={mascotasArenderizar[pet]} petString={pet} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />
+								<PeluqueroCaredPets key={i} pet={mascotasArenderizar[pet]} nombreAnimal={pet} services={services} setServices={setServices} petsPerNight={petsPerNight} setPetsPerNight={setPetsPerNight} />
 							)
 						}
 					})}

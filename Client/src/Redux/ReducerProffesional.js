@@ -7,6 +7,7 @@ const initialState = {
     successProfessional: "",
     userProfessionals: [],
     userProfessional: {},
+		filteredProfessionals: [],
 		profession:""
 };
 
@@ -49,10 +50,16 @@ const ReducerProfessional = createSlice({
 						...state,
 						profession: action.payload
 					}
+				},
+				setFilteredProfessionals(state,action) {
+					return {
+						...state,
+						filteredProfessionals: action.payload
+					}
 				}
     }
 });
 
-export const {setProfessional, setAllProfessionals, setErrorProfessional, setLoadingProffesional, setSuccessProfessional, setProfession} = ReducerProfessional.actions;
+export const {setProfessional, setAllProfessionals, setErrorProfessional, setLoadingProffesional, setSuccessProfessional, setProfession, setFilteredProfessionals} = ReducerProfessional.actions;
 
 export default ReducerProfessional.reducer;

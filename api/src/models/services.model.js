@@ -8,7 +8,6 @@ const servicesSchema = mongoose.Schema(
       type: String,
       required: true,
       minlength: 1,
-      maxlength: 30,
     },
     description: {
       type: String,
@@ -57,6 +56,11 @@ const servicesSchema = mongoose.Schema(
     animal: {
       type: String,
     },
+		profession: {
+			type:String,
+			enum: ['cuidador', 'peluquero','paseador','educador'],
+			required:true
+		}
   },
   {
     timestamps: {

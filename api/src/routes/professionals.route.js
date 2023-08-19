@@ -1,11 +1,14 @@
 const ProfessionalModel = require('../models/professionals.model');
 const { response } = require('../utils');
 const UserModel = require('../models/user.model');
+const PetModel = require('../models/pet.model');
 const PurchasesModel = require('../models/purchase.model');
 const { sendNotifications } = require('../controllers/pushController');
 const { default: editPrice } = require('../controllers/stripe/editPrice');
 const { default: createProducts } = require('../controllers/stripe/createProducts');
 const { default: createPrice } = require('../controllers/stripe/createPrice');
+const services = require('../models/services.model');
+const { checkServices } = require('../controllers/servicesController');
 
 module.exports = {
   register: async (req, res) => {
@@ -100,7 +103,6 @@ module.exports = {
     const { modalidad, lugarAtencion, tipo, description, experience, addresses, profilePic, country, province, city, name, apellido, 
 			address, phone, mascotasAcuidar, modalidadNoVet, zipcode, shippingaddresss, profession, fechaNacimiento, capacity } = req.body;
 
-			console.log(req.body);
     if (tipo === 'Educador') {
       professional.professions.educador.isRegister = true;
       professional.professions.educador.allowed = true;
@@ -239,9 +241,51 @@ module.exports = {
     return response(res, 200, { professional });
   },
 
+	getProfessionalPets: async (req,res) => {
+		const {id} = req.params
+		const pets = await PetModel.find({owner: id});
+		console.log(pets);
+    if (!pets) {
+      return response(res, 404, { error: 'Mascotas no encontradas' });
+    }
+    return response(res, 200, pets);
+	},
+
   getAllProfessionals: async (req, res) => {
     const allProfessionals = await ProfessionalModel.find();
     return response(res, 200, { professionals: allProfessionals });
+  },
+  getFilteredProfessionals: async (req, res) => {
+		const {profession, animals,place,country,province,city, startDate, endDate} = req.body
+
+		const species = animals.map((a)=> a.specie)
+		// const animalsWeights = animals.map((a)=>a.weight.kilos)
+
+		const query = {
+			[`professions.${profession}.allowed`]: true,
+			[`professions.${profession}.mascotasAcuidar`]:{
+				$all: species
+			},
+			country,
+			province
+		}
+	
+    const allProfessionals = await ProfessionalModel.find(query);
+
+		const professionalsWithServices = checkServices(allProfessionals, profession, species, animals)
+
+		const professionalWithAllServices = []
+
+		for (const id in professionalsWithServices) {
+			if(professionalsWithServices[id].services.length === animals.length){
+				professionalWithAllServices.push(professionalsWithServices[id])
+			}
+		}
+	
+
+	
+    return response(res, 200,  {professionals: professionalWithAllServices});
+    return response(res, 200, "todochelo");
   },
 
   getServices: async (req, res) => {
@@ -397,8 +441,6 @@ module.exports = {
   editCaracter: async (req, res) => {
     const professionalId = req.user.userId;
     const { profession, caracterUpdates, images } = req.body;
-    console.log('profession');
-    console.log(profession);
     const professional = await ProfessionalModel.findOne({ user: professionalId });
 
     if (!professional) {
