@@ -30,11 +30,11 @@ module.exports = {
     const savedPurchase = await newPurchase.save();
 
     // Agregar la compra al usuario
-    await UserModel.findByIdAndUpdate(user, {
-      $push: { purchases: savedPurchase._id },
-      $inc: { wallet: Number(precioTotal) }
-    });
+   let compradorModel = await UserModel.findById(user)
+   comprador.purchases.push(savedPurchase._id)
+   comprador.wallet.retenido += Number(precioTotal)
 
+await compradorModel.save()
     await ProfessionalModel.findByIdAndUpdate(professional, {
       $push: { purchases: savedPurchase._id },
     });
@@ -89,6 +89,7 @@ module.exports = {
       trackingNumber,
     };
     const purchase = await Purchase.findByIdAndUpdate(purchaseId, updates, { new: true });
+  
     if (!purchase) return response(res, 404, 'Compra no encontrada');
     return response(res, 200, purchase);
   },
