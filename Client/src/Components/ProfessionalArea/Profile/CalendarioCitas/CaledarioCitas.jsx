@@ -2,18 +2,11 @@ import { ScrollView, Text, View } from 'react-native';
 import ProfessionalProfile from '../ProfessionalProfile';
 import Button from '../../../Buttons/ButtonCuston'
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import CalendarPicker from 'react-native-calendar-picker';
 import DisplayTabsCalender from './DisplayTabsCalender';
 import Calendario from './Calendario';
 
 const CalendarioCitas = () => {
     const navigate = useNavigation();
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    }
 
     return (
         <ScrollView className="bg-white">

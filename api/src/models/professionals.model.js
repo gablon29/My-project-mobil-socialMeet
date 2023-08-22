@@ -135,6 +135,12 @@ const professionalsSchema = mongoose.Schema(
       default: {},
     },
 
+    request_active: {
+      type: Array,
+      /* Esto es para probar, se deben respetar las propiedades ya que se usan en el frontend */
+      default: [{ type: 'cuidador', name: 'Vini', active: false, dateRange: { start: '00/00/00', end: '00/00/00' }, mascotas: [{ idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: "Anton" }] }, { type: 'cuidador', name: 'Sasuke', active: true, dateRange: { start: '00/00/00', end: '00/00/00' }, mascotas: [{ idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: "Chagi" },{ idPet: 23, raza: 'raza', especie: 'perro', edad: 'edad', fotoPet: '', namePet: "Pele" },{ idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: "smith" }] }],
+    },
+
     professions: {
       educador: {
         // <------------- EDUCADOR ----------------->
@@ -457,10 +463,10 @@ const professionalsSchema = mongoose.Schema(
         pawpoints: {
           type: String,
         },
-				capacity: {
-					type: Object,
-					default: {}
-				}
+        capacity: {
+          type: Object,
+          default: {},
+        },
       },
     },
 
