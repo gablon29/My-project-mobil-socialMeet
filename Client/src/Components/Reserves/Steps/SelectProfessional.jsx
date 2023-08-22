@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { ScrollView,Text,View } from 'react-native'
 import { useSelector } from 'react-redux'
-import CardCuidador from '../CardCuidador'
+import CardCuidador from '../Components/CardCuidador'
 
 const SelectProfessional = ({ setStep,STEPS,setDisplayTotalPrice, startDate, endDate,setProductId }) => {
 
