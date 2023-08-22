@@ -144,6 +144,7 @@ router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 router.post('/api/professional/register', isLoggedIn, catchedAsync(professionals.register));
 router.put('/api/professional/registertwo', isLoggedIn, catchedAsync(professionals.registerOtherProfessional));
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
+router.put('/api/professional/updaterequest', isLoggedIn, catchedAsync(professionals.updateRequestProfesional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', isLoggedIn, catchedAsync(professionals.getAllProfessionals));
 router.post('/api/professional/filter', isLoggedIn, catchedAsync(professionals.getFilteredProfessionals));

@@ -7,14 +7,16 @@ import PeluqueroGestionarReserva from "../Peluquero/PeluqueroGestionarReserva";
 import PaseadorGestionarReserva from "../Paseador/PaseadorGestionarRerserva";
 import EducadorGestionarRerserva from "../Educador/EducadorGestionarReserva";
 
-const GestionarReserva = () => {
+const GestionarReserva = ({route}) => {
 
-    const profession = useSelector((state) => state?.ReducerProfessional?.profession);
+    const {item} = route.params;
+
+    const { profession } = useSelector((state) => state?.ReducerProfessional);
 
     return (
         <ScrollView className="bg-white">
             <View className="items-center w-screen h-full py-10">
-                {profession === "cuidador" && <CuidadorGestionarReserva />}
+                {profession === "cuidador" && <CuidadorGestionarReserva item={item}/>}
                 {profession === "peluquero" && <PeluqueroGestionarReserva />}
                 {profession === "paseador" && <PaseadorGestionarReserva />}
                 {profession === "educador" && <EducadorGestionarRerserva />}
