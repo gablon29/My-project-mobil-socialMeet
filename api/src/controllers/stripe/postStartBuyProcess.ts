@@ -10,9 +10,7 @@ const UserModel = require('../../models/user.model'); //por si hay que hacer que
 export default async function (req: input, res){
 
     //--------------------------------------------------------------
-    //Validaciones / Sanitización rápida
-    let { shippingAdress, productId } = req.body;
-    if (!shippingAdress) throw new ClientError('Debes enviar shippingAdress', 400);
+    let { shippingAdress, productId, price } = req.body;
     if (!productId) throw new ClientError('Debes enviar productId', 400);
   
     const user = await UserModel.findById(req.user.userId)
@@ -82,7 +80,6 @@ export default async function (req: input, res){
       postal_code: string;
       state: string;
     };
-    tracking_number: string;
     name: string;
     phone: string;
   };
