@@ -88,8 +88,13 @@ const userSchema = mongoose.Schema(
     },
     
     wallet: {
-      type: Number
-    },
+      disponible:{
+        type: Number
+      },
+      retenido:{
+        type: Number
+      }  
+       },
 
     shippingaddresss: {
       address: { city: String, country: String, line1: String, line2: String, postal_code: String, state: String },

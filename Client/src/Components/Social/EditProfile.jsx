@@ -1,30 +1,104 @@
 import ButtonSocial from '../Buttons/ButtonSocialPaws';
-import { View, Text, Image, TouchableOpacity, ScrollView, TextInput } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, LogBox } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import add from '../../../images/iconos/cruz.png';
 import add1 from '../../../images/iconos/add.png';
 import remove from '../../../images/iconos/bin.png';
-import { suvirImagen } from '../../CustomHooks/useImage';
+import { suvirImagen, useSelectImagen } from '../../CustomHooks/useImage';
+import { saveHomeImage, EditProfileMethod, AddGallery } from '../../metodos/socialpet';
 
-const EditProfile = () => {
+const EditProfile = ({route}) => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const { pet } = route.params;
 
-    const [text, setText] = useState('');
+
+
+    const { selImg, setPortada, setImgProfile } = useSelectImagen();
+    const [homePictures,setHomePictures] = useState(pet?.gallery);
+
+    const [gallery, setGallery] = useState([])
     
-  const handleTextChange = (inputText) => {
-    setText(inputText);
-  };
+    const [text, setText] = useState('');
+    const handleTextChange = (inputText) => {
+        setText(inputText);
+    };   
+    
+    const handleRemoveImage = (i) => {
 
-  
+        if(homePictures.length > 0){
+        const newImages = homePictures?.filter((image,index) => index !== i)
+		setHomePictures([...newImages])
+        }
+        else{
+            const newImages = gallery?.filter((image,index) => index !== i)
+            setGallery([...newImages])
+        }
+    };
 
-  const handleUploadImage = () => {
-      
-  }
+
+  const handleSaveData = async () => {
+
+    let editedImages = []
+
+    if (homePictures.length > 0) {
+        for (const image of homePictures) {
+
+            if (image.substring(0,5) === "file:") {
+                const imageUrl = await suvirImagen(image);
+
+                editedImages.push(imageUrl);
+            } else {
+            editedImages.push(image);
+            }
+        }
+        const data = { 
+            editedImages, pet, selImg
+        }  
+        
+        await EditProfileMethod({
+            data,
+            loading: (v) => dispatch(setLoadingPets(v)),
+            error: (msg) => {
+              dispatch(setErrorPets(msg));
+            },
+            success: () => navigation.navigate('SocialProfile'),
+          });
+    };
+    const newImages = [];
+    if(gallery.length > 0 ) {
+        for (const image of gallery) {
+
+            if (image.substring(0,5) === "file:") {
+                const imageUrl = await suvirImagen(image);
+
+                newImages.push(imageUrl);
+            } else {
+                newImages.push(image);
+            }
+        };
+        const data = { 
+            newImages, pet, selImg
+        }  
+        
+        await AddGallery({
+            data,
+            loading: (v) => dispatch(setLoadingPets(v)),
+            error: (msg) => {
+              dispatch(setErrorPets(msg));
+            },
+            success: () => navigation.navigate('SocialProfile'),
+          });
+
+    };
+
+    console.log("esto es images", editedImages);
+    console.log("esto es pet", newImages);    
+}
 
     return (
         <ScrollView>
@@ -42,16 +116,24 @@ const EditProfile = () => {
                     Imagen de portada
                 </Text>
 
-                <TouchableOpacity 
-                    className="mb-8 bg-[#63C5C9] w-full h-44"
-                    onPress={() => handleUploadImage}
-                >                    
-                    <Image
-                    source={add}
-                    className="absolute top-12 left-44"
-                    />
-                </TouchableOpacity>
-
+                <View className="w-[360px] h-44 mx-auto mb-2 bg-[#63C5C9]">
+                    <TouchableOpacity className="flex justify-center items-center w-[360px] h-44" onPress={() => setPortada()}>
+                        {selImg?.portada 
+                            ? 
+                                <Image source={{ uri: selImg?.portada }} className="w-[360px] h-44  " /> 
+                            :   <Icon name="plus" size={60} color="white" />
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        className="absolute z-50 top-3 -right-2"
+                        onPress={() => {
+                        if (selImg?.portada) {
+                            setImgProfile('');
+                        }
+                        }}
+                    >
+                    </TouchableOpacity>
+                    </View>       
                 <Text className="text-black text-start ml-4 font-poppins font-bold text-base">
                     Descripción
                 </Text>
@@ -67,202 +149,63 @@ const EditProfile = () => {
                     </Text>
                 </View>
 
-                <View className="flex ml-5 mr-5 mt-6">                
-                    <View className="flex flex-row  mt-5 ml-3 ">
-                        <View className="mr-4">
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity>  
-                        </View>
-                        <View className="mr-4">
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity>  
-                        </View>
+                <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
+                    {[...Array(9)?.keys()]?.map((i) => (
+                        <View key={i} className="flex flex-row m-2">
+                            {
+                                homePictures[i] 
+                                ? 
+                                    <TouchableOpacity
+                                        className='bg-[#FEC89A] w-24 h-24 rounded-xl'
+                                        onPress={() => saveHomeImage(homePictures, setHomePictures)}
+                                    >
+                                    
+                                        <Image source={{ uri: homePictures[i].url }} className="w-24 h-24 rounded-xl" />
 
-                        <View>
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity> 
-                        </View> 
-                    </View>  
+                                        <TouchableOpacity
+                                            onPress={() => handleRemoveImage(i)}
+                                            className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
+                                        >
+                                            <Image source={remove} className="absolute top-2 left-2" />
+                                        </TouchableOpacity>
+                                    </TouchableOpacity>
 
-                    <View className="flex flex-row  mt-5 ml-3 ">
-                        <View className="mr-4">
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity>  
-                        </View>
-                        <View className="mr-4">
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity>  
-                        </View>
+                                :
+                                    <TouchableOpacity
+                                        className='bg-[#FEC89A] w-24 h-24 rounded-xl'
+                                        onPress={() => saveHomeImage(gallery, setGallery)}
+                                    >
+                                    {
+                                        gallery[i]
+                                        ?
+                                            <Image source={{ uri: gallery[i].url }} className="w-24 h-24 rounded-xl" />
+                                        :
+                                            <Image source={add1} className="absolute top-8 left-8" />
+                                    }
 
-                        <View>
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity> 
-                        </View> 
-                    </View>
+                                    <TouchableOpacity
+                                        onPress={() => handleRemoveImage(i)}
+                                        className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
+                                    >
+                                        <Image source={remove} className="absolute top-2 left-2" />
+                                    </TouchableOpacity>
+                                </TouchableOpacity>
 
-                    <View className="flex flex-row  mt-5 ml-3 ">
-                        <View className="mr-4">
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity>  
+                            }              
                         </View>
-                        <View className="mr-4">
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity>  
-                        </View>
-
-                        <View>
-                        <TouchableOpacity 
-                            className=" bg-[#FEC89A] w-24 h-24 rounded-xl"
-                            onPress={() => handleUploadImage}
-                        >                    
-                            <Image
-                            source={add1}
-                            className="absolute top-8 left-8"
-                            />
-                            <TouchableOpacity
-                                className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
-                            >
-                                <Image
-                                    source={remove}
-                                    className="absolute top-2 left-2"
-                                />
-                            </TouchableOpacity>
-                        </TouchableOpacity> 
-                        </View> 
-                    </View> 
-                         
+                    ))}
+                            
                 </View>
 
-                <View className="flex items-center mt-10">
+                <View className="flex items-center mt-10 mb-8">
                     <ButtonSocial 
-                        onPress={() => "Home"}
+                        onPress={handleSaveData}
                         buttonClass="border-2 flex w-56 h-14 justify-center items-center border-orange-500 rounded-xl"
                         title= 'Guardar'
                         titleClass= 'text-orange-500 font-medium'
                     />
                 </View>
-            </View>
-
+            </View>      
         </ScrollView>
     )
 };

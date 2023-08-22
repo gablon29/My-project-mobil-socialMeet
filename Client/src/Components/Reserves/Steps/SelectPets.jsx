@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image,Text,TouchableOpacity,View } from 'react-native';
+import { Image,ScrollView,Text,TouchableOpacity,View } from 'react-native';
 
 const SelectPets = ({ query,setQuery,myPets,setStep,isActive,setIsActive,STEPS }) => {
 
@@ -16,17 +16,19 @@ const SelectPets = ({ query,setQuery,myPets,setStep,isActive,setIsActive,STEPS }
 
 		}
 	}
-	return <View className="flex flex-col items-center space-y-14 h-full pt-20 ">
+	return(
+	<ScrollView>
+<View className="flex flex-col items-center space-y-14 h-full pt-20 ">
 		<Text className="font-poppinsBold text-xl text-center ">
 			Selecciona una o varias de tus mascotas
 		</Text>
 
 		<View className="flex flex-row flex-wrap justify-center space-x-6 px-4">
-			{myPets?.map((pet,i) => {
+			{myPets && myPets?.map((pet,i) => {
 				return <View key={i} className="flex flex-col items-center mt-2 w-20">
 					<TouchableOpacity onPress={() => handleActive(pet)}>
 						<View className={`flex flex-col items-center justify-center w-20 h-20 rounded-xl ${isActive.includes(pet.name) && "border-4"}`}>
-							<Image source={{ uri: pet.profilePic }} className="h-full w-full rounded-xl border-4" style={{ borderRadius: 10,borderWidth: 4 }} />
+							<Image source={ {uri: pet?.profilePic} } className="h-full w-full rounded-xl border-4" style={{ borderRadius: 10,borderWidth: 4 }} />
 						</View>
 					</TouchableOpacity>
 					<Text className="text-center text-base font-poppinsSemiBold">{pet.name}</Text>
@@ -57,6 +59,7 @@ const SelectPets = ({ query,setQuery,myPets,setStep,isActive,setIsActive,STEPS }
 		</TouchableOpacity>
 
 	</View>
-}
+	</ScrollView>
+)}
 
 export default SelectPets

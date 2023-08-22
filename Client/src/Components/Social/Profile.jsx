@@ -2,21 +2,19 @@ import ButtonSocial from '../Buttons/ButtonSocialPaws';
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useState } from 'react';
-import cover from '../../../images/portada.png';
+import { useSelector } from 'react-redux';
+import React from 'react';
 import profile from '../../../images/temporales/image5.png';
-import axios from "axios";
-import { useRoute } from '@react-navigation/native';
 import location from '../../../images/iconos/gps.png';
-const SocialProfile = () => {
+import add1 from '../../../images/iconos/add.png';
+const SocialProfile = ({route}) => {
 
-    const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const profile = useSelector((state) => state.ReducerAuth.profile);
-    const route = useRoute();
+    const user = useSelector((state) => state.ReducerAuth.profile);
     const { pet } = route.params;
+    console.log(pet.gallery);
+
 
     return (
         <ScrollView>
@@ -29,7 +27,7 @@ const SocialProfile = () => {
                         </Text>
                     </TouchableOpacity>
                     <ButtonSocial
-                        onPress={() => navigation.navigate('EditSocialProfile')}
+                        onPress={() => navigation.navigate('EditSocialProfile', { pet: pet })}
                         buttonClass="bg-naranja rounded-full w-32 h-8 justify-center items-center mr-4"
                         title= 'Editar'
                         titleClass= 'text-white font-medium'
@@ -37,19 +35,30 @@ const SocialProfile = () => {
                 </TouchableOpacity>
                 
                 <View>
-                    <Image
-                        source={!pet?.cover ?  cover  : pet?.cover}
+                    {
+                        pet?.cover 
+                        ?
+                        <Image
+                        source={pet?.coverImage}
                         className="w-390 h-190"
-                    />
+                        />
+                        :
+                        <View className="w-[360px] h-44 mx-auto mb-2 bg-[#63C5C9] flex justify-center items-center">
+                            <Text className="text-white text-center ml-4 mb-4 font-poppins font-bold text-base" color="white">
+                                Edita el perfil y publica una portada
+                            </Text>
+                        </View>
+                    }
+                    
                     <Image
-                        source={!pet?.profilePic ? profile : pet?.profilePic}
+                        source={pet?.profilePic ? pet.profilePic : profile}
                         className="rounded-full w-120 h-120 bg-cover bg-no-repeat absolute top-32 left-32"
                     />
                 </View>
 
                 <View className="flex items-center justify-center mt-20">
                     <Text className="text-black text-center font-poppins font-bold text-base">
-                        ¡Hola! Me llamo (Nombre)
+                        ¡Hola! Me llamo {pet?.name}
                     </Text>                
                 </View>
                 <View className="flex flex-row items-center justify-center mt-2">
@@ -58,14 +67,14 @@ const SocialProfile = () => {
                         className="w-6 h-6 mr-1"
                     />
                     <Text className="text-[#63C5C9] font-poppins text-xs font-normal">
-                        {profile?.country} | {profile?.province} | {profile?.zipCode}
+                        {user?.country} | {user?.province} | {user?.zipCode}
                     </Text>
                 </View>
 
 
                 <View className = "justify-center items-center m-10">
                     <Text className="text-black text-center leading-[25px] font-poppins text-xs font-normal mb-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed posuere quam. Morbi molestie bibendum orci. 
+                        {pet?.information}
                     </Text>     
                     
                     <ButtonSocial 
@@ -78,7 +87,24 @@ const SocialProfile = () => {
 
                 <Text className="text-black text-center font-poppins font-bold text-base">
                     Imágenes destacadas
-                </Text>         
+                </Text> 
+                <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
+                    {pet?.gallery?.map((i) => (
+                        <View key={i.id} className="flex flex-row m-2">
+                            <TouchableOpacity
+                                className='bg-[#FEC89A] w-24 h-24 rounded-xl'
+                                onPress={() => "d"}
+                            >
+                                {pet?.gallery 
+                                    ? 
+                                    <Image source={{ uri: i.url }} className="w-24 h-24 rounded-xl" />
+                                    : 
+                                    <Image source={add1} className="absolute top-8 left-8" />
+                                }
+                            </TouchableOpacity>
+                        </View>
+                    ))}
+                </View>        
 
             </View>
             
