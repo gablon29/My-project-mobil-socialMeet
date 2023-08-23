@@ -17,9 +17,9 @@ const GestionarReserva = ({route}) => {
         <ScrollView className="bg-white">
             <View className="items-center w-screen h-full py-10">
                 {profession === "cuidador" && <CuidadorGestionarReserva item={item}/>}
-                {profession === "peluquero" && <PeluqueroGestionarReserva />}
+                {profession === "peluquero" && <PeluqueroGestionarReserva item={item}/>}
                 {profession === "paseador" && <PaseadorGestionarReserva item={item}/>}
-                {profession === "educador" && <EducadorGestionarRerserva />}
+                {profession === "educador" && <EducadorGestionarRerserva item={item}/>}
                 <View className="mt-5 w-11/12 py-10">
                     <Button title={"Abrir Chat"} titleClass={`text-black font-poppinsBold`} buttonClass={`bg-new rounded-2xl h-14 w-full justify-center items-center`}/>                
                     <Button title={"Solicitar desbloqueo de fondos"} titleClass={`text-white font-poppinsBold`} buttonClass={`mt-20 bg-limon rounded-2xl h-14 w-full justify-center items-center`}/>                

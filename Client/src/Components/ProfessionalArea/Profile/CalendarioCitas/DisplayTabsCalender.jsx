@@ -58,16 +58,16 @@ const DisplayTabsCalender = () => {
                 tab ? (<>{filterActiveTrue.map((item, index)=>(<CuidadorActivosTab key={index} item={item}/>))}</>)
                 :(<>{filterActiveFalse.map((item, index)=>( <CuidadorSolicitudesTab aceptarOno={aceptarOno} item={item} key={index} />))}</>))}
             {profession === "peluquero" && (
-                tab ? (<>{filterActiveTrue.map((item, index)=><PeluqueroActivosTab key={index} />)}</>) 
-                :(<>{filterActiveFalse.map((item, index)=>(<PeluqueroSolicitudesTab key={index} />))}</>)
+                tab ? (<>{filterActiveTrue.map((item, index)=><PeluqueroActivosTab key={index} item={item}/>)}</>) 
+                :(<>{filterActiveFalse.map((item, index)=>(<PeluqueroSolicitudesTab key={index} item={item} aceptarOno={aceptarOno}/>))}</>)
             )}
             {profession === "paseador" && (
                 tab ? (<>{filterActiveTrue.map((item, index)=>(<PaseadorActivosTab key={index} item={item} />))}</>)
                 : (<>{filterActiveFalse.map((item, index)=>(<PaseadorSolicitudesTab key={index} item={item} aceptarOno={aceptarOno}/>))}</>)
             )}
             {profession === "educador" && (
-                tab ? (<>{[1,2].map((item,index)=>(<EducadorActivosTab key={index} />))}</>) 
-                : (<>{[1,2].map((item, index)=>(<EducadorSolicitudesTab key={index} />))}</>)
+                tab ? (<>{filterActiveTrue.map((item,index)=>(<EducadorActivosTab key={index} item={item}/>))}</>) 
+                : (<>{filterActiveFalse.map((item, index)=>(<EducadorSolicitudesTab key={index} item={item} aceptarOno={aceptarOno}/>))}</>)
             )}
             </View>
         </View>

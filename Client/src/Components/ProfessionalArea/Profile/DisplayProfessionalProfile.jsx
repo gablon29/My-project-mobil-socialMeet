@@ -17,8 +17,8 @@ const DisplayProfessionalProfile = ({ route }) => {
 	const { profession, userProfessional } = useSelector((state) => state?.ReducerProfessional);
 	const { request_active } = userProfessional;
 
-	const filterType = request_active.filter(item => item.type === profession);
-    const filterActiveFalse = filterType.filter(item=>!item.active);
+	const filterType = request_active === undefined ? null : request_active.filter(item => item.type === profession);
+    const filterActiveFalse = filterType === null ? null : filterType.filter(item=>!item.active);
 
 
 	//educador // veterinario cuidadorpaseador peluquero tienda
@@ -43,7 +43,7 @@ const DisplayProfessionalProfile = ({ route }) => {
 
 				<View className="relative">
 					<View className="z-10 flex flex-row justify-center items-center absolute top-[-8px] right-[-8px] bg-naranja rounded-full w-8 h-8 border border-white ">
-						<Text className="text-white text-center font-medium text-xs rounded-full w-5 h-5">{filterActiveFalse.length}</Text>
+						<Text className="text-white text-center font-medium text-xs rounded-full w-5 h-5">{filterActiveFalse === null ? "0" : filterActiveFalse.length}</Text>
 					</View>
 					<Button onPress={()=>navigate.navigate("CalendarioCitas")} title="Calendario de servicios" titleClass="text-white font-semibold text-base" buttonClass="bg-celeste w-64 h-14 rounded-2xl items-center justify-center" />                  
 				</View>
