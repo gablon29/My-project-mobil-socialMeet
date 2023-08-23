@@ -86,7 +86,6 @@ const CuidadorInformationTab = () => {
 				<Text className="font-poppins text-base text-left font-bold mb-5 px-4">Aquí cuidaré de tu mascota</Text>
 				<View className="flex flex-row flex-wrap justify-center gap-4">
 					{homeImages?.map((img,_idx) => {
-						// console.log(img[0]);
 						
 						return	<View key={_idx} className="justify-start items-center rounded-[10px]">
 								<Image source={{ uri: img[0] }} className="w-24 h-24 rounded-[10px]" resizeMode='contain' />

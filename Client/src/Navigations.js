@@ -49,6 +49,8 @@ import SelectPet from './Components/Social/SelectPet';
 import SocialPhoto from './Components/Social/SocialPhoto';
 import SocialComments from './Components/Social/Comments';
 
+import ReservaCuidador from './Components/Reserves/ReservaCuidador';
+
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
 const StackAuthBienvenida = createNativeStackNavigator();
@@ -131,6 +133,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="CalendarioCitas" component={CalendarioCitas} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="BloquearFechas" component={BloquearFechas} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="GestionarReserva" component={GestionarReserva} options={{ headerShown: true }}/>
+
+      <StackAuthTrue.Screen name="Reservar" component={ReservaCuidador} options={{ headerShown: true }}/>
     </StackAuthTrue.Navigator>
   );
 };

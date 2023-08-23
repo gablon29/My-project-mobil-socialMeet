@@ -18,10 +18,7 @@ const CuidadorPriceTab = () => {
 	const services = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions[profession]?.services)
 	const mascotasAcuidar = useSelector(state => state?.ReducerProfessional?.userProfessional?.professions?.cuidador?.mascotasAcuidar)
 
-	useEffect(() => {
-		console.log(mascotasAcuidar);
-		console.log("services",services);
-	},[])
+
 
 	const cuidados = {
 		Perro: {

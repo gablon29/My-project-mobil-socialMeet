@@ -7,10 +7,10 @@ const { default: editPrice } = require('../controllers/stripe/editPrice');
 
 module.exports = {
   addService: async (req, res) => {
-    const { services, metadata, profession } = req.body;
-    const professionalId = req.user.userId;
+    const { services, metadata, profession, professionalId } = req.body;
+    const userId = req.user.userId;
 
-    const professional = await ProfessionalModel.findOne({ user: professionalId });
+    const professional = await ProfessionalModel.findOne({ user: userId });
     if (!professional) {
       return response(res, 500, 'Profesional no encontrado');
     }
@@ -48,6 +48,7 @@ module.exports = {
           province,
           addresses,
           professional: professionalId,
+					profession
         });
 
         await newService.save();
@@ -136,6 +137,7 @@ module.exports = {
             professional: professionalId,
             isActive,
             animal,
+						profession
           });
 
           await newService.save();
@@ -156,9 +158,9 @@ module.exports = {
     response(res, 200, services);
   },
 
-  byName: async (req, res) => {
-    const { name } = req.body;
-    const services = await ServiceModel.find({ name: name });
+  byProfession: async (req, res) => {
+    const { profession } = req.query;
+    const services = await ServiceModel.find({ profession }).populate("professional");
     if (!services) response(res, 404, 'No se han encontrado servicios con este nombre');
     response(res, 200, services);
   },

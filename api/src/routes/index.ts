@@ -145,8 +145,11 @@ router.post('/api/resp-tickets',  catchedAsync(support.respondToTicket));
 router.post('/api/professional/register', isLoggedIn, catchedAsync(professionals.register));
 router.put('/api/professional/registertwo', isLoggedIn, catchedAsync(professionals.registerOtherProfessional));
 router.put('/api/professional/edit', isLoggedIn, catchedAsync(professionals.editProfessional));
+router.put('/api/professional/updaterequest', isLoggedIn, catchedAsync(professionals.updateRequestProfesional));
 router.get('/api/professional/data', isLoggedIn, catchedAsync(professionals.getProfessionalData));
 router.get('/api/professional/all', isLoggedIn, catchedAsync(professionals.getAllProfessionals));
+router.post('/api/professional/filter', isLoggedIn, catchedAsync(professionals.getFilteredProfessionals));
+router.get('/api/professional/pets/:id', isLoggedIn, catchedAsync(professionals.getProfessionalPets));
 router.put('/api/professional/caracter',isLoggedIn, catchedAsync(professionals.editCaracter))
 //----- Date Routes --------
 router.get('/api/professional/pending', isLoggedIn, catchedAsync(professionals.getPendingProfessionalsProfession));
@@ -159,7 +162,7 @@ router.put('/api/professional/disponibilidad/:professionalId/:date', catchedAsyn
 
 // ------------->  Services  <-------------
 router.get('/api/service/all', isLoggedIn, catchedAsync(services.all));
-router.get('/api/service/byName', isLoggedIn, catchedAsync(services.byName));
+router.get('/api/service/byProfession', isLoggedIn, catchedAsync(services.byProfession));
 router.get('/api/service/byId', isLoggedIn, catchedAsync(services.byId))
 router.post('/api/service/add', isLoggedIn, catchedAsync(services.addService));
 router.post('/api/service/editPrice', isLoggedIn, catchedAsync(services.editPrice));

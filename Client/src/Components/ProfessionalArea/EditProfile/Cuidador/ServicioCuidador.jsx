@@ -31,7 +31,6 @@ const ServicioCuidador = ({ petName,nombreAnimal,category,services,setServices }
 		const animal = quitarTildes(petName)
 		const existentService = actualServices.find((s)=>s.name === `${animal} ${category}` )
 		if(existentService){
-			console.log("existo")
 			setPrice(existentService.price)
 			setIsActive(existentService.isActive)
 		}
@@ -58,7 +57,7 @@ const ServicioCuidador = ({ petName,nombreAnimal,category,services,setServices }
 			}
 		})
 		if (!exist) {
-			setServices([...services,{ name: `${animal} ${category}`,isActive: status,price,country,province,city,animal:nombreAnimal,description:category }])
+			setServices([...services,{ name: `${animal} ${category}`,isActive: status,price,country,province,city,animal:nombreAnimal,description:category,profession }])
 		}
 	}
 
@@ -86,7 +85,7 @@ const ServicioCuidador = ({ petName,nombreAnimal,category,services,setServices }
 
 			if (!exist) {
 				console.log(price);
-				setServices([...services,{ name: `${animal} ${category}`,isActive,price: input,country,province,city,animal:nombreAnimal,description:category }])
+				setServices([...services,{ name: `${animal} ${category}`,isActive,price: input,country,province,city,animal:nombreAnimal,description:category,profession }])
 			}
 		}
 	}
