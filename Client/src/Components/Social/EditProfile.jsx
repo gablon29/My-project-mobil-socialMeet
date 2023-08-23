@@ -1,103 +1,96 @@
 import ButtonSocial from '../Buttons/ButtonSocialPaws';
 import { View, Text, Image, TouchableOpacity, ScrollView, TextInput, LogBox } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from 'react-redux';
-import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import add1 from '../../../images/iconos/add.png';
 import remove from '../../../images/iconos/bin.png';
+import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { suvirImagen, useSelectImagen } from '../../CustomHooks/useImage';
-import { saveHomeImage, EditProfileMethod, AddGallery } from '../../metodos/socialpet';
+import { EditPetMethod } from '../../metodos/petsMetodos';
+import { saveHomeImage, AddGallery, deletePhoto } from '../../metodos/socialpetMetodos';
 
 const EditProfile = ({route}) => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
+
+    const { userPet } = useSelector((state) => state.ReducerPets);
     const { pet } = route.params;
-
-
+    const { id } = pet;
 
     const { selImg, setPortada, setImgProfile } = useSelectImagen();
-    const [homePictures,setHomePictures] = useState(pet?.gallery);
+    const [homePictures,setHomePictures] = useState(userPet?.gallery || []);
 
-    const [gallery, setGallery] = useState([])
-    
-    const [text, setText] = useState('');
+    const [gallery, setGallery] = useState([]);
+    const [text, setText] = useState(userPet?.information);
     const handleTextChange = (inputText) => {
         setText(inputText);
     };   
     
-    const handleRemoveImage = (i) => {
+    const handleRemoveImage = async (imagetoRemove) => {
+        if (imagetoRemove.url && homePictures?.some((image) => image.url === imagetoRemove.url)) {
+            const newHomePictures = homePictures.filter((image) => image.url !== imagetoRemove.url);
+            setHomePictures(newHomePictures);
+            
+            const data = { id, imagetoRemove};
 
-        if(homePictures.length > 0){
-        const newImages = homePictures?.filter((image,index) => index !== i)
-		setHomePictures([...newImages])
+            await deletePhoto({
+                data,
+                loading: (v) => dispatch(setLoadingPets(v)),
+                error: (msg) => {
+                  dispatch(setErrorPets(msg));
+                },
+              })
+            .then(()=>console.log('se elimino la foto'))
+
+        } else {
+            const newGallery = gallery.filter((image) => image !== imagetoRemove);
+            setGallery(newGallery);
         }
-        else{
-            const newImages = gallery?.filter((image,index) => index !== i)
-            setGallery([...newImages])
-        }
-    };
-
-
+    };  
+   
   const handleSaveData = async () => {
-
-    let editedImages = []
-
-    if (homePictures.length > 0) {
-        for (const image of homePictures) {
-
-            if (image.substring(0,5) === "file:") {
-                const imageUrl = await suvirImagen(image);
-
-                editedImages.push(imageUrl);
-            } else {
-            editedImages.push(image);
-            }
+    let pet = {...userPet, information: text}
+     if (selImg.portada) {
+        const imageUrl = await suvirImagen(selImg.portada);
+        pet = {
+            ...pet,
+            coverImage: imageUrl
         }
-        const data = { 
-            editedImages, pet, selImg
-        }  
-        
-        await EditProfileMethod({
-            data,
-            loading: (v) => dispatch(setLoadingPets(v)),
-            error: (msg) => {
-              dispatch(setErrorPets(msg));
-            },
-            success: () => navigation.navigate('SocialProfile'),
-          });
     };
-    const newImages = [];
+    
+    await EditPetMethod({
+        pet,
+        loading: (v) => dispatch(setLoadingPets(v)),
+        error: (msg) => {
+          dispatch(setErrorPets(msg));
+        },
+        success: () => "Hola",
+    });
+
+    const newPhotos = [];
     if(gallery.length > 0 ) {
         for (const image of gallery) {
-
             if (image.substring(0,5) === "file:") {
                 const imageUrl = await suvirImagen(image);
-
-                newImages.push(imageUrl);
+                newPhotos.push(imageUrl);
             } else {
-                newImages.push(image);
+                newPhotos.push(image);
             }
         };
-        const data = { 
-            newImages, pet, selImg
-        }  
-        
+        const data = { newPhotos, pet }          
         await AddGallery({
             data,
             loading: (v) => dispatch(setLoadingPets(v)),
             error: (msg) => {
               dispatch(setErrorPets(msg));
             },
-            success: () => navigation.navigate('SocialProfile'),
+            success: () => navigation.navigate('SocialProfile', { pet }),
           });
-
-    };
-
-    console.log("esto es images", editedImages);
-    console.log("esto es pet", newImages);    
+    }
+     navigation.navigate('SocialProfile', { pet });
 }
 
     return (
@@ -150,41 +143,46 @@ const EditProfile = ({route}) => {
                 </View>
 
                 <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
-                    {[...Array(9)?.keys()]?.map((i) => (
-                        <View key={i} className="flex flex-row m-2">
-                            {
-                                homePictures[i] 
-                                ? 
-                                    <TouchableOpacity
+                    {
+                        homePictures?.map((image, index) => {
+                            return (
+                                <View key={index} className="flex flex-row m-2">
+                                     <TouchableOpacity
                                         className='bg-[#FEC89A] w-24 h-24 rounded-xl'
                                         onPress={() => saveHomeImage(homePictures, setHomePictures)}
                                     >
                                     
-                                        <Image source={{ uri: homePictures[i].url }} className="w-24 h-24 rounded-xl" />
+                                        <Image source={{ uri: image?.url }} className="w-24 h-24 rounded-xl" />
 
                                         <TouchableOpacity
-                                            onPress={() => handleRemoveImage(i)}
+                                            onPress={() => handleRemoveImage(image)}
                                             className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
                                         >
                                             <Image source={remove} className="absolute top-2 left-2" />
                                         </TouchableOpacity>
                                     </TouchableOpacity>
+                                </View>
+                            )
+                        })                      
+                    }
 
-                                :
+                    {[...Array(9 - homePictures?.length).keys()].map((index) => (
+                        <View key={index} className="flex flex-row m-2">
+                            {                                
                                     <TouchableOpacity
                                         className='bg-[#FEC89A] w-24 h-24 rounded-xl'
                                         onPress={() => saveHomeImage(gallery, setGallery)}
                                     >
                                     {
-                                        gallery[i]
+                                        gallery[index]
                                         ?
-                                            <Image source={{ uri: gallery[i].url }} className="w-24 h-24 rounded-xl" />
+                                            <Image source={{ uri: gallery[index] }} className="w-24 h-24 rounded-xl" />
                                         :
                                             <Image source={add1} className="absolute top-8 left-8" />
                                     }
 
                                     <TouchableOpacity
-                                        onPress={() => handleRemoveImage(i)}
+                                        onPress={() => handleRemoveImage(gallery[index])}
                                         className=" bg-[#FB6726] w-10 h-10 rounded-full absolute left-16 bottom-16"
                                     >
                                         <Image source={remove} className="absolute top-2 left-2" />

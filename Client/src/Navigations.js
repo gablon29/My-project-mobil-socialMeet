@@ -46,6 +46,8 @@ import GestionarReserva from './Components/ProfessionalArea/Profile/CalendarioCi
 import SocialProfile from './Components/Social/Profile';
 import EditProfile from './Components/Social/EditProfile';
 import SelectPet from './Components/Social/SelectPet';
+import SocialPhoto from './Components/Social/SocialPhoto';
+import SocialComments from './Components/Social/Comments';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -121,7 +123,8 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="SocialProfile" component={SocialProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="SelectPet" component={SelectPet} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="EditSocialProfile" component={EditProfile} options={{ headerShown: true }} />
-      
+      <StackAuthTrue.Screen name="Photo" component={SocialPhoto} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="SocialComments" component={SocialComments} options={{ headerShown: true }} />
       
       <StackAuthTrue.Screen name="ProfessionalProfile" component={DisplayProfessionalProfile} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="EditProfessionalProfile" component={EditProfessionalProfile} options={{ headerShown: true }}/>

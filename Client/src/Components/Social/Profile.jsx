@@ -2,18 +2,37 @@ import ButtonSocial from '../Buttons/ButtonSocialPaws';
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from 'react-redux';
-import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { GetMyPetMethod } from '../../metodos/petsMetodos';
+import { setErrorPets, setLoadingPets, setPet } from '../../Redux/ReducerPets';
+import React, { useEffect } from 'react';
 import profile from '../../../images/temporales/image5.png';
 import location from '../../../images/iconos/gps.png';
 import add1 from '../../../images/iconos/add.png';
 const SocialProfile = ({route}) => {
 
     const navigation = useNavigation();
-
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.ReducerAuth.profile);
+    const { userPet } = useSelector((state) => state.ReducerPets);
+
     const { pet } = route.params;
-    console.log(pet.gallery);
+    const { id } = pet;
+
+  useEffect(() => {
+    if (pet) {
+      getPet();
+    }
+  }, [pet]);
+
+  const getPet = async () => {
+    await GetMyPetMethod({
+      id,
+      loading: (v) => dispatch(setLoadingPets(v)),
+      error: (msg) => dispatch(setErrorPets(msg)),
+      success: (res) => dispatch(setPet(res.payload)),
+    });
+  };
 
 
     return (
@@ -36,10 +55,10 @@ const SocialProfile = ({route}) => {
                 
                 <View>
                     {
-                        pet?.cover 
+                        userPet?.cover 
                         ?
                         <Image
-                        source={pet?.coverImage}
+                        source={userPet?.coverImage}
                         className="w-390 h-190"
                         />
                         :
@@ -51,14 +70,14 @@ const SocialProfile = ({route}) => {
                     }
                     
                     <Image
-                        source={pet?.profilePic ? pet.profilePic : profile}
+                        source={userPet?.profilePic ? userPet.profilePic : profile}
                         className="rounded-full w-120 h-120 bg-cover bg-no-repeat absolute top-32 left-32"
                     />
                 </View>
 
                 <View className="flex items-center justify-center mt-20">
                     <Text className="text-black text-center font-poppins font-bold text-base">
-                        ¡Hola! Me llamo {pet?.name}
+                        ¡Hola! Me llamo {userPet?.name}
                     </Text>                
                 </View>
                 <View className="flex flex-row items-center justify-center mt-2">
@@ -74,28 +93,31 @@ const SocialProfile = ({route}) => {
 
                 <View className = "justify-center items-center m-10">
                     <Text className="text-black text-center leading-[25px] font-poppins text-xs font-normal mb-5">
-                        {pet?.information}
+                        {userPet?.information}
                     </Text>     
                     
+                { /*  
                     <ButtonSocial 
                         onPress={() => "Home"}
                         buttonClass="border-2 h-8 w-64   border-orange-500 rounded-full justify-center items-center"
                         title= 'Chatea con mi humano'
                         titleClass= 'text-[#FB6726] text-center font-poppins text-base font-medium leading-[18px]'
                     />
+                    */
+                }
                 </View>
 
                 <Text className="text-black text-center font-poppins font-bold text-base">
                     Imágenes destacadas
                 </Text> 
                 <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
-                    {pet?.gallery?.map((i) => (
+                    {userPet?.gallery.map((i) => (
                         <View key={i.id} className="flex flex-row m-2">
                             <TouchableOpacity
                                 className='bg-[#FEC89A] w-24 h-24 rounded-xl'
                                 onPress={() => "d"}
                             >
-                                {pet?.gallery 
+                                {userPet?.gallery 
                                     ? 
                                     <Image source={{ uri: i.url }} className="w-24 h-24 rounded-xl" />
                                     : 

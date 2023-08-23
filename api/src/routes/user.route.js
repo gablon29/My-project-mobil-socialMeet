@@ -6,6 +6,7 @@ const { ClientError } = require('../utils/errors');
 
 module.exports = {
   get_my_data: async (req, res) => {
+    console.log("esto es body", req.body);
     let { userId } = req.body;
     if(!userId){
       userId = req.user.userId

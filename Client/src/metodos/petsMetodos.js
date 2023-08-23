@@ -20,6 +20,7 @@ export const CreatePetMethod = async ({ pet, loading, error, success }) => {
 };
 
 export const EditPetMethod = async ({ pet, loading, error, success }) => {
+  console.log('esto es edit', pet);
   try {
     loading(true);
     const token = await AsyncStorage.getItem('Token');
