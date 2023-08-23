@@ -67,7 +67,7 @@ module.exports = {
     if (tipo === 'Peluquero') {
       newProfessional.professions.peluquero.isRegister = true;
       newProfessional.professions.peluquero.lugarAtencion = lugarAtencion;
-      newProfessional.professions.cuidador.allowed = true;
+      newProfessional.professions.peluquero.allowed = true;
       await newProfessional.save();
     }
     return response(res, 201, { message: 'Registro exitoso', professional: newProfessional });
