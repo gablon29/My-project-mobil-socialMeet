@@ -2,6 +2,8 @@ import React,{ useEffect, useState } from 'react'
 import { ScrollView,Text,View } from 'react-native'
 import { useSelector } from 'react-redux'
 import CardCuidador from '../CardCuidador'
+import Icon from "react-native-vector-icons/AntDesign"
+import Button from '../../Buttons/ButtonCuston'
 
 const SelectProfessional = ({ setStep,STEPS,setDisplayTotalPrice, startDate, endDate,setProductId }) => {
 
@@ -14,23 +16,16 @@ const SelectProfessional = ({ setStep,STEPS,setDisplayTotalPrice, startDate, end
 	// },[])
 
 	return (
-		<ScrollView>
-
-			<View className="flex flex-col items-center space-y-14 h-full pt-20 ">
-				<View className="px-4 space-y-5">
-
-					<Text className="font-poppins text-justify text-sm">A continuación verás un listado de los cuidadores disponibles en las fechas y ubicación que has seleccionado. Además verás los precios ya calculados según los fechas seleccionados y comisiones de la app. Si no visualizas cuidadores prueba a cambiar las fechas o la ubicación. </Text>
-				</View>
-				<View className="px-10 w-full">
-					{allProfessionals?.map((professional,i) => {
-						return (
-							<CardCuidador key={i} professional={professional.profile} services={professional.services} setStep={setStep} STEPS={STEPS} setDisplayTotalPrice={setDisplayTotalPrice} startDate={startDate} endDate={endDate} setProductId={setProductId}/>
-						)
-					})}
-				</View>
-			</View>
-		</ScrollView>
-	)
+    <ScrollView>
+      <Button buttonClass={'w-full p-2'} component={<Icon name="arrowleft" size={32} />} onPress={() => setStep(STEPS.DATES)} />
+      <View className="flex flex-col items-center space-y-14 h-full pt-3 w-screen">
+			<Text className="font-poppins text-sm w-11/12 mb-7">A continuación verás un listado de los cuidadores disponibles en las fechas y ubicación que has seleccionado. Además verás los precios ya calculados según los fechas seleccionados y comisiones de la app. Si no visualizas cuidadores prueba a cambiar las fechas o la ubicación. </Text>
+			{allProfessionals?.map((professional, i) => {
+				return <CardCuidador key={i} professional={professional.profile} services={professional.services} setStep={setStep} STEPS={STEPS} setDisplayTotalPrice={setDisplayTotalPrice} startDate={startDate} endDate={endDate} setProductId={setProductId} />;
+			})}
+      </View>
+    </ScrollView>
+  );
 }
 
 export default SelectProfessional

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setProfessionalPets } from '../../Redux/ReducerServices'
 import { setProfessional } from '../../Redux/ReducerProffesional'
 import { GetProfessionalPets } from '../../metodos/professionalMetodos'
+import Button from '../Buttons/ButtonCuston'
 
 const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice,startDate,endDate, setProductId }) => {
 	const dispatch = useDispatch()
@@ -50,25 +51,28 @@ const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice
 	}
 
 	return (
-		<View className="flex flex-row justify-start bg-new w-full rounded-2xl h-36 p-4 my-4">
-			<View className="mr-5">
-				{professional.profilePic && <Image source={{ uri: professional.profilePic }} className="w-16 h-16 rounded-full" />}
-			</View>
-			<View>
-				<Text className="font-bold text-base">{professional.name}</Text>
-				<Text>Del {startDate} al {endDate}</Text>
-				<StarRating rating={4} />
-				<TouchableOpacity onPress={() => { setStep(STEPS.PROFILE); getProfessionalInfo(); setDisplayTotalPrice(totalPrice) }} className="flex flex-row h-8 items-center bg-black rounded-[10px] px-4 mt-2">
-					<View className="flex flex-row items-center">
-						<Text className="text-white text-sm ">Ver propuesta | <Text className="text-white font-poppinsSemiBold h-auto">{totalPrice}€</Text>
-						</Text>
-					</View>
-				</TouchableOpacity>
-
-			</View>
-
+    <View className="flex flex-row items-center justify-around bg-new w-10/12 rounded-2xl h-36 my-3">
+	{professional.profilePic && <Image source={{ uri: professional.profilePic }} className="w-16 h-16 rounded-full" />}
+		<View>
+			<Text className="font-bold text-base">{professional.name}</Text>
+			<Text>
+			Del {startDate} al {endDate}
+			</Text>
+			<StarRating rating={4} />
+			<Button 
+				component={<Text className="text-white text-sm ">
+				Ver propuesta | <Text className="text-white font-poppinsSemiBold h-auto">{totalPrice}€</Text>
+				</Text>}
+				onPress={() => {
+					setStep(STEPS.PROFILE);
+					getProfessionalInfo();
+					setDisplayTotalPrice(totalPrice);
+				}}
+				buttonClass={"flex flex-row w-11/12 h-8 items-center bg-black rounded-[10px] px-4 mt-2"}
+			/>
 		</View>
-	)
+    </View>
+  );
 }
 
 export default CardCuidador
