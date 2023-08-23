@@ -18,7 +18,7 @@ const GestionarReserva = ({route}) => {
             <View className="items-center w-screen h-full py-10">
                 {profession === "cuidador" && <CuidadorGestionarReserva item={item}/>}
                 {profession === "peluquero" && <PeluqueroGestionarReserva />}
-                {profession === "paseador" && <PaseadorGestionarReserva />}
+                {profession === "paseador" && <PaseadorGestionarReserva item={item}/>}
                 {profession === "educador" && <EducadorGestionarRerserva />}
                 <View className="mt-5 w-11/12 py-10">
                     <Button title={"Abrir Chat"} titleClass={`text-black font-poppinsBold`} buttonClass={`bg-new rounded-2xl h-14 w-full justify-center items-center`}/>                

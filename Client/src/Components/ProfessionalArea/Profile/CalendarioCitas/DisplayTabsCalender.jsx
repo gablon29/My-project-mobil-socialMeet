@@ -19,8 +19,9 @@ const DisplayTabsCalender = () => {
     const { profession, userProfessional } = useSelector((state) => state?.ReducerProfessional);
     const { request_active } = userProfessional;
 
-    const filterActiveTrue = request_active.filter(item=>item.active);
-    const filterActiveFalse = request_active.filter(item=>!item.active);
+    const filterType = request_active.filter(item => item.type === profession);
+    const filterActiveTrue = filterType.filter(item=>item.active);
+    const filterActiveFalse = filterType.filter(item=>!item.active);
     
     const aceptarOno = async (whatIf, body) => {
         if (whatIf === "aceptar") {
@@ -57,12 +58,12 @@ const DisplayTabsCalender = () => {
                 tab ? (<>{filterActiveTrue.map((item, index)=>(<CuidadorActivosTab key={index} item={item}/>))}</>)
                 :(<>{filterActiveFalse.map((item, index)=>( <CuidadorSolicitudesTab aceptarOno={aceptarOno} item={item} key={index} />))}</>))}
             {profession === "peluquero" && (
-                tab ? (<>{[1,2].map((item, index)=><PeluqueroActivosTab key={index} />)}</>) 
-                :(<>{[1,2].map((item,index)=>(<PeluqueroSolicitudesTab key={index} />))}</>)
+                tab ? (<>{filterActiveTrue.map((item, index)=><PeluqueroActivosTab key={index} />)}</>) 
+                :(<>{filterActiveFalse.map((item, index)=>(<PeluqueroSolicitudesTab key={index} />))}</>)
             )}
             {profession === "paseador" && (
-                tab ? (<>{[1,2].map((item,index)=>(<PaseadorActivosTab key={index} />))}</>)
-                : (<>{[1,2].map((item,index)=>(<PaseadorSolicitudesTab key={index} />))}</>)
+                tab ? (<>{filterActiveTrue.map((item, index)=>(<PaseadorActivosTab key={index} item={item} />))}</>)
+                : (<>{filterActiveFalse.map((item, index)=>(<PaseadorSolicitudesTab key={index} item={item} aceptarOno={aceptarOno}/>))}</>)
             )}
             {profession === "educador" && (
                 tab ? (<>{[1,2].map((item,index)=>(<EducadorActivosTab key={index} />))}</>) 

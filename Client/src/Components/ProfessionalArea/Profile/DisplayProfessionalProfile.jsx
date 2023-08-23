@@ -14,6 +14,13 @@ const DisplayProfessionalProfile = ({ route }) => {
 
 	//de este tendriamos que sacar los datos del profesional segun la profesion que llega por params no se bien cual esta hecho y no puedo ver el console.log
 	const professionals = useSelector((state) => state.ReducerProfessional.userProfessionals);
+	const { profession, userProfessional } = useSelector((state) => state?.ReducerProfessional);
+	const { request_active } = userProfessional;
+
+	const filterType = request_active.filter(item => item.type === profession);
+    const filterActiveFalse = filterType.filter(item=>!item.active);
+
+
 	//educador // veterinario cuidadorpaseador peluquero tienda
 	//seria mas o menos asi 
 	const professionMap = {
@@ -36,7 +43,7 @@ const DisplayProfessionalProfile = ({ route }) => {
 
 				<View className="relative">
 					<View className="z-10 flex flex-row justify-center items-center absolute top-[-8px] right-[-8px] bg-naranja rounded-full w-8 h-8 border border-white ">
-						<Text className="text-white text-center font-medium text-xs rounded-full w-5 h-5">3</Text>
+						<Text className="text-white text-center font-medium text-xs rounded-full w-5 h-5">{filterActiveFalse.length}</Text>
 					</View>
 					<Button onPress={()=>navigate.navigate("CalendarioCitas")} title="Calendario de servicios" titleClass="text-white font-semibold text-base" buttonClass="bg-celeste w-64 h-14 rounded-2xl items-center justify-center" />                  
 				</View>
