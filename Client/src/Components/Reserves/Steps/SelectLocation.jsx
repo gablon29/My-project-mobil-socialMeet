@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Text,TouchableOpacity,View } from 'react-native';
+import { ScrollView, Text,TouchableOpacity,View } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
 import countryList from '../../../../extras/countrys.json'
 import { TextInput } from 'react-native';
+import Icon from "react-native-vector-icons/AntDesign"
+import Button from '../../Buttons/ButtonCuston';
 
 const SelectLocation = ({query,setQuery, setStep, STEPS}) => {
 	
@@ -22,80 +24,71 @@ const SelectLocation = ({query,setQuery, setStep, STEPS}) => {
 	},[query.country]);
 	
 	return (
-	<View className="flex flex-col items-center space-y-14 h-full w-full pt-20 ">
-		<Text className="font-poppinsBold text-xl text-center mb-10">¿Dónde lo necesitas?</Text>
-		<SelectList
-			data={countries}
-			setSelected={(country) => setQuery({ ...query,country })}
-			placeholder="País"
-			search={true}
-			boxStyles={{
-				backgroundColor: '#FEC89A',
-				borderRadius: 10,
-				borderColor: '#FEC89A',
-				height: 40,
-				padding: 10,
-				width:326,
-				marginVertical: 20
-			}}
-			inputStyles={{
-				fontSize: 12,
-				fontFamily: "Poppins",
-				marginTop: -2
-				
-			}}
-			dropdownStyles={{
-				backgroundColor: '#FEC89A',
-			}}
-			/>
-		<SelectList
-			data={provinces}
-			setSelected={(province) => setQuery({ ...query,province })}
-			placeholder="Provicia"
-			search={true}
-			boxStyles={{
-				backgroundColor: '#FEC89A',
-				borderRadius: 10,
-				borderColor: '#FEC89A',
-				height: 40,
-				padding: 10,
-				width:326,
-				marginTop: 20
-			}}
-			inputStyles={{
-				fontSize: 12,
-				fontFamily: "Poppins",
-				marginTop: -2
-			}}
-			dropdownStyles={{
-				backgroundColor: '#FEC89A',
-			}}
-
-		/>
-		
-			<TextInput
-				value={query.city}
-				placeholder='Localidad'
-				onChangeText={(city) => setQuery({ ...query,city })}
-				className="bg-new w-[326px] h-[40px] rounded-[10px] p-[10px] pl-4 text-[12px] font-poppins"
-				boxStyles={{
-					backgroundColor: '#FEC89A',
-					borderRadius: 10,
-					borderColor: '#FEC89A',
-				}}
-				placeholderTextColor="black"
-			/>
-
-		<TouchableOpacity onPress={() => {
-			if(!query.country || !query.province) return
-			setStep(STEPS.DATES)}} className="flex flex-col justify-center w-64 h-14 bg-naranja rounded-2xl">
-			<Text className="font-bold text-base text-white text-center">Siguiente</Text>
-		</TouchableOpacity>
-		<TouchableOpacity onPress={() => setStep(STEPS.PLACE)} className="flex flex-col justify-center w-64 h-14 bg-naranja rounded-2xl">
-			<Text className="font-bold text-base text-white text-center">Atrás</Text>
-		</TouchableOpacity>
-	</View>
-	)
+    <ScrollView>
+      <View className="flex flex-col items-center space-y-14 h-full w-full">
+        <Button buttonClass={'w-full p-2'} component={<Icon name="arrowleft" size={32} />} onPress={() => setStep(STEPS.PLACE)} />
+        <Text className="font-poppinsBold text-xl text-center">¿Dónde lo necesitas?</Text>
+        <View className="w-11/12">
+          <SelectList
+            data={countries}
+            setSelected={(country) => setQuery({ ...query, country })}
+            placeholder="País"
+            search={false}
+            boxStyles={{
+              backgroundColor: '#FEC89A',
+              borderRadius: 10,
+              borderColor: '#FEC89A',
+            }}
+            inputStyles={{
+              fontSize: 12,
+              fontFamily: 'Poppins',
+            }}
+            dropdownStyles={{
+              backgroundColor: '#FEC89A',
+            }}
+          />
+		  <View className="mt-3"></View>
+          <SelectList
+            data={provinces}
+            setSelected={(province) => setQuery({ ...query, province })}
+            placeholder="Seleccionar"
+            search={false}
+            boxStyles={{
+              backgroundColor: '#FEC89A',
+              borderRadius: 10,
+              borderColor: '#FEC89A',
+              fontFamily: 'Poppins',
+            }}
+            inputStyles={{
+              fontSize: 12,
+            }}
+            dropdownStyles={{ backgroundColor: '#FEC89A' }}
+          />
+          <TextInput
+            value={query.city}
+            placeholder="Localidad"
+            onChangeText={(city) => setQuery({ ...query, city })}
+            className="bg-new w-full h-[40px] rounded-[10px] p-[10px] pl-4 text-[12px] font-poppins mt-3"
+            boxStyles={{
+              backgroundColor: '#FEC89A',
+              borderRadius: 10,
+              borderColor: '#FEC89A',
+            }}
+            placeholderTextColor="black"
+          />
+        </View>
+        <Button
+        dissable={(!query.country || !query.province) ? false : true}
+				onPress={() => {
+					setStep(STEPS.DATES)
+			   }}
+          buttonClass={'justify-center w-64 h-14 bg-naranja rounded-2xl mt-10'}
+          title={'Siguiente'}
+          titleClass={'font-bold text-base text-white text-center'}
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 export default SelectLocation
