@@ -11,12 +11,12 @@
 // export const BACK_URL= 'http://192.168.1.84:8080'; // IP IGNA
 // export const BACK_URL= 'http://192.168.1.84:8080'; // IP IGNA
 //export const BACK_URL = 'http://192.168.0.12:8080'; // Rodri
-//export const BACK_URL = 'http://192.168.1.51:3001'; // Mili
+export const BACK_URL = 'http://192.168.1.51:3001'; // Mili
 
 // export const BACK_URL= 'http://192.168.178.211:8080'; // santiago
 // export const BACK_URL = 'http://192.168.0.8:8080'// Lauty
 
- export const BACK_URL= 'http://192.168.1.2:8080' // Vini
+// export const BACK_URL= 'http://192.168.1.2:8080' // Vini
 // export const BACK_URL= 'http://192.168.178.211:8080'; // santiago
 
 //export const BACK_URL = 'http://192.168.0.8:8080'// Lauty

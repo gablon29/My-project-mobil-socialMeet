@@ -36,7 +36,7 @@ const SocialProfile = ({route}) => {
 
 
     return (
-        <ScrollView>
+        <ScrollView className="bg-white">
             <View>
                 <TouchableOpacity className="flex flex-row items-center mt-4 mb-4 justify-between">
                     <TouchableOpacity className="flex flex-row items-center m-2 ml-4" onPress={() => navigation.goBack()}>

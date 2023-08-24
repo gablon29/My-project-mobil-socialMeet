@@ -94,7 +94,7 @@ const EditProfile = ({route}) => {
 }
 
     return (
-        <ScrollView>
+        <ScrollView className="bg-white">
             <View>
                 <TouchableOpacity className="flex flex-row items-center mt-5 mb-8 justify-start">
                     <TouchableOpacity className="flex flex-row items-center m-2 ml-4" onPress={() => navigation.goBack()}>

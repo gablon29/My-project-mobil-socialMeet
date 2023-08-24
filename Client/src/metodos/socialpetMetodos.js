@@ -131,7 +131,7 @@ export const deletePhoto = async ({data, loading, error }) => {
 };
 
 
-export const FindOwnerByPet = async ({userId, loading, error, success }) => {
+export const FindOwner = async ({userId, loading, error, success }) => {
   try {
     loading(true);
     const token = await AsyncStorage.getItem('Token');
@@ -162,3 +162,4 @@ export const FindOwnerByPet = async ({userId, loading, error, success }) => {
     loading(false);
   }
 };
+

@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ButtonSocial from '../Buttons/ButtonSocialPaws';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner } from '@material-tailwind/react';
+import { ActivityIndicator } from "react-native";
 import React, { useEffect } from 'react';
 
 const SocialComments = ({route}) => {
@@ -12,17 +12,18 @@ const SocialComments = ({route}) => {
     const navigation = useNavigation();
     const loading = useSelector((state) => state.ReducerPets.loadingPets);
     const { photo, user } = route.params;
-
-    console.log(photo, user);
+    console.log(photo.comments);
 
     return (
         <>
             {
                 loading 
                 ?
-                <Spinner className='h-20 w-20 mx-auto my-10' />
+                <View class="flex flex-col justify-center items-center h-screen">
+                    <ActivityIndicator color={"#FB6726"} />
+                </View>
                 :
-                <ScrollView>
+                <ScrollView className="bg-white">
                     <TouchableOpacity className="flex flex-row items-center mt-4 mb-4 justify-between">
                         <TouchableOpacity className="flex flex-row items-center m-2 ml-4" onPress={() => navigation.goBack()}>
                             <Icon name="arrow-left" size={25} color="black" />
@@ -33,28 +34,30 @@ const SocialComments = ({route}) => {
                     </TouchableOpacity>
 
                     {
-                        photo?.comments?.map((i) => {
-                            <View key={i} className="flex flex-col">
-                                <View className="flex flex-row items-start ml-4 mt-4">
+                        photo?.comments?.map((comment, i) => {
+                            return ( 
+                            <View key={i} className="flex flex-col ml-4">
+                                <View className="flex flex-row items-start mt-4 ">
                                     <Image
-                                        source={user?.profilePic}
-                                        className="w-[90] h-[90] rounded-full"
+                                        src={user?.profilePic}
+                                        className="w-10 h-10 rounded-full"
                                     />
                                     <View className="flex flex-col">
                                         <Text className="text-base font-medium">
                                             {user?.firstName}
                                         </Text>
                                         <Text className="text-teal-400 font-poppins text-xs font-normal">
-                                            {}
+                                            {photo?.date}
                                         </Text>
                                     </View>
                                 </View>
-                                <View>
-                                    <Image 
-                                        source={photo?.url}
-                                    />
+                                <View className="w-80 h-20 bg-[#FEC89A] rounded-xl p-3 mt-4 mb-4">
+                                    <Text class="text-black text-justify font-poppins text-xs font-normal leading-6">
+                                        {comment.comment}
+                                    </Text>
                                 </View>
                             </View>
+                        )
                         })
                     }
                 </ScrollView>

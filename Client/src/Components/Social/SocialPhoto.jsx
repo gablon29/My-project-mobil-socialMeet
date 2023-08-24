@@ -6,8 +6,8 @@ import { setErrorPets, setLoadingPets, setPetByPhoto, setOwnerByPet } from '../.
 import location from '../../../images/iconos/gps.png';
 import React, { useEffect } from 'react';
 import ButtonSocial from '../Buttons/ButtonSocialPaws';
-import { Spinner } from '@material-tailwind/react';
-import { FindPetByPhoto, FindOwnerByPet } from '../../metodos/socialpetMetodos';
+import { ActivityIndicator } from "react-native";
+import { FindPetByPhoto, FindOwner } from '../../metodos/socialpetMetodos';
 
 const SocialPhoto = ({route}) => {
 
@@ -30,7 +30,7 @@ const SocialPhoto = ({route}) => {
           error: (msg) => dispatch(setErrorPets(msg)),
           success: (res) => dispatch(setPetByPhoto(res)),
         });   
-        FindOwnerByPet({
+        FindOwner({
             userId: pet.owner,
             loading: (v) => dispatch(setLoadingPets(v)),
             error: (msg) => dispatch(setErrorPets(msg)),
@@ -43,9 +43,11 @@ const SocialPhoto = ({route}) => {
         {
             loading
             ?
-            <Spinner className='h-20 w-20 mx-auto my-10' />
+            <View class="flex justify-center items-center">
+                <ActivityIndicator color={"#FB6726"} />
+            </View>
             :
-            <ScrollView>            
+            <ScrollView className="bg-white">            
                 <TouchableOpacity className="flex flex-row items-center mt-4 mb-4 justify-between">
                     <TouchableOpacity className="flex flex-row items-center m-2 ml-4" onPress={() => navigation.goBack()}>
                         <Icon name="arrow-left" size={25} color="black" />
@@ -54,10 +56,10 @@ const SocialPhoto = ({route}) => {
                         </Text>
                     </TouchableOpacity>
                 </TouchableOpacity>
-                <View className="flex flex-row items-start ml-4 mt-4">
+                <View className="flex flex-row items-start m-4">
                     <Image
-                        source={pet?.profilePic}
-                        className="w-[90] h-[90] rounded-full"
+                        src={pet?.profilePic}
+                        className="w-10 h-10 rounded-full"
                     />
                     <View className="flex flex-col">
                         <Text className="text-base font-medium">
@@ -105,9 +107,9 @@ const SocialPhoto = ({route}) => {
                 <View className="flex justify-center items-center mb-5 mt-5">
                     <ButtonSocial 
                         onPress={() => navigation.navigate("SocialComments", {photo: photo, user: owner})}
-                        buttonClass="rounded-full border-2 border-orange-500 bg-white shadow-md p-3 pl-24 pr-24"
+                        buttonClass="rounded-full border-2 border-[#FEC89A] bg-white shadow-md p-3 pl-24 pr-24"
                         title= 'Escribir un comentario'
-                        titleClass= 'text-orange-500 text-center font-poppins text-xs font-semibold'
+                        titleClass= 'text-[#FEC89A] text-center font-poppins text-xs font-semibold'
                     />
                 </View>   
             </ScrollView>

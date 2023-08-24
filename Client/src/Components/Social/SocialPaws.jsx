@@ -46,7 +46,7 @@ const SocialPaws = () => {
     };
     
     return (
-        <ScrollView>
+        <ScrollView className="bg-white">
             <View className= "h-full w-screen">
                 <View className = "justify-center items-center mt-8">
                     <ButtonSocial 

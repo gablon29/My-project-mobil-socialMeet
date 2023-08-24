@@ -23,7 +23,7 @@ const SelectPet = () => {
     };
 
     return (
-        <View>
+        <View className="bg-white">
             <TouchableOpacity className="flex flex-row items-center mt-4 mb-4 justify-between">
                     <TouchableOpacity className="flex flex-row items-center m-2 ml-4" onPress={() => navigation.goBack()}>
                         <Icon name="arrow-left" size={30} color="black" />
