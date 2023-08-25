@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { format } = require('date-fns');
 const { toJSON } = require('./plugins');
 
 const socialCommentSchema = new mongoose.Schema({
@@ -25,9 +24,7 @@ const socialCommentSchema = new mongoose.Schema({
             autopopulate: true
         }
 });
-socialCommentSchema.virtual('formattedDate').get(function() {
-    return format(this.date, 'dd/MM/yyyy'); // Formatea la fecha
-});
+
 socialCommentSchema.plugin(require('mongoose-autopopulate'));
 socialCommentSchema.plugin(toJSON);
 const SocialComment = mongoose.model('SocialComment', socialCommentSchema);
@@ -52,9 +49,6 @@ const photoSocialSchema = mongoose.Schema({
 
 });
 
-photoSocialSchema.virtual('formattedDate').get(function() {
-    return format(this.date, 'dd/MM/yyyy'); // Formatea la fecha
-});
 photoSocialSchema.plugin(require('mongoose-autopopulate'));
 photoSocialSchema.plugin(toJSON);
 

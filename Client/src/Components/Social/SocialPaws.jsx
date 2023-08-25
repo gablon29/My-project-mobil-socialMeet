@@ -12,11 +12,9 @@ const SocialPaws = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [country, setCountry] = useState()
     const gallery = useSelector((state) => state.ReducerPets.gallery);
 
-    const [countryOptions, setCountryOptions] = useState([]);
-    const [provinceOptions, setProvinceOptions] = useState([]);
+    console.log(gallery);
     const [filters, setFilters] = useState({
         country: '',
         province: '',
@@ -255,18 +253,22 @@ const SocialPaws = () => {
                         />
                     </View>
                     </View>
-                    <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
-                    {gallery?.map((i) => (
-                        <View key={i.id} className="flex flex-row m-2">
-                            <TouchableOpacity
-                                className='bg-[#FEC89A] w-24 h-24 rounded-xl'
-                                onPress={() => navigation.navigate('Photo', { photo: i })}
-                            >
-                              <Image source={{ uri: i.url }} className="w-24 h-24 rounded-xl" />
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View>   
+                    {
+                      gallery 
+                      &&
+                      <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
+                        {gallery?.map((i) => (
+                            <View key={i.id} className="flex flex-row m-2">
+                                <TouchableOpacity
+                                    className='bg-[#FEC89A] w-24 h-24 rounded-xl'
+                                    onPress={() => navigation.navigate('Photo', { photo: i })}
+                                >
+                                  <Image source={{ uri: i.url }} className="w-24 h-24 rounded-xl" />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </View> 
+                    }                      
             </View>
         </ScrollView>
     )

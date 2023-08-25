@@ -73,7 +73,7 @@ export const BringGallery = async ({ loading, error, success }) => {
     loading(true);
     const token = await AsyncStorage.getItem('Token');
 
-    const response = await axios.get('/api/socialprofile/gallery', {
+    const response = await axios('/api/socialprofile/gallery', {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

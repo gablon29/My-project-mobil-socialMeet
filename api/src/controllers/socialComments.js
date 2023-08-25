@@ -79,7 +79,6 @@ const findImgComments = async (id) => {
   };
 
   const getImg = async (id) => { 
-
     const pet = Pet.find({ 'gallery': id })
       
     return pet;

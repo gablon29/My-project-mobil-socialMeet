@@ -6,14 +6,12 @@ const { ClientError } = require('../utils/errors');
 
 module.exports = {
   get_my_data: async (req, res) => {
-    console.log("esto es body", req.body);
     let { userId } = req.body;
     if(!userId){
       userId = req.user.userId
     }
-    console.log(userId)
     const user = await UserModel.findById(userId);
-    console.log(user)
+
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     response(res, 200, user);
   },
