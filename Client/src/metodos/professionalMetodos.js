@@ -160,7 +160,8 @@ export const GetFilteredProfessionals = async ({ query, loading, error, success 
         Authorization: `Bearer ${token}`,
       },
     });
-    success(response.data.payload.professionals);
+		console.log("response.data.payload",response.data.payload);
+    success(response.data.payload);
     loading(false);
   } catch (error) {
     console.log(error);

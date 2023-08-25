@@ -4,10 +4,12 @@ import { useSelector } from 'react-redux'
 import SelectPets from '../StepsPaseador/SelectPets'
 import SelectLocation from '../StepsPaseador/SelectLocation'
 import SelectDateType from '../StepsPaseador/SelectDateType'
-import SelectDay from '../StepsPaseador/SelectDay'
+import SelectPersDay from '../StepsPaseador/SelectPersDay'
+import SelectProfessional from '../StepsPaseador/SelectProfessional'
+import PerfilContratado from '../StepsPaseador/PerfilContratado'
 
 
-const ReservaCuidador = ({ route }) => {
+const ReservaPaseador = ({ route }) => {
 	const { profession } = route.params
 
 	const myPets = useSelector(state => state.ReducerPets?.userPets)
@@ -20,9 +22,9 @@ const ReservaCuidador = ({ route }) => {
 		LOCATION: 1,
 		DATETYPE: 2,
 		DATE: 3,
-		PROFESSIONALS: 3,
-		PROFILE: 4,
-		CHECKOUT: 5
+		PROFESSIONALS: 4,
+		PROFILE: 5,
+		CHECKOUT: 6
 	}
 
 
@@ -33,11 +35,11 @@ const ReservaCuidador = ({ route }) => {
 		profession,
 		animals: [],
 		dateType: "",
+		persDates: [],
+		date: "",
 		country: "",
 		province: "",
 		city: "",
-		startDate: "",
-		endDate: ""
 	})
 
 
@@ -45,10 +47,9 @@ const ReservaCuidador = ({ route }) => {
 	if (STEPS.PET === step) return <SelectPets query={query} setQuery={setQuery} myPets={myPets} setStep={setStep} isActive={isActive} setIsActive={setIsActive} STEPS={STEPS} />
 	if (STEPS.LOCATION === step) return <SelectLocation query={query} setQuery={setQuery} setStep={setStep} STEPS={STEPS} />
 	if (STEPS.DATETYPE === step) return <SelectDateType query={query} setQuery={setQuery} setStep={setStep} STEPS={STEPS} />
-	if (STEPS.DATE === step) { 
-		console.log(query.dateType);
-		return	query.dateType === "día" ? <SelectDay query={query} setQuery={setQuery} setStep={setStep} STEPS={STEPS} /> : <></> 
-	}
+	if (STEPS.DATE === step) {return query.dateType === "pers" ? <SelectPersDay query={query} setQuery={setQuery} setStep={setStep} STEPS={STEPS} /> : <></>}
+	if (STEPS.PROFESSIONALS === step) return <SelectProfessional query={query} STEPS={STEPS} setStep={setStep} setDisplayTotalPrice={setDisplayTotalPrice}/>
+	if(STEPS.PROFILE === step) return <PerfilContratado query={query} STEPS={STEPS} setStep={setStep} profession={profession} displayTotalPrice={displayTotalPrice}/>
 }
 
-export default ReservaCuidador
+export default ReservaPaseador

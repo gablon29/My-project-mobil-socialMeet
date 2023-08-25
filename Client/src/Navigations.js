@@ -49,7 +49,8 @@ import SelectPet from './Components/Social/SelectPet';
 
 import ReservaCuidador from './Components/Reserves/Screens/ReservaCuidador'
 import ReservaPaseador from './Components/Reserves/Screens/ReservaPaseador'
-
+import PagoExitoso from './Components/Reserves/PagoExitoso'
+import PagoFallido from './Components/Reserves/PedidoFallido';
 
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
@@ -135,6 +136,9 @@ const NavigatorAuthTrue = () => {
 
       <StackAuthTrue.Screen name="ReservaCuidador" component={ReservaCuidador} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="ReservaPaseador" component={ReservaPaseador} options={{ headerShown: true }}/>
+
+      {/* <StackAuthTrue.Screen name="PagoExitoso" component={PagoExitoso} options={{ headerShown: true }}/> */}
+      {/* <StackAuthTrue.Screen name="PagoFallido" component={PagoFallido} options={{ headerShown: true }}/> */}
     </StackAuthTrue.Navigator>
   );
 };
