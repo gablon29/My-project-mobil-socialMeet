@@ -1,12 +1,13 @@
-import React,{ useEffect,useState } from 'react'
+import React,{ useState } from 'react'
 import { useSelector } from 'react-redux'
-import SelectPets from './Steps/SelectPets'
-import SelectPlace from './Steps/SelectPlace'
-import SelectLocation from './Steps/SelectLocation'
-import SelectDates from './Steps/SelectDates'
-import SelectProfessional from './Steps/SelectProfessional'
-import PerfilContratado from './Steps/PerfilContratado'
-import Checkout from './Steps/Checkout'
+
+import SelectPets from '../Steps/SelectPets'
+import SelectPlace from '../Steps/SelectPlace'
+import SelectLocation from '../Steps/SelectLocation'
+import SelectDates from '../Steps/SelectDates'
+import SelectProfessional from '../Steps/SelectProfessional'
+import PerfilContratado from '../Steps/PerfilContratado'
+import Checkout from '../Steps/Checkout'
 
 
 const ReservaCuidador = ({ route }) => {
