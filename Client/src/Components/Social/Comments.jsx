@@ -1,18 +1,67 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ButtonSocial from '../Buttons/ButtonSocialPaws';
+import { setErrorPets, setLoadingPets } from '../../Redux/ReducerPets';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActivityIndicator } from "react-native";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import remove from '../../../images/iconos/bin.png';
+import send from "../../../images/iconos/send.png";
+import { AddComment, DeleteComment } from "../../metodos/socialpetMetodos";
 
 const SocialComments = ({route}) => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const user = useSelector((state) => state.ReducerAuth.profile);
     const loading = useSelector((state) => state.ReducerPets.loadingPets);
-    const { photo, user } = route.params;
-    console.log(photo.comments);
+    const { photo } = route.params;
+    const [comments, setComments] = useState(photo?.comments);
+   
+    const [text, setText] = useState("");
+    const handleTextChange = (inputText) => {
+        setText(inputText);
+    };
+
+    const handleDeleteMessage = async (id) => {
+
+        await DeleteComment({
+            id,
+            loading: (v) => dispatch(setLoadingPets(v)),
+            error: (msg) => dispatch(setErrorPets(msg)),
+          });
+
+          setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== id)
+        );
+    };
+
+    const handleSendComment = async (sender, comment, photoId) => {
+        if (comment && sender && photoId) {
+            const data = { sender, comment, photoId };
+            try {
+                const newComment = await AddComment({
+                    data,
+                    loading: (v) => dispatch(setLoadingPets(v)),
+                    error: (msg) => dispatch(setErrorPets(msg)),
+    
+                });
+                setComments((prevComments) => [
+                ...prevComments,
+                {
+                    id: newComment.id, // Asigna el ID correcto aquí
+                    sender: user,
+                    comment: text,
+                },
+            ]);
+            setText("")
+            } catch (error) {
+                console.log(error);
+            }    
+        }       
+            
+    };
 
     return (
         <>
@@ -34,22 +83,36 @@ const SocialComments = ({route}) => {
                     </TouchableOpacity>
 
                     {
-                        photo?.comments?.map((comment, i) => {
+                        comments?.map((comment, i) => {
                             return ( 
-                            <View key={i} className="flex flex-col ml-4">
-                                <View className="flex flex-row items-start mt-4 ">
-                                    <Image
-                                        src={user?.profilePic}
-                                        className="w-10 h-10 rounded-full"
-                                    />
-                                    <View className="flex flex-col">
-                                        <Text className="text-base font-medium">
-                                            {user?.firstName}
-                                        </Text>
-                                        <Text className="text-teal-400 font-poppins text-xs font-normal">
-                                            {photo?.date}
-                                        </Text>
+                            <View key={i} className="flex flex-col m-4">
+                                <View className="flex flex-row justify-between ">
+                                    <View className="flex flex-row items-start  ">
+                                        <Image
+                                            src={comment?.sender?.profilePic}
+                                            className="w-11 h-11 rounded-full"
+                                        />
+                                        <View className="flex flex-col">
+                                            <Text className="text-base font-medium">
+                                                {comment?.sender?.firstName}{" "}{comment?.sender?.lastName}
+                                            </Text>
+                                            <Text className="text-teal-400 font-poppins text-xs font-normal">
+                                                {photo?.date?.split("T")[0]}
+                                            </Text>
+                                        </View>
                                     </View>
+                                    {
+                                        user?.id === comment?.sender?.id &&
+                                        <View className="flex flex-row justify-center items-center mt-3 mr-2 h-6 pl-3 pr-3 bg-[#FB6726] rounded-full">
+                                            <Image source={remove} className="w-4 h-4 mr-2" />
+                                            <ButtonSocial 
+                                                onPress={() => handleDeleteMessage(comment.id)}
+                                                buttonClass=""
+                                                title= 'Eliminar'
+                                                titleClass= 'text-white font-normal'
+                                            />
+                                        </View>
+                                    }                                    
                                 </View>
                                 <View className="w-80 h-20 bg-[#FEC89A] rounded-xl p-3 mt-4 mb-4">
                                     <Text class="text-black text-justify font-poppins text-xs font-normal leading-6">
@@ -62,6 +125,20 @@ const SocialComments = ({route}) => {
                     }
                 </ScrollView>
             }
+            <View className="bg-[#63C5C9] flex flex-row">
+                <TextInput
+                    className="bg-white w-72 h-9 pl-4 rounded-2xl m-4"
+                    onChangeText={handleTextChange}
+                    value={text}
+                    placeholder="Escribir mensaje"
+                />
+                <TouchableOpacity
+                    onPress={() => handleSendComment(user.id, text, photo.id )}
+                    className=" bg-white w-8 h-8 rounded-full mt-4"
+                    >
+                    <Image source={send} className="absolute top-2 left-2" />
+                </TouchableOpacity>
+            </View>
         </>
     )
 };

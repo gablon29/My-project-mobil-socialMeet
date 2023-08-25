@@ -6,7 +6,8 @@ const socialCommentSchema = new mongoose.Schema({
         sender:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            required: true
+            required: true,
+            autopopulate: true
         },
         comment:{
             type: String,
@@ -27,6 +28,7 @@ const socialCommentSchema = new mongoose.Schema({
 socialCommentSchema.virtual('formattedDate').get(function() {
     return format(this.date, 'dd/MM/yyyy'); // Formatea la fecha
 });
+socialCommentSchema.plugin(require('mongoose-autopopulate'));
 socialCommentSchema.plugin(toJSON);
 const SocialComment = mongoose.model('SocialComment', socialCommentSchema);
 

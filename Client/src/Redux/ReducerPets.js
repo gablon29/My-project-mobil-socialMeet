@@ -30,6 +30,7 @@ const ReducerPets = createSlice({
       };
     },
     setGallery(state, action) {
+      console.log(action.payload);
       return {
         ...state,
         gallery: action.payload,

@@ -1,17 +1,15 @@
 const { SocialComment, PhotoSocial } = require('../models/socialPet.model');
 const Pet = require('../models/pet.model');
 
-const postComment = async (petId, imageId, sender, comment) => {
-    const pet = await Pet.findById(petId);
-    if (!pet) throw Error('Mascota no encontrada');
-    
-    const photo = await PhotoSocial.findById(imageId);
+const postComment = async (sender, comment, photoId) => {
+  
+    const photo = await PhotoSocial.findById(photoId);
     if (!photo) throw Error('Imagen no encontrada' );
     // Crear un nuevo comentario
-    const newComment = new SocialComment({ sender, comment, photo });
+    const newComment = new SocialComment({ sender: sender, comment: comment, photo: photoId });
 
     await PhotoSocial.findByIdAndUpdate(
-      imageId,
+      photoId,
       {
         $push: {
           "comments": newComment._id,
@@ -33,25 +31,10 @@ const updateComment = async (newData, id) => {
     return updatedComment;
 };
 
-const deleteComment = async (petId, imageId, commentId) => {
-    const pet = await Pet.findById(petId);
-    if (!pet) {
-        throw Error("Mascota no encontrada")
-      }
+const deleteComment = async ( commentId ) => {
   
-      const image = pet.gallery.id(imageId);
-      if (!image) {
-        throw Error('Imagen no encontrada');
-      }
-  
-      const comment = image.comments.id(commentId);
-      if (!comment) {
-        throw Error('Comentario no encontrado');
-      }
-  
-      // Aquí deberías implementar la lógica para eliminar el comentario
-    comment.remove();
-    await pet.save();
+      await SocialComment.findByIdAndDelete(commentId);
+      return "Mensaje borrado"
 }
 
 const findImgComments = async (id) => {

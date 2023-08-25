@@ -23,8 +23,7 @@ const SocialPaws = () => {
         localidad: '',
         especie: '',
         raza: ''
-    })
-
+    });
 
     const handleChange = (selectedOption) => {
         setFilters({

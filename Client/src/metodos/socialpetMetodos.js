@@ -163,3 +163,45 @@ export const FindOwner = async ({userId, loading, error, success }) => {
   }
 };
 
+export const AddComment = async ({data, loading, error }) => {
+  try {
+    loading(true);
+    const token = await AsyncStorage.getItem('Token');
+
+    const response = await axios.post(`/api/social/gallery/comments`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });  
+    console.log("esto es newcoment", response.data);
+    loading(false);
+    return response.data
+  } catch (err) {
+    console.error('Add comment', err);
+    error(err.message);
+    loading(false);
+  }
+};
+
+export const DeleteComment = async ({id, loading, error }) => {
+  try {
+    loading(true);
+    const token = await AsyncStorage.getItem('Token');
+
+    const response = await axios.delete(`/api/social/comments/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });  
+    loading(false);
+  } catch (err) {
+    console.error('Delete comment', err);
+    error(err.message);
+    loading(false);
+  }
+};
+
+
+
