@@ -1,10 +1,10 @@
 import React,{ useEffect,useState } from 'react'
 import { Image,Text,TouchableOpacity,View } from 'react-native'
-import StarRating from '../../ProfessionalArea/Profile/StarRating'
+import StarRating from '../ProfessionalArea/Profile/StarRating'
 import { useDispatch } from 'react-redux'
-import { setProfessionalPets } from '../../../Redux/ReducerServices'
-import { setProfessional } from '../../../Redux/ReducerProffesional'
-import { GetProfessionalPets } from '../../../metodos/professionalMetodos'
+import { setProfessionalPets } from '../../Redux/ReducerServices'
+import { setProfessional } from '../../Redux/ReducerProffesional'
+import { GetProfessionalPets } from '../../metodos/professionalMetodos'
 
 const CardCuidador = ({ professional,services,setStep,STEPS,setDisplayTotalPrice,startDate,endDate, setProductId }) => {
 	const dispatch = useDispatch()

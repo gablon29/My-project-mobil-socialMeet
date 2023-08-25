@@ -1,8 +1,10 @@
 import React from 'react'
-import { Text,TextInput,TouchableOpacity,View } from 'react-native';
+import { ScrollView, Text,TextInput,TouchableOpacity,View } from 'react-native';
 import { useDispatch,useSelector } from 'react-redux';
 import { GetFilteredProfessionals } from '../../../metodos/professionalMetodos';
 import { setFilteredProfessionals } from '../../../Redux/ReducerProffesional';
+import Button from '../../Buttons/ButtonCuston';
+import Icon from "react-native-vector-icons/AntDesign"
 
 const SelectDates = ({ setStep,STEPS,query,setQuery }) => {
 	const dispatch = useDispatch()
@@ -33,53 +35,62 @@ const SelectDates = ({ setStep,STEPS,query,setQuery }) => {
 
 
 	return (
-		<View className="flex flex-col items-center h-full pt-20 ">
-			<Text className="text-xl font-poppinsBold mb-10">¿Cuándo lo necesitas?</Text>
-			<View className="flex flex-col space-y-5">
-				<View>
-					<Text className="font-poppinsSemiBold text-base pl-5">Fecha de inicio</Text>
-					<TextInput
-						keyboardType="numeric"
-						value={query.startDate}
-						placeholder='00/00/0000'
-						onChangeText={(startDate) => { handleDateChange(startDate,"start") }}
-						className="bg-new w-[270px] h-[47px] rounded-[10px] p-[10px] pl-4 text-base font-poppins"
-						boxStyles={{
-							backgroundColor: '#FEC89A',
-							borderRadius: 10,
-							borderColor: '#FEC89A',
-						}}
-						placeholderTextColor="black"
-					/>
-				</View>
-				<View>
-					<Text className="font-poppinsSemiBold text-base pl-5">Fecha final</Text>
-					<TextInput
-						keyboardType="numeric"
-						value={query.endDate}
-						placeholder='00/00/0000'
-						onChangeText={(endDate) => { handleDateChange(endDate,"end") }}
-						className="bg-new w-[270px] h-[47px] rounded-[10px] p-[10px] pl-4 text-base font-poppins"
-						boxStyles={{
-							backgroundColor: '#FEC89A',
-							borderRadius: 10,
-							borderColor: '#FEC89A',
-						}}
-						placeholderTextColor="black"
-					/>
-				</View>
-			</View>
+    <ScrollView>
+      <View className="flex flex-col items-center h-full">
+	  <Button buttonClass={'w-full p-2'} component={<Icon name="arrowleft" size={32} />} onPress={() => setStep(STEPS.LOCATION)} />
+        <Text className="text-xl font-poppinsBold mb-10">¿Cuándo lo necesitas?</Text>
+        <View className="flex flex-col space-y-5">
+          <View>
+            <Text className="font-poppinsSemiBold text-base pl-5">Fecha de inicio</Text>
+            <TextInput
+              keyboardType="numeric"
+              value={query.startDate}
+              placeholder="00/00/0000"
+              onChangeText={(startDate) => {
+                handleDateChange(startDate, 'start');
+              }}
+              className="bg-new w-[270px] h-[47px] rounded-[10px] p-[10px] pl-4 text-base font-poppins"
+              boxStyles={{
+                backgroundColor: '#FEC89A',
+                borderRadius: 10,
+                borderColor: '#FEC89A',
+              }}
+              placeholderTextColor="black"
+            />
+          </View>
+          <View>
+            <Text className="font-poppinsSemiBold text-base pl-5">Fecha final</Text>
+            <TextInput
+              keyboardType="numeric"
+              value={query.endDate}
+              placeholder="00/00/0000"
+              onChangeText={(endDate) => {
+                handleDateChange(endDate, 'end');
+              }}
+              className="bg-new w-[270px] h-[47px] rounded-[10px] p-[10px] pl-4 text-base font-poppins"
+              boxStyles={{
+                backgroundColor: '#FEC89A',
+                borderRadius: 10,
+                borderColor: '#FEC89A',
+              }}
+              placeholderTextColor="black"
+            />
+          </View>
+        </View>
 
-			<View className="flex flex-col space-y-5 mt-36">
-				<TouchableOpacity onPress={() => { setStep(STEPS.PROFESSIONALS); GetProfessionals(); console.log(query); }} className="flex flex-col justify-center w-64 h-14 bg-naranja rounded-2xl">
-					<Text className="font-bold text-base text-white text-center">Siguiente</Text>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => setStep(STEPS.PLACE)} className="flex flex-col justify-center w-64 h-14 bg-naranja rounded-2xl">
-					<Text className="font-bold text-base text-white text-center">Atrás</Text>
-				</TouchableOpacity>
-			</View>
-		</View>
-	)
+          <Button
+           dissable={(!query.endDate|| !query.startDate) ? false : true}
+           onPress={() => {
+            setStep(STEPS.PROFESSIONALS);
+            GetProfessionals();
+            }}
+            buttonClass={'justify-center w-64 h-14 bg-naranja rounded-2xl mt-10'}
+            title={'Siguiente'}
+            titleClass={'font-bold text-base text-white text-center'}
+          />
+      </View>
+    </ScrollView>
+  );
 }
 
 export default SelectDates

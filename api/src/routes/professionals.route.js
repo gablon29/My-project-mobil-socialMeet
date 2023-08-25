@@ -67,7 +67,7 @@ module.exports = {
     if (tipo === 'Peluquero') {
       newProfessional.professions.peluquero.isRegister = true;
       newProfessional.professions.peluquero.lugarAtencion = lugarAtencion;
-      newProfessional.professions.cuidador.allowed = true;
+      newProfessional.professions.peluquero.allowed = true;
       await newProfessional.save();
     }
     return response(res, 201, { message: 'Registro exitoso', professional: newProfessional });
@@ -469,4 +469,23 @@ module.exports = {
     await professional.save();
     return response(res, 200, { message: 'Caracter del profesional actualizado exitosamente', professional });
   },
+  updateRequestProfesional: async (req, res) => {
+    const id = req.user.userId;
+    const professional = await ProfessionalModel.findOne({ user: id });
+    if (!professional) {
+      return response(res, 404, { error: 'Profesional no encontrado' });
+    }
+    const { name, type } = req.body;
+    const requestToUpdate = professional.request_active.find(
+      (r) => r.type === type && r.name === name
+    );
+    
+    if (!requestToUpdate) {
+      return response(res, 404, { error: 'Solicitud no encontrada' });
+    };
+
+    requestToUpdate.active = true;
+    await professional.save();
+    return response(res, 200, { message: 'Profesional actualizado', professional });
+  }
 };

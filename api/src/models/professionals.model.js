@@ -135,6 +135,82 @@ const professionalsSchema = mongoose.Schema(
       default: {},
     },
 
+    request_active: {
+      type: Array,
+      /* Esto es para probar, se deben respetar las propiedades ya que se usan en el frontend */
+      default: [
+        { 
+          type: 'cuidador', 
+          name: 'Vini', 
+          active: false, 
+          dateRange: { start: '00/00/00', end: '00/00/00' }, 
+          mascotas: [
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'Anton' }
+          ],
+          fechasPasear: [],
+          ubicacion_paseo: "",
+          servicios: []
+        },
+        {
+          type: 'cuidador',
+          name: 'Sasuke',
+          active: true,
+          dateRange: { start: '00/00/00', end: '00/00/00' },
+          mascotas: [
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'Chagi' },
+            { idPet: 23, raza: 'raza', especie: 'perro', edad: 'edad', fotoPet: '', namePet: 'Pele' },
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'smith' },
+          ],
+          fechasPasear: [],
+          ubicacion_paseo: "",
+          servicios: []
+        },
+        {
+          type: 'paseador',
+          name: 'Shana',
+          active: false,
+          dateRange: { start: '', end: '' },
+          mascotas: [
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'Chagi' },
+            { idPet: 23, raza: 'raza', especie: 'perro', edad: 'edad', fotoPet: '', namePet: 'Pele' },
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'smith' },
+          ],
+          fechasPasear: [
+            "00/00/00 00:00 a 00:00","00/00/00 00:00 a 00:00"
+          ],
+          ubicacion_paseo: "Por ahí",
+          servicios: []
+        },
+        {
+          type: 'peluquero',
+          name: 'Oscar',
+          active: false,
+          dateRange: { start: '00/00/00', end: '' },
+          mascotas: [
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'Blacky' },
+            { idPet: 23, raza: 'raza', especie: 'perro', edad: 'edad', fotoPet: '', namePet: 'Fioly' },
+          ],
+          fechasPasear: [],
+          ubicacion_paseo: "",
+          servicios: [
+            "Baño pelo corto", "Baño pelo largo", "Tijera", "Máquina", "Cepillado Dental"
+          ]
+        },
+        {
+          type: 'educador',
+          name: 'Sabrina',
+          active: false,
+          dateRange: { start: '00/00/00', end: '' },
+          mascotas: [
+            { idPet: 23, raza: 'raza', especie: 'gato', edad: 'edad', fotoPet: '', namePet: 'Gus' },
+          ],
+          fechasPasear: [],
+          ubicacion_paseo: "",
+          servicios: []
+        },
+      ],
+    },
+
     professions: {
       educador: {
         // <------------- EDUCADOR ----------------->
@@ -457,10 +533,10 @@ const professionalsSchema = mongoose.Schema(
         pawpoints: {
           type: String,
         },
-				capacity: {
-					type: Object,
-					default: {}
-				}
+        capacity: {
+          type: Object,
+          default: {},
+        },
       },
     },
 

@@ -4,6 +4,8 @@ import UserInfo from '../../ProfessionalArea/Profile/UserInfo'
 import Pawpoints from '../../ProfessionalArea/Profile/Pawpoints'
 import { useSelector } from 'react-redux'
 import { usePay } from '../../../CustomHooks/usePay'
+import Button from '../../Buttons/ButtonCuston'
+import Icon from "react-native-vector-icons/AntDesign"
 
 const PerfilContratado = ({ profession,setStep,STEPS,query,displayTotalPrice,productId }) => {
 
@@ -36,10 +38,8 @@ const PerfilContratado = ({ profession,setStep,STEPS,query,displayTotalPrice,pro
 	]
 
 	return (
-		<ScrollView className="">
-			<TouchableOpacity onPress={() => setStep(STEPS.PROFESSIONALS)} className="flex flex-col justify-center w-64 h-14 bg-naranja rounded-2xl">
-				<Text className="font-bold text-base text-white text-center">Atrás</Text>
-			</TouchableOpacity>
+		<ScrollView>
+			<Button buttonClass={'w-full p-2'} component={<Icon name="arrowleft" size={32} />} onPress={() => setStep(STEPS.PROFESSIONALS)} />
 			<View className="flex flex-col items-center justify-center">
 				<UserInfo />
 				<Pawpoints pawpoints={pawpoints || 0} />

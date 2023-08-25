@@ -163,7 +163,24 @@ export const GetFilteredProfessionals = async ({ query, loading, error, success 
 		console.log("response.data.payload",response.data.payload);
     success(response.data.payload);
     loading(false);
-  } catch (error) {
+  } catch (e) {
     console.log(error);
+  }
+};
+
+export const UpdateRequestProfessional = async({loading, error, success, body}) => {
+  try {
+    loading(true);
+    const token = await AsyncStorage.getItem('Token');
+    const response = await axios.put(`/api/professional/updaterequest`, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    success(response.data.payload.professional);
+    loading(false);
+  } catch (e) {
+    console.log(error, e);
   }
 };
