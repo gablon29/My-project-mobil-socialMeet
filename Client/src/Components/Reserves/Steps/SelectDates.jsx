@@ -1,7 +1,6 @@
 import React from 'react'
 import { ScrollView, Text,TextInput,TouchableOpacity,View } from 'react-native';
 import { useDispatch,useSelector } from 'react-redux';
-import { setServices } from '../../../Redux/ReducerServices';
 import { GetFilteredProfessionals } from '../../../metodos/professionalMetodos';
 import { setFilteredProfessionals } from '../../../Redux/ReducerProffesional';
 import Button from '../../Buttons/ButtonCuston';

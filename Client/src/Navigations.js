@@ -51,6 +51,10 @@ import SocialComments from './Components/Social/Comments';
 
 import ReservaCuidador from './Components/Reserves/ReservaCuidador';
 
+import ReservaPaseador from './Components/Reserves/Screens/ReservaPaseador'
+import PagoExitoso from './Components/Reserves/PagoExitoso'
+import PagoFallido from './Components/Reserves/PedidoFallido';
+
 const StackAuthFalse = createNativeStackNavigator();
 const StackAuthTrue = createNativeStackNavigator();
 const StackAuthBienvenida = createNativeStackNavigator();
@@ -134,7 +138,11 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="BloquearFechas" component={BloquearFechas} options={{ headerShown: true }}/>
       <StackAuthTrue.Screen name="GestionarReserva" component={GestionarReserva} options={{ headerShown: true }}/>
 
-      <StackAuthTrue.Screen name="Reservar" component={ReservaCuidador} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="ReservaCuidador" component={ReservaCuidador} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="ReservaPaseador" component={ReservaPaseador} options={{ headerShown: true }}/>
+
+      {/* <StackAuthTrue.Screen name="PagoExitoso" component={PagoExitoso} options={{ headerShown: true }}/> */}
+      {/* <StackAuthTrue.Screen name="PagoFallido" component={PagoFallido} options={{ headerShown: true }}/> */}
     </StackAuthTrue.Navigator>
   );
 };

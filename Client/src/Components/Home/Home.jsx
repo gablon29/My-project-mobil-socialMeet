@@ -93,7 +93,7 @@ export default function Home() {
 								<Text className="text-xs font-poppins text-center pt-1">Veterinarios</Text>
 							</View>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => navigation.navigate("Reservar", {profession:"cuidador"})}>
+						<TouchableOpacity onPress={() => navigation.navigate("ReservaCuidador", {profession:"cuidador"})}>
 							<View>
 								<View className="w-20 h-20 bg-rosa rounded-xl justify-center items-center shadow-lg mr-4">
 									<Image source={cuidadores} className="h-16 w-16" resizeMode="contain" />
@@ -101,7 +101,7 @@ export default function Home() {
 								<Text className="text-xs font-poppins text-center pt-1">Cuidadores</Text>
 							</View>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={noImplementado}>
+						<TouchableOpacity onPress={() => navigation.navigate("ReservaPaseador", {profession:"paseador"})}>
 							<View>
 								<View className="w-20 h-20 bg-rosa rounded-xl justify-center items-center shadow-lg mr-4">
 									<Image source={paseadores} className="h-16 w-16" resizeMode="contain" />

@@ -257,10 +257,6 @@ module.exports = {
   },
   getFilteredProfessionals: async (req, res) => {
 		const {profession, animals,place,country,province,city, startDate, endDate} = req.body
-
-		const species = animals.map((a)=> a.specie)
-		// const animalsWeights = animals.map((a)=>a.weight.kilos)
-
 		const query = {
 			[`professions.${profession}.allowed`]: true,
 			[`professions.${profession}.mascotasAcuidar`]:{
@@ -269,23 +265,36 @@ module.exports = {
 			country,
 			province
 		}
-	
-    const allProfessionals = await ProfessionalModel.find(query);
 
-		const professionalsWithServices = checkServices(allProfessionals, profession, species, animals)
+		if(profession === "cuidador"){
 
-		const professionalWithAllServices = []
-
-		for (const id in professionalsWithServices) {
-			if(professionalsWithServices[id].services.length === animals.length){
-				professionalWithAllServices.push(professionalsWithServices[id])
+			const species = animals.map((a)=> a.specie)
+			
+			const allProfessionals = await ProfessionalModel.find(query);
+			
+			const professionalsWithServices = checkServices(allProfessionals, profession, species, animals)
+			
+			const professionalWithAllServices = []
+			
+			for (const id in professionalsWithServices) {
+				if(professionalsWithServices[id].services.length === animals.length){
+					professionalWithAllServices.push(professionalsWithServices[id])
+				}
 			}
+			
+			
+			
+			return response(res, 200,  {professionals: professionalWithAllServices});
 		}
-	
-
-	
-    return response(res, 200,  {professionals: professionalWithAllServices});
-    return response(res, 200, "todochelo");
+		if(profession === "paseador"){
+			console.log("PASEADOR",profession);
+			console.log(req.body);
+			const allProfessionals = await ProfessionalModel.find(query);
+			console.log(allProfessionals);
+			
+			// return response(res, 200,  {professionals: professionalWithAllServices});
+			return response(res, 200,  allProfessionals)
+		}
   },
 
   getServices: async (req, res) => {
