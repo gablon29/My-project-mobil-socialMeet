@@ -3,8 +3,10 @@ const {
     postComment,
     updateComment,
     deleteComment,
+    deletePhoto,
     uploadPhoto,
-    findImgs
+    findImgs,
+    getImg
  } = require('../controllers/socialComments');
 const { response } = require('../utils');
 
@@ -16,13 +18,11 @@ module.exports = {
 
     },
     create_comment: async (req, res) => {
-       try {
-        const petId = req.params.petId;
-        const imageId = req.params.imageId;
-        const { sender, comment } = req.body;
-        await postComment(petId, imageId, sender, comment);
+       try {        
+        const { sender, comment, photoId } = req.body;
+        const newComment = await postComment( sender, comment, photoId );
 
-      return res.status(201).json({ message: 'Comentario agregado exitosamente' });
+        return res.status(201).json(newComment);
         } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Error en el servidor' });
@@ -31,8 +31,6 @@ module.exports = {
 
     edit_comment: async (req, res) => {
         const newData = req.body;
-        console.log(newData);
-
         const updatedComment = await updateComment(newData, req.params.id);
         
         response(res, 200, updatedComment);
@@ -40,11 +38,8 @@ module.exports = {
 
     delete_comment: async (req, res) => {
         try {
-            const petId = req.params.petId;
-            const imageId = req.params.imageId;
-            const commentId = req.params.commentId;
-        
-            const pet = await deleteComment(petId, imageId, commentId);
+            const { commentId } = req.params;        
+            await deleteComment( commentId );
         
             return res.status(200).json({ message: 'Comentario eliminado exitosamente' });
           } catch (error) {
@@ -55,9 +50,8 @@ module.exports = {
 
     post_photo: async (req, res) => {
         try {
-            const { newImages, pet } = req.body;
-
-            await uploadPhoto(newImages, pet.id);      
+            const { newPhotos, pet } = req.body;
+            await uploadPhoto(newPhotos, pet.id);      
         
             return res.status(201).json({ message: 'Imagen subida exitosamente' });
           } catch (error) {
@@ -66,14 +60,11 @@ module.exports = {
           }
     },
 
-    delete_photo: async (req, res) => {
+    delete_image: async (req, res) => {
         try {
-            const petId = req.params.petId;
-            const imageIdsToDelete = req.body.imageIds; // Suponiendo que el cliente envía un array de IDs de imágenes a eliminar
-        
-            const pet = await deletePhoto(petId, imageIdsToDelete)
-
-            // Eliminar las imágenes de la galería de la mascota
+          
+            const { petId, imageId } = req.params;        
+            const pet = await deletePhoto(petId, imageId)
             
             return res.status(200).json({ message: 'Imágenes eliminadas exitosamente' });
           } catch (error) {
@@ -84,7 +75,19 @@ module.exports = {
 
     get_gallery: async (req, res) => {
         const gallery = await findImgs();
-        response(res, 200, gallery);
+        if(gallery.length <= 0) return res.status(400).json("No hay galeria");
+        console.log(gallery);
+        response(res, 200, gallery)
+    },
+
+    get_photo: async (req, res) => {
+      try {
+        const photo = await getImg(req.params.id);
+        return res.status(200).json(photo);
+      } catch (error) {
+        
+        console.log(error);
+      }     
     }
 
 }

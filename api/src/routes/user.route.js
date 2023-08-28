@@ -10,9 +10,8 @@ module.exports = {
     if(!userId){
       userId = req.user.userId
     }
-    console.log(userId)
     const user = await UserModel.findById(userId);
-    console.log(user)
+
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     response(res, 200, user);
   },

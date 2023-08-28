@@ -1,22 +1,28 @@
 const { SocialComment, PhotoSocial } = require('../models/socialPet.model');
 const Pet = require('../models/pet.model');
 
-const postComment = async (petId, imageId, sender, comment) => {
-    const pet = await Pet.findById(petId);
-
-    if (!pet) {
-      throw Error('Mascota no encontrada');
-    }
-
-    const image = pet.gallery.id(imageId);
-    if (!image) {
-      throw Error('Imagen no encontrada' );
-    }
-
+const postComment = async (sender, comment, photoId) => {
+  
+    const photo = await PhotoSocial.findById(photoId);
+    if (!photo) throw Error('Imagen no encontrada' );
     // Crear un nuevo comentario
-    const newComment = new SocialComment({ sender, comment });
-    image.comments.push(newComment);
-    await pet.save();
+    const newComment = new SocialComment({ sender: sender, comment: comment, photo: photoId });
+
+    await PhotoSocial.findByIdAndUpdate(
+      photoId,
+      {
+        $push: {
+          "comments": newComment._id,
+        },
+      },
+      { new: true }
+    );
+
+    await newComment.save();
+    await photo.save();
+    
+
+    return newComment;
 };
 
 const updateComment = async (newData, id) => {
@@ -25,25 +31,10 @@ const updateComment = async (newData, id) => {
     return updatedComment;
 };
 
-const deleteComment = async (petId, imageId, commentId) => {
-    const pet = await Pet.findById(petId);
-    if (!pet) {
-        throw Error("Mascota no encontrada")
-      }
+const deleteComment = async ( commentId ) => {
   
-      const image = pet.gallery.id(imageId);
-      if (!image) {
-        throw Error('Imagen no encontrada');
-      }
-  
-      const comment = image.comments.id(commentId);
-      if (!comment) {
-        throw Error('Comentario no encontrado');
-      }
-  
-      // Aquí deberías implementar la lógica para eliminar el comentario
-    comment.remove();
-    await pet.save();
+      await SocialComment.findByIdAndDelete(commentId);
+      return "Mensaje borrado"
 }
 
 const findImgComments = async (id) => {
@@ -51,14 +42,14 @@ const findImgComments = async (id) => {
     return comments;
   };
 
-  const uploadPhoto = async (newImages, petId) => {
-    const pet = await Pet.findById(petId);   
+  const uploadPhoto = async (newPhotos, id) => {
+    const pet = await Pet.findById(id);   
     
-    for (const imageUrl of newImages) {
+    for (const imageUrl of newPhotos) {
         const newPhoto = new PhotoSocial({ url: imageUrl });
         await newPhoto.save();
         await Pet.findByIdAndUpdate(
-          petId,
+          id,
           {
             $push: {
               "gallery": newPhoto._id,
@@ -67,18 +58,17 @@ const findImgComments = async (id) => {
           { new: true }
         );
       }  
-      console.log(pet);
+      pet.save();
       return pet
   }
 
-  const deletePhoto = async (petId, imageIdsToDelete) => {
+  const deletePhoto = async (petId, photoId) => {
     const pet = await Pet.findById(petId);
-    for (const imageId of imageIdsToDelete) {
-        const image = pet.gallery.id(imageId);
-        if (image) {
-          image.remove();
-        }
-      }  
+
+    const photo = await PhotoSocial.findById(photoId);
+    if (!photo) throw Error('Imagen no encontrada');
+    await PhotoSocial.findByIdAndDelete(photoId);  
+      
       await pet.save();  
       return pet
   }
@@ -88,7 +78,15 @@ const findImgComments = async (id) => {
     return photos
   };
 
+  const getImg = async (id) => { 
+    const pet = Pet.find({ 'gallery': id })
+      
+    return pet;
+        
+  };
+
 module.exports = {
+    getImg,
     deletePhoto,
     uploadPhoto,
     findImgComments,

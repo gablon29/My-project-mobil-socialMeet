@@ -64,13 +64,14 @@ router.put('/api/pet/social-comment', isLoggedIn, catchedAsync(pet.push_petComme
 
 // ------------->  SOCIAL  <-------------
 router.get('/api/social/gallery/:imageId/comments', isLoggedIn, catchedAsync(social.find_comments));
-router.post('/api/social/gallery/:imageId/comments', isLoggedIn, catchedAsync(social.create_comment));
-router.delete('/api/social/gallery/:imageId/comments/:commentId', isLoggedIn, catchedAsync(social.delete_comment));
+router.post('/api/social/gallery/comments', isLoggedIn, catchedAsync(social.create_comment));
+router.delete('/api/social/comments/:commentId', isLoggedIn, catchedAsync(social.delete_comment));
 router.put('/api/social/gallery/:imageId/comments/:commentId', isLoggedIn, catchedAsync(social.edit_comment));
 router.get('/api/socialprofile/gallery', isLoggedIn, catchedAsync(social.get_gallery));
+router.get('/api/socialprofile/:id', isLoggedIn, catchedAsync(social.get_photo));
 router.post('/api/socialprofile/:petId/gallery', isLoggedIn, catchedAsync(social.post_photo));
 router.put('/api/socialprofile/:petId/gallery', isLoggedIn, catchedAsync(social.edit_profile));
-router.delete('/api/socialprofile/:petId/gallery/:imageId', isLoggedIn, catchedAsync(social.delete_image));
+router.delete('/api/socialprofile/:petId/:imageId', isLoggedIn, catchedAsync(social.delete_image));
 
 // ------------->  ADMIN  <-------------
 router.get('/api/admin/push', /* isLoggedIn, */ catchedAsync(admin.sendOneNotification));

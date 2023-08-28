@@ -1,27 +1,27 @@
 import { SelectList } from 'react-native-dropdown-select-list';
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import ButtonSocial from '../Buttons/ButtonSocialPaws';
-import { View, Text, Image, ScrollView } from "react-native";
+import { setGallery, setLoadingPets, setErrorPets } from '../../Redux/ReducerPets';
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import doggy from '../../../images/dropDownMenu/socialDog.png';
-import axios from "axios";
+import { BringGallery } from '../../metodos/socialpetMetodos';
 
 const SocialPaws = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const [country, setCountry] = useState()
-    const [countryOptions, setCountryOptions] = useState([]);
-    const [provinceOptions, setProvinceOptions] = useState([]);
+    const gallery = useSelector((state) => state.ReducerPets.gallery);
+
+    console.log(gallery);
     const [filters, setFilters] = useState({
         country: '',
         province: '',
         localidad: '',
         especie: '',
         raza: ''
-    })
-
+    });
 
     const handleChange = (selectedOption) => {
         setFilters({
@@ -29,9 +29,21 @@ const SocialPaws = () => {
             country: selectedOption.value
         })
     };    
+
+    useEffect(() => {
+      fetchData();
+    }, [dispatch]);
+  
+    const fetchData = () => {
+      BringGallery({
+        loading: (v) => dispatch(setLoadingPets(v)),
+        error: (msg) => dispatch(setErrorPets(msg)),
+        success: (res) => dispatch(setGallery(res.payload)),
+      });
+    };
     
     return (
-        <ScrollView>
+        <ScrollView className="bg-white">
             <View className= "h-full w-screen">
                 <View className = "justify-center items-center mt-8">
                     <ButtonSocial 
@@ -241,6 +253,22 @@ const SocialPaws = () => {
                         />
                     </View>
                     </View>
+                    {
+                      gallery 
+                      &&
+                      <View className=" flex flex-wrap flex-row items-center justify-center mt-6 ">
+                        {gallery?.map((i) => (
+                            <View key={i.id} className="flex flex-row m-2">
+                                <TouchableOpacity
+                                    className='bg-[#FEC89A] w-24 h-24 rounded-xl'
+                                    onPress={() => navigation.navigate('Photo', { photo: i })}
+                                >
+                                  <Image source={{ uri: i.url }} className="w-24 h-24 rounded-xl" />
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </View> 
+                    }                      
             </View>
         </ScrollView>
     )

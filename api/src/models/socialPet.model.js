@@ -5,7 +5,8 @@ const socialCommentSchema = new mongoose.Schema({
         sender:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            required: true
+            required: true,
+            autopopulate: true
         },
         comment:{
             type: String,
@@ -19,10 +20,12 @@ const socialCommentSchema = new mongoose.Schema({
         photo: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'PhotoSocial',
+            required:true,
             autopopulate: true
         }
 });
 
+socialCommentSchema.plugin(require('mongoose-autopopulate'));
 socialCommentSchema.plugin(toJSON);
 const SocialComment = mongoose.model('SocialComment', socialCommentSchema);
 
@@ -31,11 +34,19 @@ const photoSocialSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    comments: {
+    comments: [
+        {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SocialComment',
         autopopulate: true
+        }
+    ],
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true
     }
+
 });
 
 photoSocialSchema.plugin(require('mongoose-autopopulate'));
