@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import Constants from "expo-constants"
+import Constants from 'expo-constants';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
 import store from './src/Redux/Store';
@@ -27,7 +27,6 @@ Notifications.setNotificationHandler({
   }),
 });
 
-
 async function registerForPushNotificationsAsync() {
   let token;
   if (Device.isDevice) {
@@ -41,11 +40,10 @@ async function registerForPushNotificationsAsync() {
       alert('Failed to get push token for push notification!');
       return;
     }
-    token = (
-      await Notifications.getExpoPushTokenAsync({
-        projectId: Constants.expoConfig.extra.eas.projectId,
-      }))
-      console.log("cl48",token)
+    token = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig.extra.eas.projectId,
+    });
+    console.log('cl48', token);
   } else {
     alert('Must use physical device for Push Notifications');
   }
@@ -58,7 +56,7 @@ async function registerForPushNotificationsAsync() {
       lightColor: '#FF231F7C',
     });
   }
-console.log("cl61",token)
+  console.log('cl61', token);
   return token;
 }
 
@@ -68,9 +66,7 @@ export default function App() {
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  const [isLoadingNotif, setIsLoadingNotif] = useState(false)
-
-
+  const [isLoadingNotif, setIsLoadingNotif] = useState(false);
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -97,9 +93,8 @@ export default function App() {
       if (finalStatus !== 'granted') {
         Alert.alert('Error No ha brindado los permisos de notificación');
       } else {
-
         token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log("cl102",token);
+        console.log('cl102', token);
         await saveToken({
           token: token,
           tokenSession: await AsyncStorage.getItem('Token'),
@@ -108,40 +103,42 @@ export default function App() {
             setIsLoadingNotif(isLoading);
           },
           success: (response) => {
-            console.log("cl111",response);
+            console.log('cl111', response);
           },
           error: (err) => {
-            console.log("cl114Error",err);
+            console.log('cl114Error', err);
           },
         });
       }
-    noImplementado("Notif Token: "+token)
+      noImplementado('Notif Token: ' + token);
     }
   }
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(async (token) => {
-      setExpoPushToken(token);
-      await AsyncStorage.setItem('devicetoken', token);
-      let checkToken = await AsyncStorage.getItem("devicetoken")
-      if(checkToken !== token){
-      await saveToken({
-        token: token,
-        tokenSession: await AsyncStorage.getItem('Token'),
-        loading: (isLoading) => {
-          // Manejar estado de carga
-        },
-        success: (response) => {
-          console.log("cl132",response);
-        },
-        error: (err) => {
-          console.log("cl135Error",err);
-        },
-      })};
-    }).catch(e => {
-      console.log("Error al ejecutar registerForPushNotificationsAsync()", e.message)
-    })
-
+    registerForPushNotificationsAsync()
+      .then(async (token) => {
+        setExpoPushToken(token);
+        await AsyncStorage.setItem('devicetoken', token);
+        let checkToken = await AsyncStorage.getItem('devicetoken');
+        if (checkToken !== token) {
+          await saveToken({
+            token: token,
+            tokenSession: await AsyncStorage.getItem('Token'),
+            loading: (isLoading) => {
+              // Manejar estado de carga
+            },
+            success: (response) => {
+              console.log('cl132', response);
+            },
+            error: (err) => {
+              console.log('cl135Error', err);
+            },
+          });
+        }
+      })
+      .catch((e) => {
+        console.log('Error al ejecutar registerForPushNotificationsAsync()', e.message);
+      });
 
     //Escuchadores de Eventos:
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
@@ -171,7 +168,6 @@ export default function App() {
     };
   }, []);
 
-
   const [fontsLoaded] = useFonts({
     Poppins: require('./src/fonts/Poppins-Regular.ttf'),
     'Poppins-Bold': require('./src/fonts/Poppins-Bold.ttf'),
@@ -182,8 +178,7 @@ export default function App() {
     return null;
   }
 
-  axios.defaults.baseURL = BACK_URL  //CTRL+CLICK PARA CAMBIAR IP
-
+  axios.defaults.baseURL = BACK_URL; //CTRL+CLICK PARA CAMBIAR IP
 
   return (
     //headerLeft: null, // Bloquea el botón de retroceso en la barra de navegación
@@ -194,4 +189,3 @@ export default function App() {
     </Provider>
   );
 }
-

@@ -38,7 +38,7 @@ import AccessProfessionalArea from './Components/ProfessionalArea/Access/AccessP
 import SocialPaws from './Components/Social/SocialPaws';
 import DisplayProfessionalProfile from './Components/ProfessionalArea/Profile/DisplayProfessionalProfile';
 
-import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile'
+import EditProfessionalProfile from './Components/ProfessionalArea/EditProfile/EditProfessionalProfile';
 import CalendarioCitas from './Components/ProfessionalArea/Profile/CalendarioCitas/CaledarioCitas';
 import BloquearFechas from './Components/ProfessionalArea/Profile/CalendarioCitas/BloquearFechas';
 import GestionarReserva from './Components/ProfessionalArea/Profile/CalendarioCitas/GestionarReserva';
@@ -49,10 +49,10 @@ import SelectPet from './Components/Social/SelectPet';
 import SocialPhoto from './Components/Social/SocialPhoto';
 import SocialComments from './Components/Social/Comments';
 
-import ReservaCuidador from './Components/Reserves/ReservaCuidador';
+import ReservaCuidador from './Components/Reserves/Screens/ReservaCuidador';
 
-import ReservaPaseador from './Components/Reserves/Screens/ReservaPaseador'
-import PagoExitoso from './Components/Reserves/PagoExitoso'
+import ReservaPaseador from './Components/Reserves/Screens/ReservaPaseador';
+import PagoExitoso from './Components/Reserves/PagoExitoso';
 import PagoFallido from './Components/Reserves/PedidoFallido';
 
 const StackAuthFalse = createNativeStackNavigator();
@@ -118,12 +118,12 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="AddNewAddress" component={AddNewAddress} options={{ headerShown: true }} />
 
       <StackAuthTrue.Screen name="MyChips" component={DisplayMyChips} options={{ headerShown: true }} />
-      <StackAuthTrue.Screen name="Veterinary" component={DisplayVet} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="HomeVet" component={HomeVet} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="ClinicVet" component={ClinicVet} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="ProfessionalArea" component={DisplayProfessionalArea} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="RegisterProfessional" component={RegisterProfessional} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="AccessProfessionalArea" component={AccessProfessionalArea} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="Veterinary" component={DisplayVet} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="HomeVet" component={HomeVet} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="ClinicVet" component={ClinicVet} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="ProfessionalArea" component={DisplayProfessionalArea} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="RegisterProfessional" component={RegisterProfessional} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="AccessProfessionalArea" component={AccessProfessionalArea} options={{ headerShown: true }} />
 
       <StackAuthTrue.Screen name="SocialPaws" component={SocialPaws} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="SocialProfile" component={SocialProfile} options={{ headerShown: true }} />
@@ -131,15 +131,15 @@ const NavigatorAuthTrue = () => {
       <StackAuthTrue.Screen name="EditSocialProfile" component={EditProfile} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="Photo" component={SocialPhoto} options={{ headerShown: true }} />
       <StackAuthTrue.Screen name="SocialComments" component={SocialComments} options={{ headerShown: true }} />
-      
-      <StackAuthTrue.Screen name="ProfessionalProfile" component={DisplayProfessionalProfile} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="EditProfessionalProfile" component={EditProfessionalProfile} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="CalendarioCitas" component={CalendarioCitas} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="BloquearFechas" component={BloquearFechas} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="GestionarReserva" component={GestionarReserva} options={{ headerShown: true }}/>
 
-      <StackAuthTrue.Screen name="ReservaCuidador" component={ReservaCuidador} options={{ headerShown: true }}/>
-      <StackAuthTrue.Screen name="ReservaPaseador" component={ReservaPaseador} options={{ headerShown: true }}/>
+      <StackAuthTrue.Screen name="ProfessionalProfile" component={DisplayProfessionalProfile} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="EditProfessionalProfile" component={EditProfessionalProfile} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="CalendarioCitas" component={CalendarioCitas} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="BloquearFechas" component={BloquearFechas} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="GestionarReserva" component={GestionarReserva} options={{ headerShown: true }} />
+
+      <StackAuthTrue.Screen name="ReservaCuidador" component={ReservaCuidador} options={{ headerShown: true }} />
+      <StackAuthTrue.Screen name="ReservaPaseador" component={ReservaPaseador} options={{ headerShown: true }} />
 
       {/* <StackAuthTrue.Screen name="PagoExitoso" component={PagoExitoso} options={{ headerShown: true }}/> */}
       {/* <StackAuthTrue.Screen name="PagoFallido" component={PagoFallido} options={{ headerShown: true }}/> */}
